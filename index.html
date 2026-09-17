@@ -560,10 +560,6 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
       </div>
       <div class="lb-board" id="lb-board"></div>
     </section>
-    <section class="activity-section">
-      <div class="section-head"><div><h2>Что происходит</h2><p>Последние действия на сайте</p></div></div>
-      <div class="activity-list" id="activity-list"></div>
-    </section>
   </div>
 
   <div class="view hidden" id="view-stats">
@@ -575,8 +571,6 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
     <div class="stat-block"><div class="stat-block-head"><h3>🎯 Распределение по категориям</h3></div><div id="category-distribution"></div></div>
     <div class="stat-block"><div class="stat-block-head"><h3>❤️ Самые любимые</h3></div><div class="top-list" id="top-loved-list"></div></div>
     <div class="stat-block"><div class="stat-block-head"><h3>💔 Самые ненавистные</h3></div><div class="top-list" id="top-hated-list"></div></div>
-    <div class="stat-block"><div class="stat-block-head"><h3>📈 Общая активность</h3></div><div id="general-activity"></div></div>
-    <div class="stat-block"><div class="stat-block-head"><h3>📜 Последние действия</h3><span class="stat-block-sub" id="stats-log-count">0 записей</span></div><div class="stats-log-list" id="stats-log-list"></div></div>
   </div>
 
   <div class="view hidden" id="view-streams">
@@ -910,7 +904,6 @@ function addLog(action, text, target){
   const logs = loadLogs();
   logs.unshift({ ts: Date.now(), action, text, target });
   saveLogs(logs);
-  renderActivity();
   if (typeof renderAdminLogs === 'function') renderAdminLogs();
   if (currentView === 'stats') renderStatsTab();
 }
@@ -1364,17 +1357,6 @@ function renderLeaderboard(){
   }
 }
 $('lb-search').addEventListener('input', e => { currentSearch = e.target.value; renderLeaderboard(); });
-function renderActivity(){
-  const logs = loadLogs().slice(0, 8); const container = $('activity-list'); if (!container) return;
-  if (!logs.length){ container.innerHTML = '<div class="activity-empty">Пока ничего не происходит</div>'; return; }
-  const icons = { vote:'🗳', add:'➕', remove:'🗑', edit:'✏️', ban:'🚫', aka:'✍️' };
-  container.innerHTML = '';
-  for (const log of logs){
-    const el = document.createElement('div'); el.className = 'activity-item';
-    el.innerHTML = `<div class="activity-icon ${log.action}">${icons[log.action] || '•'}</div><div class="activity-text">${log.text}</div><div class="activity-time">${timeAgo(log.ts)}</div>`;
-    container.appendChild(el);
-  }
-}
 function renderStatsTab(){
   const total = players.length, good = players.filter(p => p.rating >= 0), evil = players.filter(p => p.rating < 0);
   const banned = players.filter(p => p.banned).length, active = total - banned;
@@ -1442,22 +1424,6 @@ function renderStatsTab(){
   renderTop(topLoved, 'top-loved-list', p => ({ cls: '', text: `+${p.ups} ▲` }));
   const topHated = [...players].sort((a,b)=>(b.downs||0)-(a.downs||0)).slice(0, 10).filter(p => (p.downs||0) > 0);
   renderTop(topHated, 'top-hated-list', p => ({ cls: 'neg', text: `−${p.downs} ▼` }));
-  const logs = loadLogs();
-  const lastHour = logs.filter(l => Date.now() - l.ts < 3600000).length;
-  const lastDay = logs.filter(l => Date.now() - l.ts < 86400000).length;
-  const votesCount = logs.filter(l => l.action === 'vote').length;
-  const akaCount = logs.filter(l => l.action === 'aka').length;
-  const addCount = logs.filter(l => l.action === 'add').length;
-  $('general-activity').innerHTML = `
-    <div class="dist-row"><span class="dist-label">Событий за час</span><div class="dist-bar-track"><div class="dist-bar-fill" style="width:${Math.min(100, lastHour * 10)}%"></div></div><span class="dist-val">${lastHour}</span></div>
-    <div class="dist-row"><span class="dist-label">Событий за сутки</span><div class="dist-bar-track"><div class="dist-bar-fill" style="width:${Math.min(100, lastDay * 3)}%"></div></div><span class="dist-val">${lastDay}</span></div>
-    <div class="dist-row"><span class="dist-label">🗳 Голосований</span><div class="dist-bar-track"><div class="dist-bar-fill green" style="width:${logs.length ? Math.round(votesCount/logs.length*100) : 0}%"></div></div><span class="dist-val">${votesCount}</span></div>
-    <div class="dist-row"><span class="dist-label">✍️ Заявок</span><div class="dist-bar-track"><div class="dist-bar-fill gold" style="width:${logs.length ? Math.round(akaCount/logs.length*100) : 0}%"></div></div><span class="dist-val">${akaCount}</span></div>
-    <div class="dist-row"><span class="dist-label">➕ Добавлений</span><div class="dist-bar-track"><div class="dist-bar-fill" style="width:${logs.length ? Math.round(addCount/logs.length*100) : 0}%"></div></div><span class="dist-val">${addCount}</span></div>`;
-  $('stats-log-count').textContent = `${logs.length} записей`;
-  const statsLogList = $('stats-log-list'); statsLogList.innerHTML = '';
-  if (!logs.length) statsLogList.innerHTML = '<div class="players-empty">Пусто</div>';
-  else logs.slice(0, 30).forEach(log => { const el = document.createElement('div'); el.className = 'stats-log-item'; el.innerHTML = `<span class="time">${timeAgo(log.ts)}</span><span class="text">${log.text}</span>`; statsLogList.appendChild(el); });
 }
 
 /* ===== АДМИНКА ===== */
@@ -1534,7 +1500,7 @@ function adminResetCooldown(){ if (!confirm('Сбросить кулдаун?'))
 function adminResetAllVotes(){ if (!confirm('Обнулить все голоса?')) return; players.forEach(p => { p.ups = 0; p.downs = 0; }); savePlayers(players); renderLeaderboard(); renderAdminPlayers(); showToastGlobal('🗳 Все голоса обнулены'); addLog('edit', 'Обнулены голоса', ''); }
 function adminResetRatings(){ if (!confirm('Обнулить рейтинги?')) return; players.forEach(p => { p.rating = 0; }); savePlayers(players); renderLeaderboard(); renderAdminPlayers(); showToastGlobal('📊 Рейтинги обнулены'); addLog('edit', 'Обнулены рейтинги', ''); }
 function renderAdminLogs(){ const container = $('admin-log-list'); if (!container) return; const logs = loadLogs(); if (!logs.length){ container.innerHTML = '<div class="players-empty">Пусто</div>'; return; } container.innerHTML = ''; for (const log of logs){ const el = document.createElement('div'); el.className = 'admin-log-item'; const d = new Date(log.ts); const pad = (n) => String(n).padStart(2, '0'); el.innerHTML = `<div class="time">${pad(d.getDate())}.${pad(d.getMonth()+1)} ${pad(d.getHours())}:${pad(d.getMinutes())}</div><div class="text">${log.text}</div>`; container.appendChild(el); } }
-function adminClearLogs(){ if (!confirm('Очистить логи?')) return; saveLogs([]); renderAdminLogs(); renderActivity(); if (currentView === 'stats') renderStatsTab(); }
+function adminClearLogs(){ if (!confirm('Очистить логи?')) return; saveLogs([]); renderAdminLogs(); if (currentView === 'stats') renderStatsTab(); }
 function renderAdminStats(){
   const container = $('admin-stats'); if (!container) return;
   const total = players.length, banned = players.filter(p => p.banned).length;
@@ -1582,7 +1548,7 @@ function showAdminToast(id, msg, type){ const t = $(id); if (!t) return; t.textC
 $('year').textContent = new Date().getFullYear();
 handleDiscordCallback().then(ok => { if (ok) showToastGlobal('✅ Вы вошли через Discord'); updateAuthUI(); });
 updateAuthUI(); renderLeaderboard(); startNavTick(); updateMskClock(); setInterval(updateMskClock, 1000);
-renderActivity(); updateModBadge(); loadSettingsToForm(); fetchServerStatus();
+updateModBadge(); loadSettingsToForm(); fetchServerStatus();
 if (statusTimer) clearInterval(statusTimer);
 statusTimer = setInterval(fetchServerStatus, STATUS_REFRESH_MS);
 function checkUrlHash(){ const m = location.hash.match(/#player=(\d+)/); if (m){ const id = parseInt(m[1], 10); if (players.find(x => x.id === id)) setTimeout(() => openProfile(id), 100); } }
