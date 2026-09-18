@@ -512,6 +512,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
       <button class="nav-tab active" data-view="rating" onclick="switchView('rating')">Рейтинг</button>
       <button class="nav-tab" data-view="stats" onclick="switchView('stats')">📊 Статистика</button>
       <button class="nav-tab" data-view="streams" onclick="switchView('streams')">📺 Стримы</button>
+      <button class="nav-tab" data-view="map" onclick="switchView('map')">🗺️ Карта</button>
     </div>
     <div class="nav-right">
       <div class="btn-msk"><span class="lbl">МСК</span><span class="time" id="msk-time">--:--:--</span></div>
@@ -599,6 +600,21 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
       </aside>
     </div>
   </div>
+
+  <div class="view hidden" id="view-map">
+    <section class="stats-hero"><h1>Карта <span class="purple">мира</span></h1><p>Живая карта сервера ПТУ SMP.</p></section>
+    <div id="map-warning" class="stat-block" style="border-color:var(--red-2, #ef4444)">
+      <div class="stat-block-head"><h3>⚠️ Карта не отображается?</h3></div>
+      <p style="padding:0 0 16px;color:var(--muted)">Карта отдаётся без шифрования (http), а сайт открыт по https — из-за этого браузер может заблокировать показ карты прямо тут. Если ниже пусто — жми и открывай карту отдельной вкладкой:</p>
+      <a class="btn-hero primary" href="http://212.22.85.14:40087/" target="_blank" rel="noopener">Открыть карту в новой вкладке →</a>
+    </div>
+    <div class="stat-block" style="padding:0;overflow:hidden">
+      <iframe id="map-iframe" src="http://212.22.85.14:40087/" style="width:100%;height:75vh;border:0;display:block" loading="lazy" title="Карта сервера ПТУ SMP"></iframe>
+    </div>
+    <div style="text-align:center;margin-top:16px">
+      <a class="btn-hero primary" href="http://212.22.85.14:40087/" target="_blank" rel="noopener">Открыть карту в полный экран →</a>
+    </div>
+  </div>
 </main>
 
 <footer>
@@ -667,6 +683,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
         <button class="admin-tab" data-tab="logs">📜 Логи</button>
         <button class="admin-tab" data-tab="stats">📊 Статистика</button>
         <button class="admin-tab" data-tab="data">💾 Данные</button>
+        <button class="admin-tab" data-tab="users">🔑 Зарегистрированные</button>
       </div>
       <div class="admin-pane" id="pane-moderation"><div class="players-title" style="margin-top:0">Заявки на прозвища</div><div class="mod-list" id="mod-list"></div></div>
       <div class="admin-pane active" id="pane-players"><input type="text" class="admin-search" id="admin-search" placeholder="Поиск игрока..."><div class="admin-player-list" id="admin-player-list"></div></div>
@@ -704,6 +721,13 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
           <div class="admin-actions" style="margin-top:0"><button class="admin-btn purple" onclick="importData()">Импортировать</button></div>
         </div>
         <div class="admin-toast" id="data-toast"></div>
+      </div>
+      <div class="admin-pane" id="pane-users">
+        <div class="admin-actions" style="margin-top:0;margin-bottom:16px">
+          <button class="admin-btn ghost" onclick="loadRegisteredUsers()">🔄 Обновить</button>
+          <span class="stat-block-sub" id="users-count-label"></span>
+        </div>
+        <div class="admin-log-list" id="registered-users-list"><div class="players-empty">Открой вкладку заново или нажми «Обновить»</div></div>
       </div>
     </div>
   </div>
@@ -782,7 +806,7 @@ async function handleDiscordCallback(){
     const res = await fetch('https://discord.com/api/users/@me', { headers: { Authorization: 'Bearer ' + token } });
     if (!res.ok) throw new Error('Discord API: ' + res.status);
     const user = await res.json();
-    saveUser({ id: user.id, username: user.username, global_name: user.global_name, discriminator: user.discriminator, avatar: user.avatar, expires_at: Date.now() + expiresIn * 1000 });
+    saveUser({ id: user.id, username: user.username, global_name: user.global_name, discriminator: user.discriminator, avatar: user.avatar, token, expires_at: Date.now() + expiresIn * 1000 });
     return true;
   } catch (e){ console.error('Discord auth error:', e); return false; }
 }
@@ -1435,6 +1459,7 @@ document.querySelectorAll('.admin-tab').forEach(tab => {
     const pane = document.getElementById('pane-' + tab.dataset.tab);
     if (pane) pane.classList.add('active');
     if (tab.dataset.tab === 'moderation') renderModeration();
+    if (tab.dataset.tab === 'users') loadRegisteredUsers();
   });
 });
 let adminSearch = '';
@@ -1501,6 +1526,38 @@ function adminResetAllVotes(){ if (!confirm('Обнулить все голос�
 function adminResetRatings(){ if (!confirm('Обнулить рейтинги?')) return; players.forEach(p => { p.rating = 0; }); savePlayers(players); renderLeaderboard(); renderAdminPlayers(); showToastGlobal('📊 Рейтинги обнулены'); addLog('edit', 'Обнулены рейтинги', ''); }
 function renderAdminLogs(){ const container = $('admin-log-list'); if (!container) return; const logs = loadLogs(); if (!logs.length){ container.innerHTML = '<div class="players-empty">Пусто</div>'; return; } container.innerHTML = ''; for (const log of logs){ const el = document.createElement('div'); el.className = 'admin-log-item'; const d = new Date(log.ts); const pad = (n) => String(n).padStart(2, '0'); el.innerHTML = `<div class="time">${pad(d.getDate())}.${pad(d.getMonth()+1)} ${pad(d.getHours())}:${pad(d.getMinutes())}</div><div class="text">${log.text}</div>`; container.appendChild(el); } }
 function adminClearLogs(){ if (!confirm('Очистить логи?')) return; saveLogs([]); renderAdminLogs(); if (currentView === 'stats') renderStatsTab(); }
+const ADMIN_USERS_ENDPOINT = DISCORD_REDIRECT_URI + '/admin/users';
+async function loadRegisteredUsers(){
+  const container = $('registered-users-list'); const label = $('users-count-label');
+  const u = getCurrentUser();
+  if (!u || !u.token){ container.innerHTML = '<div class="players-empty">Нет сохранённого токена — выйди и войди через Discord заново</div>'; return; }
+  container.innerHTML = '<div class="players-empty">Загрузка…</div>';
+  try {
+    const res = await fetch(ADMIN_USERS_ENDPOINT, { headers: { Authorization: 'Bearer ' + u.token } });
+    if (!res.ok){
+      const err = await res.json().catch(() => ({}));
+      container.innerHTML = `<div class="players-empty">Ошибка: ${escapeHtml(err.error || String(res.status))}</div>`;
+      return;
+    }
+    const data = await res.json();
+    const list = (data.users || []).slice().sort((a, b) => b.lastLoginAt - a.lastLoginAt);
+    label.textContent = `${list.length} чел.`;
+    if (!list.length){ container.innerHTML = '<div class="players-empty">Пока никто не заходил</div>'; return; }
+    container.innerHTML = '';
+    for (const ru of list){
+      const el = document.createElement('div'); el.className = 'admin-log-item';
+      el.innerHTML = `<img src="${getDiscordAvatar(ru, 40)}" alt="" style="width:36px;height:36px;border-radius:50%;flex-shrink:0">
+        <div class="text">
+          <div style="color:#fff;font-weight:600">${escapeHtml(getDisplayName(ru))} <span style="color:var(--muted);font-weight:400">@${escapeHtml(ru.username)}</span></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">ID: ${escapeHtml(ru.id)} · заходов: ${ru.loginCount || 1} · впервые: ${new Date(ru.firstLoginAt).toLocaleDateString('ru-RU')} · последний раз: ${timeAgo(ru.lastLoginAt)}</div>
+        </div>`;
+      container.appendChild(el);
+    }
+  } catch (e){
+    console.error('loadRegisteredUsers error:', e);
+    container.innerHTML = '<div class="players-empty">Не удалось загрузить — см. консоль (F12)</div>';
+  }
+}
 function renderAdminStats(){
   const container = $('admin-stats'); if (!container) return;
   const total = players.length, banned = players.filter(p => p.banned).length;
