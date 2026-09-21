@@ -207,6 +207,8 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 #server-modal .modal{max-width:560px}
 #profile-modal .modal{max-width:520px}
 #profile-modal .modal-body{padding:0}
+#my-profile-modal .modal{max-width:560px}
+#my-profile-modal .modal-body{padding:0}
 #admin-modal .modal{max-width:1100px}
 #admin-modal .modal-body{padding:0}
 .pf-banner{position:relative;padding:32px 24px 24px;background:radial-gradient(circle at 30% 30%,rgba(16,185,129,.18),transparent 60%),radial-gradient(circle at 70% 70%,rgba(59,130,246,.12),transparent 60%),#0a0d14;text-align:center}
@@ -254,6 +256,44 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .pf-action-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid var(--line-2);color:var(--text-2);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;text-decoration:none}
 .pf-action-btn:hover{color:#fff;border-color:rgba(255,255,255,.25)}
 .pf-action-btn.primary{background:linear-gradient(135deg,var(--purple),var(--pink));border-color:transparent;color:#fff}
+
+/* ===== МОЙ ПРОФИЛЬ ===== */
+.my-hero{position:relative;padding:40px 28px 28px;text-align:center;overflow:hidden;background:linear-gradient(135deg,rgba(88,101,242,.12) 0%,rgba(139,92,246,.14) 50%,rgba(236,72,153,.10) 100%)}
+.my-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20% 30%,rgba(88,101,242,.35),transparent 40%),radial-gradient(circle at 80% 70%,rgba(139,92,246,.3),transparent 40%);opacity:.6;pointer-events:none}
+.my-hero::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:24px 24px;mask-image:radial-gradient(circle at 50% 50%,#000 30%,transparent 80%);-webkit-mask-image:radial-gradient(circle at 50% 50%,#000 30%,transparent 80%);pointer-events:none;opacity:.5}
+.my-hero-content{position:relative;z-index:1}
+.my-avatar-ring{position:relative;width:132px;height:132px;margin:0 auto 16px;display:grid;place-items:center}
+.my-avatar-ring::before{content:'';position:absolute;inset:-6px;border-radius:50%;background:conic-gradient(from 0deg,var(--discord),var(--purple),var(--pink),var(--discord));animation:spin 6s linear infinite;filter:blur(6px);opacity:.7}
+.my-avatar-ring::after{content:'';position:absolute;inset:-2px;border-radius:50%;background:var(--bg-2);z-index:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.my-avatar{width:120px;height:120px;border-radius:50%;position:relative;z-index:1;display:block;border:3px solid rgba(255,255,255,.1)}
+.my-online-dot{position:absolute;bottom:6px;right:6px;width:24px;height:24px;border-radius:50%;background:var(--emerald-2);border:4px solid var(--bg-2);z-index:2;box-shadow:0 0 16px var(--emerald-2);animation:dp 2s infinite}
+.my-name{font-family:'Manrope',sans-serif;font-size:28px;font-weight:800;color:#fff;margin-bottom:4px;letter-spacing:-.02em}
+.my-tag{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-2);margin-bottom:14px}
+.my-badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:8px}
+.my-badge{padding:5px 12px;border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;display:inline-flex;align-items:center;gap:6px}
+.my-badge.discord{background:rgba(88,101,242,.15);color:#a3adff;border:1px solid rgba(88,101,242,.35)}
+.my-badge.admin{background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(236,72,153,.15));color:#e9d5ff;border:1px solid rgba(139,92,246,.4)}
+.my-badge.member{background:rgba(16,185,129,.12);color:var(--emerald-2);border:1px solid rgba(16,185,129,.3)}
+.my-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:20px 24px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.015)}
+.my-stat{text-align:center;padding:12px 8px;border-radius:14px;background:rgba(255,255,255,.02);border:1px solid var(--line);transition:all .15s}
+.my-stat:hover{background:rgba(255,255,255,.05);transform:translateY(-2px)}
+.my-stat .ico{font-size:20px;margin-bottom:6px;line-height:1}
+.my-stat .val{font-family:'Manrope',sans-serif;font-size:20px;font-weight:800;color:#fff;line-height:1;margin-bottom:3px}
+.my-stat .lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.my-info{padding:18px 24px;display:flex;flex-direction:column;gap:8px}
+.my-info-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid var(--line);font-size:13px}
+.my-info-row .lbl{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.my-info-row .val{color:var(--text);font-weight:600}
+.my-info-row .val.mono{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-2)}
+.my-actions{padding:16px 24px 24px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.my-action-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid var(--line-2);color:var(--text-2);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;text-decoration:none;font-family:inherit}
+.my-action-btn:hover{color:#fff;border-color:rgba(255,255,255,.3);transform:translateY(-1px)}
+.my-action-btn.discord{background:var(--discord);border-color:var(--discord);color:#fff}
+.my-action-btn.discord:hover{background:var(--discord-2);border-color:var(--discord-2)}
+.my-action-btn.danger{color:var(--red-2)}
+.my-action-btn.danger:hover{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.35);color:#fff}
+
 .join-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
 .join-card{position:relative;padding:28px;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));border:1px solid var(--line);overflow:hidden}
 .join-card.free::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--twitch),var(--twitch-2))}
@@ -326,6 +366,15 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .mc-player:hover{background:rgba(255,255,255,.05)}
 .mc-player .mcp-name{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .players-empty{padding:40px 20px;text-align:center;color:var(--muted);font-size:13px;font-family:'JetBrains Mono',monospace;border:1px dashed var(--line-2);border-radius:12px}
+.server-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.server-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:12px}
+.server-item .srv-name{color:var(--text-2);display:flex;align-items:center;gap:8px}
+.server-item .srv-tag{padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700;background:rgba(59,130,246,.15);color:var(--blue-2);border:1px solid rgba(59,130,246,.3)}
+.server-item .srv-status{display:flex;align-items:center;gap:8px;font-weight:700}
+.server-item .srv-status.on{color:var(--emerald-2)}
+.server-item .srv-status.off{color:var(--muted-2)}
+.server-item .srv-status .srv-dot{width:8px;height:8px;border-radius:50%;background:currentColor}
+.server-item .srv-status.on .srv-dot{animation:dp 2s infinite}
 .admin-tabs{display:flex;gap:2px;padding:4px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);margin:0 32px 20px;overflow-x:auto}
 .admin-tab{padding:9px 18px;border-radius:100px;background:transparent;border:none;color:var(--text-2);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
 .admin-tab.active{background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff}
@@ -515,6 +564,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
   .lb-votes{display:none}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .cities-grid{grid-template-columns:1fr}
+  .my-stats{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -688,17 +738,26 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
 
 <div class="modal-overlay" id="server-modal">
   <div class="modal">
-    <div class="modal-head"><div><h2>Онлайн сервера</h2><p>ru.ptu-smp.ru</p></div><button class="modal-close" onclick="closeServerModal()">✕</button></div>
+    <div class="modal-head"><div><h2>Онлайн сервера</h2><p>ptu-smp.ru · eu / ru / kz</p></div><button class="modal-close" onclick="closeServerModal()">✕</button></div>
     <div class="modal-body">
       <div class="chart-card"><div class="chart-head"><div class="chart-title">Онлайн сервера</div><div class="chart-peak">пик <span id="chart-peak">—</span></div></div><div class="chart-wrap"><svg id="chart-svg" viewBox="0 0 400 100" preserveAspectRatio="none"></svg></div></div>
       <div class="players-title">На сервере сейчас</div>
       <div class="players-grid" id="modal-players"><div class="players-empty" style="grid-column:1/-1">Загрузка…</div></div>
+      <div class="players-title" style="margin-top:20px">Статус всех регионов</div>
+      <div class="server-list" id="server-list"></div>
     </div>
   </div>
 </div>
 
 <div class="modal-overlay" id="profile-modal">
   <div class="modal"><button class="modal-close" style="position:absolute;top:16px;right:16px;z-index:5" onclick="closeProfileModal()">✕</button><div class="modal-body" id="profile-body"></div></div>
+</div>
+
+<div class="modal-overlay" id="my-profile-modal">
+  <div class="modal">
+    <button class="modal-close" style="position:absolute;top:16px;right:16px;z-index:5" onclick="closeMyProfileModal()">✕</button>
+    <div class="modal-body" id="my-profile-body"></div>
+  </div>
 </div>
 
 <div class="modal-overlay" id="join-modal">
@@ -809,6 +868,17 @@ const STREAMERS = [
   { twitch: 'nikitasa_', display: 'Никита Са', note: 'Красавчик' },
 ];
 
+/* =========================================================
+   НАСТРОЙКА №3 — СЕРВЕРА (все три IP)
+   ========================================================= */
+const SERVER_HOSTS = [
+  { ip: 'eu.ptu-smp.ru', label: 'EU', tag: 'Основной' },
+  { ip: 'ptu-smp.ru',    label: 'RU', tag: 'Резерв' },
+  { ip: 'kz.ptu-smp.ru', label: 'KZ', tag: 'Казахстан' },
+];
+const SERVER_IP = SERVER_HOSTS[0].ip; // для совместимости
+const FALLBACK_IP = '212.22.85.14:25565';
+
 /* ===== ТЕМЫ ===== */
 const THEME_KEY = 'ptusmp_theme_v1';
 const THEMES = ['emerald','ocean','crimson','violet','sunset','midnight'];
@@ -891,11 +961,23 @@ async function handleDiscordCallback(){
     const res = await fetch('https://discord.com/api/users/@me', { headers: { Authorization: 'Bearer ' + token } });
     if (!res.ok) throw new Error('Discord API: ' + res.status);
     const user = await res.json();
-    saveUser({ id: user.id, username: user.username, global_name: user.global_name, discriminator: user.discriminator, avatar: user.avatar, token, expires_at: Date.now() + expiresIn * 1000 });
+    // Первый вход / повторный
+    const prev = localStorage.getItem('ptusmp_first_login_' + user.id);
+    const firstLoginAt = prev ? parseInt(prev, 10) : Date.now();
+    if (!prev) localStorage.setItem('ptusmp_first_login_' + user.id, String(firstLoginAt));
+    const loginCount = (parseInt(localStorage.getItem('ptusmp_login_count_' + user.id) || '0', 10)) + 1;
+    localStorage.setItem('ptusmp_login_count_' + user.id, String(loginCount));
+    localStorage.setItem('ptusmp_last_login_' + user.id, String(Date.now()));
+    saveUser({
+      id: user.id, username: user.username, global_name: user.global_name,
+      discriminator: user.discriminator, avatar: user.avatar, token,
+      expires_at: Date.now() + expiresIn * 1000,
+      firstLoginAt, loginCount,
+    });
     return true;
   } catch (e){ console.error('Discord auth error:', e); return false; }
 }
-function logoutDiscord(){ localStorage.removeItem(AUTH_KEY); updateAuthUI(); showToastGlobal('👋 Вы вышли'); }
+function logoutDiscord(){ localStorage.removeItem(AUTH_KEY); updateAuthUI(); closeMyProfileModal(); showToastGlobal('👋 Вы вышли'); }
 function getDisplayName(u){ return u ? (u.global_name || u.username) : ''; }
 function getDiscordAvatar(u, size = 64){
   if (!u) return '';
@@ -917,6 +999,7 @@ function updateAuthUI(){
     content.innerHTML = `<img src="${getDiscordAvatar(u, 64)}" alt=""><span class="auth-name">${escapeHtml(getDisplayName(u))}</span>`;
     menu.innerHTML = `
       <div class="user-menu-header"><div class="name">${escapeHtml(getDisplayName(u))}</div><div class="id">@${escapeHtml(u.username)} · ${u.id}</div></div>
+      <div class="user-menu-item" onclick="closeUserMenu();openMyProfile()">👤 Мой профиль</div>
       ${isAdmin() ? `<div class="user-menu-item" onclick="closeUserMenu();openAdminModal()">⚙️ Админ-панель <span class="auth-badge">ADMIN</span></div>` : ''}
       <button class="user-menu-item danger" onclick="closeUserMenu();logoutDiscord()">🚪 Выйти</button>`;
   } else {
@@ -933,8 +1016,6 @@ function loadSettings(){ try { const raw = localStorage.getItem('ptusmp_settings
 function saveSettings(s){ localStorage.setItem('ptusmp_settings_v2', JSON.stringify(s)); }
 let settings = loadSettings();
 
-const SERVER_IP = 'ru.ptu-smp.ru';
-const FALLBACK_IP = '212.22.85.14:25565';
 const STATUS_REFRESH_MS = 60 * 1000;
 const STORAGE_KEY = 'ptusmp_players_v31';
 const COOLDOWN_KEY = 'ptusmp_cooldown_v31';
@@ -976,6 +1057,7 @@ let cooldownTick = null, navTick = null;
 let currentSearch = '', currentProfileId = null, cachedServerData = null, statusTimer = null;
 let currentRange = 'day', currentChartPoints = [], onlineNicks = new Set();
 let akaFormOpen = false, akaCollapsed = true, currentView = 'rating';
+let perHostStatus = {}; // { 'eu.ptu-smp.ru': { online, online_count, max } }
 
 const $ = (id) => document.getElementById(id);
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
@@ -1022,6 +1104,10 @@ function timeAgo(ts){
   const d = new Date(ts); const pad = (n) => String(n).padStart(2, '0');
   return `${pad(d.getDate())}.${pad(d.getMonth()+1)} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
+function formatDate(ts){
+  const d = new Date(ts); const pad = (n) => String(n).padStart(2, '0');
+  return `${pad(d.getDate())}.${pad(d.getMonth()+1)}.${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
 function switchView(view){
   currentView = view;
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.toggle('active', t.dataset.view === view));
@@ -1060,25 +1146,95 @@ function showToastGlobal(msg){
 }
 function openModal(id){ $(id).classList.add('open'); document.body.classList.add('modal-open'); }
 function closeModal(id){ $(id).classList.remove('open'); document.body.classList.remove('modal-open'); }
-function openServerModal(){ openModal('server-modal'); updateChart(currentRange); }
+function openServerModal(){ openModal('server-modal'); updateChart(currentRange); renderServerList(); }
 function closeServerModal(){ closeModal('server-modal'); }
 function openJoinModal(){ openModal('join-modal'); }
 function closeJoinModal(){ closeModal('join-modal'); }
 function openVoteModal(){ openModal('vote-modal'); renderVoteModal(); }
 function closeVoteModal(){ closeModal('vote-modal'); if (cooldownTick){ clearInterval(cooldownTick); cooldownTick = null; } }
 function closeProfileModal(){ closeModal('profile-modal'); currentProfileId = null; if (location.hash.startsWith('#player=')) history.replaceState(null, '', location.pathname); }
+function closeMyProfileModal(){ closeModal('my-profile-modal'); }
 function openAdminModal(){
   if (!isAdmin()){ showToastGlobal('🚫 Доступ только для админов'); return; }
   openModal('admin-modal');
   renderAdminPlayers(); renderAdminLogs(); renderAdminStats(); renderExport(); renderModeration(); updateModBadge();
 }
 function closeAdminModal(){ closeModal('admin-modal'); }
-['server-modal','join-modal','vote-modal','profile-modal','admin-modal'].forEach(id => {
+['server-modal','join-modal','vote-modal','profile-modal','admin-modal','my-profile-modal'].forEach(id => {
   $(id).addEventListener('click', e => { if (e.target.id === id) closeModal(id); });
 });
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape'){ closeServerModal(); closeJoinModal(); closeVoteModal(); closeProfileModal(); closeAdminModal(); }
+  if (e.key === 'Escape'){ closeServerModal(); closeJoinModal(); closeVoteModal(); closeProfileModal(); closeAdminModal(); closeMyProfileModal(); }
 });
+
+/* ===== МОЙ ПРОФИЛЬ ===== */
+function openMyProfile(){
+  const u = getCurrentUser();
+  if (!u){ showToastGlobal('Сначала войди через Discord'); return; }
+  const firstLoginAt = u.firstLoginAt || parseInt(localStorage.getItem('ptusmp_first_login_' + u.id) || String(Date.now()), 10);
+  const loginCount = u.loginCount || parseInt(localStorage.getItem('ptusmp_login_count_' + u.id) || '1', 10);
+  const lastLoginAt = parseInt(localStorage.getItem('ptusmp_last_login_' + u.id) || String(Date.now()), 10);
+  const isAdminUser = isAdmin();
+  // Найти игрока в рейтинге по Discord? Нет явной связи, но покажем просто профиль
+  const myAkaProposals = loadModeration().filter(m => m.authorDiscordId === u.id).length;
+  const myApproved = loadModeration().filter(m => m.authorDiscordId === u.id && m.status === 'approved').length;
+
+  $('my-profile-body').innerHTML = `
+    <div class="my-hero">
+      <div class="my-hero-content">
+        <div class="my-avatar-ring">
+          <img class="my-avatar" src="${getDiscordAvatar(u, 240)}" alt="">
+          <span class="my-online-dot" title="Онлайн в Discord"></span>
+        </div>
+        <div class="my-name">${escapeHtml(getDisplayName(u))}</div>
+        <div class="my-tag">@${escapeHtml(u.username)}</div>
+        <div class="my-badges">
+          <span class="my-badge discord">💬 Discord</span>
+          ${isAdminUser ? '<span class="my-badge admin">⚙️ Админ</span>' : '<span class="my-badge member">✓ Участник</span>'}
+        </div>
+      </div>
+    </div>
+
+    <div class="my-stats">
+      <div class="my-stat">
+        <div class="ico">🎫</div>
+        <div class="val">${loginCount}</div>
+        <div class="lbl">Входов</div>
+      </div>
+      <div class="my-stat">
+        <div class="ico">✍️</div>
+        <div class="val">${myAkaProposals}</div>
+        <div class="lbl">Заявок</div>
+      </div>
+      <div class="my-stat">
+        <div class="ico">✅</div>
+        <div class="val">${myApproved}</div>
+        <div class="lbl">Принято</div>
+      </div>
+    </div>
+
+    <div class="my-info">
+      <div class="my-info-row">
+        <span class="lbl">🆔 Discord ID</span>
+        <span class="val mono">${escapeHtml(u.id)}</span>
+      </div>
+      <div class="my-info-row">
+        <span class="lbl">📅 Первый вход</span>
+        <span class="val mono">${formatDate(firstLoginAt)}</span>
+      </div>
+      <div class="my-info-row">
+        <span class="lbl">🕐 Последний вход</span>
+        <span class="val mono">${timeAgo(lastLoginAt)}</span>
+      </div>
+    </div>
+
+    <div class="my-actions">
+      <a class="my-action-btn discord" href="https://discord.com/users/${u.id}" target="_blank" rel="noopener">💬 Открыть в Discord</a>
+      <button class="my-action-btn" onclick="copyNick('${escapeHtml(u.id)}')">📋 Скопировать ID</button>
+      <button class="my-action-btn danger" onclick="logoutDiscord()">🚪 Выйти</button>
+    </div>`;
+  openModal('my-profile-modal');
+}
 
 function autoAddOnlinePlayers(onlineList){
   if (!onlineList?.length) return 0;
@@ -1094,7 +1250,7 @@ function autoAddOnlinePlayers(onlineList){
   return added;
 }
 
-/* ===== ОНЛАЙН: параллельный запрос 3 источников (Promise.any) ===== */
+/* ===== ОНЛАЙН: параллельный опрос всех источников и всех IP ===== */
 function fetchJsonWithTimeout(url, ms){
   return new Promise((resolve, reject) => {
     const ctrl = new AbortController();
@@ -1106,7 +1262,7 @@ function fetchJsonWithTimeout(url, ms){
   });
 }
 async function tryMcsrvstat(ip){
-  const r = await fetchJsonWithTimeout(`https://api.mcsrvstat.us/3/${ip}`, 5000);
+  const r = await fetchJsonWithTimeout(`https://api.mcsrvstat.us/3/${ip}`, 6000);
   if (!r || !r.online) throw new Error('offline');
   return {
     online: true,
@@ -1116,7 +1272,7 @@ async function tryMcsrvstat(ip){
   };
 }
 async function tryMcstatus(ip){
-  const r = await fetchJsonWithTimeout(`https://api.mcstatus.io/v2/status/java/${ip}`, 5000);
+  const r = await fetchJsonWithTimeout(`https://api.mcstatus.io/v2/status/java/${ip}`, 6000);
   if (!r || !r.online) throw new Error('offline');
   return {
     online: true,
@@ -1125,17 +1281,46 @@ async function tryMcstatus(ip){
     players: (r.players?.list || []).map(p => p.name_clean || p.name),
   };
 }
-async function queryServerAnySource(){
-  const sources = [
-    tryMcsrvstat(SERVER_IP),
-    tryMcstatus(SERVER_IP),
-    tryMcsrvstat(FALLBACK_IP),
-    tryMcstatus(FALLBACK_IP),
-  ];
+/* Опрос одного хоста по обоим API параллельно */
+async function queryHost(host){
   try {
-    return await Promise.any(sources);
-  } catch {
-    return { online: false };
+    const res = await Promise.any([tryMcsrvstat(host), tryMcstatus(host)]);
+    return res;
+  } catch { return { online: false }; }
+}
+/* Основной опрос: все хосты параллельно */
+async function queryServerAnySource(){
+  const tasks = SERVER_HOSTS.map(h => queryHost(h.ip).then(r => ({ host: h, r })));
+  // Плюс прямой IP как последний резерв
+  tasks.push(queryHost(FALLBACK_IP).then(r => ({ host: { ip: FALLBACK_IP, label: 'IP', tag: 'Прямой' }, r })));
+
+  const settled = await Promise.allSettled(tasks);
+  const results = settled.filter(s => s.status === 'fulfilled').map(s => s.value);
+
+  // Записываем статус каждого хоста
+  perHostStatus = {};
+  for (const { host, r } of results){
+    perHostStatus[host.ip] = r;
+  }
+
+  // Ищем первый онлайновый
+  const onlineResult = results.find(x => x.r.online);
+  if (onlineResult) return { ...onlineResult.r, sourceHost: onlineResult.host.ip };
+
+  return { online: false };
+}
+function renderServerList(){
+  const el = $('server-list'); if (!el) return;
+  el.innerHTML = '';
+  for (const h of SERVER_HOSTS){
+    const st = perHostStatus[h.ip] || {};
+    const on = st.online;
+    const item = document.createElement('div');
+    item.className = 'server-item';
+    item.innerHTML = `
+      <span class="srv-name"><span class="srv-tag">${h.label}</span>${escapeHtml(h.ip)}</span>
+      <span class="srv-status ${on ? 'on' : 'off'}"><span class="srv-dot"></span>${on ? `${st.online_count ?? 0}/${st.max ?? 0}` : 'оффлайн'}</span>`;
+    el.appendChild(item);
   }
 }
 async function fetchServerStatus(){
@@ -1147,10 +1332,11 @@ async function fetchServerStatus(){
   if (!result.online){
     dot.className = 'dot offline'; num.textContent = 'оффлайн';
     cachedServerData = { online: false };
-    $('modal-players').innerHTML = '<div class="players-empty" style="grid-column:1/-1">Сервер оффлайн или недоступен</div>';
+    $('modal-players').innerHTML = '<div class="players-empty" style="grid-column:1/-1">Все сервера оффлайн</div>';
     onlineNicks = new Set(); renderLeaderboard();
     if (currentView === 'stats') renderStatsTab();
     if (currentView === 'map') renderCities();
+    renderServerList();
     if ($('server-modal').classList.contains('open')) updateChart(currentRange);
     return;
   }
@@ -1180,6 +1366,7 @@ async function fetchServerStatus(){
       grid.appendChild(el);
     }
   }
+  renderServerList();
   if ($('server-modal').classList.contains('open')) updateChart(currentRange);
 }
 
@@ -1470,7 +1657,7 @@ function toggleAkaCollapse(){
   btn.innerHTML = akaCollapsed ? '<span>▲</span> Развернуть' : '<span>▼</span> Свернуть';
 }
 function shareProfile(id){ const url = location.origin + location.pathname + '#player=' + id; navigator.clipboard.writeText(url).then(() => showToastGlobal('🔗 Ссылка скопирована')); }
-function copyNick(nick){ navigator.clipboard.writeText(nick).then(() => showToastGlobal(`📋 Скопирован ник: ${nick}`)); }
+function copyNick(nick){ navigator.clipboard.writeText(nick).then(() => showToastGlobal(`📋 Скопировано: ${nick}`)); }
 function submitAka(playerId){
   const p = players.find(x => x.id === playerId); if (!p) return;
   const input = $('aka-input'); const toast = $('aka-toast'); if (!input || !toast) return;
@@ -1584,7 +1771,6 @@ function renderLeaderboard(){
         const crown = globalPos === 1 ? '<span class="crown">#1</span>' : '';
         const up = p.ups || 0, down = p.downs || 0, mass = up + down;
         const isOnline = onlineNicks.has(p.nickname.toLowerCase());
-        // Рандомное прозвище в подписи, без inline-бейджа рядом с ником
         const randomAka = getRandomAka(p);
         const akaSub = randomAka ? `aka « ${escapeHtml(randomAka)} »` : `aka ${escapeHtml(cat.name)}`;
         row.innerHTML = `
