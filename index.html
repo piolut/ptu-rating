@@ -71,7 +71,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(7,13,10,.85);backdrop-filt
 .user-menu-item.danger:hover{background:rgba(239,68,68,.12);color:var(--red-2)}
 .auth-badge{padding:2px 8px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;margin-left:auto}
 
-/* ТЕМЫ */
 .theme-switch{position:relative;flex-shrink:0}
 .theme-btn{width:38px;height:38px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text-2);display:grid;place-items:center;cursor:pointer;transition:all .15s;font-size:16px}
 .theme-btn:hover{background:rgba(255,255,255,.06);color:#fff;border-color:rgba(255,255,255,.25);transform:rotate(15deg)}
@@ -465,6 +464,34 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
 .map-hero-note{margin-top:22px;font-size:12px;color:var(--muted);max-width:520px;margin-left:auto;margin-right:auto;line-height:1.55}
 .map-hero-note strong{color:var(--text-2)}
 
+/* ===== ГОРОДА ===== */
+.cities-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;margin-bottom:40px}
+.city-card{border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.005));border:1px solid var(--line);padding:20px;position:relative;overflow:hidden;transition:all .2s}
+.city-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--city-color),transparent);opacity:.8}
+.city-card:hover{border-color:var(--line-2);transform:translateY(-2px)}
+.city-head{display:flex;align-items:center;gap:14px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.city-icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:22px;background:color-mix(in srgb,var(--city-color) 15%,transparent);border:1px solid color-mix(in srgb,var(--city-color) 35%,transparent);flex-shrink:0}
+.city-head-info{min-width:0;flex:1}
+.city-name{font-family:'Manrope',sans-serif;font-size:16px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:3px;word-break:break-word}
+.city-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
+.city-members{display:flex;flex-direction:column;gap:4px}
+.city-member{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:10px;background:rgba(255,255,255,.015);border:1px solid transparent;cursor:pointer;transition:all .15s}
+.city-member:hover{background:rgba(255,255,255,.05);border-color:var(--line-2)}
+.city-member.mayor{background:linear-gradient(90deg,color-mix(in srgb,var(--city-color) 12%,transparent),transparent);border-color:color-mix(in srgb,var(--city-color) 25%,transparent)}
+.city-member.unknown{cursor:default;opacity:.75}
+.city-member.unknown:hover{background:rgba(255,255,255,.015);border-color:transparent}
+.city-member-avatar{position:relative;width:32px;height:32px;flex-shrink:0}
+.city-member-avatar img{width:32px;height:32px;border-radius:7px;image-rendering:pixelated;background:#000;border:1px solid var(--line-2);display:block;object-fit:cover}
+.city-online-dot{position:absolute;bottom:-2px;right:-2px;width:10px;height:10px;border-radius:50%;background:var(--emerald-2);border:2px solid var(--bg)}
+.city-member-info{flex:1;min-width:0;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.city-member-nick{font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:6px}
+.mayor-tag{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:800;padding:2px 6px;border-radius:5px;background:linear-gradient(135deg,var(--amber),var(--amber-2));color:#1a1200;letter-spacing:.06em;flex-shrink:0}
+.city-member-rating{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0}
+.city-member-rating.pos{color:var(--emerald-2)}
+.city-member-rating.neg{color:var(--red-2)}
+.city-member-rating.zero{color:var(--muted)}
+.city-empty{text-align:center;padding:20px;color:var(--muted);font-size:12px;font-family:'JetBrains Mono',monospace}
+
 @media(max-width:900px){
   .lb-player{grid-template-columns:48px 44px 1fr auto;gap:10px}
   .lb-mass{display:none}
@@ -484,6 +511,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
   .lb-player{grid-template-columns:40px 40px 1fr auto;gap:8px;padding:10px}
   .lb-votes{display:none}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .cities-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -602,7 +630,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
   <div class="view hidden" id="view-map">
     <section class="stats-hero">
       <h1>Карта <span class="purple">мира</span></h1>
-      <p>Живая карта сервера ПТУ SMP — исследуй постройки, находи базы, планируй маршруты.</p>
+      <p>Города, базы, группировки и живая карта сервера ПТУ SMP — всё в одном месте.</p>
     </section>
 
     <div class="map-hero">
@@ -612,7 +640,6 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
         <h2 class="map-hero-title">Интерактивная карта ПТУ SMP</h2>
         <p class="map-hero-sub">
           Полная карта мира с онлайн-обновлением: видно игроков, постройки и границы территорий.
-          Открывается в новой вкладке для полного погружения.
         </p>
         <div class="map-hero-features">
           <span class="map-feature">🟢 Онлайн игроки</span>
@@ -633,6 +660,16 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
         </div>
       </div>
     </div>
+
+    <div class="section-head" style="margin-top:12px">
+      <div>
+        <h2>Города и группировки</h2>
+        <p>Кто где живёт и кто правит</p>
+      </div>
+      <input type="text" class="lb-search" id="city-search" placeholder="Поиск по игроку или городу...">
+    </div>
+
+    <div class="cities-grid" id="cities-grid"></div>
   </div>
 </main>
 
@@ -648,7 +685,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
 
 <div class="modal-overlay" id="server-modal">
   <div class="modal">
-    <div class="modal-head"><div><h2>Онлайн сервера</h2><p>eu.ptu-smp.ru</p></div><button class="modal-close" onclick="closeServerModal()">✕</button></div>
+    <div class="modal-head"><div><h2>Онлайн сервера</h2><p>ru.ptu-smp.ru</p></div><button class="modal-close" onclick="closeServerModal()">✕</button></div>
     <div class="modal-body">
       <div class="chart-card"><div class="chart-head"><div class="chart-title">Онлайн сервера</div><div class="chart-peak">пик <span id="chart-peak">—</span></div></div><div class="chart-wrap"><svg id="chart-svg" viewBox="0 0 400 100" preserveAspectRatio="none"></svg></div></div>
       <div class="players-title">На сервере сейчас</div>
@@ -894,7 +931,7 @@ function loadSettings(){ try { const raw = localStorage.getItem('ptusmp_settings
 function saveSettings(s){ localStorage.setItem('ptusmp_settings_v2', JSON.stringify(s)); }
 let settings = loadSettings();
 
-const SERVER_IP = 'eu.ptu-smp.ru';
+const SERVER_IP = 'ru.ptu-smp.ru';
 const STATUS_REFRESH_MS = 60 * 1000;
 const STORAGE_KEY = 'ptusmp_players_v31';
 const COOLDOWN_KEY = 'ptusmp_cooldown_v31';
@@ -905,6 +942,58 @@ const MIN_RATING = -5, MAX_RATING = 5;
 const CATEGORIES = [
   { id:'good', name:'Добрый птушник', sub:'плюсовые игроки', color:'#34d399', icon:'😊', filter: p => p.rating >= 0, sort: (a,b) => b.rating - a.rating },
   { id:'evil', name:'Злой птушник', sub:'минусовые игроки', color:'#f87171', icon:'😈', filter: p => p.rating < 0, sort: (a,b) => a.rating - b.rating },
+];
+
+/* ===== ГОРОДА ===== */
+const CITIES = [
+  {
+    id: 'putana-land',
+    name: 'Путана ленд',
+    icon: '🏙️',
+    color: '#f472b6',
+    members: ['temniy_da','Melkuia','giving0_2','Stallkpo','Mr_Baby_9638','Fava2022','Koffe_lov','_Felex','Arkadeon','Ronz1k','VoKa_Play1'],
+    mayor: '_DeD_48_'
+  },
+  {
+    id: 'islands',
+    name: 'Острова желаний',
+    icon: '🏝️',
+    color: '#38bdf8',
+    members: ['sadvely','Aron4ikk','Andrey500z','rewon5373','ezpotato111','xxevgehaxx'],
+    mayor: 'Arisych'
+  },
+  {
+    id: 'sosi',
+    name: 'СОСИ (Северный Орбитальный Союз Инженеров)',
+    icon: '🚀',
+    color: '#a78bfa',
+    members: ['Aleks_Bur','DemonRaflius','tek1q','Vipa_4','EVGEXA','kopch02'],
+    mayor: 'StuART_Original'
+  },
+  {
+    id: 'neftprom',
+    name: 'ПАО «Нефтьпром Газ»',
+    icon: '🛢️',
+    color: '#fbbf24',
+    members: ['BimBom17','MightyG2013','TAIR_2942'],
+    mayor: 'bambambombompuk'
+  },
+  {
+    id: 'gkb',
+    name: 'ГКБ (Группировка Которую Боятся)',
+    icon: '⚔️',
+    color: '#f87171',
+    members: ['NikitaSa','baton11313','chilovsky','roroma'],
+    mayor: 'Miwaperwin777'
+  },
+  {
+    id: 'gei',
+    name: 'ГЕИ (Гильдия Единых Инвесторов)',
+    icon: '💼',
+    color: '#34d399',
+    members: [],
+    mayor: null
+  },
 ];
 
 let players = loadPlayers();
@@ -969,6 +1058,7 @@ function switchView(view){
   const target = document.getElementById('view-' + view); if (target) target.classList.remove('hidden');
   if (view === 'stats') renderStatsTab();
   if (view === 'streams') loadStreamsView();
+  if (view === 'map') renderCities();
 }
 function addLog(action, text, target){
   const logs = loadLogs();
@@ -1101,6 +1191,66 @@ function updateChart(range){
   const area = `${pad},${H - pad} ${line} ${(pad + (points.length - 1) * stepX).toFixed(2)},${H - pad}`;
   $('chart-svg').innerHTML = `<defs><linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3b82f6" stop-opacity="0.55"/><stop offset="100%" stop-color="#3b82f6" stop-opacity="0.02"/></linearGradient></defs><polygon points="${area}" fill="url(#chartGrad)"/><polyline points="${line}" fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-linejoin="round"/>`;
 }
+
+/* ===== ГОРОДА ===== */
+function renderCities(){
+  const grid = $('cities-grid');
+  if (!grid) return;
+  const search = ($('city-search')?.value || '').toLowerCase().trim();
+  grid.innerHTML = '';
+  let totalFound = 0;
+
+  for (const city of CITIES){
+    const membersAll = city.mayor ? [city.mayor, ...city.members] : [...city.members];
+    const filtered = membersAll.filter(n => !search || n.toLowerCase().includes(search));
+    const cityMatches = !search || city.name.toLowerCase().includes(search);
+    if (search && !cityMatches && filtered.length === 0) continue;
+    totalFound++;
+
+    const shownMembers = (!search || cityMatches) ? membersAll : filtered;
+
+    const card = document.createElement('div');
+    card.className = 'city-card';
+    card.style.setProperty('--city-color', city.color);
+
+    const membersHtml = shownMembers.length
+      ? shownMembers.map(nick => {
+          const p = players.find(x => x.nickname.toLowerCase() === nick.toLowerCase());
+          const isMayor = nick === city.mayor;
+          const isOnline = onlineNicks.has(nick.toLowerCase());
+          const rating = p ? `${p.rating > 0 ? '+' : ''}${p.rating.toFixed(1)}` : '—';
+          const ratingCls = p && p.rating > 0 ? 'pos' : p && p.rating < 0 ? 'neg' : 'zero';
+          const playerId = p ? p.id : null;
+          return `<div class="city-member${isMayor ? ' mayor' : ''}${playerId ? '' : ' unknown'}"${playerId ? ` onclick="openProfile(${playerId})"` : ''}>
+            <div class="city-member-avatar">${avatarImgHtml(nick, 32)}${isOnline ? '<span class="city-online-dot"></span>' : ''}</div>
+            <div class="city-member-info">
+              <div class="city-member-nick">${escapeHtml(nick)}${isMayor ? ' <span class="mayor-tag">МЭР</span>' : ''}</div>
+              <div class="city-member-rating ${ratingCls}">${rating}</div>
+            </div>
+          </div>`;
+        }).join('')
+      : '<div class="city-empty">Ничего не найдено</div>';
+
+    card.innerHTML = `
+      <div class="city-head">
+        <div class="city-icon">${city.icon}</div>
+        <div class="city-head-info">
+          <div class="city-name">${escapeHtml(city.name)}</div>
+          <div class="city-count">${membersAll.length} игроков${city.mayor ? ' · мэр ' + escapeHtml(city.mayor) : ''}</div>
+        </div>
+      </div>
+      <div class="city-members">${membersHtml}</div>
+    `;
+    grid.appendChild(card);
+  }
+
+  if (totalFound === 0){
+    grid.innerHTML = '<div class="players-empty" style="grid-column:1/-1;padding:60px 20px">Ничего не найдено по запросу «' + escapeHtml(search) + '»</div>';
+  }
+}
+document.addEventListener('input', e => {
+  if (e.target.id === 'city-search') renderCities();
+});
 
 /* ===== СТРИМЫ ===== */
 const DECAPI = 'https://decapi.me/twitch';
