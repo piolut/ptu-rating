@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ПТУ Rating — Социальный рейтинг ПТУ SMP</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0d14' stroke='%233a3a3a' stroke-width='3'/%3E%3Ctext x='32' y='38' font-family='monospace' font-size='24' font-weight='900' text-anchor='middle' fill='%23f59e0b'%3EПТУ%3C/text%3E%3Ctext x='32' y='54' font-family='monospace' font-size='13' font-weight='700' text-anchor='middle' fill='%233b82f6'%3EСМП%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://minotar.net">
+<link rel="preconnect" href="https://mc-heads.net">
+<link rel="preconnect" href="https://crafatar.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#070d0a;--bg-2:#0a130f;--line:rgba(255,255,255,.07);--line-2:rgba(255,255,255,.13);--text:#eaf3ee;--text-2:#a8b8b0;--muted:#6a786f;--muted-2:#454d47;--emerald:#10b981;--emerald-2:#34d399;--emerald-glow:rgba(16,185,129,.35);--amber:#f59e0b;--amber-2:#fbbf24;--twitch:#9146ff;--twitch-2:#a970ff;--boosty:#f56a00;--boosty-2:#ff8c33;--discord:#5865F2;--discord-2:#7983f5;--red:#ef4444;--red-2:#f87171;--blue:#3b82f6;--blue-2:#60a5fa;--purple:#8b5cf6;--purple-2:#a78bfa;--pink:#ec4899;--bg-glow-1:rgba(16,185,129,.14);--bg-glow-2:rgba(88,101,242,.10)}
@@ -134,8 +138,7 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .lb-avatar .crown{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:11px;color:#fbbf24;font-weight:800;background:rgba(10,15,20,.85);padding:1px 5px;border-radius:4px;z-index:2}
 .lb-avatar .online-dot{position:absolute;bottom:-2px;right:-2px;width:14px;height:14px;border-radius:50%;background:var(--emerald-2);border:3px solid var(--bg)}
 .lb-name{min-width:0}
-.lb-nick{font-weight:700;font-size:15px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.lb-nick .aka-inline{font-weight:500;font-size:12px;color:var(--purple-2);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb-nick{font-weight:700;font-size:15px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px}
 .lb-aka{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .lb-votes{display:flex;gap:12px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700}
 .lb-up{color:var(--emerald-2)}
@@ -833,24 +836,23 @@ document.addEventListener('click', e => {
   if (opt){ applyTheme(opt.dataset.theme); $('theme-menu')?.classList.remove('open'); }
 });
 
-/* ===== АВАТАРКИ ===== */
-function getAvatarUrl(nickname, size = 64){
-  return `https://mc-heads.net/avatar/${encodeURIComponent(nickname)}/${size}`;
-}
+/* ===== АВАТАРКИ (быстрые, minotar primary) ===== */
 function avatarImgHtml(nickname, size = 64, extra = ''){
   const nick = encodeURIComponent(nickname);
-  return `<img src="https://mc-heads.net/avatar/${nick}/${size}" alt="${escapeHtml(nickname)}" loading="lazy" data-nick="${escapeHtml(nickname)}" data-size="${size}" data-fb="0" onerror="avatarFallback(this)" ${extra}>`;
+  const rsize = size >= 128 ? 128 : (size >= 64 ? 64 : (size >= 32 ? 32 : 16));
+  return `<img src="https://minotar.net/helm/${nick}/${rsize}.png" alt="${escapeHtml(nickname)}" loading="eager" decoding="async" width="${size}" height="${size}" data-nick="${escapeHtml(nickname)}" data-size="${size}" data-fb="0" onerror="avatarFallback(this)" ${extra}>`;
 }
 function avatarFallback(img){
   const step = parseInt(img.dataset.fb || '0', 10);
   const nick = img.dataset.nick;
-  const size = img.dataset.size || '64';
+  const size = parseInt(img.dataset.size || '64', 10);
+  const rsize = size >= 128 ? 128 : (size >= 64 ? 64 : (size >= 32 ? 32 : 16));
   const n = encodeURIComponent(nick);
   const srcs = [
-    `https://mc-heads.net/avatar/${n}/${size}`,
-    `https://crafatar.com/avatars/${n}?size=${size}&overlay`,
-    `https://minotar.net/helm/${n}/${size}.png`,
-    `https://mc-heads.net/avatar/MHF_Steve/${size}`,
+    `https://minotar.net/helm/${n}/${rsize}.png`,
+    `https://mc-heads.net/avatar/${n}/${rsize}`,
+    `https://crafatar.com/avatars/${n}?size=${rsize}&overlay`,
+    `https://mc-heads.net/avatar/MHF_Steve/${rsize}`,
   ];
   const next = step + 1;
   if (next < srcs.length){ img.dataset.fb = next; img.src = srcs[next]; }
@@ -932,6 +934,7 @@ function saveSettings(s){ localStorage.setItem('ptusmp_settings_v2', JSON.string
 let settings = loadSettings();
 
 const SERVER_IP = 'ru.ptu-smp.ru';
+const FALLBACK_IP = '212.22.85.14:25565';
 const STATUS_REFRESH_MS = 60 * 1000;
 const STORAGE_KEY = 'ptusmp_players_v31';
 const COOLDOWN_KEY = 'ptusmp_cooldown_v31';
@@ -946,54 +949,23 @@ const CATEGORIES = [
 
 /* ===== ГОРОДА ===== */
 const CITIES = [
-  {
-    id: 'putana-land',
-    name: 'Путана ленд',
-    icon: '🏙️',
-    color: '#f472b6',
-    members: ['temniy_da','Melkuia','giving0_2','Stallkpo','Mr_Baby_9638','Fava2022','Koffe_lov','_Felex','Arkadeon','Ronz1k','VoKa_Play1'],
-    mayor: '_DeD_48_'
-  },
-  {
-    id: 'islands',
-    name: 'Острова желаний',
-    icon: '🏝️',
-    color: '#38bdf8',
-    members: ['sadvely','Aron4ikk','Andrey500z','rewon5373','ezpotato111','xxevgehaxx'],
-    mayor: 'Arisych'
-  },
-  {
-    id: 'sosi',
-    name: 'СОСИ (Северный Орбитальный Союз Инженеров)',
-    icon: '🚀',
-    color: '#a78bfa',
-    members: ['Aleks_Bur','DemonRaflius','tek1q','Vipa_4','EVGEXA','kopch02'],
-    mayor: 'StuART_Original'
-  },
-  {
-    id: 'neftprom',
-    name: 'ПАО «Нефтьпром Газ»',
-    icon: '🛢️',
-    color: '#fbbf24',
-    members: ['BimBom17','MightyG2013','TAIR_2942'],
-    mayor: 'bambambombompuk'
-  },
-  {
-    id: 'gkb',
-    name: 'ГКБ (Группировка Которую Боятся)',
-    icon: '⚔️',
-    color: '#f87171',
-    members: ['NikitaSa','baton11313','chilovsky','roroma'],
-    mayor: 'Miwaperwin777'
-  },
-  {
-    id: 'gei',
-    name: 'ГЕИ (Гильдия Единых Инвесторов)',
-    icon: '💼',
-    color: '#34d399',
-    members: [],
-    mayor: null
-  },
+  { id:'putana-land', name:'Путана ленд', icon:'🏙️', color:'#f472b6',
+    members:['temniy_da','Melkuia','giving0_2','Stallkpo','Mr_Baby_9638','Fava2022','Koffe_lov','_Felex','Arkadeon','Ronz1k','VoKa_Play1'],
+    mayor:'_DeD_48_' },
+  { id:'islands', name:'Острова желаний', icon:'🏝️', color:'#38bdf8',
+    members:['sadvely','Aron4ikk','Andrey500z','rewon5373','ezpotato111','xxevgehaxx'],
+    mayor:'Arisych' },
+  { id:'sosi', name:'СОСИ (Северный Орбитальный Союз Инженеров)', icon:'🚀', color:'#a78bfa',
+    members:['Aleks_Bur','DemonRaflius','tek1q','Vipa_4','EVGEXA','kopch02'],
+    mayor:'StuART_Original' },
+  { id:'neftprom', name:'ПАО «Нефтьпром Газ»', icon:'🛢️', color:'#fbbf24',
+    members:['BimBom17','MightyG2013','TAIR_2942'],
+    mayor:'bambambombompuk' },
+  { id:'gkb', name:'ГКБ (Группировка Которую Боятся)', icon:'⚔️', color:'#f87171',
+    members:['NikitaSa','baton11313','chilovsky','roroma'],
+    mayor:'Miwaperwin777' },
+  { id:'gei', name:'ГЕИ (Гильдия Единых Инвесторов)', icon:'💼', color:'#34d399',
+    members:[], mayor:null },
 ];
 
 let players = loadPlayers();
@@ -1008,7 +980,6 @@ let akaFormOpen = false, akaCollapsed = true, currentView = 'rating';
 const $ = (id) => document.getElementById(id);
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function getRandomAka(p){ if (!p?.akas?.length) return null; return p.akas[Math.floor(Math.random() * p.akas.length)]; }
-function getPrimaryAka(p){ if (!p?.akas?.length) return '—'; return p.akas[0]; }
 
 function updateMskClock(){
   const now = new Date();
@@ -1113,8 +1084,7 @@ function autoAddOnlinePlayers(onlineList){
   if (!onlineList?.length) return 0;
   let added = 0;
   const existing = new Set(players.map(p => p.nickname.toLowerCase()));
-  for (const item of onlineList){
-    const nick = typeof item === 'string' ? item : item.name;
+  for (const nick of onlineList){
     if (!nick || existing.has(nick.toLowerCase())) continue;
     players.push({ id: nextId++, nickname: nick, rating: 0, ups: 0, downs: 0, autoAdded: true, addedAt: Date.now(), banned: false, akas: [] });
     existing.add(nick.toLowerCase()); added++;
@@ -1123,43 +1093,96 @@ function autoAddOnlinePlayers(onlineList){
   if (added > 0){ savePlayers(players); renderLeaderboard(); }
   return added;
 }
+
+/* ===== ОНЛАЙН: параллельный запрос 3 источников (Promise.any) ===== */
+function fetchJsonWithTimeout(url, ms){
+  return new Promise((resolve, reject) => {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => { ctrl.abort(); reject(new Error('timeout')); }, ms);
+    fetch(url, { signal: ctrl.signal, cache: 'no-store' })
+      .then(r => { clearTimeout(t); if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(resolve)
+      .catch(err => { clearTimeout(t); reject(err); });
+  });
+}
+async function tryMcsrvstat(ip){
+  const r = await fetchJsonWithTimeout(`https://api.mcsrvstat.us/3/${ip}`, 5000);
+  if (!r || !r.online) throw new Error('offline');
+  return {
+    online: true,
+    online_count: r.players?.online ?? 0,
+    max: r.players?.max ?? 0,
+    players: (r.players?.list || []).map(p => typeof p === 'string' ? p : p.name),
+  };
+}
+async function tryMcstatus(ip){
+  const r = await fetchJsonWithTimeout(`https://api.mcstatus.io/v2/status/java/${ip}`, 5000);
+  if (!r || !r.online) throw new Error('offline');
+  return {
+    online: true,
+    online_count: r.players?.online ?? 0,
+    max: r.players?.max ?? 0,
+    players: (r.players?.list || []).map(p => p.name_clean || p.name),
+  };
+}
+async function queryServerAnySource(){
+  const sources = [
+    tryMcsrvstat(SERVER_IP),
+    tryMcstatus(SERVER_IP),
+    tryMcsrvstat(FALLBACK_IP),
+    tryMcstatus(FALLBACK_IP),
+  ];
+  try {
+    return await Promise.any(sources);
+  } catch {
+    return { online: false };
+  }
+}
 async function fetchServerStatus(){
   const dot = $('btn-status-dot'), num = $('btn-status-num');
-  dot.className = 'dot checking'; num.textContent = '—/—';
-  try {
-    const res = await fetch(`https://api.mcsrvstat.us/3/${SERVER_IP}`, { cache: 'no-store' });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json(); cachedServerData = data;
-    if (!data.online){
-      dot.className = 'dot offline'; num.textContent = 'оффлайн';
-      $('modal-players').innerHTML = '<div class="players-empty" style="grid-column:1/-1">Сервер оффлайн</div>';
-      onlineNicks = new Set(); renderLeaderboard();
-      if (currentView === 'stats') renderStatsTab();
-      if ($('server-modal').classList.contains('open')) updateChart(currentRange);
-    } else {
-      dot.className = 'dot online';
-      const online = data.players?.online ?? 0, max = data.players?.max ?? 0;
-      num.textContent = `${online}/${max}`;
-      const list = data.players?.list || [];
-      onlineNicks = new Set(list.map(p => (typeof p === 'string' ? p : p.name).toLowerCase()));
-      autoAddOnlinePlayers(list); renderLeaderboard();
-      if (currentView === 'stats') renderStatsTab();
-      const grid = $('modal-players'); grid.innerHTML = '';
-      if (!list.length){
-        grid.innerHTML = `<div class="players-empty" style="grid-column:1/-1">${online > 0 ? 'Список скрыт настройками сервера' : 'Никого нет онлайн'}</div>`;
-      } else {
-        for (const p of list){
-          const nick = typeof p === 'string' ? p : p.name;
-          const el = document.createElement('div'); el.className = 'mc-player';
-          el.innerHTML = `<span class="mcp-name">${escapeHtml(nick)}</span>`;
-          el.onclick = () => { const player = players.find(x => x.nickname.toLowerCase() === nick.toLowerCase()); if (player){ closeServerModal(); openProfile(player.id); } };
-          grid.appendChild(el);
-        }
-      }
-      if ($('server-modal').classList.contains('open')) updateChart(currentRange);
+  dot.className = 'dot checking'; num.textContent = '...';
+
+  const result = await queryServerAnySource();
+
+  if (!result.online){
+    dot.className = 'dot offline'; num.textContent = 'оффлайн';
+    cachedServerData = { online: false };
+    $('modal-players').innerHTML = '<div class="players-empty" style="grid-column:1/-1">Сервер оффлайн или недоступен</div>';
+    onlineNicks = new Set(); renderLeaderboard();
+    if (currentView === 'stats') renderStatsTab();
+    if (currentView === 'map') renderCities();
+    if ($('server-modal').classList.contains('open')) updateChart(currentRange);
+    return;
+  }
+
+  dot.className = 'dot online';
+  const online = result.online_count ?? 0;
+  const max = result.max ?? 0;
+  num.textContent = `${online}/${max}`;
+  const list = result.players || [];
+  onlineNicks = new Set(list.map(n => n.toLowerCase()));
+  cachedServerData = { online: true, players: { online, max, list } };
+  autoAddOnlinePlayers(list); renderLeaderboard();
+  if (currentView === 'stats') renderStatsTab();
+  if (currentView === 'map') renderCities();
+
+  const grid = $('modal-players'); grid.innerHTML = '';
+  if (!list.length){
+    grid.innerHTML = `<div class="players-empty" style="grid-column:1/-1">${online > 0 ? 'Список скрыт настройками сервера' : 'Никого нет онлайн'}</div>`;
+  } else {
+    for (const nick of list){
+      const el = document.createElement('div'); el.className = 'mc-player';
+      el.innerHTML = `<span class="mcp-name">${escapeHtml(nick)}</span>`;
+      el.onclick = () => {
+        const player = players.find(x => x.nickname.toLowerCase() === nick.toLowerCase());
+        if (player){ closeServerModal(); openProfile(player.id); }
+      };
+      grid.appendChild(el);
     }
-  } catch (e){ console.error(e); dot.className = 'dot offline'; num.textContent = 'ошибка'; }
+  }
+  if ($('server-modal').classList.contains('open')) updateChart(currentRange);
 }
+
 function generateHistory(range){
   const online = cachedServerData?.online ? (cachedServerData.players?.online ?? 0) : 0;
   const max = cachedServerData?.online ? (cachedServerData.players?.max ?? 99) : 99;
@@ -1407,7 +1430,10 @@ function openProfile(playerId){
   const akaInputRowHtml = `<div class="pf-aka-input-row hidden" id="pf-aka-input-row"><input class="pf-aka-input" id="aka-input" maxlength="30" placeholder="Например: Дед, Легенда..." autocomplete="off"><button class="pf-aka-send" onclick="submitAka(${p.id})">Отправить</button><button class="pf-aka-cancel" onclick="toggleAkaInput()" title="Отмена">✕</button></div>`;
   $('profile-body').innerHTML = `
     <div class="pf-banner">
-      <div class="pf-avatar-wrap">${avatarImgHtml(p.nickname, 160, 'class="pf-avatar"')}${isOnline ? '<div class="online-dot"></div>' : '<div class="offline-dot"></div>'}</div>
+      <div class="pf-avatar-wrap">
+        ${avatarImgHtml(p.nickname, 160, 'class="pf-avatar"')}
+        ${isOnline ? '<div class="online-dot"></div>' : '<div class="offline-dot"></div>'}
+      </div>
       <div class="pf-nick">${escapeHtml(p.nickname)}</div>
       <div class="pf-rating-row">
         <div class="pf-rating-block rating"><div class="val ${ratingCls}">${p.rating > 0 ? '+' : ''}${p.rating.toFixed(1)}</div><div class="lbl">Рейтинг</div></div>
@@ -1427,7 +1453,6 @@ function openProfile(playerId){
     <div class="pf-actions">
       <button class="pf-action-btn primary" onclick="shareProfile(${p.id})">🔗 Поделиться</button>
       <button class="pf-action-btn" onclick="copyNick('${escapeHtml(p.nickname)}')">📋 Скопировать ник</button>
-      <a class="pf-action-btn" href="https://ru.namemc.com/profile/${encodeURIComponent(p.nickname)}" target="_blank" rel="noopener">🌐 NameMC</a>
     </div>`;
   openModal('profile-modal');
   history.replaceState(null, '', '#player=' + p.id);
@@ -1559,13 +1584,13 @@ function renderLeaderboard(){
         const crown = globalPos === 1 ? '<span class="crown">#1</span>' : '';
         const up = p.ups || 0, down = p.downs || 0, mass = up + down;
         const isOnline = onlineNicks.has(p.nickname.toLowerCase());
+        // Рандомное прозвище в подписи, без inline-бейджа рядом с ником
         const randomAka = getRandomAka(p);
-        const akaInline = randomAka ? `<span class="aka-inline">« ${escapeHtml(randomAka)} »</span>` : '';
-        const primaryAka = getPrimaryAka(p);
+        const akaSub = randomAka ? `aka « ${escapeHtml(randomAka)} »` : `aka ${escapeHtml(cat.name)}`;
         row.innerHTML = `
           <div class="lb-pos"><div class="lb-pos-num">${idx}</div><div class="lb-pos-label">место</div></div>
           <div class="lb-avatar">${crown}${avatarImgHtml(p.nickname, 64)}${isOnline ? '<div class="online-dot"></div>' : ''}</div>
-          <div class="lb-name"><div class="lb-nick">${escapeHtml(p.nickname)} ${akaInline}</div><div class="lb-aka">${primaryAka !== '—' ? 'aka « ' + escapeHtml(primaryAka) + ' »' : 'aka ' + escapeHtml(cat.name)}</div></div>
+          <div class="lb-name"><div class="lb-nick">${escapeHtml(p.nickname)}</div><div class="lb-aka">${akaSub}</div></div>
           <div class="lb-votes"><span class="lb-up">+${up}</span><span class="lb-down">−${down}</span></div>
           <div class="lb-mass"><span class="lb-mass-num">${mass}</span><span class="lb-mass-label">масса</span></div>
           <div class="lb-rating ${ratingCls}">${p.rating > 0 ? '+' : ''}${p.rating.toFixed(1)}</div>`;
@@ -1808,6 +1833,12 @@ statusTimer = setInterval(fetchServerStatus, STATUS_REFRESH_MS);
 function checkUrlHash(){ const m = location.hash.match(/#player=(\d+)/); if (m){ const id = parseInt(m[1], 10); if (players.find(x => x.id === id)) setTimeout(() => openProfile(id), 100); } }
 window.addEventListener('hashchange', checkUrlHash); checkUrlHash();
 if (!sessionStorage.getItem('ptusmp_welcome_v4')){ sessionStorage.setItem('ptusmp_welcome_v4', '1'); addLog('add', 'Открыта главная страница', ''); }
+setTimeout(() => {
+  const topForWarm = [...players].sort((a,b)=>b.rating - a.rating).slice(0, 12);
+  for (const p of topForWarm){
+    const im = new Image(); im.src = `https://minotar.net/helm/${encodeURIComponent(p.nickname)}/64.png`;
+  }
+}, 1200);
 </script>
 </body>
 </html>
