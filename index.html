@@ -204,7 +204,7 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .modal-close{width:36px;height:36px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text-2);cursor:pointer;display:grid;place-items:center;font-size:16px;transition:all .15s;flex-shrink:0}
 .modal-close:hover{color:#fff;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.35)}
 .modal-body{padding:24px 32px 32px;overflow-y:auto}
-#server-modal .modal{max-width:560px}
+#server-modal .modal{max-width:640px}
 #profile-modal .modal{max-width:520px}
 #profile-modal .modal-body{padding:0}
 #my-profile-modal .modal{max-width:560px}
@@ -293,6 +293,47 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .my-action-btn.danger{color:var(--red-2)}
 .my-action-btn.danger:hover{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.35);color:#fff}
 
+/* ===== КРАСИВЫЙ ОНЛАЙН ===== */
+.srv-hero{position:relative;padding:20px 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(59,130,246,.06));border-bottom:1px solid var(--line)}
+.srv-hero-stat{text-align:center;padding:14px 8px;border-radius:14px;background:rgba(255,255,255,.025);border:1px solid var(--line);transition:all .2s}
+.srv-hero-stat:hover{background:rgba(255,255,255,.05);transform:translateY(-2px)}
+.srv-hero-stat .lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.srv-hero-stat .val{font-family:'Manrope',sans-serif;font-size:22px;font-weight:800;color:#fff;line-height:1}
+.srv-hero-stat.online .val{color:var(--emerald-2)}
+.srv-hero-stat.max .val{color:var(--blue-2)}
+.srv-hero-stat .ico{font-size:16px;margin-bottom:4px;line-height:1}
+
+.players-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.players-empty{padding:40px 20px;text-align:center;color:var(--muted);font-size:13px;font-family:'JetBrains Mono',monospace;border:1px dashed var(--line-2);border-radius:14px;background:rgba(255,255,255,.01)}
+.mc-player{display:flex;align-items:center;gap:10px;padding:10px 12px;background:linear-gradient(135deg,rgba(255,255,255,.03),rgba(255,255,255,.01));border:1px solid var(--line);border-radius:12px;cursor:pointer;transition:all .18s;position:relative;overflow:hidden}
+.mc-player::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--emerald-2);opacity:0;transition:opacity .15s}
+.mc-player:hover{background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(16,185,129,.02));border-color:rgba(16,185,129,.35);transform:translateX(2px)}
+.mc-player:hover::before{opacity:1}
+.mc-player img{width:36px;height:36px;border-radius:8px;image-rendering:pixelated;background:#000;border:1px solid var(--line-2);flex-shrink:0;object-fit:cover}
+.mc-player .mcp-info{flex:1;min-width:0}
+.mc-player .mcp-name{font-weight:700;font-size:13px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:6px}
+.mc-player .mcp-status{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--emerald-2);display:flex;align-items:center;gap:5px;margin-top:3px;font-weight:600}
+.mc-player .mcp-status::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;box-shadow:0 0 6px currentColor;animation:dp 2s infinite}
+.mc-player .mcp-arrow{color:var(--muted-2);font-size:14px;flex-shrink:0;transition:transform .15s}
+.mc-player:hover .mcp-arrow{color:var(--emerald-2);transform:translateX(2px)}
+
+.players-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.players-toolbar-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;color:var(--text-2);text-transform:uppercase;letter-spacing:.1em;display:flex;align-items:center;gap:8px}
+.players-toolbar-title .count-pill{font-family:'JetBrains Mono',monospace;font-size:10px;padding:3px 8px;border-radius:8px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--emerald-2);letter-spacing:0}
+.players-toolbar-search{padding:7px 12px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text);border-radius:100px;font-family:inherit;font-size:12px;width:180px;transition:all .15s}
+.players-toolbar-search::placeholder{color:var(--muted-2)}
+.players-toolbar-search:focus{outline:none;border-color:var(--emerald);background:rgba(16,185,129,.05)}
+
+.chart-card{background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.005));border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:20px;position:relative;overflow:hidden}
+.chart-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--blue),transparent);opacity:.7}
+.chart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;flex-wrap:wrap}
+.chart-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;color:#fff;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.chart-title .live-pulse{width:8px;height:8px;border-radius:50%;background:var(--emerald-2);box-shadow:0 0 10px var(--emerald-2);animation:dp 2s infinite}
+.chart-peak{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
+.chart-peak span{color:var(--blue-2);font-weight:700}
+.chart-wrap{position:relative;height:120px;margin-bottom:14px}
+#chart-svg{width:100%;height:100%;display:block}
+
 .join-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
 .join-card{position:relative;padding:28px;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));border:1px solid var(--line);overflow:hidden}
 .join-card.free::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--twitch),var(--twitch-2))}
@@ -352,19 +393,6 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .vote-hint{color:var(--muted);font-size:13px}
 .vote-empty{padding:48px 32px;text-align:center;color:var(--muted);font-size:14px;border:1px dashed var(--line-2);border-radius:14px;background:rgba(255,255,255,.01)}
 .vote-empty strong{color:var(--text-2);display:block;font-size:16px;margin-bottom:6px;font-weight:700}
-.chart-card{background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:20px}
-.chart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;flex-wrap:wrap}
-.chart-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;color:#fff;text-transform:uppercase}
-.chart-peak{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
-.chart-peak span{color:var(--blue-2);font-weight:700}
-.chart-wrap{position:relative;height:120px;margin-bottom:14px}
-#chart-svg{width:100%;height:100%;display:block}
-.players-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;color:var(--text-2);text-transform:uppercase;letter-spacing:.1em;padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--line)}
-.players-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.mc-player{display:flex;align-items:center;gap:10px;padding:10px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:12px;cursor:pointer}
-.mc-player:hover{background:rgba(255,255,255,.05)}
-.mc-player .mcp-name{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.players-empty{padding:40px 20px;text-align:center;color:var(--muted);font-size:13px;font-family:'JetBrains Mono',monospace;border:1px dashed var(--line-2);border-radius:12px}
 .admin-tabs{display:flex;gap:2px;padding:4px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);margin:0 32px 20px;overflow-x:auto}
 .admin-tab{padding:9px 18px;border-radius:100px;background:transparent;border:none;color:var(--text-2);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
 .admin-tab.active{background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff}
@@ -553,6 +581,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .cities-grid{grid-template-columns:1fr}
   .my-stats{grid-template-columns:1fr}
+  .srv-hero{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -726,11 +755,52 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
 
 <div class="modal-overlay" id="server-modal">
   <div class="modal">
-    <div class="modal-head"><div><h2>Онлайн сервера</h2><p>Сервер ПТУ SMP</p></div><button class="modal-close" onclick="closeServerModal()">✕</button></div>
-    <div class="modal-body">
-      <div class="chart-card"><div class="chart-head"><div class="chart-title">Онлайн сервера</div><div class="chart-peak">пик <span id="chart-peak">—</span></div></div><div class="chart-wrap"><svg id="chart-svg" viewBox="0 0 400 100" preserveAspectRatio="none"></svg></div></div>
-      <div class="players-title">На сервере сейчас</div>
-      <div class="players-grid" id="modal-players"><div class="players-empty" style="grid-column:1/-1">Загрузка…</div></div>
+    <div class="modal-head">
+      <div>
+        <h2>Онлайн сервера</h2>
+        <p>Сервер ПТУ SMP · обновляется каждую минуту</p>
+      </div>
+      <button class="modal-close" onclick="closeServerModal()">✕</button>
+    </div>
+    <div class="modal-body" style="padding:0">
+      <div class="srv-hero" id="srv-hero">
+        <div class="srv-hero-stat online">
+          <div class="ico">🟢</div>
+          <div class="lbl">Онлайн</div>
+          <div class="val" id="srv-hero-online">—</div>
+        </div>
+        <div class="srv-hero-stat max">
+          <div class="ico">👥</div>
+          <div class="lbl">Слотов</div>
+          <div class="val" id="srv-hero-max">—</div>
+        </div>
+        <div class="srv-hero-stat">
+          <div class="ico">📊</div>
+          <div class="lbl">Загрузка</div>
+          <div class="val" id="srv-hero-load">—</div>
+        </div>
+      </div>
+
+      <div style="padding:24px 32px 32px">
+        <div class="chart-card">
+          <div class="chart-head">
+            <div class="chart-title"><span class="live-pulse"></span>Онлайн сервера</div>
+            <div class="chart-peak">пик <span id="chart-peak">—</span></div>
+          </div>
+          <div class="chart-wrap"><svg id="chart-svg" viewBox="0 0 400 100" preserveAspectRatio="none"></svg></div>
+        </div>
+
+        <div class="players-toolbar">
+          <div class="players-toolbar-title">
+            🎮 На сервере сейчас
+            <span class="count-pill" id="players-count-pill">0</span>
+          </div>
+          <input type="text" class="players-toolbar-search" id="server-players-search" placeholder="Поиск игрока...">
+        </div>
+        <div class="players-grid" id="modal-players">
+          <div class="players-empty" style="grid-column:1/-1">Загрузка…</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -760,9 +830,9 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
         </div>
         <div class="join-card paid"><div class="join-badge">Платно</div><h3>Через Boosty</h3>
           <div class="join-list">
-            <div class="join-item"><span class="num">1</span><div>Оформить подписку на Boosty у <strong>Evgexa</strong></div></div>
-            <div class="join-item"><span class="num">2</span><div>Либо у <strong>NikitaSa</strong></div></div>
-            <div class="join-item"><span class="num">3</span><div>Проходка выдаётся в течение суток</div></div>
+            <div class="join-item"><span class="num">1</span>Оформить подписку на Boosty у <strong>Evgexa</strong></div>
+            <div class="join-item"><span class="num">2</span>Либо у <strong>NikitaSa</strong></div>
+            <div class="join-item"><span class="num">3</span>Проходка выдаётся в течение суток</div>
           </div>
           <div class="twitch-actions"><a href="https://boosty.to/superevgexa" target="_blank" class="btn-boosty-full">Boosty Евгехи</a><a href="https://boosty.to/n145" target="_blank" class="btn-boosty-full">Boosty Никиты</a></div>
         </div>
@@ -855,7 +925,7 @@ const STREAMERS = [
 ];
 
 /* =========================================================
-   НАСТРОЙКА №3 — ХОСТЫ СЕРВЕРА (не отображаются на сайте)
+   НАСТРОЙКА №3 — ХОСТЫ СЕРВЕРА (скрыто от пользователя)
    ========================================================= */
 const SERVER_HOSTS = ['eu.ptu-smp.ru', 'ptu-smp.ru', 'kz.ptu-smp.ru'];
 
@@ -1036,6 +1106,7 @@ let cooldownTick = null, navTick = null;
 let currentSearch = '', currentProfileId = null, cachedServerData = null, statusTimer = null;
 let currentRange = 'day', currentChartPoints = [], onlineNicks = new Set();
 let akaFormOpen = false, akaCollapsed = true, currentView = 'rating';
+let serverPlayersSearch = '';
 
 const $ = (id) => document.getElementById(id);
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
@@ -1124,7 +1195,7 @@ function showToastGlobal(msg){
 }
 function openModal(id){ $(id).classList.add('open'); document.body.classList.add('modal-open'); }
 function closeModal(id){ $(id).classList.remove('open'); document.body.classList.remove('modal-open'); }
-function openServerModal(){ openModal('server-modal'); updateChart(currentRange); }
+function openServerModal(){ openModal('server-modal'); updateChart(currentRange); renderOnlinePlayersList(); }
 function closeServerModal(){ closeModal('server-modal'); }
 function openJoinModal(){ openModal('join-modal'); }
 function closeJoinModal(){ closeModal('join-modal'); }
@@ -1227,7 +1298,76 @@ function autoAddOnlinePlayers(onlineList){
   return added;
 }
 
-/* ===== ОНЛАЙН: 3 API × 3 хоста, всё параллельно ===== */
+/* ===== КРАСИВЫЙ СПИСОК ОНЛАЙН-ИГРОКОВ ===== */
+function renderOnlinePlayersList(){
+  const container = $('modal-players'); if (!container) return;
+  const pill = $('players-count-pill');
+  const search = serverPlayersSearch.toLowerCase().trim();
+
+  const list = cachedServerData?.online ? (cachedServerData.players?.list || []) : [];
+  const onlineCount = cachedServerData?.online ? (cachedServerData.players?.online ?? 0) : 0;
+
+  // Обновляем hero-статы
+  const heroOnline = $('srv-hero-online');
+  const heroMax = $('srv-hero-max');
+  const heroLoad = $('srv-hero-load');
+  const maxCount = cachedServerData?.online ? (cachedServerData.players?.max ?? 0) : 0;
+  if (heroOnline) heroOnline.textContent = cachedServerData?.online ? onlineCount : '—';
+  if (heroMax) heroMax.textContent = cachedServerData?.online ? maxCount : '—';
+  if (heroLoad){
+    if (cachedServerData?.online && maxCount > 0){
+      const pct = Math.round((onlineCount / maxCount) * 100);
+      heroLoad.textContent = pct + '%';
+      heroLoad.style.color = pct > 80 ? 'var(--red-2)' : (pct > 50 ? 'var(--amber-2)' : 'var(--emerald-2)');
+    } else {
+      heroLoad.textContent = '—';
+      heroLoad.style.color = '';
+    }
+  }
+
+  if (pill) pill.textContent = cachedServerData?.online ? `${onlineCount} онлайн` : 'оффлайн';
+
+  if (!cachedServerData?.online){
+    container.innerHTML = '<div class="players-empty" style="grid-column:1/-1">Сервер оффлайн или недоступен</div>';
+    return;
+  }
+
+  const filtered = search ? list.filter(n => n.toLowerCase().includes(search)) : list;
+  if (!filtered.length){
+    if (!list.length){
+      container.innerHTML = `<div class="players-empty" style="grid-column:1/-1">${onlineCount > 0 ? 'Список скрыт настройками сервера' : 'Никого нет онлайн'}</div>`;
+    } else {
+      container.innerHTML = `<div class="players-empty" style="grid-column:1/-1">Никого не найдено по запросу «${escapeHtml(search)}»</div>`;
+    }
+    return;
+  }
+
+  container.innerHTML = '';
+  for (const nick of filtered){
+    const hasProfile = players.some(x => x.nickname.toLowerCase() === nick.toLowerCase());
+    const el = document.createElement('div');
+    el.className = 'mc-player';
+    el.innerHTML = `
+      ${avatarImgHtml(nick, 64)}
+      <div class="mcp-info">
+        <div class="mcp-name">${escapeHtml(nick)}</div>
+        <div class="mcp-status">в игре</div>
+      </div>
+      <div class="mcp-arrow">${hasProfile ? '→' : ''}</div>`;
+    if (hasProfile){
+      el.onclick = () => {
+        const player = players.find(x => x.nickname.toLowerCase() === nick.toLowerCase());
+        if (player){ closeServerModal(); openProfile(player.id); }
+      };
+    } else {
+      el.style.cursor = 'default';
+      el.onmouseenter = null;
+    }
+    container.appendChild(el);
+  }
+}
+
+/* ===== ОНЛАЙН: 4 API × 3 хоста ===== */
 function fetchJsonWithTimeout(url, ms){
   return new Promise((resolve, reject) => {
     const ctrl = new AbortController();
@@ -1238,48 +1378,40 @@ function fetchJsonWithTimeout(url, ms){
       .catch(err => { clearTimeout(t); reject(err); });
   });
 }
-async function tryMcsrvstatV3(host){
-  const r = await fetchJsonWithTimeout(`https://api.mcsrvstat.us/3/${host}?_=${Date.now()}`, 7000);
+async function tryMcstatusV2(host, port){
+  const r = await fetchJsonWithTimeout(`https://api.mcstatus.io/v2/status/java/${host}:${port}?_=${Date.now()}`, 8000);
   if (!r || !r.online) throw new Error('offline');
-  return {
-    online: true,
-    online_count: r.players?.online ?? 0,
-    max: r.players?.max ?? 0,
-    players: (r.players?.list || []).map(p => typeof p === 'string' ? p : p.name),
-  };
+  return { online: true, online_count: r.players?.online ?? 0, max: r.players?.max ?? 0,
+           players: (r.players?.list || []).map(p => p.name_clean || p.name) };
+}
+async function tryMcstatusNoPort(host){
+  const r = await fetchJsonWithTimeout(`https://api.mcstatus.io/v2/status/java/${host}?_=${Date.now()}`, 8000);
+  if (!r || !r.online) throw new Error('offline');
+  return { online: true, online_count: r.players?.online ?? 0, max: r.players?.max ?? 0,
+           players: (r.players?.list || []).map(p => p.name_clean || p.name) };
+}
+async function tryMcsrvstatV3(host){
+  const r = await fetchJsonWithTimeout(`https://api.mcsrvstat.us/3/${host}?_=${Date.now()}`, 8000);
+  if (!r || !r.online) throw new Error('offline');
+  return { online: true, online_count: r.players?.online ?? 0, max: r.players?.max ?? 0,
+           players: (r.players?.list || []).map(p => typeof p === 'string' ? p : p.name) };
 }
 async function tryMcsrvstatV2(host){
-  const r = await fetchJsonWithTimeout(`https://api.mcsrvstat.us/2/${host}?_=${Date.now()}`, 7000);
+  const r = await fetchJsonWithTimeout(`https://api.mcsrvstat.us/2/${host}?_=${Date.now()}`, 8000);
   if (!r || !r.online) throw new Error('offline');
-  return {
-    online: true,
-    online_count: r.players?.online ?? 0,
-    max: r.players?.max ?? 0,
-    players: (r.players?.list || []).map(p => typeof p === 'string' ? p : p.name),
-  };
-}
-async function tryMcstatus(host){
-  const r = await fetchJsonWithTimeout(`https://api.mcstatus.io/v2/status/java/${host}?_=${Date.now()}`, 7000);
-  if (!r || !r.online) throw new Error('offline');
-  return {
-    online: true,
-    online_count: r.players?.online ?? 0,
-    max: r.players?.max ?? 0,
-    players: (r.players?.list || []).map(p => p.name_clean || p.name),
-  };
+  return { online: true, online_count: r.players?.online ?? 0, max: r.players?.max ?? 0,
+           players: (r.players?.list || []).map(p => typeof p === 'string' ? p : p.name) };
 }
 async function queryServerAnySource(){
   const tasks = [];
   for (const host of SERVER_HOSTS){
-    tasks.push(tryMcstatus(host));
+    tasks.push(tryMcstatusV2(host, 25565));
+    tasks.push(tryMcstatusNoPort(host));
     tasks.push(tryMcsrvstatV3(host));
     tasks.push(tryMcsrvstatV2(host));
   }
-  try {
-    return await Promise.any(tasks);
-  } catch {
-    return { online: false };
-  }
+  try { return await Promise.any(tasks); }
+  catch { return { online: false }; }
 }
 async function fetchServerStatus(){
   const dot = $('btn-status-dot'), num = $('btn-status-num');
@@ -1290,10 +1422,10 @@ async function fetchServerStatus(){
   if (!result.online){
     dot.className = 'dot offline'; num.textContent = 'оффлайн';
     cachedServerData = { online: false };
-    $('modal-players').innerHTML = '<div class="players-empty" style="grid-column:1/-1">Сервер оффлайн или недоступен</div>';
     onlineNicks = new Set(); renderLeaderboard();
     if (currentView === 'stats') renderStatsTab();
     if (currentView === 'map') renderCities();
+    renderOnlinePlayersList();
     if ($('server-modal').classList.contains('open')) updateChart(currentRange);
     return;
   }
@@ -1308,23 +1440,15 @@ async function fetchServerStatus(){
   autoAddOnlinePlayers(list); renderLeaderboard();
   if (currentView === 'stats') renderStatsTab();
   if (currentView === 'map') renderCities();
-
-  const grid = $('modal-players'); grid.innerHTML = '';
-  if (!list.length){
-    grid.innerHTML = `<div class="players-empty" style="grid-column:1/-1">${online > 0 ? 'Список скрыт настройками сервера' : 'Никого нет онлайн'}</div>`;
-  } else {
-    for (const nick of list){
-      const el = document.createElement('div'); el.className = 'mc-player';
-      el.innerHTML = `<span class="mcp-name">${escapeHtml(nick)}</span>`;
-      el.onclick = () => {
-        const player = players.find(x => x.nickname.toLowerCase() === nick.toLowerCase());
-        if (player){ closeServerModal(); openProfile(player.id); }
-      };
-      grid.appendChild(el);
-    }
-  }
+  renderOnlinePlayersList();
   if ($('server-modal').classList.contains('open')) updateChart(currentRange);
 }
+document.addEventListener('input', e => {
+  if (e.target.id === 'server-players-search'){
+    serverPlayersSearch = e.target.value;
+    renderOnlinePlayersList();
+  }
+});
 
 function generateHistory(range){
   const online = cachedServerData?.online ? (cachedServerData.players?.online ?? 0) : 0;
