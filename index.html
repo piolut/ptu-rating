@@ -559,7 +559,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
     </section>
     <div class="ap-toolbar">
       <button class="ap-filter active" data-sort="rating" onclick="setAllPlayersSort('rating')">📊 По рейтингу</button>
-      <button class="ap-filter" data-sort="mass" onclick="setAllPlayersSort('mass')">🎯 По наигранному</button>
+      <button class="ap-filter" data-sort="mass" onclick="setAllPlayersSort('mass')">🎯 По наигранному времени</button>
       <button class="ap-filter" data-sort="recent" onclick="setAllPlayersSort('recent')">🕐 По недавним</button>
       <span class="ap-count" id="ap-count">0</span>
     </div>
@@ -1017,8 +1017,7 @@ function renderAllPlayers(){
     if (place === 3 && allPlayersSort === 'rating') card.classList.add('top3');
     if (p.banned) card.classList.add('banned');
     card.style.animationDelay = Math.min(i * 30, 600) + 'ms';
-    const rankLabel = allPlayersSort === 'rating' ? `#${place}` : (allPlayersSort === 'mass' ? `🎯 ${mass}` : `🕐 ${timeAgo(p.lastActivityAt || p.addedAt || Date.now())}`);
-    card.innerHTML = `
+    const rankLabel = allPlayersSort === 'rating' ? `#${place}` : (allPlayersSort === 'mass' ? `🎯 ${mass} ч` : `🕐 ${timeAgo(p.lastActivityAt || p.addedAt || Date.now())}`);
       <span class="ap-card-rank">${rankLabel}</span>
       ${avatarImgHtml(p.nickname, 144, 'class="ap-card-avatar"')}
       <div class="ap-card-nick">${escapeHtml(p.nickname)}</div>
