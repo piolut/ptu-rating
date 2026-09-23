@@ -626,7 +626,6 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
   <div class="visits" id="visits-counter">— посещение</div>
 </footer>
 
-<!-- Модалки (сокращены для размера — при желании восстанови из старого файла) -->
 <div class="modal-overlay" id="server-modal">
   <div class="modal">
     <div class="modal-head"><div><h2>Онлайн сервера</h2><p>eu.ptu-smp.ru</p></div><button class="modal-close" onclick="closeServerModal()">✕</button></div>
@@ -656,9 +655,9 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
         </div>
         <div class="join-card paid"><div class="join-badge">Платно</div><h3>Через Boosty</h3>
           <div class="join-list">
-            <div class="join-item"><span class="num">1</span><span>Оформить подписку на Boosty у <strong>Evgexa</strong></span></div>
-            <div class="join-item"><span class="num">2</span><span>Либо у <strong>NikitaSa</strong></span></div>
-            <div class="join-item"><span class="num">3</span><span>Проходка выдаётся в течение суток</span></div>
+            <div class="join-item"><span class="num">1</span><div>Оформить подписку на Boosty у <strong>Evgexa</strong></div></div>
+            <div class="join-item"><span class="num">2</span><div>Либо у <strong>NikitaSa</strong></div></div>
+            <div class="join-item"><span class="num">3</span><div>Проходка выдаётся в течение суток</div></div>
           </div>
           <div class="twitch-actions"><a href="https://boosty.to/superevgexa" target="_blank" class="btn-boosty-full">Boosty Евгехи</a><a href="https://boosty.to/n145" target="_blank" class="btn-boosty-full">Boosty Никиты</a></div>
         </div>
@@ -726,24 +725,17 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
 </div>
 
 <script>
-/* =========================================================
-   НАСТРОЙКА №1 — DISCORD OAUTH
-   ========================================================= */
 const DISCORD_CLIENT_ID = '1549536016560423053';
 const DISCORD_REDIRECT_URI = 'https://misty-wood-5387.maratdzhagiev88.workers.dev';
 const ADMIN_DISCORD_IDS = ['1382696497438654505', '432419959914758149', '421971697001037826'];
 const AUTH_KEY = 'ptusmp_auth_v1';
 
-/* =========================================================
-   НАСТРОЙКА №2 — СПИСОК СТРИМЕРОВ
-   ========================================================= */
 const STREAMERS = [
   { twitch: 'evgexa',    display: 'Евгеха',    note: 'Легенда ютуба' },
   { twitch: 'nikitasa_', display: 'Никита Са', note: 'Красавчик' },
   { twitch: 'kopch02',   display: 'kopch',     note: 'разраб' },
 ];
 
-/* ===== АВАТАРКИ ===== */
 function getAvatarUrl(nickname, size = 64){ return `https://mc-heads.net/avatar/${encodeURIComponent(nickname)}/${size}`; }
 function avatarImgHtml(nickname, size = 64, extra = ''){
   const nick = encodeURIComponent(nickname);
@@ -758,60 +750,33 @@ function avatarFallback(img){
   if (next < srcs.length){ img.dataset.fb = next; img.src = srcs[next]; } else img.onerror = null;
 }
 
-/* ===== DISCORD AUTH ===== */
 function getCurrentUser(){
-  try {
-    const raw = localStorage.getItem(AUTH_KEY); if (!raw) return null;
-    const data = JSON.parse(raw);
-    if (data.expires_at && Date.now() > data.expires_at){ localStorage.removeItem(AUTH_KEY); return null; }
-    return data;
-  } catch { return null; }
+  try { const raw = localStorage.getItem(AUTH_KEY); if (!raw) return null; const data = JSON.parse(raw); if (data.expires_at && Date.now() > data.expires_at){ localStorage.removeItem(AUTH_KEY); return null; } return data; } catch { return null; }
 }
 function saveUser(u){ localStorage.setItem(AUTH_KEY, JSON.stringify(u)); }
-function loginWithDiscord(){
-  const params = new URLSearchParams({ client_id: DISCORD_CLIENT_ID, redirect_uri: DISCORD_REDIRECT_URI, response_type: 'code', scope: 'identify' });
-  location.href = 'https://discord.com/api/oauth2/authorize?' + params.toString();
-}
+function loginWithDiscord(){ const params = new URLSearchParams({ client_id: DISCORD_CLIENT_ID, redirect_uri: DISCORD_REDIRECT_URI, response_type: 'code', scope: 'identify' }); location.href = 'https://discord.com/api/oauth2/authorize?' + params.toString(); }
 async function handleDiscordCallback(){
   const hash = location.hash; if (!hash || !hash.includes('access_token')) return false;
   const params = new URLSearchParams(hash.substring(1));
   const token = params.get('access_token'); const expiresIn = parseInt(params.get('expires_in') || '0', 10);
   if (!token) return false;
   history.replaceState(null, '', location.pathname + location.search);
-  try {
-    const res = await fetch('https://discord.com/api/users/@me', { headers: { Authorization: 'Bearer ' + token } });
-    if (!res.ok) throw new Error('Discord API: ' + res.status);
-    const user = await res.json();
-    saveUser({ id: user.id, username: user.username, global_name: user.global_name, discriminator: user.discriminator, avatar: user.avatar, token, expires_at: Date.now() + expiresIn * 1000 });
-    return true;
-  } catch (e){ console.error('Discord auth error:', e); return false; }
+  try { const res = await fetch('https://discord.com/api/users/@me', { headers: { Authorization: 'Bearer ' + token } }); if (!res.ok) throw new Error('Discord API: ' + res.status); const user = await res.json(); saveUser({ id: user.id, username: user.username, global_name: user.global_name, discriminator: user.discriminator, avatar: user.avatar, token, expires_at: Date.now() + expiresIn * 1000 }); return true; } catch (e){ console.error('Discord auth error:', e); return false; }
 }
 function logoutDiscord(){ localStorage.removeItem(AUTH_KEY); updateAuthUI(); showToastGlobal('👋 Вы вышли'); }
 function getDisplayName(u){ return u ? (u.global_name || u.username) : ''; }
-function getDiscordAvatar(u, size = 64){
-  if (!u) return '';
-  if (u.avatar) return `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=${size}`;
-  const idx = u.discriminator === '0' ? Number((BigInt(u.id) >> 22n) % 6n) : parseInt(u.discriminator) % 5;
-  return `https://cdn.discordapp.com/embed/avatars/${idx}.png`;
-}
+function getDiscordAvatar(u, size = 64){ if (!u) return ''; if (u.avatar) return `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=${size}`; const idx = u.discriminator === '0' ? Number((BigInt(u.id) >> 22n) % 6n) : parseInt(u.discriminator) % 5; return `https://cdn.discordapp.com/embed/avatars/${idx}.png`; }
 function isAdmin(){ const u = getCurrentUser(); if (!u) return ADMIN_DISCORD_IDS.length === 0; return ADMIN_DISCORD_IDS.length === 0 || ADMIN_DISCORD_IDS.includes(u.id); }
 function updateAuthUI(){
   const btn = $('nav-auth-btn'), content = $('auth-content'), menu = $('user-menu');
   if (!btn || !content) return;
   const u = getCurrentUser();
-  if (u){
-    btn.classList.add('logged-in');
-    content.innerHTML = `<img src="${getDiscordAvatar(u, 64)}" alt=""><span class="auth-name">${escapeHtml(getDisplayName(u))}</span>`;
-    menu.innerHTML = `<div class="user-menu-header"><div class="name">${escapeHtml(getDisplayName(u))}</div><div class="id">@${escapeHtml(u.username)} · ${u.id}</div></div>${isAdmin() ? `<div class="user-menu-item" onclick="closeUserMenu();openAdminModal()">⚙️ Админ-панель <span class="auth-badge">ADMIN</span></div>` : ''}<button class="user-menu-item danger" onclick="closeUserMenu();logoutDiscord()">🚪 Выйти</button>`;
-  } else {
-    btn.classList.remove('logged-in'); content.textContent = 'Войти'; menu.innerHTML = ''; menu.classList.remove('open');
-  }
+  if (u){ btn.classList.add('logged-in'); content.innerHTML = `<img src="${getDiscordAvatar(u, 64)}" alt=""><span class="auth-name">${escapeHtml(getDisplayName(u))}</span>`; menu.innerHTML = `<div class="user-menu-header"><div class="name">${escapeHtml(getDisplayName(u))}</div><div class="id">@${escapeHtml(u.username)} · ${u.id}</div></div>${isAdmin() ? `<div class="user-menu-item" onclick="closeUserMenu();openAdminModal()">⚙️ Админ-панель <span class="auth-badge">ADMIN</span></div>` : ''}<button class="user-menu-item danger" onclick="closeUserMenu();logoutDiscord()">🚪 Выйти</button>`; } else { btn.classList.remove('logged-in'); content.textContent = 'Войти'; menu.innerHTML = ''; menu.classList.remove('open'); }
 }
 function handleAuthClick(){ const u = getCurrentUser(); if (u) $('user-menu').classList.toggle('open'); else loginWithDiscord(); }
 function closeUserMenu(){ $('user-menu')?.classList.remove('open'); }
 document.addEventListener('click', e => { if (!e.target.closest('.auth-wrap')) closeUserMenu(); });
 
-/* ===== НАСТРОЙКИ ===== */
 const DEFAULT_SETTINGS = { cooldownHours: 4, maxUp: 1, maxDown: 1, poolSize: 6 };
 function loadSettings(){ try { const raw = localStorage.getItem('ptusmp_settings_v2'); if (!raw) return { ...DEFAULT_SETTINGS }; return { ...DEFAULT_SETTINGS, ...JSON.parse(raw) }; } catch { return { ...DEFAULT_SETTINGS }; } }
 function saveSettings(s){ localStorage.setItem('ptusmp_settings_v2', JSON.stringify(s)); }
@@ -845,24 +810,9 @@ function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;',
 function getRandomAka(p){ if (!p?.akas?.length) return null; return p.akas[Math.floor(Math.random() * p.akas.length)]; }
 function getPrimaryAka(p){ if (!p?.akas?.length) return '—'; return p.akas[0]; }
 
-function updateMskClock(){
-  const now = new Date();
-  const msk = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + 3 * 3600000);
-  const pad = (n) => String(n).padStart(2, '0');
-  const el = $('msk-time'); if (el) el.textContent = `${pad(msk.getHours())}:${pad(msk.getMinutes())}:${pad(msk.getSeconds())}`;
-}
-(function incrementVisits(){
-  const KEY = 'ptusmp_visits_v3', SESSION = 'ptusmp_visit_session_v3';
-  let count = parseInt(localStorage.getItem(KEY) || '0', 10);
-  if (!sessionStorage.getItem(SESSION)){ count++; localStorage.setItem(KEY, String(count)); sessionStorage.setItem(SESSION, '1'); }
-  const el = $('visits-counter'); if (el) el.textContent = count.toLocaleString('ru-RU') + ' посещений';
-})();
-function loadPlayers(){
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY); if (!raw) return [];
-    return JSON.parse(raw).map(p => ({ id: p.id, nickname: p.nickname, rating: p.rating, ups: p.ups ?? 0, downs: p.downs ?? 0, autoAdded: p.autoAdded ?? false, addedAt: p.addedAt ?? 0, lastActivityAt: p.lastActivityAt ?? p.addedAt ?? 0, banned: p.banned ?? false, akas: Array.isArray(p.akas) ? p.akas : (p.aka ? [p.aka] : []) }));
-  } catch { return []; }
-}
+function updateMskClock(){ const now = new Date(); const msk = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + 3 * 3600000); const pad = (n) => String(n).padStart(2, '0'); const el = $('msk-time'); if (el) el.textContent = `${pad(msk.getHours())}:${pad(msk.getMinutes())}:${pad(msk.getSeconds())}`; }
+(function incrementVisits(){ const KEY = 'ptusmp_visits_v3', SESSION = 'ptusmp_visit_session_v3'; let count = parseInt(localStorage.getItem(KEY) || '0', 10); if (!sessionStorage.getItem(SESSION)){ count++; localStorage.setItem(KEY, String(count)); sessionStorage.setItem(SESSION, '1'); } const el = $('visits-counter'); if (el) el.textContent = count.toLocaleString('ru-RU') + ' посещений'; })();
+function loadPlayers(){ try { const raw = localStorage.getItem(STORAGE_KEY); if (!raw) return []; return JSON.parse(raw).map(p => ({ id: p.id, nickname: p.nickname, rating: p.rating, ups: p.ups ?? 0, downs: p.downs ?? 0, autoAdded: p.autoAdded ?? false, addedAt: p.addedAt ?? 0, lastActivityAt: p.lastActivityAt ?? p.addedAt ?? 0, banned: p.banned ?? false, akas: Array.isArray(p.akas) ? p.akas : (p.aka ? [p.aka] : []) })); } catch { return []; } }
 function savePlayers(p){ localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); }
 function loadLogs(){ try { return JSON.parse(localStorage.getItem(LOGS_KEY) || '[]'); } catch { return []; } }
 function saveLogs(l){ localStorage.setItem(LOGS_KEY, JSON.stringify(l.slice(0, MAX_LOGS))); }
@@ -885,13 +835,7 @@ function switchView(view){
 function addLog(action, text, target){ const logs = loadLogs(); logs.unshift({ ts: Date.now(), action, text, target }); saveLogs(logs); if (typeof renderAdminLogs === 'function') renderAdminLogs(); if (currentView === 'stats') renderStatsTab(); }
 function updateModBadge(){ const pending = loadModeration().filter(m => m.status === 'pending').length; [$('mod-tab-badge'), $('admin-mod-badge')].forEach(b => { if (!b) return; if (pending > 0){ b.textContent = pending > 9 ? '9+' : String(pending); b.classList.remove('hidden'); } else b.classList.add('hidden'); }); }
 let globalToastTimer = null;
-function showToastGlobal(msg){
-  let el = document.getElementById('global-toast');
-  if (!el){ el = document.createElement('div'); el.id = 'global-toast'; el.style.cssText = `position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(120px);padding:12px 22px;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;font-weight:700;font-size:14px;border-radius:100px;box-shadow:0 12px 40px -10px rgba(139,92,246,.6);transition:transform .35s cubic-bezier(.34,1.56,.64,1);z-index:9999;pointer-events:none;`; document.body.appendChild(el); }
-  el.textContent = msg; el.style.transform = 'translateX(-50%) translateY(0)';
-  clearTimeout(globalToastTimer);
-  globalToastTimer = setTimeout(() => { el.style.transform = 'translateX(-50%) translateY(120px)'; }, 2200);
-}
+function showToastGlobal(msg){ let el = document.getElementById('global-toast'); if (!el){ el = document.createElement('div'); el.id = 'global-toast'; el.style.cssText = `position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(120px);padding:12px 22px;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;font-weight:700;font-size:14px;border-radius:100px;box-shadow:0 12px 40px -10px rgba(139,92,246,.6);transition:transform .35s cubic-bezier(.34,1.56,.64,1);z-index:9999;pointer-events:none;`; document.body.appendChild(el); } el.textContent = msg; el.style.transform = 'translateX(-50%) translateY(0)'; clearTimeout(globalToastTimer); globalToastTimer = setTimeout(() => { el.style.transform = 'translateX(-50%) translateY(120px)'; }, 2200); }
 function openModal(id){ $(id).classList.add('open'); document.body.classList.add('modal-open'); }
 function closeModal(id){ $(id).classList.remove('open'); document.body.classList.remove('modal-open'); }
 function openServerModal(){ openModal('server-modal'); updateChart(currentRange); }
@@ -941,9 +885,8 @@ async function fetchServerStatus(){
       autoAddOnlinePlayers(list); renderLeaderboard(); if (currentView === 'all') renderAllPlayers();
       if (currentView === 'stats') renderStatsTab();
       const grid = $('modal-players'); grid.innerHTML = '';
-      if (!list.length){
-        grid.innerHTML = `<div class="players-empty" style="grid-column:1/-1">${online > 0 ? 'Список скрыт' : 'Никого нет онлайн'}</div>`;
-      } else {
+      if (!list.length){ grid.innerHTML = `<div class="players-empty" style="grid-column:1/-1">${online > 0 ? 'Список скрыт' : 'Никого нет онлайн'}</div>`; }
+      else {
         for (const p of list){
           const nick = typeof p === 'string' ? p : p.name;
           const el = document.createElement('div'); el.className = 'mc-player';
@@ -1018,6 +961,7 @@ function renderAllPlayers(){
     if (p.banned) card.classList.add('banned');
     card.style.animationDelay = Math.min(i * 30, 600) + 'ms';
     const rankLabel = allPlayersSort === 'rating' ? `#${place}` : (allPlayersSort === 'mass' ? `🎯 ${mass} ч` : `🕐 ${timeAgo(p.lastActivityAt || p.addedAt || Date.now())}`);
+    card.innerHTML = `
       <span class="ap-card-rank">${rankLabel}</span>
       ${avatarImgHtml(p.nickname, 144, 'class="ap-card-avatar"')}
       <div class="ap-card-nick">${escapeHtml(p.nickname)}</div>
@@ -1053,50 +997,26 @@ async function fetchStreamerStatus(twitch){
     streamStatusCache[twitch] = data; return data;
   } catch { return { online: false, uptime: null, game: null, viewers: 0, avatar: null }; }
 }
-function getTwitchParents(){
-  const set = new Set(); const host = location.hostname;
-  if (host) set.add(host);
-  const parts = host.split('.');
-  if (parts.length > 2) set.add(parts.slice(-2).join('.'));
-  set.add('localhost'); set.add('127.0.0.1');
-  return [...set];
-}
-function buildTwitchEmbed(channel){
-  const params = new URLSearchParams();
-  params.append('channel', channel); params.append('autoplay', 'true'); params.append('muted', 'false');
-  getTwitchParents().forEach(p => params.append('parent', p));
-  return `https://player.twitch.tv/?${params.toString()}`;
-}
+function getTwitchParents(){ const set = new Set(); const host = location.hostname; if (host) set.add(host); const parts = host.split('.'); if (parts.length > 2) set.add(parts.slice(-2).join('.')); set.add('localhost'); set.add('127.0.0.1'); return [...set]; }
+function buildTwitchEmbed(channel){ const params = new URLSearchParams(); params.append('channel', channel); params.append('autoplay', 'true'); params.append('muted', 'false'); getTwitchParents().forEach(p => params.append('parent', p)); return `https://player.twitch.tv/?${params.toString()}`; }
 function openStream(channel){
-  const streamer = STREAMERS.find(s => s.twitch.toLowerCase() === channel.toLowerCase());
-  if (!streamer) return;
+  const streamer = STREAMERS.find(s => s.twitch.toLowerCase() === channel.toLowerCase()); if (!streamer) return;
   currentStreamChannel = channel;
   const wrap = $('stream-iframe-wrap');
   const status = streamStatusCache[channel] || {};
   const displayName = streamer.display || streamer.twitch;
   $('stream-name').textContent = displayName;
   $('stream-meta').textContent = status.online ? `🔴 В эфире · ${status.game || '—'} · ${status.viewers} зрителей` : '⚫ Не в сети';
-  const av = $('stream-avatar');
-  if (status.avatar) av.innerHTML = `<img src="${status.avatar}" alt="">`;
-  else av.textContent = displayName.charAt(0).toUpperCase();
+  const av = $('stream-avatar'); if (status.avatar) av.innerHTML = `<img src="${status.avatar}" alt="">`; else av.textContent = displayName.charAt(0).toUpperCase();
   $('stream-open').href = `https://twitch.tv/${channel}`;
-  if (status.online){
-    wrap.innerHTML = `<iframe src="${buildTwitchEmbed(channel)}" allowfullscreen allow="autoplay; fullscreen; encrypted-media" referrerpolicy="origin"></iframe>`;
-  } else {
-    const initial = displayName.charAt(0).toUpperCase();
-    const avatarHtml = status.avatar ? `<img src="${status.avatar}" alt="">` : initial;
-    wrap.innerHTML = `<div class="stream-offline-card"><div class="stream-offline-avatar">${avatarHtml}</div><div class="stream-offline-nick">${escapeHtml(channel)}</div><div class="stream-offline-status"><span class="dot-off"></span>Сейчас не в эфире</div><a class="stream-offline-btn" href="https://twitch.tv/${channel}" target="_blank" rel="noopener">Открыть на Twitch</a></div>`;
-  }
+  if (status.online){ wrap.innerHTML = `<iframe src="${buildTwitchEmbed(channel)}" allowfullscreen allow="autoplay; fullscreen; encrypted-media" referrerpolicy="origin"></iframe>`; }
+  else { const initial = displayName.charAt(0).toUpperCase(); const avatarHtml = status.avatar ? `<img src="${status.avatar}" alt="">` : initial; wrap.innerHTML = `<div class="stream-offline-card"><div class="stream-offline-avatar">${avatarHtml}</div><div class="stream-offline-nick">${escapeHtml(channel)}</div><div class="stream-offline-status"><span class="dot-off"></span>Сейчас не в эфире</div><a class="stream-offline-btn" href="https://twitch.tv/${channel}" target="_blank" rel="noopener">Открыть на Twitch</a></div>`; }
   renderStreamList();
 }
 function renderStreamList(){
   const list = $('stream-list'); if (!list) return;
   const search = currentStreamSearch.toLowerCase().trim();
-  const filtered = STREAMERS.filter(s => {
-    if (search){ const hay = (s.twitch + ' ' + (s.display||'') + ' ' + (s.note||'')).toLowerCase(); if (!hay.includes(search)) return false; }
-    if (currentStreamFilter === 'online'){ const st = streamStatusCache[s.twitch]; if (!st || !st.online) return false; }
-    return true;
-  });
+  const filtered = STREAMERS.filter(s => { if (search){ const hay = (s.twitch + ' ' + (s.display||'') + ' ' + (s.note||'')).toLowerCase(); if (!hay.includes(search)) return false; } if (currentStreamFilter === 'online'){ const st = streamStatusCache[s.twitch]; if (!st || !st.online) return false; } return true; });
   if (!filtered.length){ list.innerHTML = `<div class="stream-empty">Никого не найдено</div>`; return; }
   const onlineList = filtered.filter(s => streamStatusCache[s.twitch]?.online);
   const offlineList = filtered.filter(s => !streamStatusCache[s.twitch]?.online);
@@ -1109,16 +1029,7 @@ function renderStreamList(){
     if (!isOnline) el.classList.add('offline');
     const initial = (s.display || s.twitch).charAt(0).toUpperCase();
     const avatarHtml = st.avatar ? `<img src="${st.avatar}" alt="">` : initial;
-    el.innerHTML = `
-      <div class="stream-item-avatar">${avatarHtml}${st.online ? '<div class="live-ring"></div>' : ''}</div>
-      <div class="stream-item-info">
-        <div class="stream-item-name">${escapeHtml(s.display || s.twitch)}</div>
-        <div class="stream-item-note">${st.online && st.game ? escapeHtml(st.game) : escapeHtml(s.note || s.twitch)}</div>
-      </div>
-      <div class="stream-item-status ${st.online ? 'online' : 'offline'}">
-        <span class="dot"></span>${st.online ? 'LIVE' : 'OFF'}
-        ${st.online ? `<span class="stream-item-viewers"><strong>${st.viewers}</strong> 👁</span>` : ''}
-      </div>`;
+    el.innerHTML = `<div class="stream-item-avatar">${avatarHtml}${st.online ? '<div class="live-ring"></div>' : ''}</div><div class="stream-item-info"><div class="stream-item-name">${escapeHtml(s.display || s.twitch)}</div><div class="stream-item-note">${st.online && st.game ? escapeHtml(st.game) : escapeHtml(s.note || s.twitch)}</div></div><div class="stream-item-status ${st.online ? 'online' : 'offline'}"><span class="dot"></span>${st.online ? 'LIVE' : 'OFF'}${st.online ? `<span class="stream-item-viewers"><strong>${st.viewers}</strong> 👁</span>` : ''}</div>`;
     el.onclick = () => openStream(s.twitch);
     return el;
   };
@@ -1136,21 +1047,11 @@ async function loadStreamsView(){
   if (!currentStreamChannel){ const online = STREAMERS.find(s => streamStatusCache[s.twitch]?.online); if (online) openStream(online.twitch); }
 }
 document.addEventListener('input', e => { if (e.target.id === 'stream-search'){ currentStreamSearch = e.target.value; renderStreamList(); } });
-document.addEventListener('click', e => {
-  const btn = e.target.closest('.stream-filter'); if (btn){
-    document.querySelectorAll('.stream-filter').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active'); currentStreamFilter = btn.dataset.filter; renderStreamList();
-  }
-});
+document.addEventListener('click', e => { const btn = e.target.closest('.stream-filter'); if (btn){ document.querySelectorAll('.stream-filter').forEach(b => b.classList.remove('active')); btn.classList.add('active'); currentStreamFilter = btn.dataset.filter; renderStreamList(); } });
 setInterval(() => { if (currentView === 'streams'){ streamStatusCache = {}; loadStreamsView(); } }, 60000);
 
 /* ===== ГОЛОСОВАНИЕ / ПРОФИЛЬ ===== */
-function updateNavVoteButton(){
-  const btn = $('nav-vote-btn'), timer = $('nav-vote-timer'), label = btn.querySelector('.label');
-  const rem = getCooldownRemaining();
-  if (rem > 0){ btn.classList.add('cooling'); label.classList.add('hidden'); timer.classList.remove('hidden'); timer.textContent = formatTime(rem); }
-  else { btn.classList.remove('cooling'); label.classList.remove('hidden'); timer.classList.add('hidden'); }
-}
+function updateNavVoteButton(){ const btn = $('nav-vote-btn'), timer = $('nav-vote-timer'), label = btn.querySelector('.label'); const rem = getCooldownRemaining(); if (rem > 0){ btn.classList.add('cooling'); label.classList.add('hidden'); timer.classList.remove('hidden'); timer.textContent = formatTime(rem); } else { btn.classList.remove('cooling'); label.classList.remove('hidden'); timer.classList.add('hidden'); } }
 function startNavTick(){ if (navTick) clearInterval(navTick); updateNavVoteButton(); navTick = setInterval(() => { updateNavVoteButton(); }, 1000); }
 function openProfile(playerId){
   const p = players.find(x => x.id === playerId); if (!p) return;
@@ -1229,10 +1130,7 @@ function renderVoteModal(){
   if (!active.length){ body.innerHTML = `<div class="vote-empty"><strong>Пока нет игроков</strong></div>`; return; }
   votePool = shuffle(active).slice(0, settings.poolSize);
   for (const k of Object.keys(picks)) delete picks[k];
-  body.innerHTML = `
-    <div class="vote-info"><div class="vote-info-text">Выбери по одному: <span class="pill up">за</span> <span class="pill down">против</span></div><div class="vote-counters"><div class="counter up"><span class="icon">+</span><strong id="count-up">0</strong>/${settings.maxUp}</div><div class="counter down"><span class="icon">−</span><strong id="count-down">0</strong>/${settings.maxDown}</div></div></div>
-    <div class="vote-list" id="vote-list"></div>
-    <div class="vote-actions"><button class="submit-vote" id="submit-vote" disabled>Отправить голос</button><span class="vote-hint">Нажми + или − на карточке игрока</span></div>`;
+  body.innerHTML = `<div class="vote-info"><div class="vote-info-text">Выбери по одному: <span class="pill up">за</span> <span class="pill down">против</span></div><div class="vote-counters"><div class="counter up"><span class="icon">+</span><strong id="count-up">0</strong>/${settings.maxUp}</div><div class="counter down"><span class="icon">−</span><strong id="count-down">0</strong>/${settings.maxDown}</div></div></div><div class="vote-list" id="vote-list"></div><div class="vote-actions"><button class="submit-vote" id="submit-vote" disabled>Отправить голос</button><span class="vote-hint">Нажми + или − на карточке игрока</span></div>`;
   const list = $('vote-list');
   for (const p of votePool){
     const item = document.createElement('div');
@@ -1295,13 +1193,7 @@ function renderLeaderboard(){
         const randomAka = getRandomAka(p);
         const akaInline = randomAka ? `<span class="aka-inline">« ${escapeHtml(randomAka)} »</span>` : '';
         const primaryAka = getPrimaryAka(p);
-        row.innerHTML = `
-          <div class="lb-pos"><div class="lb-pos-num">${idx}</div><div class="lb-pos-label">место</div></div>
-          <div class="lb-avatar">${crown}${avatarImgHtml(p.nickname, 64)}${isOnline ? '<div class="online-dot"></div>' : ''}</div>
-          <div class="lb-name"><div class="lb-nick">${escapeHtml(p.nickname)} ${akaInline}</div><div class="lb-aka">${primaryAka !== '—' ? 'aka « ' + escapeHtml(primaryAka) + ' »' : 'aka ' + escapeHtml(cat.name)}</div></div>
-          <div class="lb-votes"><span class="lb-up">+${up}</span><span class="lb-down">−${down}</span></div>
-          <div class="lb-mass"><span class="lb-mass-num">${mass}</span><span class="lb-mass-label">масса</span></div>
-          <div class="lb-rating ${ratingCls}">${p.rating > 0 ? '+' : ''}${p.rating.toFixed(1)}</div>`;
+        row.innerHTML = `<div class="lb-pos"><div class="lb-pos-num">${idx}</div><div class="lb-pos-label">место</div></div><div class="lb-avatar">${crown}${avatarImgHtml(p.nickname, 64)}${isOnline ? '<div class="online-dot"></div>' : ''}</div><div class="lb-name"><div class="lb-nick">${escapeHtml(p.nickname)} ${akaInline}</div><div class="lb-aka">${primaryAka !== '—' ? 'aka « ' + escapeHtml(primaryAka) + ' »' : 'aka ' + escapeHtml(cat.name)}</div></div><div class="lb-votes"><span class="lb-up">+${up}</span><span class="lb-down">−${down}</span></div><div class="lb-mass"><span class="lb-mass-num">${mass}</span><span class="lb-mass-label">масса</span></div><div class="lb-rating ${ratingCls}">${p.rating > 0 ? '+' : ''}${p.rating.toFixed(1)}</div>`;
         row.onclick = () => openProfile(p.id);
         listEl.appendChild(row); idx++;
       }
@@ -1333,40 +1225,21 @@ function renderStatsTab(){
   $('top-good-count').textContent = `${good.length} игроков`;
   renderTop([...evil].sort((a,b)=>a.rating-b.rating).slice(0, 10), 'top-evil-list', p => ({ cls: 'neg', text: p.rating.toFixed(1) }));
   $('top-evil-count').textContent = `${evil.length} игроков`;
-  const ranges = [
-    { from:-5.0, to:-4.0, label:'−5.0', cls:'neg' }, { from:-4.0, to:-3.0, label:'−4.0', cls:'neg' },
-    { from:-3.0, to:-2.0, label:'−3.0', cls:'neg' }, { from:-2.0, to:-1.0, label:'−2.0', cls:'neg' },
-    { from:-1.0, to:0.0, label:'−1.0', cls:'neg' }, { from:0.0, to:1.0, label:'0.0', cls:'zero' },
-    { from:1.0, to:2.0, label:'+1.0', cls:'' }, { from:2.0, to:3.0, label:'+2.0', cls:'' },
-    { from:3.0, to:4.0, label:'+3.0', cls:'' }, { from:4.0, to:5.01, label:'+4.0', cls:'' },
-  ];
+  const ranges = [{ from:-5.0, to:-4.0, label:'−5.0', cls:'neg' }, { from:-4.0, to:-3.0, label:'−4.0', cls:'neg' }, { from:-3.0, to:-2.0, label:'−3.0', cls:'neg' }, { from:-2.0, to:-1.0, label:'−2.0', cls:'neg' }, { from:-1.0, to:0.0, label:'−1.0', cls:'neg' }, { from:0.0, to:1.0, label:'0.0', cls:'zero' }, { from:1.0, to:2.0, label:'+1.0', cls:'' }, { from:2.0, to:3.0, label:'+2.0', cls:'' }, { from:3.0, to:4.0, label:'+3.0', cls:'' }, { from:4.0, to:5.01, label:'+4.0', cls:'' }];
   const histContainer = $('rating-histogram'); histContainer.innerHTML = '';
   const counts = ranges.map(r => players.filter(p => p.rating >= r.from && p.rating < r.to).length);
   const maxCount = Math.max(...counts, 1);
   ranges.forEach((r, i) => { const count = counts[i]; const heightPct = count === 0 ? 0 : Math.max(4, (count / maxCount) * 100); const bar = document.createElement('div'); bar.className = 'hist-bar'; bar.innerHTML = `<span class="hist-bar-count">${count}</span><div class="hist-bar-fill ${r.cls}" style="height:${heightPct}%"></div><span class="hist-bar-label">${r.label}</span>`; histContainer.appendChild(bar); });
   const catDist = $('category-distribution'); catDist.innerHTML = '';
   const total2 = players.length || 1;
-  const dist = [
-    { name:'Добрые', count: good.length, cls:'green' }, { name:'Злые', count: evil.length, cls:'red' },
-    { name:'С прозвищами', count: withAka, cls:'gold' }, { name:'Активные', count: active, cls:'green' },
-    { name:'Забаненные', count: banned, cls:'red' },
-  ];
+  const dist = [{ name:'Добрые', count: good.length, cls:'green' }, { name:'Злые', count: evil.length, cls:'red' }, { name:'С прозвищами', count: withAka, cls:'gold' }, { name:'Активные', count: active, cls:'green' }, { name:'Забаненные', count: banned, cls:'red' }];
   dist.forEach(d => { const pct = Math.round((d.count / total2) * 100); const row = document.createElement('div'); row.className = 'dist-row'; row.innerHTML = `<span class="dist-label">${d.name}</span><div class="dist-bar-track"><div class="dist-bar-fill ${d.cls}" style="width:${pct}%"></div></div><span class="dist-val">${d.count} (${pct}%)</span>`; catDist.appendChild(row); });
   renderTop([...players].sort((a,b)=>(b.ups||0)-(a.ups||0)).slice(0, 10).filter(p => (p.ups||0) > 0), 'top-loved-list', p => ({ cls: '', text: `+${p.ups} ▲` }));
   renderTop([...players].sort((a,b)=>(b.downs||0)-(a.downs||0)).slice(0, 10).filter(p => (p.downs||0) > 0), 'top-hated-list', p => ({ cls: 'neg', text: `−${p.downs} ▼` }));
 }
 
 /* ===== АДМИНКА ===== */
-document.querySelectorAll('.admin-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.admin-pane').forEach(p => p.classList.remove('active'));
-    tab.classList.add('active');
-    const pane = document.getElementById('pane-' + tab.dataset.tab);
-    if (pane) pane.classList.add('active');
-    if (tab.dataset.tab === 'moderation') renderModeration();
-  });
-});
+document.querySelectorAll('.admin-tab').forEach(tab => { tab.addEventListener('click', () => { document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active')); document.querySelectorAll('.admin-pane').forEach(p => p.classList.remove('active')); tab.classList.add('active'); const pane = document.getElementById('pane-' + tab.dataset.tab); if (pane) pane.classList.add('active'); if (tab.dataset.tab === 'moderation') renderModeration(); }); });
 let adminSearch = '';
 $('admin-search').addEventListener('input', e => { adminSearch = e.target.value; renderAdminPlayers(); });
 function renderAdminPlayers(){
@@ -1403,21 +1276,8 @@ function renderModeration(){
   }
   updateModBadge();
 }
-function moderationApprove(id){
-  const moderation = loadModeration(); const m = moderation.find(x => x.id === id); if (!m || m.status !== 'pending') return;
-  const p = players.find(x => x.id === m.playerId); if (!p) return;
-  if (!Array.isArray(p.akas)) p.akas = [];
-  if (!p.akas.includes(m.aka)) p.akas.push(m.aka);
-  savePlayers(players); m.status = 'approved'; delete m.fromThisBrowser; saveModeration(moderation);
-  addLog('aka', `Прозвище <strong>« ${escapeHtml(m.aka)} »</strong> одобрено для <strong>${p.nickname}</strong>`, p.nickname);
-  renderModeration(); renderAdminPlayers(); renderLeaderboard(); if (currentView === 'all') renderAllPlayers(); showToastGlobal('✅ Прозвище одобрено');
-}
-function moderationReject(id){
-  const moderation = loadModeration(); const m = moderation.find(x => x.id === id); if (!m || m.status !== 'pending') return;
-  m.status = 'rejected'; delete m.fromThisBrowser; saveModeration(moderation);
-  addLog('aka', `Прозвище <strong>« ${escapeHtml(m.aka)} »</strong> отклонено`, m.playerNick);
-  renderModeration(); showToastGlobal('✕ Прозвище отклонено');
-}
+function moderationApprove(id){ const moderation = loadModeration(); const m = moderation.find(x => x.id === id); if (!m || m.status !== 'pending') return; const p = players.find(x => x.id === m.playerId); if (!p) return; if (!Array.isArray(p.akas)) p.akas = []; if (!p.akas.includes(m.aka)) p.akas.push(m.aka); savePlayers(players); m.status = 'approved'; delete m.fromThisBrowser; saveModeration(moderation); addLog('aka', `Прозвище <strong>« ${escapeHtml(m.aka)} »</strong> одобрено для <strong>${p.nickname}</strong>`, p.nickname); renderModeration(); renderAdminPlayers(); renderLeaderboard(); if (currentView === 'all') renderAllPlayers(); showToastGlobal('✅ Прозвище одобрено'); }
+function moderationReject(id){ const moderation = loadModeration(); const m = moderation.find(x => x.id === id); if (!m || m.status !== 'pending') return; m.status = 'rejected'; delete m.fromThisBrowser; saveModeration(moderation); addLog('aka', `Прозвище <strong>« ${escapeHtml(m.aka)} »</strong> отклонено`, m.playerNick); renderModeration(); showToastGlobal('✕ Прозвище отклонено'); }
 function adminAddSingle(){ const nickname = $('add-nick').value.trim(); if (!/^[A-Za-z0-9_]{3,16}$/.test(nickname)) return showAdminToast('add-toast', 'Ник: 3-16 символов', 'err'); if (players.some(p => p.nickname.toLowerCase() === nickname.toLowerCase())) return showAdminToast('add-toast', 'Уже есть', 'err'); players.push({ id: nextId++, nickname, rating: 0, ups: 0, downs: 0, autoAdded: false, addedAt: Date.now(), lastActivityAt: Date.now(), banned: false, akas: [] }); savePlayers(players); $('add-nick').value = ''; showAdminToast('add-toast', 'Добавлен: ' + nickname, 'ok'); addLog('add', `Добавлен <strong>${nickname}</strong>`, nickname); renderAdminPlayers(); renderLeaderboard(); if (currentView === 'all') renderAllPlayers(); }
 function adminAddBulk(){ const text = $('add-bulk').value.trim(); if (!text) return showAdminToast('add-toast', 'Введи список', 'err'); const nicks = text.split(/[\s,]+/).map(s => s.trim()).filter(Boolean); let added = 0, skipped = 0; for (const nick of nicks){ if (!/^[A-Za-z0-9_]{3,16}$/.test(nick)){ skipped++; continue; } if (players.some(p => p.nickname.toLowerCase() === nick.toLowerCase())){ skipped++; continue; } players.push({ id: nextId++, nickname: nick, rating: 0, ups: 0, downs: 0, autoAdded: false, addedAt: Date.now(), lastActivityAt: Date.now(), banned: false, akas: [] }); added++; } savePlayers(players); $('add-bulk').value = ''; showAdminToast('add-toast', `Добавлено: ${added}, пропущено: ${skipped}`, added > 0 ? 'ok' : 'err'); if (added > 0) addLog('add', `Массовое добавление: ${added}`, ''); renderAdminPlayers(); renderLeaderboard(); if (currentView === 'all') renderAllPlayers(); }
 function loadSettingsToForm(){ $('set-cooldown').value = settings.cooldownHours; $('set-max-up').value = settings.maxUp; $('set-max-down').value = settings.maxDown; $('set-pool').value = settings.poolSize; }
@@ -1435,13 +1295,7 @@ function renderAdminStats(){
   const totalVotes = totalUps + totalDowns, avg = total > 0 ? players.reduce((s,p)=>s+p.rating,0)/total : 0;
   const totalAkas = players.reduce((s,p) => s + (p.akas?.length || 0), 0);
   const modPending = loadModeration().filter(m => m.status === 'pending').length;
-  container.innerHTML = `
-    <div class="admin-stat"><div class="lbl">Игроков</div><div class="val">${total}</div></div>
-    <div class="admin-stat"><div class="lbl">Забанено</div><div class="val neg">${banned}</div></div>
-    <div class="admin-stat"><div class="lbl">Средний</div><div class="val">${avg.toFixed(2)}</div></div>
-    <div class="admin-stat"><div class="lbl">Голосов</div><div class="val">${totalVotes}</div></div>
-    <div class="admin-stat"><div class="lbl">Прозвищ</div><div class="val">${totalAkas}</div></div>
-    <div class="admin-stat"><div class="lbl">Заявок</div><div class="val ${modPending > 0 ? 'pos' : ''}">${modPending}</div></div>`;
+  container.innerHTML = `<div class="admin-stat"><div class="lbl">Игроков</div><div class="val">${total}</div></div><div class="admin-stat"><div class="lbl">Забанено</div><div class="val neg">${banned}</div></div><div class="admin-stat"><div class="lbl">Средний</div><div class="val">${avg.toFixed(2)}</div></div><div class="admin-stat"><div class="lbl">Голосов</div><div class="val">${totalVotes}</div></div><div class="admin-stat"><div class="lbl">Прозвищ</div><div class="val">${totalAkas}</div></div><div class="admin-stat"><div class="lbl">Заявок</div><div class="val ${modPending > 0 ? 'pos' : ''}">${modPending}</div></div>`;
 }
 function renderExport(){ const data = { players, settings, moderation: loadModeration(), exportedAt: new Date().toISOString(), version: 4 }; $('data-export').value = JSON.stringify(data, null, 2); }
 function copyExport(){ const ta = $('data-export'); ta.select(); navigator.clipboard.writeText(ta.value).then(() => showToastGlobal('📋 Скопировано')); }
@@ -1449,7 +1303,6 @@ function downloadExport(){ const blob = new Blob([$('data-export').value], { typ
 function importData(){ const text = $('data-import').value.trim(); if (!text) return showAdminToast('data-toast', 'Вставь JSON', 'err'); try { const data = JSON.parse(text); if (!Array.isArray(data.players)) throw new Error('Нет players'); if (!confirm(`Импортировать ${data.players.length}?`)) return; players = data.players.map(p => ({ id: p.id, nickname: p.nickname, rating: p.rating, ups: p.ups || 0, downs: p.downs || 0, autoAdded: p.autoAdded || false, addedAt: p.addedAt || Date.now(), lastActivityAt: p.lastActivityAt || p.addedAt || Date.now(), banned: p.banned || false, akas: Array.isArray(p.akas) ? p.akas : (p.aka ? [p.aka] : []) })); nextId = players.length ? Math.max(0, ...players.map(p => p.id)) + 1 : 1; if (data.settings){ settings = { ...DEFAULT_SETTINGS, ...data.settings }; saveSettings(settings); loadSettingsToForm(); } if (Array.isArray(data.moderation)) saveModeration(data.moderation); savePlayers(players); showAdminToast('data-toast', 'Импортировано: ' + players.length, 'ok'); addLog('edit', `Импортировано ${players.length} игроков`, ''); renderAdminPlayers(); renderLeaderboard(); if (currentView === 'all') renderAllPlayers(); renderAdminStats(); renderModeration(); } catch (e){ showAdminToast('data-toast', 'Ошибка: ' + e.message, 'err'); } }
 function showAdminToast(id, msg, type){ const t = $(id); if (!t) return; t.textContent = msg; t.className = 'admin-toast ' + type; setTimeout(() => { t.textContent = ''; t.className = 'admin-toast'; }, 4000); }
 
-/* ===== INIT ===== */
 $('year').textContent = new Date().getFullYear();
 handleDiscordCallback().then(ok => { if (ok) showToastGlobal('✅ Вы вошли'); updateAuthUI(); });
 updateAuthUI(); renderLeaderboard(); renderAllPlayers(); startNavTick(); updateMskClock(); setInterval(updateMskClock, 1000);
