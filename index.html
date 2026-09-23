@@ -1,28 +1,17 @@
 <!DOCTYPE html>
-<html lang="ru" data-theme="emerald">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ПТУ Rating — Социальный рейтинг ПТУ SMP</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0d14' stroke='%233a3a3a' stroke-width='3'/%3E%3Ctext x='32' y='38' font-family='monospace' font-size='24' font-weight='900' text-anchor='middle' fill='%23f59e0b'%3EПТУ%3C/text%3E%3Ctext x='32' y='54' font-family='monospace' font-size='13' font-weight='700' text-anchor='middle' fill='%233b82f6'%3EСМП%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://minotar.net">
-<link rel="preconnect" href="https://mc-heads.net">
-<link rel="preconnect" href="https://crafatar.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#070d0a;--bg-2:#0a130f;--line:rgba(255,255,255,.07);--line-2:rgba(255,255,255,.13);--text:#eaf3ee;--text-2:#a8b8b0;--muted:#6a786f;--muted-2:#454d47;--emerald:#10b981;--emerald-2:#34d399;--emerald-glow:rgba(16,185,129,.35);--amber:#f59e0b;--amber-2:#fbbf24;--twitch:#9146ff;--twitch-2:#a970ff;--boosty:#f56a00;--boosty-2:#ff8c33;--discord:#5865F2;--discord-2:#7983f5;--red:#ef4444;--red-2:#f87171;--blue:#3b82f6;--blue-2:#60a5fa;--purple:#8b5cf6;--purple-2:#a78bfa;--pink:#ec4899;--bg-glow-1:rgba(16,185,129,.14);--bg-glow-2:rgba(88,101,242,.10)}
-
-html[data-theme="ocean"]{--bg:#060b14;--bg-2:#0a1220;--emerald:#3b82f6;--emerald-2:#60a5fa;--emerald-glow:rgba(59,130,246,.4);--bg-glow-1:rgba(59,130,246,.16);--bg-glow-2:rgba(139,92,246,.10)}
-html[data-theme="crimson"]{--bg:#0d0606;--bg-2:#160a0a;--emerald:#ef4444;--emerald-2:#f87171;--emerald-glow:rgba(239,68,68,.4);--bg-glow-1:rgba(239,68,68,.16);--bg-glow-2:rgba(245,158,11,.10)}
-html[data-theme="violet"]{--bg:#0a0714;--bg-2:#120c20;--emerald:#8b5cf6;--emerald-2:#a78bfa;--emerald-glow:rgba(139,92,246,.4);--bg-glow-1:rgba(139,92,246,.18);--bg-glow-2:rgba(236,72,153,.10)}
-html[data-theme="sunset"]{--bg:#140a06;--bg-2:#1e0f08;--emerald:#f59e0b;--emerald-2:#fbbf24;--emerald-glow:rgba(245,158,11,.4);--bg-glow-1:rgba(245,158,11,.16);--bg-glow-2:rgba(239,68,68,.10)}
-html[data-theme="midnight"]{--bg:#050508;--bg-2:#0b0b12;--emerald:#a78bfa;--emerald-2:#c4b5fd;--emerald-glow:rgba(167,139,250,.4);--bg-glow-1:rgba(99,102,241,.14);--bg-glow-2:rgba(236,72,153,.08)}
-
+:root{--bg:#070d0a;--bg-2:#0a130f;--line:rgba(255,255,255,.07);--line-2:rgba(255,255,255,.13);--text:#eaf3ee;--text-2:#a8b8b0;--muted:#6a786f;--muted-2:#454d47;--emerald:#10b981;--emerald-2:#34d399;--emerald-glow:rgba(16,185,129,.35);--amber:#f59e0b;--amber-2:#fbbf24;--twitch:#9146ff;--twitch-2:#a970ff;--boosty:#f56a00;--boosty-2:#ff8c33;--discord:#5865F2;--discord-2:#7983f5;--red:#ef4444;--red-2:#f87171;--blue:#3b82f6;--blue-2:#60a5fa;--purple:#8b5cf6;--purple-2:#a78bfa;--pink:#ec4899}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.5;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;position:relative;transition:background .4s}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.5;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;position:relative}
 body.modal-open{overflow:hidden}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 15% 10%,var(--bg-glow-1),transparent 45%),radial-gradient(circle at 85% 20%,var(--bg-glow-2),transparent 45%);pointer-events:none;z-index:0;transition:background .4s}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 15% 10%,rgba(16,185,129,.14),transparent 45%),radial-gradient(circle at 85% 20%,rgba(88,101,242,.10),transparent 45%);pointer-events:none;z-index:0}
 nav{position:sticky;top:0;z-index:100;background:rgba(7,13,10,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
 .nav-inner{max-width:1400px;margin:0 auto;height:64px;padding:0 32px;display:flex;align-items:center;gap:16px}
 .brand{display:flex;align-items:center;gap:10px;font-family:'Manrope',sans-serif;font-weight:900;font-size:22px;color:#fff;text-decoration:none;flex-shrink:0;letter-spacing:-.02em}
@@ -74,20 +63,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(7,13,10,.85);backdrop-filt
 .user-menu-item:hover{background:rgba(255,255,255,.05);color:#fff}
 .user-menu-item.danger:hover{background:rgba(239,68,68,.12);color:var(--red-2)}
 .auth-badge{padding:2px 8px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;margin-left:auto}
-
-.theme-switch{position:relative;flex-shrink:0}
-.theme-btn{width:38px;height:38px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text-2);display:grid;place-items:center;cursor:pointer;transition:all .15s;font-size:16px}
-.theme-btn:hover{background:rgba(255,255,255,.06);color:#fff;border-color:rgba(255,255,255,.25);transform:rotate(15deg)}
-.theme-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:200px;padding:8px;border-radius:14px;background:var(--bg-2);border:1px solid var(--line-2);box-shadow:0 20px 60px -20px rgba(0,0,0,.8);display:none;z-index:200}
-.theme-menu.open{display:block;animation:themeFade .18s ease}
-@keyframes themeFade{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-.theme-menu-title{padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--line);margin-bottom:6px}
-.theme-option{display:flex;align-items:center;gap:10px;width:100%;padding:9px 12px;border-radius:8px;background:transparent;border:none;color:var(--text-2);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;text-align:left}
-.theme-option:hover{background:rgba(255,255,255,.05);color:#fff}
-.theme-option.active{background:rgba(255,255,255,.06);color:#fff}
-.theme-option.active::after{content:'✓';margin-left:auto;color:var(--emerald-2);font-weight:800}
-.theme-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;box-shadow:0 0 10px currentColor}
-
 main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-index:1}
 .view.hidden{display:none}
 .hero{padding:80px 0 40px;max-width:1000px}
@@ -138,7 +113,8 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .lb-avatar .crown{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:11px;color:#fbbf24;font-weight:800;background:rgba(10,15,20,.85);padding:1px 5px;border-radius:4px;z-index:2}
 .lb-avatar .online-dot{position:absolute;bottom:-2px;right:-2px;width:14px;height:14px;border-radius:50%;background:var(--emerald-2);border:3px solid var(--bg)}
 .lb-name{min-width:0}
-.lb-nick{font-weight:700;font-size:15px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px}
+.lb-nick{font-weight:700;font-size:15px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.lb-nick .aka-inline{font-weight:500;font-size:12px;color:var(--purple-2);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .lb-aka{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .lb-votes{display:flex;gap:12px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700}
 .lb-up{color:var(--emerald-2)}
@@ -194,6 +170,11 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .dist-bar-fill.red{background:linear-gradient(90deg,var(--red),var(--red-2))}
 .dist-bar-fill.gold{background:linear-gradient(90deg,var(--amber),var(--amber-2))}
 .dist-val{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--text);min-width:60px;text-align:right}
+.stats-log-list{display:flex;flex-direction:column;gap:6px;max-height:400px;overflow-y:auto}
+.stats-log-item{display:grid;grid-template-columns:110px 1fr;gap:14px;align-items:center;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid var(--line);font-size:12px}
+.stats-log-item .time{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted-2)}
+.stats-log-item .text{color:var(--text-2)}
+.stats-log-item .text strong{color:#fff;font-weight:600}
 .modal-overlay{position:fixed;inset:0;background:rgba(3,6,5,.75);backdrop-filter:blur(8px);display:grid;place-items:center;z-index:1000;opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;padding:24px;overflow-y:auto}
 .modal-overlay.open{opacity:1;visibility:visible}
 .modal{width:100%;max-width:980px;background:var(--bg-2);border:1px solid var(--line-2);border-radius:24px;overflow:hidden;transform:scale(.95) translateY(20px);transition:transform .25s cubic-bezier(.34,1.4,.64,1);position:relative;max-height:calc(100vh - 48px);display:flex;flex-direction:column}
@@ -204,434 +185,56 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .modal-close{width:36px;height:36px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text-2);cursor:pointer;display:grid;place-items:center;font-size:16px;transition:all .15s;flex-shrink:0}
 .modal-close:hover{color:#fff;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.35)}
 .modal-body{padding:24px 32px 32px;overflow-y:auto}
-#server-modal .modal{max-width:640px}
-#profile-modal .modal{max-width:540px}
+#server-modal .modal{max-width:560px}
+#profile-modal .modal{max-width:520px}
 #profile-modal .modal-body{padding:0}
-#my-profile-modal .modal{max-width:560px}
-#my-profile-modal .modal-body{padding:0}
 #admin-modal .modal{max-width:1100px}
 #admin-modal .modal-body{padding:0}
-
-/* =========================================================
-   КРАСИВЫЙ ПРОФИЛЬ ИГРОКА
-   ========================================================= */
-.pf-banner{
-  position:relative;
-  padding:44px 24px 24px;
-  text-align:center;
-  overflow:hidden;
-  background:linear-gradient(135deg,#0a0d14 0%,#0d1520 100%);
-}
-.pf-banner::before{
-  content:'';
-  position:absolute;inset:0;
-  background:
-    radial-gradient(circle at 50% 20%, color-mix(in srgb, var(--emerald) 30%, transparent) 0%, transparent 55%),
-    radial-gradient(circle at 15% 80%, rgba(139,92,246,.22) 0%, transparent 50%),
-    radial-gradient(circle at 85% 85%, rgba(236,72,153,.18) 0%, transparent 50%);
-  opacity:.75;
-  pointer-events:none;
-}
-.pf-banner::after{
-  content:'';
-  position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
-  background-size:28px 28px;
-  mask-image:radial-gradient(circle at 50% 50%,#000 25%,transparent 75%);
-  -webkit-mask-image:radial-gradient(circle at 50% 50%,#000 25%,transparent 75%);
-  pointer-events:none;
-  opacity:.6;
-}
-.pf-banner-inner{position:relative;z-index:1}
-
-.pf-avatar-wrap{
-  position:relative;
-  width:140px;height:140px;
-  margin:0 auto 20px;
-  display:grid;place-items:center;
-  animation:pfFloat 4s ease-in-out infinite;
-}
-@keyframes pfFloat{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-5px)}
-}
-.pf-avatar-wrap::before{
-  content:'';
-  position:absolute;inset:-10px;
-  border-radius:32px;
-  background:conic-gradient(from 0deg,
-    color-mix(in srgb, var(--emerald) 80%, transparent),
-    color-mix(in srgb, var(--purple) 80%, transparent),
-    color-mix(in srgb, var(--pink) 80%, transparent),
-    color-mix(in srgb, var(--emerald) 80%, transparent));
-  filter:blur(12px);
-  opacity:.55;
-  animation:pfSpin 8s linear infinite;
-}
-@keyframes pfSpin{ to{transform:rotate(360deg)} }
-.pf-avatar-wrap::after{
-  content:'';
-  position:absolute;inset:-4px;
-  border-radius:26px;
-  background:var(--bg-2);
-  z-index:0;
-}
-.pf-avatar{
-  position:relative;z-index:1;
-  width:140px;height:140px;
-  border-radius:22px;
-  image-rendering:pixelated;
-  background:#000;
-  border:3px solid color-mix(in srgb, var(--emerald) 60%, transparent);
-  display:block;object-fit:cover;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,.05) inset,
-    0 20px 40px -10px color-mix(in srgb, var(--emerald) 60%, transparent),
-    0 0 60px -10px color-mix(in srgb, var(--emerald) 40%, transparent);
-}
-.pf-avatar-wrap .online-dot,
-.pf-avatar-wrap .offline-dot{
-  position:absolute;bottom:6px;right:6px;
-  width:26px;height:26px;border-radius:50%;
-  border:4px solid var(--bg-2);
-  z-index:3;
-}
-.pf-avatar-wrap .online-dot{
-  background:var(--emerald-2);
-  box-shadow:0 0 16px var(--emerald-2);
-  animation:dp 2s infinite;
-}
-.pf-avatar-wrap .offline-dot{background:var(--muted-2)}
-
-.pf-nick{
-  font-family:'Manrope',sans-serif;
-  font-size:32px;font-weight:900;
-  color:#fff;
-  margin-bottom:12px;
-  letter-spacing:-.03em;
-  word-break:break-word;
-  line-height:1.1;
-  text-shadow:0 4px 24px rgba(0,0,0,.5);
-}
-.pf-status-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:7px 16px;border-radius:100px;
-  font-size:13px;font-weight:700;
-  font-family:'JetBrains Mono',monospace;
-  letter-spacing:.02em;
-  margin-bottom:16px;
-}
-.pf-status-badge.online{
-  background:rgba(16,185,129,.14);
-  border:1px solid rgba(16,185,129,.4);
-  color:var(--emerald-2);
-}
-.pf-status-badge.offline{
-  background:rgba(255,255,255,.04);
-  border:1px solid var(--line-2);
-  color:var(--muted);
-}
-.pf-status-badge .pf-status-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:currentColor;
-}
-.pf-status-badge.online .pf-status-dot{
-  animation:dp 2s infinite;
-  box-shadow:0 0 8px currentColor;
-}
-
-/* Статы — 3 карточки */
-.pf-stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  padding:0 24px 24px;
-  background:linear-gradient(180deg,#0d1520 0%,var(--bg-2) 100%);
-  position:relative;
-}
-.pf-stat{
-  padding:16px 10px;
-  border-radius:16px;
-  background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
-  border:1px solid var(--line);
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-  transition:all .2s;
-  cursor:default;
-}
-.pf-stat::before{
-  content:'';
-  position:absolute;top:0;left:0;right:0;height:2px;
-  opacity:.8;
-}
-.pf-stat.rating::before{background:linear-gradient(90deg,transparent,var(--pf-accent,var(--emerald)),transparent)}
-.pf-stat.up::before{background:linear-gradient(90deg,transparent,var(--emerald-2),transparent)}
-.pf-stat.down::before{background:linear-gradient(90deg,transparent,var(--red-2),transparent)}
-.pf-stat:hover{transform:translateY(-3px);border-color:var(--line-2)}
-.pf-stat .ico{font-size:18px;margin-bottom:8px;line-height:1;opacity:.9}
-.pf-stat .val{
-  font-family:'Manrope',sans-serif;
-  font-size:26px;font-weight:900;
-  line-height:1;margin-bottom:5px;
-  letter-spacing:-.02em;
-}
-.pf-stat.rating .val.pos{color:var(--emerald-2)}
-.pf-stat.rating .val.neg{color:var(--red-2)}
-.pf-stat.rating .val.zero{color:var(--text-2)}
-.pf-stat.up .val{color:var(--emerald-2)}
-.pf-stat.down .val{color:var(--red-2)}
-.pf-stat .lbl{
-  font-family:'JetBrains Mono',monospace;
-  font-size:9px;color:var(--muted);
-  letter-spacing:.12em;text-transform:uppercase;
-  font-weight:700;
-}
-
-/* Place */
-.pf-place-row{
-  padding:18px 24px;
-  text-align:center;
-  background:linear-gradient(180deg,var(--bg-2) 0%, rgba(139,92,246,.04) 100%);
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-  display:flex;align-items:center;justify-content:center;gap:10px;
-}
-.pf-place-badge{
-  display:inline-flex;align-items:center;gap:10px;
-  padding:9px 18px;border-radius:100px;
-  background:linear-gradient(135deg,rgba(139,92,246,.16),rgba(236,72,153,.10));
-  border:1px solid rgba(139,92,246,.35);
-  font-size:13px;font-weight:700;
-  color:#e9d5ff;
-  font-family:'Manrope',sans-serif;
-}
-.pf-place-badge .num{
-  font-family:'JetBrains Mono',monospace;
-  font-size:16px;font-weight:800;
-  color:#fff;
-  text-shadow:0 0 12px rgba(139,92,246,.6);
-}
-.pf-place-badge .medal{font-size:16px;line-height:1}
-
-/* Aka section */
-.pf-aka-section{
-  padding:22px 24px;
-  background:linear-gradient(180deg,rgba(139,92,246,.06),rgba(139,92,246,.015));
-  border-bottom:1px solid rgba(139,92,246,.18);
-}
-.pf-aka-header{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:14px;gap:12px;flex-wrap:wrap;
-}
-.pf-aka-title{
-  display:flex;align-items:center;gap:10px;
-  font-family:'Manrope',sans-serif;
-  font-size:14px;font-weight:800;
-  color:var(--purple-2);
-}
-.pf-aka-title .aka-mini{
-  padding:3px 10px;border-radius:8px;
-  background:rgba(139,92,246,.18);
-  border:1px solid rgba(139,92,246,.4);
-  font-family:'JetBrains Mono',monospace;
-  font-size:11px;font-weight:800;
-  color:var(--purple-2);
-  letter-spacing:.05em;
-}
-.pf-aka-title .aka-count{
-  font-family:'JetBrains Mono',monospace;
-  font-size:11px;color:var(--muted);
-  padding:2px 8px;border-radius:8px;
-  background:rgba(255,255,255,.04);
-}
-.pf-aka-cloud{
-  display:flex;flex-wrap:wrap;gap:7px;
-  max-height:400px;overflow:hidden;
-  transition:max-height .35s ease;
-}
-.pf-aka-cloud.collapsed{
-  max-height:106px;
-  mask-image:linear-gradient(180deg,#000 55%,transparent);
-  -webkit-mask-image:linear-gradient(180deg,#000 55%,transparent);
-}
-.pf-aka-chip{
-  padding:8px 15px;border-radius:100px;
-  border:1px solid rgba(255,255,255,.14);
-  background:rgba(255,255,255,.025);
-  color:var(--text);font-size:13px;font-weight:600;
-  white-space:nowrap;display:inline-block;
-  max-width:100%;overflow:hidden;text-overflow:ellipsis;
-  transition:all .15s;
-}
-.pf-aka-chip:hover{border-color:rgba(139,92,246,.5);background:rgba(139,92,246,.1)}
-.pf-aka-chip.highlighted{
-  background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(236,72,153,.13));
-  border-color:rgba(139,92,246,.5);
-  color:#fff;
-  box-shadow:0 4px 14px -4px rgba(139,92,246,.4);
-}
-.pf-aka-chip-add{
-  padding:8px 15px;border-radius:100px;
-  border:1px dashed rgba(139,92,246,.55);
-  background:transparent;
-  color:var(--purple-2);font-size:13px;font-weight:700;
-  cursor:pointer;transition:all .15s;
-  font-family:inherit;
-}
-.pf-aka-chip-add:hover{
-  border-color:var(--purple);
-  background:rgba(139,92,246,.12);
-  color:#c4b5fd;
-  transform:translateY(-1px);
-}
-.pf-aka-empty{
-  padding:14px 0;color:var(--muted);
-  font-size:13px;font-family:'JetBrains Mono',monospace;
-}
+.pf-banner{position:relative;padding:32px 24px 24px;background:radial-gradient(circle at 30% 30%,rgba(16,185,129,.18),transparent 60%),radial-gradient(circle at 70% 70%,rgba(59,130,246,.12),transparent 60%),#0a0d14;text-align:center}
+.pf-avatar-wrap{position:relative;width:120px;height:120px;margin:0 auto 18px}
+.pf-avatar{width:120px;height:120px;border-radius:20px;image-rendering:pixelated;background:#000;border:3px solid rgba(139,92,246,.5);display:block;object-fit:cover}
+.pf-avatar-wrap .online-dot{position:absolute;bottom:2px;right:2px;width:22px;height:22px;border-radius:50%;background:var(--emerald-2);border:4px solid var(--bg-2)}
+.pf-avatar-wrap .offline-dot{position:absolute;bottom:2px;right:2px;width:22px;height:22px;border-radius:50%;background:var(--muted-2);border:4px solid var(--bg-2)}
+.pf-nick{font-family:'Manrope',sans-serif;font-size:28px;font-weight:800;color:#fff;margin-bottom:20px;word-break:break-word}
+.pf-rating-row{display:flex;justify-content:center;gap:24px;padding:20px 0 4px;border-top:1px solid var(--line);margin-top:8px}
+.pf-rating-block{text-align:center}
+.pf-rating-block .val{font-family:'Manrope',sans-serif;font-size:32px;font-weight:800;line-height:1;margin-bottom:4px}
+.pf-rating-block .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.pf-rating-block.rating .val.pos{color:var(--emerald-2)}
+.pf-rating-block.rating .val.neg{color:var(--red-2)}
+.pf-rating-block.rating .val.zero{color:var(--muted)}
+.pf-rating-block.up .val{color:var(--emerald-2)}
+.pf-rating-block.down .val{color:var(--red-2)}
+.pf-aka-section{padding:20px 24px 18px;background:linear-gradient(180deg,rgba(139,92,246,.05),rgba(139,92,246,.01));border-top:1px solid rgba(139,92,246,.2);border-bottom:1px solid rgba(139,92,246,.2)}
+.pf-aka-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:12px;flex-wrap:wrap}
+.pf-aka-title{display:flex;align-items:center;gap:8px;font-family:'Manrope',sans-serif;font-size:14px;font-weight:800;color:var(--purple-2)}
+.pf-aka-title .aka-mini{padding:3px 10px;border-radius:8px;background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--purple-2)}
+.pf-aka-title .aka-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);padding:2px 8px;border-radius:8px;background:rgba(255,255,255,.04)}
+.pf-aka-cloud{display:flex;flex-wrap:wrap;gap:6px;max-height:400px;overflow:hidden;transition:max-height .35s ease}
+.pf-aka-cloud.collapsed{max-height:104px;mask-image:linear-gradient(180deg,#000 60%,transparent);-webkit-mask-image:linear-gradient(180deg,#000 60%,transparent)}
+.pf-aka-chip{padding:7px 14px;border-radius:100px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.02);color:var(--text);font-size:13px;font-weight:500;white-space:nowrap;display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.pf-aka-chip.highlighted{background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(236,72,153,.1));border-color:rgba(139,92,246,.4);color:#fff}
+.pf-aka-chip-add{padding:7px 14px;border-radius:100px;border:1px dashed rgba(139,92,246,.5);background:transparent;color:var(--purple-2);font-size:13px;font-weight:600;cursor:pointer}
+.pf-aka-chip-add:hover{border-color:var(--purple);background:rgba(139,92,246,.1);color:#c4b5fd}
+.pf-aka-empty{padding:12px 0;color:var(--muted);font-size:13px;font-family:'JetBrains Mono',monospace}
 .pf-aka-input-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-.pf-aka-input{
-  flex:1;min-width:150px;
-  padding:11px 16px;
-  background:rgba(255,255,255,.03);
-  border:1px solid var(--line-2);
-  color:var(--text);border-radius:100px;
-  font-family:inherit;font-size:13px;
-  transition:all .15s;
-}
-.pf-aka-input:focus{outline:none;border-color:var(--purple);background:rgba(139,92,246,.05)}
-.pf-aka-send{
-  padding:11px 22px;border-radius:100px;
-  background:linear-gradient(135deg,var(--purple),var(--pink));
-  border:none;color:#fff;font-size:13px;font-weight:800;
-  cursor:pointer;transition:all .15s;
-  box-shadow:0 6px 18px -6px rgba(139,92,246,.6);
-  font-family:inherit;
-}
-.pf-aka-send:hover{transform:translateY(-2px);box-shadow:0 10px 24px -6px rgba(139,92,246,.7)}
-.pf-aka-cancel{
-  width:40px;height:40px;border-radius:100px;
-  background:rgba(255,255,255,.03);
-  border:1px solid var(--line-2);
-  color:var(--text-2);cursor:pointer;
-  display:grid;place-items:center;font-size:14px;
-  transition:all .15s;
-}
-.pf-aka-cancel:hover{color:#fff;border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.06)}
-.pf-aka-toast{margin-top:10px;font-size:12px;font-weight:700;min-height:16px;font-family:'JetBrains Mono',monospace}
+.pf-aka-input{flex:1;min-width:150px;padding:10px 14px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text);border-radius:100px;font-family:inherit;font-size:13px}
+.pf-aka-input:focus{outline:none;border-color:var(--purple)}
+.pf-aka-send{padding:10px 20px;border-radius:100px;background:linear-gradient(135deg,var(--purple),var(--pink));border:none;color:#fff;font-size:13px;font-weight:700;cursor:pointer}
+.pf-aka-cancel{width:38px;height:38px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text-2);cursor:pointer;display:grid;place-items:center;font-size:14px}
+.pf-aka-toast{margin-top:10px;font-size:12px;font-weight:600;min-height:16px;font-family:'JetBrains Mono',monospace}
 .pf-aka-toast.ok{color:var(--emerald-2)}
 .pf-aka-toast.err{color:var(--red-2)}
-
-/* Action buttons */
-.pf-actions{
-  padding:22px 24px 26px;
-  display:flex;gap:10px;flex-wrap:wrap;justify-content:center;
-  background:linear-gradient(180deg,rgba(139,92,246,.02) 0%, var(--bg-2) 100%);
-}
-.pf-action-btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  padding:12px 22px;border-radius:100px;
-  background:rgba(255,255,255,.045);
-  border:1px solid var(--line-2);
-  color:var(--text-2);
-  font-size:13px;font-weight:700;
-  cursor:pointer;transition:all .18s;
-  text-decoration:none;
-  font-family:inherit;
-  white-space:nowrap;
-}
-.pf-action-btn:hover{
-  color:#fff;
-  border-color:rgba(255,255,255,.35);
-  transform:translateY(-2px);
-  background:rgba(255,255,255,.08);
-}
-.pf-action-btn.primary{
-  background:linear-gradient(135deg,var(--purple),var(--pink));
-  border-color:transparent;color:#fff;
-  box-shadow:0 8px 24px -8px rgba(139,92,246,.7);
-}
-.pf-action-btn.primary:hover{
-  box-shadow:0 12px 32px -8px rgba(139,92,246,.9);
-  filter:brightness(1.1);
-}
-
-/* Fallbacks from previous sections */
-.my-hero{position:relative;padding:40px 28px 28px;text-align:center;overflow:hidden;background:linear-gradient(135deg,rgba(88,101,242,.12) 0%,rgba(139,92,246,.14) 50%,rgba(236,72,153,.10) 100%)}
-.my-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20% 30%,rgba(88,101,242,.35),transparent 40%),radial-gradient(circle at 80% 70%,rgba(139,92,246,.3),transparent 40%);opacity:.6;pointer-events:none}
-.my-hero::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:24px 24px;mask-image:radial-gradient(circle at 50% 50%,#000 30%,transparent 80%);-webkit-mask-image:radial-gradient(circle at 50% 50%,#000 30%,transparent 80%);pointer-events:none;opacity:.5}
-.my-hero-content{position:relative;z-index:1}
-.my-avatar-ring{position:relative;width:132px;height:132px;margin:0 auto 16px;display:grid;place-items:center}
-.my-avatar-ring::before{content:'';position:absolute;inset:-6px;border-radius:50%;background:conic-gradient(from 0deg,var(--discord),var(--purple),var(--pink),var(--discord));animation:pfSpin 6s linear infinite;filter:blur(6px);opacity:.7}
-.my-avatar-ring::after{content:'';position:absolute;inset:-2px;border-radius:50%;background:var(--bg-2);z-index:0}
-.my-avatar{width:120px;height:120px;border-radius:50%;position:relative;z-index:1;display:block;border:3px solid rgba(255,255,255,.1)}
-.my-online-dot{position:absolute;bottom:6px;right:6px;width:24px;height:24px;border-radius:50%;background:var(--emerald-2);border:4px solid var(--bg-2);z-index:2;box-shadow:0 0 16px var(--emerald-2);animation:dp 2s infinite}
-.my-name{font-family:'Manrope',sans-serif;font-size:28px;font-weight:800;color:#fff;margin-bottom:4px;letter-spacing:-.02em}
-.my-tag{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-2);margin-bottom:14px}
-.my-badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:8px}
-.my-badge{padding:5px 12px;border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;display:inline-flex;align-items:center;gap:6px}
-.my-badge.discord{background:rgba(88,101,242,.15);color:#a3adff;border:1px solid rgba(88,101,242,.35)}
-.my-badge.admin{background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(236,72,153,.15));color:#e9d5ff;border:1px solid rgba(139,92,246,.4)}
-.my-badge.member{background:rgba(16,185,129,.12);color:var(--emerald-2);border:1px solid rgba(16,185,129,.3)}
-.my-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:20px 24px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.015)}
-.my-stat{text-align:center;padding:12px 8px;border-radius:14px;background:rgba(255,255,255,.02);border:1px solid var(--line);transition:all .15s}
-.my-stat:hover{background:rgba(255,255,255,.05);transform:translateY(-2px)}
-.my-stat .ico{font-size:20px;margin-bottom:6px;line-height:1}
-.my-stat .val{font-family:'Manrope',sans-serif;font-size:20px;font-weight:800;color:#fff;line-height:1;margin-bottom:3px}
-.my-stat .lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
-.my-info{padding:18px 24px;display:flex;flex-direction:column;gap:8px}
-.my-info-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid var(--line);font-size:13px}
-.my-info-row .lbl{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
-.my-info-row .val{color:var(--text);font-weight:600}
-.my-info-row .val.mono{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-2)}
-.my-actions{padding:16px 24px 24px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.my-action-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid var(--line-2);color:var(--text-2);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;text-decoration:none;font-family:inherit}
-.my-action-btn:hover{color:#fff;border-color:rgba(255,255,255,.3);transform:translateY(-1px)}
-.my-action-btn.discord{background:var(--discord);border-color:var(--discord);color:#fff}
-.my-action-btn.discord:hover{background:var(--discord-2);border-color:var(--discord-2)}
-.my-action-btn.danger{color:var(--red-2)}
-.my-action-btn.danger:hover{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.35);color:#fff}
-
-.srv-hero{position:relative;padding:20px 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(59,130,246,.06));border-bottom:1px solid var(--line)}
-.srv-hero-stat{text-align:center;padding:14px 8px;border-radius:14px;background:rgba(255,255,255,.025);border:1px solid var(--line);transition:all .2s}
-.srv-hero-stat:hover{background:rgba(255,255,255,.05);transform:translateY(-2px)}
-.srv-hero-stat .lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
-.srv-hero-stat .val{font-family:'Manrope',sans-serif;font-size:22px;font-weight:800;color:#fff;line-height:1}
-.srv-hero-stat.online .val{color:var(--emerald-2)}
-.srv-hero-stat.max .val{color:var(--blue-2)}
-.srv-hero-stat .ico{font-size:16px;margin-bottom:4px;line-height:1}
-.players-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
-.players-empty{padding:40px 20px;text-align:center;color:var(--muted);font-size:13px;font-family:'JetBrains Mono',monospace;border:1px dashed var(--line-2);border-radius:14px;background:rgba(255,255,255,.01)}
-.mc-player{display:flex;align-items:center;gap:10px;padding:10px 12px;background:linear-gradient(135deg,rgba(255,255,255,.03),rgba(255,255,255,.01));border:1px solid var(--line);border-radius:12px;cursor:pointer;transition:all .18s;position:relative;overflow:hidden}
-.mc-player::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--emerald-2);opacity:0;transition:opacity .15s}
-.mc-player:hover{background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(16,185,129,.02));border-color:rgba(16,185,129,.35);transform:translateX(2px)}
-.mc-player:hover::before{opacity:1}
-.mc-player img{width:36px;height:36px;border-radius:8px;image-rendering:pixelated;background:#000;border:1px solid var(--line-2);flex-shrink:0;object-fit:cover}
-.mc-player .mcp-info{flex:1;min-width:0}
-.mc-player .mcp-name{font-weight:700;font-size:13px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:6px}
-.mc-player .mcp-status{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--emerald-2);display:flex;align-items:center;gap:5px;margin-top:3px;font-weight:600}
-.mc-player .mcp-status::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;box-shadow:0 0 6px currentColor;animation:dp 2s infinite}
-.mc-player .mcp-arrow{color:var(--muted-2);font-size:14px;flex-shrink:0;transition:transform .15s}
-.mc-player:hover .mcp-arrow{color:var(--emerald-2);transform:translateX(2px)}
-.players-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.players-toolbar-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;color:var(--text-2);text-transform:uppercase;letter-spacing:.1em;display:flex;align-items:center;gap:8px}
-.players-toolbar-title .count-pill{font-family:'JetBrains Mono',monospace;font-size:10px;padding:3px 8px;border-radius:8px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);color:var(--emerald-2);letter-spacing:0}
-.players-toolbar-search{padding:7px 12px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text);border-radius:100px;font-family:inherit;font-size:12px;width:180px;transition:all .15s}
-.players-toolbar-search::placeholder{color:var(--muted-2)}
-.players-toolbar-search:focus{outline:none;border-color:var(--emerald);background:rgba(16,185,129,.05)}
-
-.chart-card{background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.005));border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:20px;position:relative;overflow:hidden}
-.chart-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--blue),transparent);opacity:.7}
-.chart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;flex-wrap:wrap}
-.chart-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;color:#fff;text-transform:uppercase;display:flex;align-items:center;gap:8px}
-.chart-title .live-pulse{width:8px;height:8px;border-radius:50%;background:var(--emerald-2);box-shadow:0 0 10px var(--emerald-2);animation:dp 2s infinite}
-.chart-peak{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
-.chart-peak span{color:var(--blue-2);font-weight:700}
-.chart-wrap{position:relative;height:120px;margin-bottom:14px}
-#chart-svg{width:100%;height:100%;display:block}
-
+.pf-status-strip{display:flex;align-items:center;justify-content:center;gap:10px;padding:18px 24px;background:rgba(255,255,255,.02);border-bottom:1px solid var(--line);font-size:14px;font-weight:600}
+.pf-status-strip.online{color:var(--emerald-2)}
+.pf-status-strip.offline{color:var(--muted)}
+.pf-status-strip .pulse-dot{width:10px;height:10px;border-radius:50%;background:currentColor}
+.pf-place-row{padding:14px 24px 4px;text-align:center;color:var(--muted);font-size:13px}
+.pf-place-row strong{color:var(--text);font-weight:700}
+.pf-actions{padding:16px 24px 24px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.pf-action-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid var(--line-2);color:var(--text-2);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;text-decoration:none}
+.pf-action-btn:hover{color:#fff;border-color:rgba(255,255,255,.25)}
+.pf-action-btn.primary{background:linear-gradient(135deg,var(--purple),var(--pink));border-color:transparent;color:#fff}
 .join-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
 .join-card{position:relative;padding:28px;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));border:1px solid var(--line);overflow:hidden}
 .join-card.free::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--twitch),var(--twitch-2))}
@@ -650,6 +253,50 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .btn-twitch-full:hover{background:var(--twitch-2);transform:translateY(-2px)}
 .btn-boosty-full{background:var(--boosty)}
 .btn-boosty-full:hover{background:var(--boosty-2);transform:translateY(-2px)}
+
+/* ===== ALL PLAYERS TAB ===== */
+.ap-toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:24px}
+.ap-filter{padding:9px 18px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text-2);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;position:relative;overflow:hidden}
+.ap-filter::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--emerald),var(--emerald-2));opacity:0;transition:opacity .2s;z-index:-1}
+.ap-filter:hover{color:#fff;border-color:rgba(255,255,255,.25);transform:translateY(-1px)}
+.ap-filter.active{background:linear-gradient(135deg,var(--emerald),var(--emerald-2));color:#062a1c;border-color:transparent;box-shadow:0 8px 24px -8px var(--emerald-glow)}
+.ap-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);padding:2px 8px;border-radius:8px;background:rgba(255,255,255,.05);margin-left:auto}
+.ap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.ap-card{position:relative;border-radius:18px;padding:20px 18px 18px;background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.008));border:1px solid var(--line);cursor:pointer;transition:all .25s cubic-bezier(.34,1.4,.64,1);overflow:hidden;opacity:0;transform:translateY(20px);animation:ap-card-in .45s cubic-bezier(.34,1.4,.64,1) forwards}
+@keyframes ap-card-in{to{opacity:1;transform:translateY(0)}}
+.ap-card::before{content:'';position:absolute;inset:0;border-radius:18px;background:radial-gradient(circle at 50% 0%,rgba(139,92,246,.14),transparent 60%);opacity:0;transition:opacity .25s;pointer-events:none}
+.ap-card:hover{transform:translateY(-4px);border-color:var(--line-2);box-shadow:0 20px 40px -20px rgba(0,0,0,.6)}
+.ap-card:hover::before{opacity:1}
+.ap-card.top1{border-color:rgba(251,191,36,.4);background:linear-gradient(180deg,rgba(251,191,36,.06),rgba(251,191,36,.01))}
+.ap-card.top2{border-color:rgba(199,199,199,.35)}
+.ap-card.top3{border-color:rgba(205,127,50,.35)}
+.ap-card.banned{opacity:.5}
+.ap-card-rank{position:absolute;top:12px;right:14px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--muted-2);letter-spacing:.05em}
+.ap-card.top1 .ap-card-rank{color:#fbbf24}
+.ap-card.top2 .ap-card-rank{color:#c7c7c7}
+.ap-card.top3 .ap-card-rank{color:#cd7f32}
+.ap-card-avatar{width:72px;height:72px;border-radius:16px;image-rendering:pixelated;background:#000;border:2px solid var(--line-2);display:block;margin:0 auto 12px;object-fit:cover;transition:transform .25s}
+.ap-card:hover .ap-card-avatar{transform:scale(1.06)}
+.ap-card-nick{font-family:'Manrope',sans-serif;font-size:16px;font-weight:800;color:#fff;text-align:center;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
+.ap-card-aka{font-size:12px;color:var(--purple-2);font-style:italic;text-align:center;margin-bottom:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:16px}
+.ap-card-aka.empty{color:var(--muted-2);font-style:normal}
+.ap-card-stats{display:flex;justify-content:space-between;gap:8px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ap-stat{flex:1;text-align:center}
+.ap-stat .v{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;line-height:1;margin-bottom:3px}
+.ap-stat .l{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted-2);letter-spacing:.06em;text-transform:uppercase}
+.ap-stat .v.pos{color:var(--emerald-2)}
+.ap-stat .v.neg{color:var(--red-2)}
+.ap-stat .v.zero{color:var(--muted)}
+.ap-card-foot{margin-top:12px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.ap-card-status{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;letter-spacing:.05em}
+.ap-card-status.online{color:var(--emerald-2);background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3)}
+.ap-card-status.offline{color:var(--muted-2);background:rgba(255,255,255,.03);border:1px solid var(--line-2)}
+.ap-card-status .dot{width:5px;height:5px;border-radius:50%;background:currentColor;display:inline-block;margin-right:4px;vertical-align:middle}
+.ap-card-status.online .dot{animation:dp 1.5s infinite}
+.ap-card-score{font-family:'Manrope',sans-serif;font-size:18px;font-weight:800;letter-spacing:-.02em}
+.ap-empty{padding:80px 40px;text-align:center;border:2px dashed var(--line-2);border-radius:20px;color:var(--muted);font-size:14px}
+.ap-empty strong{color:var(--text);display:block;font-size:18px;margin-bottom:8px;font-family:'Manrope',sans-serif;font-weight:800}
+
 #vote-modal .modal{max-width:820px}
 .vote-cooldown-view{text-align:center;padding:24px 16px 32px}
 .vote-cooldown-icon{width:72px;height:72px;border-radius:20px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);display:grid;place-items:center;font-size:24px;margin:0 auto 20px;color:var(--red-2);font-weight:800;font-family:'Manrope',sans-serif}
@@ -691,6 +338,19 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .vote-hint{color:var(--muted);font-size:13px}
 .vote-empty{padding:48px 32px;text-align:center;color:var(--muted);font-size:14px;border:1px dashed var(--line-2);border-radius:14px;background:rgba(255,255,255,.01)}
 .vote-empty strong{color:var(--text-2);display:block;font-size:16px;margin-bottom:6px;font-weight:700}
+.chart-card{background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:20px}
+.chart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;flex-wrap:wrap}
+.chart-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;color:#fff;text-transform:uppercase}
+.chart-peak{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
+.chart-peak span{color:var(--blue-2);font-weight:700}
+.chart-wrap{position:relative;height:120px;margin-bottom:14px}
+#chart-svg{width:100%;height:100%;display:block}
+.players-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;color:var(--text-2);text-transform:uppercase;letter-spacing:.1em;padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--line)}
+.players-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mc-player{display:flex;align-items:center;gap:10px;padding:10px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:12px;cursor:pointer}
+.mc-player:hover{background:rgba(255,255,255,.05)}
+.mc-player .mcp-name{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.players-empty{padding:40px 20px;text-align:center;color:var(--muted);font-size:13px;font-family:'JetBrains Mono',monospace;border:1px dashed var(--line-2);border-radius:12px}
 .admin-tabs{display:flex;gap:2px;padding:4px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);margin:0 32px 20px;overflow-x:auto}
 .admin-tab{padding:9px 18px;border-radius:100px;background:transparent;border:none;color:var(--text-2);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
 .admin-tab.active{background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff}
@@ -807,56 +467,6 @@ footer .heart{color:var(--red-2)}
 .footer-link:hover{color:#fff;border-color:rgba(255,255,255,.25)}
 .footer-link svg{width:14px;height:14px;fill:currentColor}
 footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted-2);margin-top:8px}
-
-.map-hero{position:relative;border-radius:24px;overflow:hidden;border:1px solid var(--line-2);background:var(--bg-2);padding:60px 32px;text-align:center;margin-bottom:40px}
-.map-hero-bg{position:absolute;inset:0;background:radial-gradient(circle at 20% 30%,var(--bg-glow-1),transparent 55%),radial-gradient(circle at 80% 70%,var(--bg-glow-2),transparent 55%),linear-gradient(180deg,transparent,rgba(0,0,0,.4));pointer-events:none;transition:background .4s}
-.map-hero-bg::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:40px 40px;mask-image:radial-gradient(circle at 50% 50%,#000 20%,transparent 75%);-webkit-mask-image:radial-gradient(circle at 50% 50%,#000 20%,transparent 75%)}
-.map-hero-content{position:relative;z-index:1;max-width:640px;margin:0 auto}
-.map-hero-icon{font-size:64px;line-height:1;margin-bottom:16px;filter:drop-shadow(0 8px 30px var(--emerald-glow));animation:pfFloat 3s ease-in-out infinite}
-.map-hero-title{font-family:'Manrope',sans-serif;font-size:clamp(24px,3.2vw,34px);font-weight:800;color:#fff;letter-spacing:-.02em;margin-bottom:12px}
-.map-hero-sub{color:var(--text-2);font-size:15px;line-height:1.6;margin-bottom:24px}
-.map-hero-features{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:28px}
-.map-feature{padding:6px 14px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid var(--line-2);font-size:12px;font-weight:600;color:var(--text-2)}
-.map-open-btn{position:relative;display:inline-flex;align-items:center;gap:14px;padding:16px 28px;border-radius:100px;background:var(--emerald);color:#062a1c;text-decoration:none;font-family:inherit;font-weight:700;transition:all .2s cubic-bezier(.34,1.4,.64,1);box-shadow:0 12px 40px -10px var(--emerald-glow);overflow:hidden}
-.map-open-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 20px 50px -10px var(--emerald-glow);background:var(--emerald-2)}
-.map-open-btn-glow{position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-100%);transition:transform .6s}
-.map-open-btn:hover .map-open-btn-glow{transform:translateX(100%)}
-.map-open-btn-icon{font-size:22px}
-.map-open-btn-text{display:flex;flex-direction:column;align-items:flex-start;line-height:1.2;text-align:left}
-.map-open-btn-text strong{font-size:16px}
-.map-open-btn-text small{font-family:'JetBrains Mono',monospace;font-size:10px;opacity:.7;font-weight:600;margin-top:2px}
-.map-open-btn-arrow{font-size:20px;font-weight:800;transition:transform .2s}
-.map-open-btn:hover .map-open-btn-arrow{transform:translateX(4px)}
-.map-hero-note{margin-top:22px;font-size:12px;color:var(--muted);max-width:520px;margin-left:auto;margin-right:auto;line-height:1.55}
-.map-hero-note strong{color:var(--text-2)}
-
-.cities-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;margin-bottom:40px}
-.city-card{border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.005));border:1px solid var(--line);padding:20px;position:relative;overflow:hidden;transition:all .2s}
-.city-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--city-color),transparent);opacity:.8}
-.city-card:hover{border-color:var(--line-2);transform:translateY(-2px)}
-.city-head{display:flex;align-items:center;gap:14px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--line)}
-.city-icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:22px;background:color-mix(in srgb,var(--city-color) 15%,transparent);border:1px solid color-mix(in srgb,var(--city-color) 35%,transparent);flex-shrink:0}
-.city-head-info{min-width:0;flex:1}
-.city-name{font-family:'Manrope',sans-serif;font-size:16px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:3px;word-break:break-word}
-.city-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
-.city-members{display:flex;flex-direction:column;gap:4px}
-.city-member{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:10px;background:rgba(255,255,255,.015);border:1px solid transparent;cursor:pointer;transition:all .15s}
-.city-member:hover{background:rgba(255,255,255,.05);border-color:var(--line-2)}
-.city-member.mayor{background:linear-gradient(90deg,color-mix(in srgb,var(--city-color) 12%,transparent),transparent);border-color:color-mix(in srgb,var(--city-color) 25%,transparent)}
-.city-member.unknown{cursor:default;opacity:.75}
-.city-member.unknown:hover{background:rgba(255,255,255,.015);border-color:transparent}
-.city-member-avatar{position:relative;width:32px;height:32px;flex-shrink:0}
-.city-member-avatar img{width:32px;height:32px;border-radius:7px;image-rendering:pixelated;background:#000;border:1px solid var(--line-2);display:block;object-fit:cover}
-.city-online-dot{position:absolute;bottom:-2px;right:-2px;width:10px;height:10px;border-radius:50%;background:var(--emerald-2);border:2px solid var(--bg)}
-.city-member-info{flex:1;min-width:0;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.city-member-nick{font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:6px}
-.mayor-tag{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:800;padding:2px 6px;border-radius:5px;background:linear-gradient(135deg,var(--amber),var(--amber-2));color:#1a1200;letter-spacing:.06em;flex-shrink:0}
-.city-member-rating{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;flex-shrink:0}
-.city-member-rating.pos{color:var(--emerald-2)}
-.city-member-rating.neg{color:var(--red-2)}
-.city-member-rating.zero{color:var(--muted)}
-.city-empty{text-align:center;padding:20px;color:var(--muted);font-size:12px;font-family:'JetBrains Mono',monospace}
-
 @media(max-width:900px){
   .lb-player{grid-template-columns:48px 44px 1fr auto;gap:10px}
   .lb-mass{display:none}
@@ -867,6 +477,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
   .nav-tab{flex:1;justify-content:center}
   .players-grid{grid-template-columns:1fr}
   .admin-player-row{grid-template-columns:36px 1fr auto auto;gap:8px}
+  .ap-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
 }
 @media(max-width:640px){
   main{padding:0 20px 80px}
@@ -876,14 +487,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
   .lb-player{grid-template-columns:40px 40px 1fr auto;gap:8px;padding:10px}
   .lb-votes{display:none}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
-  .cities-grid{grid-template-columns:1fr}
-  .my-stats{grid-template-columns:1fr}
-  .srv-hero{grid-template-columns:1fr}
-  .pf-nick{font-size:24px}
-  .pf-stats{grid-template-columns:1fr 1fr}
-  .pf-stat.rating{grid-column:1/-1}
-  .pf-avatar-wrap{width:110px;height:110px}
-  .pf-avatar{width:110px;height:110px}
+  .ap-grid{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
@@ -894,25 +498,12 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
     <a class="brand">ПТУ Rating <span class="badge-proto">Прототип</span></a>
     <div class="nav-tabs">
       <button class="nav-tab active" data-view="rating" onclick="switchView('rating')">Рейтинг</button>
+      <button class="nav-tab" data-view="all" onclick="switchView('all')">👥 Все игроки</button>
       <button class="nav-tab" data-view="stats" onclick="switchView('stats')">📊 Статистика</button>
       <button class="nav-tab" data-view="streams" onclick="switchView('streams')">📺 Стримы</button>
       <button class="nav-tab" data-view="map" onclick="switchView('map')">🗺️ Карта</button>
     </div>
     <div class="nav-right">
-      <div class="theme-switch" id="theme-switch">
-        <button class="theme-btn" onclick="toggleThemeMenu(event)" title="Сменить тему">
-          <span class="theme-icon">🎨</span>
-        </button>
-        <div class="theme-menu" id="theme-menu">
-          <div class="theme-menu-title">Тема сайта</div>
-          <button class="theme-option" data-theme="emerald"><span class="theme-dot" style="background:#10b981"></span>Изумруд</button>
-          <button class="theme-option" data-theme="ocean"><span class="theme-dot" style="background:#3b82f6"></span>Океан</button>
-          <button class="theme-option" data-theme="crimson"><span class="theme-dot" style="background:#ef4444"></span>Багровый</button>
-          <button class="theme-option" data-theme="violet"><span class="theme-dot" style="background:#8b5cf6"></span>Фиолет</button>
-          <button class="theme-option" data-theme="sunset"><span class="theme-dot" style="background:#f59e0b"></span>Закат</button>
-          <button class="theme-option" data-theme="midnight"><span class="theme-dot" style="background:#a78bfa"></span>Полночь</button>
-        </div>
-      </div>
       <div class="btn-msk"><span class="lbl">МСК</span><span class="time" id="msk-time">--:--:--</span></div>
       <button class="btn-status" id="btn-status" onclick="openServerModal()">
         <span class="dot checking" id="btn-status-dot"></span>
@@ -961,6 +552,20 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
     </section>
   </div>
 
+  <div class="view hidden" id="view-all">
+    <section class="stats-hero">
+      <h1>Все <span class="purple">игроки</span></h1>
+      <p>Полный список птушников сервера. Сортируй, кликай — смотри профиль.</p>
+    </section>
+    <div class="ap-toolbar">
+      <button class="ap-filter active" data-sort="rating" onclick="setAllPlayersSort('rating')">📊 По рейтингу</button>
+      <button class="ap-filter" data-sort="mass" onclick="setAllPlayersSort('mass')">🎯 По наигранному</button>
+      <button class="ap-filter" data-sort="recent" onclick="setAllPlayersSort('recent')">🕐 По недавним</button>
+      <span class="ap-count" id="ap-count">0</span>
+    </div>
+    <div class="ap-grid" id="ap-grid"></div>
+  </div>
+
   <div class="view hidden" id="view-stats">
     <section class="stats-hero"><h1>Статистика <span class="purple">сервера</span></h1><p>Цифры, рейтинги, топы и всё что интересно.</p></section>
     <div class="stats-grid" id="stats-main-grid"></div>
@@ -1000,48 +605,13 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
   </div>
 
   <div class="view hidden" id="view-map">
-    <section class="stats-hero">
-      <h1>Карта <span class="purple">мира</span></h1>
-      <p>Города, базы, группировки и живая карта сервера ПТУ SMP — всё в одном месте.</p>
-    </section>
-
-    <div class="map-hero">
-      <div class="map-hero-bg"></div>
-      <div class="map-hero-content">
-        <div class="map-hero-icon">🗺️</div>
-        <h2 class="map-hero-title">Интерактивная карта ПТУ SMP</h2>
-        <p class="map-hero-sub">
-          Полная карта мира с онлайн-обновлением: видно игроков, постройки и границы территорий.
-        </p>
-        <div class="map-hero-features">
-          <span class="map-feature">🟢 Онлайн игроки</span>
-          <span class="map-feature">🏠 Постройки</span>
-          <span class="map-feature">🧭 Навигация</span>
-        </div>
-        <a class="map-open-btn" href="http://212.22.85.14:40087/" target="_blank" rel="noopener">
-          <span class="map-open-btn-glow"></span>
-          <span class="map-open-btn-icon">🌍</span>
-          <span class="map-open-btn-text">
-            <strong>Открыть карту</strong>
-            <small>Живая карта мира</small>
-          </span>
-          <span class="map-open-btn-arrow">→</span>
-        </a>
-        <div class="map-hero-note">
-          💡 Совет: добавь карту в закладки — она всегда под рукой.
-        </div>
-      </div>
+    <section class="stats-hero"><h1>Карта <span class="purple">мира</span></h1><p>Живая карта сервера ПТУ SMP.</p></section>
+    <div class="stat-block" style="text-align:center;padding:60px 24px">
+      <div style="font-size:72px;opacity:.4;margin-bottom:20px">🗺️</div>
+      <h3 style="font-family:'Manrope',sans-serif;font-size:24px;font-weight:800;color:#fff;margin-bottom:12px">Интерактивная карта мира</h3>
+      <p style="color:var(--muted);font-size:15px;max-width:540px;margin:0 auto 28px;line-height:1.6">Карта открывается в новой вкладке. Это нужно, чтобы браузер не блокировал её — сайт работает по защищённому протоколу (https), а карта по обычному (http).</p>
+      <a class="btn-hero primary" href="http://212.22.85.14:40087/" target="_blank" rel="noopener" style="font-size:16px;padding:16px 32px">🗺️ Открыть карту сервера →</a>
     </div>
-
-    <div class="section-head" style="margin-top:12px">
-      <div>
-        <h2>Города и группировки</h2>
-        <p>Кто где живёт и кто правит</p>
-      </div>
-      <input type="text" class="lb-search" id="city-search" placeholder="Поиск по игроку или городу...">
-    </div>
-
-    <div class="cities-grid" id="cities-grid"></div>
   </div>
 </main>
 
@@ -1050,72 +620,26 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
     <a href="https://discord.gg/bBvJ9VHXc" target="_blank" class="footer-link"><svg viewBox="0 0 24 24"><path d="M20.317 4.369a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg> Discord</a>
     <a href="https://www.twitch.tv/evgexa" target="_blank" class="footer-link">Твич Евгехи</a>
     <a href="https://www.twitch.tv/nikitasa_" target="_blank" class="footer-link">Твич Никиты Са</a>
+    <a href="https://www.twitch.tv/kopch02" target="_blank" class="footer-link">Твич kopch</a>
   </div>
   ПТУ Rating © <span id="year"></span> · Сделано с <span class="heart">♥</span> для ПТУ SMP
   <div class="visits" id="visits-counter">— посещение</div>
 </footer>
 
+<!-- Модалки (сокращены для размера — при желании восстанови из старого файла) -->
 <div class="modal-overlay" id="server-modal">
   <div class="modal">
-    <div class="modal-head">
-      <div>
-        <h2>Онлайн сервера</h2>
-        <p>Сервер ПТУ SMP · обновляется каждую минуту</p>
-      </div>
-      <button class="modal-close" onclick="closeServerModal()">✕</button>
-    </div>
-    <div class="modal-body" style="padding:0">
-      <div class="srv-hero" id="srv-hero">
-        <div class="srv-hero-stat online">
-          <div class="ico">🟢</div>
-          <div class="lbl">Онлайн</div>
-          <div class="val" id="srv-hero-online">—</div>
-        </div>
-        <div class="srv-hero-stat max">
-          <div class="ico">👥</div>
-          <div class="lbl">Слотов</div>
-          <div class="val" id="srv-hero-max">—</div>
-        </div>
-        <div class="srv-hero-stat">
-          <div class="ico">📊</div>
-          <div class="lbl">Загрузка</div>
-          <div class="val" id="srv-hero-load">—</div>
-        </div>
-      </div>
-
-      <div style="padding:24px 32px 32px">
-        <div class="chart-card">
-          <div class="chart-head">
-            <div class="chart-title"><span class="live-pulse"></span>Онлайн сервера</div>
-            <div class="chart-peak">пик <span id="chart-peak">—</span></div>
-          </div>
-          <div class="chart-wrap"><svg id="chart-svg" viewBox="0 0 400 100" preserveAspectRatio="none"></svg></div>
-        </div>
-
-        <div class="players-toolbar">
-          <div class="players-toolbar-title">
-            🎮 На сервере сейчас
-            <span class="count-pill" id="players-count-pill">0</span>
-          </div>
-          <input type="text" class="players-toolbar-search" id="server-players-search" placeholder="Поиск игрока...">
-        </div>
-        <div class="players-grid" id="modal-players">
-          <div class="players-empty" style="grid-column:1/-1">Загрузка…</div>
-        </div>
-      </div>
+    <div class="modal-head"><div><h2>Онлайн сервера</h2><p>eu.ptu-smp.ru</p></div><button class="modal-close" onclick="closeServerModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="chart-card"><div class="chart-head"><div class="chart-title">Онлайн сервера</div><div class="chart-peak">пик <span id="chart-peak">—</span></div></div><div class="chart-wrap"><svg id="chart-svg" viewBox="0 0 400 100" preserveAspectRatio="none"></svg></div></div>
+      <div class="players-title">На сервере сейчас</div>
+      <div class="players-grid" id="modal-players"><div class="players-empty" style="grid-column:1/-1">Загрузка…</div></div>
     </div>
   </div>
 </div>
 
 <div class="modal-overlay" id="profile-modal">
   <div class="modal"><button class="modal-close" style="position:absolute;top:16px;right:16px;z-index:5" onclick="closeProfileModal()">✕</button><div class="modal-body" id="profile-body"></div></div>
-</div>
-
-<div class="modal-overlay" id="my-profile-modal">
-  <div class="modal">
-    <button class="modal-close" style="position:absolute;top:16px;right:16px;z-index:5" onclick="closeMyProfileModal()">✕</button>
-    <div class="modal-body" id="my-profile-body"></div>
-  </div>
 </div>
 
 <div class="modal-overlay" id="join-modal">
@@ -1132,9 +656,9 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
         </div>
         <div class="join-card paid"><div class="join-badge">Платно</div><h3>Через Boosty</h3>
           <div class="join-list">
-            <div class="join-item"><span class="num">1</span>Оформить подписку на Boosty у <strong>Evgexa</strong></div>
-            <div class="join-item"><span class="num">2</span>Либо у <strong>NikitaSa</strong></div>
-            <div class="join-item"><span class="num">3</span>Проходка выдаётся в течение суток</div>
+            <div class="join-item"><span class="num">1</span><span>Оформить подписку на Boosty у <strong>Evgexa</strong></span></div>
+            <div class="join-item"><span class="num">2</span><span>Либо у <strong>NikitaSa</strong></span></div>
+            <div class="join-item"><span class="num">3</span><span>Проходка выдаётся в течение суток</span></div>
           </div>
           <div class="twitch-actions"><a href="https://boosty.to/superevgexa" target="_blank" class="btn-boosty-full">Boosty Евгехи</a><a href="https://boosty.to/n145" target="_blank" class="btn-boosty-full">Boosty Никиты</a></div>
         </div>
@@ -1159,23 +683,22 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
         <button class="admin-tab" data-tab="logs">📜 Логи</button>
         <button class="admin-tab" data-tab="stats">📊 Статистика</button>
         <button class="admin-tab" data-tab="data">💾 Данные</button>
-        <button class="admin-tab" data-tab="users">🔑 Зарегистрированные</button>
       </div>
-      <div class="admin-pane" id="pane-moderation"><div class="players-title" style="margin-top:0">Заявки на прозвища</div><div class="mod-list" id="mod-list"></div></div>
+      <div class="admin-pane" id="pane-moderation"><div class="mod-list" id="mod-list"></div></div>
       <div class="admin-pane active" id="pane-players"><input type="text" class="admin-search" id="admin-search" placeholder="Поиск игрока..."><div class="admin-player-list" id="admin-player-list"></div></div>
       <div class="admin-pane" id="pane-add">
-        <div class="admin-form-row"><label>Ник игрока</label><input type="text" id="add-nick" placeholder="Steve, Notch..."></div>
+        <div class="admin-form-row"><label>Ник игрока</label><input type="text" id="add-nick" placeholder="Steve..."></div>
         <div class="admin-actions" style="margin-top:0"><button class="admin-btn primary" onclick="adminAddSingle()">+ Добавить одного</button></div>
         <div style="height:24px"></div>
-        <div class="admin-form-row"><label>Список ников</label><textarea id="add-bulk" placeholder="Notch&#10;jeb_&#10;Dinnerbone"></textarea></div>
+        <div class="admin-form-row"><label>Список ников</label><textarea id="add-bulk"></textarea></div>
         <div class="admin-actions" style="margin-top:0"><button class="admin-btn purple" onclick="adminAddBulk()">Добавить массово</button></div>
         <div class="admin-toast" id="add-toast"></div>
       </div>
       <div class="admin-pane" id="pane-settings">
         <div class="admin-form-row"><label>Кулдаун (часы)</label><input type="number" id="set-cooldown" min="0.1" max="72" step="0.5"></div>
-        <div class="admin-form-row"><label>Макс голосов "за"</label><input type="number" id="set-max-up" min="1" max="10"></div>
-        <div class="admin-form-row"><label>Макс голосов "против"</label><input type="number" id="set-max-down" min="1" max="10"></div>
-        <div class="admin-form-row"><label>Игроков в голосовании</label><input type="number" id="set-pool" min="3" max="20"></div>
+        <div class="admin-form-row"><label>Макс "за"</label><input type="number" id="set-max-up" min="1" max="10"></div>
+        <div class="admin-form-row"><label>Макс "против"</label><input type="number" id="set-max-down" min="1" max="10"></div>
+        <div class="admin-form-row"><label>В голосовании</label><input type="number" id="set-pool" min="3" max="20"></div>
         <div class="admin-actions"><button class="admin-btn primary" onclick="adminSaveSettings()">Сохранить</button><button class="admin-btn ghost" onclick="adminResetSettings()">Сбросить</button></div>
         <div class="admin-toast" id="set-toast"></div>
         <div style="height:24px;border-top:1px solid var(--line);padding-top:20px">
@@ -1187,23 +710,16 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
           </div>
         </div>
       </div>
-      <div class="admin-pane" id="pane-logs"><div class="admin-actions" style="margin-top:0;margin-bottom:16px"><button class="admin-btn ghost" onclick="adminClearLogs()">Очистить логи</button></div><div class="admin-log-list" id="admin-log-list"></div></div>
+      <div class="admin-pane" id="pane-logs"><div class="admin-actions" style="margin-top:0;margin-bottom:16px"><button class="admin-btn ghost" onclick="adminClearLogs()">Очистить</button></div><div class="admin-log-list" id="admin-log-list"></div></div>
       <div class="admin-pane" id="pane-stats"><div class="admin-stats-grid" id="admin-stats"></div></div>
       <div class="admin-pane" id="pane-data">
         <div class="admin-form-row"><label>Экспорт JSON</label><textarea id="data-export" readonly></textarea></div>
         <div class="admin-actions" style="margin-top:0"><button class="admin-btn primary" onclick="copyExport()">Скопировать</button><button class="admin-btn ghost" onclick="downloadExport()">Скачать .json</button></div>
         <div style="height:24px;border-top:1px solid var(--line);padding-top:20px">
-          <div class="admin-form-row"><label>Импорт JSON</label><textarea id="data-import" placeholder='{"players":[...]}'></textarea></div>
+          <div class="admin-form-row"><label>Импорт JSON</label><textarea id="data-import"></textarea></div>
           <div class="admin-actions" style="margin-top:0"><button class="admin-btn purple" onclick="importData()">Импортировать</button></div>
         </div>
         <div class="admin-toast" id="data-toast"></div>
-      </div>
-      <div class="admin-pane" id="pane-users">
-        <div class="admin-actions" style="margin-top:0;margin-bottom:16px">
-          <button class="admin-btn ghost" onclick="loadRegisteredUsers()">🔄 Обновить</button>
-          <span class="stat-block-sub" id="users-count-label"></span>
-        </div>
-        <div class="admin-log-list" id="registered-users-list"><div class="players-empty">Открой вкладку заново или нажми «Обновить»</div></div>
       </div>
     </div>
   </div>
@@ -1224,68 +740,28 @@ const AUTH_KEY = 'ptusmp_auth_v1';
 const STREAMERS = [
   { twitch: 'evgexa',    display: 'Евгеха',    note: 'Легенда ютуба' },
   { twitch: 'nikitasa_', display: 'Никита Са', note: 'Красавчик' },
+  { twitch: 'kopch02',   display: 'kopch',     note: 'разраб' },
 ];
 
-/* =========================================================
-   НАСТРОЙКА №3 — ХОСТЫ СЕРВЕРА
-   ========================================================= */
-const SERVER_HOSTS = ['eu.ptu-smp.ru', 'ptu-smp.ru', 'kz.ptu-smp.ru'];
-
-/* ===== ТЕМЫ ===== */
-const THEME_KEY = 'ptusmp_theme_v1';
-const THEMES = ['emerald','ocean','crimson','violet','sunset','midnight'];
-function applyTheme(theme){
-  if (!THEMES.includes(theme)) theme = 'emerald';
-  document.documentElement.setAttribute('data-theme', theme);
-  document.querySelectorAll('.theme-option').forEach(o => {
-    o.classList.toggle('active', o.dataset.theme === theme);
-  });
-  localStorage.setItem(THEME_KEY, theme);
-}
-function initTheme(){
-  const saved = localStorage.getItem(THEME_KEY) || 'emerald';
-  applyTheme(saved);
-}
-function toggleThemeMenu(e){
-  e.stopPropagation();
-  $('theme-menu').classList.toggle('open');
-}
-document.addEventListener('click', e => {
-  if (!e.target.closest('.theme-switch')) $('theme-menu')?.classList.remove('open');
-});
-document.addEventListener('click', e => {
-  const opt = e.target.closest('.theme-option');
-  if (opt){ applyTheme(opt.dataset.theme); $('theme-menu')?.classList.remove('open'); }
-});
-
 /* ===== АВАТАРКИ ===== */
+function getAvatarUrl(nickname, size = 64){ return `https://mc-heads.net/avatar/${encodeURIComponent(nickname)}/${size}`; }
 function avatarImgHtml(nickname, size = 64, extra = ''){
   const nick = encodeURIComponent(nickname);
-  const rsize = size >= 128 ? 128 : (size >= 64 ? 64 : (size >= 32 ? 32 : 16));
-  return `<img src="https://minotar.net/helm/${nick}/${rsize}.png" alt="${escapeHtml(nickname)}" loading="eager" decoding="async" width="${size}" height="${size}" data-nick="${escapeHtml(nickname)}" data-size="${size}" data-fb="0" onerror="avatarFallback(this)" ${extra}>`;
+  return `<img src="https://mc-heads.net/avatar/${nick}/${size}" alt="${escapeHtml(nickname)}" loading="lazy" data-nick="${escapeHtml(nickname)}" data-size="${size}" data-fb="0" onerror="avatarFallback(this)" ${extra}>`;
 }
 function avatarFallback(img){
   const step = parseInt(img.dataset.fb || '0', 10);
-  const nick = img.dataset.nick;
-  const size = parseInt(img.dataset.size || '64', 10);
-  const rsize = size >= 128 ? 128 : (size >= 64 ? 64 : (size >= 32 ? 32 : 16));
+  const nick = img.dataset.nick, size = img.dataset.size || '64';
   const n = encodeURIComponent(nick);
-  const srcs = [
-    `https://minotar.net/helm/${n}/${rsize}.png`,
-    `https://mc-heads.net/avatar/${n}/${rsize}`,
-    `https://crafatar.com/avatars/${n}?size=${rsize}&overlay`,
-    `https://mc-heads.net/avatar/MHF_Steve/${rsize}`,
-  ];
+  const srcs = [`https://mc-heads.net/avatar/${n}/${size}`, `https://crafatar.com/avatars/${n}?size=${size}&overlay`, `https://minotar.net/helm/${n}/${size}.png`, `https://mc-heads.net/avatar/MHF_Steve/${size}`];
   const next = step + 1;
-  if (next < srcs.length){ img.dataset.fb = next; img.src = srcs[next]; }
-  else img.onerror = null;
+  if (next < srcs.length){ img.dataset.fb = next; img.src = srcs[next]; } else img.onerror = null;
 }
 
 /* ===== DISCORD AUTH ===== */
 function getCurrentUser(){
   try {
-    const raw = localStorage.getItem(AUTH_KEY);
-    if (!raw) return null;
+    const raw = localStorage.getItem(AUTH_KEY); if (!raw) return null;
     const data = JSON.parse(raw);
     if (data.expires_at && Date.now() > data.expires_at){ localStorage.removeItem(AUTH_KEY); return null; }
     return data;
@@ -1293,42 +769,24 @@ function getCurrentUser(){
 }
 function saveUser(u){ localStorage.setItem(AUTH_KEY, JSON.stringify(u)); }
 function loginWithDiscord(){
-  const params = new URLSearchParams({
-    client_id: DISCORD_CLIENT_ID,
-    redirect_uri: DISCORD_REDIRECT_URI,
-    response_type: 'code',
-    scope: 'identify',
-  });
+  const params = new URLSearchParams({ client_id: DISCORD_CLIENT_ID, redirect_uri: DISCORD_REDIRECT_URI, response_type: 'code', scope: 'identify' });
   location.href = 'https://discord.com/api/oauth2/authorize?' + params.toString();
 }
 async function handleDiscordCallback(){
-  const hash = location.hash;
-  if (!hash || !hash.includes('access_token')) return false;
+  const hash = location.hash; if (!hash || !hash.includes('access_token')) return false;
   const params = new URLSearchParams(hash.substring(1));
-  const token = params.get('access_token');
-  const expiresIn = parseInt(params.get('expires_in') || '0', 10);
+  const token = params.get('access_token'); const expiresIn = parseInt(params.get('expires_in') || '0', 10);
   if (!token) return false;
   history.replaceState(null, '', location.pathname + location.search);
   try {
     const res = await fetch('https://discord.com/api/users/@me', { headers: { Authorization: 'Bearer ' + token } });
     if (!res.ok) throw new Error('Discord API: ' + res.status);
     const user = await res.json();
-    const prev = localStorage.getItem('ptusmp_first_login_' + user.id);
-    const firstLoginAt = prev ? parseInt(prev, 10) : Date.now();
-    if (!prev) localStorage.setItem('ptusmp_first_login_' + user.id, String(firstLoginAt));
-    const loginCount = (parseInt(localStorage.getItem('ptusmp_login_count_' + user.id) || '0', 10)) + 1;
-    localStorage.setItem('ptusmp_login_count_' + user.id, String(loginCount));
-    localStorage.setItem('ptusmp_last_login_' + user.id, String(Date.now()));
-    saveUser({
-      id: user.id, username: user.username, global_name: user.global_name,
-      discriminator: user.discriminator, avatar: user.avatar, token,
-      expires_at: Date.now() + expiresIn * 1000,
-      firstLoginAt, loginCount,
-    });
+    saveUser({ id: user.id, username: user.username, global_name: user.global_name, discriminator: user.discriminator, avatar: user.avatar, token, expires_at: Date.now() + expiresIn * 1000 });
     return true;
   } catch (e){ console.error('Discord auth error:', e); return false; }
 }
-function logoutDiscord(){ localStorage.removeItem(AUTH_KEY); updateAuthUI(); closeMyProfileModal(); showToastGlobal('👋 Вы вышли'); }
+function logoutDiscord(){ localStorage.removeItem(AUTH_KEY); updateAuthUI(); showToastGlobal('👋 Вы вышли'); }
 function getDisplayName(u){ return u ? (u.global_name || u.username) : ''; }
 function getDiscordAvatar(u, size = 64){
   if (!u) return '';
@@ -1336,23 +794,15 @@ function getDiscordAvatar(u, size = 64){
   const idx = u.discriminator === '0' ? Number((BigInt(u.id) >> 22n) % 6n) : parseInt(u.discriminator) % 5;
   return `https://cdn.discordapp.com/embed/avatars/${idx}.png`;
 }
-function isAdmin(){
-  const u = getCurrentUser();
-  if (!u) return ADMIN_DISCORD_IDS.length === 0;
-  return ADMIN_DISCORD_IDS.length === 0 || ADMIN_DISCORD_IDS.includes(u.id);
-}
+function isAdmin(){ const u = getCurrentUser(); if (!u) return ADMIN_DISCORD_IDS.length === 0; return ADMIN_DISCORD_IDS.length === 0 || ADMIN_DISCORD_IDS.includes(u.id); }
 function updateAuthUI(){
-  const btn = $('nav-auth-btn'); const content = $('auth-content'); const menu = $('user-menu');
+  const btn = $('nav-auth-btn'), content = $('auth-content'), menu = $('user-menu');
   if (!btn || !content) return;
   const u = getCurrentUser();
   if (u){
     btn.classList.add('logged-in');
     content.innerHTML = `<img src="${getDiscordAvatar(u, 64)}" alt=""><span class="auth-name">${escapeHtml(getDisplayName(u))}</span>`;
-    menu.innerHTML = `
-      <div class="user-menu-header"><div class="name">${escapeHtml(getDisplayName(u))}</div><div class="id">@${escapeHtml(u.username)} · ${u.id}</div></div>
-      <div class="user-menu-item" onclick="closeUserMenu();openMyProfile()">👤 Мой профиль</div>
-      ${isAdmin() ? `<div class="user-menu-item" onclick="closeUserMenu();openAdminModal()">⚙️ Админ-панель <span class="auth-badge">ADMIN</span></div>` : ''}
-      <button class="user-menu-item danger" onclick="closeUserMenu();logoutDiscord()">🚪 Выйти</button>`;
+    menu.innerHTML = `<div class="user-menu-header"><div class="name">${escapeHtml(getDisplayName(u))}</div><div class="id">@${escapeHtml(u.username)} · ${u.id}</div></div>${isAdmin() ? `<div class="user-menu-item" onclick="closeUserMenu();openAdminModal()">⚙️ Админ-панель <span class="auth-badge">ADMIN</span></div>` : ''}<button class="user-menu-item danger" onclick="closeUserMenu();logoutDiscord()">🚪 Выйти</button>`;
   } else {
     btn.classList.remove('logged-in'); content.textContent = 'Войти'; menu.innerHTML = ''; menu.classList.remove('open');
   }
@@ -1367,6 +817,7 @@ function loadSettings(){ try { const raw = localStorage.getItem('ptusmp_settings
 function saveSettings(s){ localStorage.setItem('ptusmp_settings_v2', JSON.stringify(s)); }
 let settings = loadSettings();
 
+const SERVER_IP = 'eu.ptu-smp.ru';
 const STATUS_REFRESH_MS = 60 * 1000;
 const STORAGE_KEY = 'ptusmp_players_v31';
 const COOLDOWN_KEY = 'ptusmp_cooldown_v31';
@@ -1379,27 +830,6 @@ const CATEGORIES = [
   { id:'evil', name:'Злой птушник', sub:'минусовые игроки', color:'#f87171', icon:'😈', filter: p => p.rating < 0, sort: (a,b) => a.rating - b.rating },
 ];
 
-/* ===== ГОРОДА ===== */
-const CITIES = [
-  { id:'putana-land', name:'Путана ленд', icon:'🏙️', color:'#f472b6',
-    members:['temniy_da','Melkuia','giving0_2','Stallkpo','Mr_Baby_9638','Fava2022','Koffe_lov','_Felex','Arkadeon','Ronz1k','VoKa_Play1'],
-    mayor:'_DeD_48_' },
-  { id:'islands', name:'Острова желаний', icon:'🏝️', color:'#38bdf8',
-    members:['sadvely','Aron4ikk','Andrey500z','rewon5373','ezpotato111','xxevgehaxx'],
-    mayor:'Arisych' },
-  { id:'sosi', name:'СОСИ (Северный Орбитальный Союз Инженеров)', icon:'🚀', color:'#a78bfa',
-    members:['Aleks_Bur','DemonRaflius','tek1q','Vipa_4','EVGEXA','kopch02'],
-    mayor:'StuART_Original' },
-  { id:'neftprom', name:'ПАО «Нефтьпром Газ»', icon:'🛢️', color:'#fbbf24',
-    members:['BimBom17','MightyG2013','TAIR_2942'],
-    mayor:'bambambombompuk' },
-  { id:'gkb', name:'ГКБ (Группировка Которую Боятся)', icon:'⚔️', color:'#f87171',
-    members:['NikitaSa','baton11313','chilovsky','roroma'],
-    mayor:'Miwaperwin777' },
-  { id:'gei', name:'ГЕИ (Гильдия Единых Инвесторов)', icon:'💼', color:'#34d399',
-    members:[], mayor:null },
-];
-
 let players = loadPlayers();
 let nextId = players.length ? Math.max(0, ...players.map(p => p.id)) + 1 : 1;
 let votePool = [];
@@ -1408,11 +838,12 @@ let cooldownTick = null, navTick = null;
 let currentSearch = '', currentProfileId = null, cachedServerData = null, statusTimer = null;
 let currentRange = 'day', currentChartPoints = [], onlineNicks = new Set();
 let akaFormOpen = false, akaCollapsed = true, currentView = 'rating';
-let serverPlayersSearch = '';
+let allPlayersSort = 'rating';
 
 const $ = (id) => document.getElementById(id);
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function getRandomAka(p){ if (!p?.akas?.length) return null; return p.akas[Math.floor(Math.random() * p.akas.length)]; }
+function getPrimaryAka(p){ if (!p?.akas?.length) return '—'; return p.akas[0]; }
 
 function updateMskClock(){
   const now = new Date();
@@ -1428,13 +859,8 @@ function updateMskClock(){
 })();
 function loadPlayers(){
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    return JSON.parse(raw).map(p => ({
-      id: p.id, nickname: p.nickname, rating: p.rating, ups: p.ups ?? 0, downs: p.downs ?? 0,
-      autoAdded: p.autoAdded ?? false, addedAt: p.addedAt ?? 0, banned: p.banned ?? false,
-      akas: Array.isArray(p.akas) ? p.akas : (p.aka ? [p.aka] : []),
-    }));
+    const raw = localStorage.getItem(STORAGE_KEY); if (!raw) return [];
+    return JSON.parse(raw).map(p => ({ id: p.id, nickname: p.nickname, rating: p.rating, ups: p.ups ?? 0, downs: p.downs ?? 0, autoAdded: p.autoAdded ?? false, addedAt: p.addedAt ?? 0, lastActivityAt: p.lastActivityAt ?? p.addedAt ?? 0, banned: p.banned ?? false, akas: Array.isArray(p.akas) ? p.akas : (p.aka ? [p.aka] : []) }));
   } catch { return []; }
 }
 function savePlayers(p){ localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); }
@@ -1446,19 +872,7 @@ function clampRating(r){ r = Math.round(r * 10) / 10; return Math.max(MIN_RATING
 function shuffle(a){ const arr = [...a]; for (let i=arr.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
 function getCooldownRemaining(){ const last = Number(localStorage.getItem(COOLDOWN_KEY)||0); return Math.max(0, settings.cooldownHours * 3600000 - (Date.now()-last)); }
 function formatTime(ms){ const s = Math.floor(ms/1000); const h = Math.floor(s/3600); const m = Math.floor((s%3600)/60); const sec = s%60; return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`; }
-function timeAgo(ts){
-  const sec = Math.floor((Date.now() - ts) / 1000);
-  if (sec < 60) return 'только что';
-  if (sec < 3600) return `${Math.floor(sec/60)} мин`;
-  if (sec < 86400) return `${Math.floor(sec/3600)} ч`;
-  if (sec < 604800) return `${Math.floor(sec/86400)} д`;
-  const d = new Date(ts); const pad = (n) => String(n).padStart(2, '0');
-  return `${pad(d.getDate())}.${pad(d.getMonth()+1)} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-}
-function formatDate(ts){
-  const d = new Date(ts); const pad = (n) => String(n).padStart(2, '0');
-  return `${pad(d.getDate())}.${pad(d.getMonth()+1)}.${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-}
+function timeAgo(ts){ const sec = Math.floor((Date.now() - ts) / 1000); if (sec < 60) return 'только что'; if (sec < 3600) return `${Math.floor(sec/60)} мин`; if (sec < 86400) return `${Math.floor(sec/3600)} ч`; if (sec < 604800) return `${Math.floor(sec/86400)} д`; const d = new Date(ts); const pad = (n) => String(n).padStart(2, '0'); return `${pad(d.getDate())}.${pad(d.getMonth()+1)} ${pad(d.getHours())}:${pad(d.getMinutes())}`; }
 function switchView(view){
   currentView = view;
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.toggle('active', t.dataset.view === view));
@@ -1466,290 +880,82 @@ function switchView(view){
   const target = document.getElementById('view-' + view); if (target) target.classList.remove('hidden');
   if (view === 'stats') renderStatsTab();
   if (view === 'streams') loadStreamsView();
-  if (view === 'map') renderCities();
+  if (view === 'all') renderAllPlayers();
 }
-function addLog(action, text, target){
-  const logs = loadLogs();
-  logs.unshift({ ts: Date.now(), action, text, target });
-  saveLogs(logs);
-  if (typeof renderAdminLogs === 'function') renderAdminLogs();
-  if (currentView === 'stats') renderStatsTab();
-}
-function updateModBadge(){
-  const pending = loadModeration().filter(m => m.status === 'pending').length;
-  [ $('mod-tab-badge'), $('admin-mod-badge') ].forEach(b => {
-    if (!b) return;
-    if (pending > 0){ b.textContent = pending > 9 ? '9+' : String(pending); b.classList.remove('hidden'); }
-    else b.classList.add('hidden');
-  });
-}
+function addLog(action, text, target){ const logs = loadLogs(); logs.unshift({ ts: Date.now(), action, text, target }); saveLogs(logs); if (typeof renderAdminLogs === 'function') renderAdminLogs(); if (currentView === 'stats') renderStatsTab(); }
+function updateModBadge(){ const pending = loadModeration().filter(m => m.status === 'pending').length; [$('mod-tab-badge'), $('admin-mod-badge')].forEach(b => { if (!b) return; if (pending > 0){ b.textContent = pending > 9 ? '9+' : String(pending); b.classList.remove('hidden'); } else b.classList.add('hidden'); }); }
 let globalToastTimer = null;
 function showToastGlobal(msg){
   let el = document.getElementById('global-toast');
-  if (!el){
-    el = document.createElement('div'); el.id = 'global-toast';
-    el.style.cssText = `position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(120px);padding:12px 22px;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;font-weight:700;font-size:14px;border-radius:100px;box-shadow:0 12px 40px -10px rgba(139,92,246,.6);transition:transform .35s cubic-bezier(.34,1.56,.64,1);z-index:9999;pointer-events:none;`;
-    document.body.appendChild(el);
-  }
+  if (!el){ el = document.createElement('div'); el.id = 'global-toast'; el.style.cssText = `position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(120px);padding:12px 22px;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;font-weight:700;font-size:14px;border-radius:100px;box-shadow:0 12px 40px -10px rgba(139,92,246,.6);transition:transform .35s cubic-bezier(.34,1.56,.64,1);z-index:9999;pointer-events:none;`; document.body.appendChild(el); }
   el.textContent = msg; el.style.transform = 'translateX(-50%) translateY(0)';
   clearTimeout(globalToastTimer);
   globalToastTimer = setTimeout(() => { el.style.transform = 'translateX(-50%) translateY(120px)'; }, 2200);
 }
 function openModal(id){ $(id).classList.add('open'); document.body.classList.add('modal-open'); }
 function closeModal(id){ $(id).classList.remove('open'); document.body.classList.remove('modal-open'); }
-function openServerModal(){ openModal('server-modal'); updateChart(currentRange); renderOnlinePlayersList(); }
+function openServerModal(){ openModal('server-modal'); updateChart(currentRange); }
 function closeServerModal(){ closeModal('server-modal'); }
 function openJoinModal(){ openModal('join-modal'); }
 function closeJoinModal(){ closeModal('join-modal'); }
 function openVoteModal(){ openModal('vote-modal'); renderVoteModal(); }
 function closeVoteModal(){ closeModal('vote-modal'); if (cooldownTick){ clearInterval(cooldownTick); cooldownTick = null; } }
 function closeProfileModal(){ closeModal('profile-modal'); currentProfileId = null; if (location.hash.startsWith('#player=')) history.replaceState(null, '', location.pathname); }
-function closeMyProfileModal(){ closeModal('my-profile-modal'); }
-function openAdminModal(){
-  if (!isAdmin()){ showToastGlobal('🚫 Доступ только для админов'); return; }
-  openModal('admin-modal');
-  renderAdminPlayers(); renderAdminLogs(); renderAdminStats(); renderExport(); renderModeration(); updateModBadge();
-}
+function openAdminModal(){ if (!isAdmin()){ showToastGlobal('🚫 Доступ только для админов'); return; } openModal('admin-modal'); renderAdminPlayers(); renderAdminLogs(); renderAdminStats(); renderExport(); renderModeration(); updateModBadge(); }
 function closeAdminModal(){ closeModal('admin-modal'); }
-['server-modal','join-modal','vote-modal','profile-modal','admin-modal','my-profile-modal'].forEach(id => {
-  $(id).addEventListener('click', e => { if (e.target.id === id) closeModal(id); });
-});
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape'){ closeServerModal(); closeJoinModal(); closeVoteModal(); closeProfileModal(); closeAdminModal(); closeMyProfileModal(); }
-});
-
-/* ===== МОЙ ПРОФИЛЬ ===== */
-function openMyProfile(){
-  const u = getCurrentUser();
-  if (!u){ showToastGlobal('Сначала войди через Discord'); return; }
-  const firstLoginAt = u.firstLoginAt || parseInt(localStorage.getItem('ptusmp_first_login_' + u.id) || String(Date.now()), 10);
-  const loginCount = u.loginCount || parseInt(localStorage.getItem('ptusmp_login_count_' + u.id) || '1', 10);
-  const lastLoginAt = parseInt(localStorage.getItem('ptusmp_last_login_' + u.id) || String(Date.now()), 10);
-  const isAdminUser = isAdmin();
-  const myAkaProposals = loadModeration().filter(m => m.authorDiscordId === u.id).length;
-  const myApproved = loadModeration().filter(m => m.authorDiscordId === u.id && m.status === 'approved').length;
-
-  $('my-profile-body').innerHTML = `
-    <div class="my-hero">
-      <div class="my-hero-content">
-        <div class="my-avatar-ring">
-          <img class="my-avatar" src="${getDiscordAvatar(u, 240)}" alt="">
-          <span class="my-online-dot" title="Онлайн в Discord"></span>
-        </div>
-        <div class="my-name">${escapeHtml(getDisplayName(u))}</div>
-        <div class="my-tag">@${escapeHtml(u.username)}</div>
-        <div class="my-badges">
-          <span class="my-badge discord">💬 Discord</span>
-          ${isAdminUser ? '<span class="my-badge admin">⚙️ Админ</span>' : '<span class="my-badge member">✓ Участник</span>'}
-        </div>
-      </div>
-    </div>
-
-    <div class="my-stats">
-      <div class="my-stat">
-        <div class="ico">🎫</div>
-        <div class="val">${loginCount}</div>
-        <div class="lbl">Входов</div>
-      </div>
-      <div class="my-stat">
-        <div class="ico">✍️</div>
-        <div class="val">${myAkaProposals}</div>
-        <div class="lbl">Заявок</div>
-      </div>
-      <div class="my-stat">
-        <div class="ico">✅</div>
-        <div class="val">${myApproved}</div>
-        <div class="lbl">Принято</div>
-      </div>
-    </div>
-
-    <div class="my-info">
-      <div class="my-info-row">
-        <span class="lbl">🆔 Discord ID</span>
-        <span class="val mono">${escapeHtml(u.id)}</span>
-      </div>
-      <div class="my-info-row">
-        <span class="lbl">📅 Первый вход</span>
-        <span class="val mono">${formatDate(firstLoginAt)}</span>
-      </div>
-      <div class="my-info-row">
-        <span class="lbl">🕐 Последний вход</span>
-        <span class="val mono">${timeAgo(lastLoginAt)}</span>
-      </div>
-    </div>
-
-    <div class="my-actions">
-      <a class="my-action-btn discord" href="https://discord.com/users/${u.id}" target="_blank" rel="noopener">💬 Открыть в Discord</a>
-      <button class="my-action-btn" onclick="copyNick('${escapeHtml(u.id)}')">📋 Скопировать ID</button>
-      <button class="my-action-btn danger" onclick="logoutDiscord()">🚪 Выйти</button>
-    </div>`;
-  openModal('my-profile-modal');
-}
+['server-modal','join-modal','vote-modal','profile-modal','admin-modal'].forEach(id => { $(id).addEventListener('click', e => { if (e.target.id === id) closeModal(id); }); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape'){ closeServerModal(); closeJoinModal(); closeVoteModal(); closeProfileModal(); closeAdminModal(); } });
 
 function autoAddOnlinePlayers(onlineList){
   if (!onlineList?.length) return 0;
   let added = 0;
   const existing = new Set(players.map(p => p.nickname.toLowerCase()));
-  for (const nick of onlineList){
+  for (const item of onlineList){
+    const nick = typeof item === 'string' ? item : item.name;
     if (!nick || existing.has(nick.toLowerCase())) continue;
-    players.push({ id: nextId++, nickname: nick, rating: 0, ups: 0, downs: 0, autoAdded: true, addedAt: Date.now(), banned: false, akas: [] });
+    players.push({ id: nextId++, nickname: nick, rating: 0, ups: 0, downs: 0, autoAdded: true, addedAt: Date.now(), lastActivityAt: Date.now(), banned: false, akas: [] });
     existing.add(nick.toLowerCase()); added++;
     addLog('add', `Автодобавлен <strong>${nick}</strong> с сервера`, nick);
   }
-  if (added > 0){ savePlayers(players); renderLeaderboard(); }
+  if (added > 0){ savePlayers(players); renderLeaderboard(); if (currentView === 'all') renderAllPlayers(); }
   return added;
-}
-
-/* ===== СПИСОК ОНЛАЙН-ИГРОКОВ ===== */
-function renderOnlinePlayersList(){
-  const container = $('modal-players'); if (!container) return;
-  const pill = $('players-count-pill');
-  const search = serverPlayersSearch.toLowerCase().trim();
-
-  const list = cachedServerData?.online ? (cachedServerData.players?.list || []) : [];
-  const onlineCount = cachedServerData?.online ? (cachedServerData.players?.online ?? 0) : 0;
-  const maxCount = cachedServerData?.online ? (cachedServerData.players?.max ?? 0) : 0;
-
-  const heroOnline = $('srv-hero-online');
-  const heroMax = $('srv-hero-max');
-  const heroLoad = $('srv-hero-load');
-  if (heroOnline) heroOnline.textContent = cachedServerData?.online ? onlineCount : '—';
-  if (heroMax) heroMax.textContent = cachedServerData?.online ? maxCount : '—';
-  if (heroLoad){
-    if (cachedServerData?.online && maxCount > 0){
-      const pct = Math.round((onlineCount / maxCount) * 100);
-      heroLoad.textContent = pct + '%';
-      heroLoad.style.color = pct > 80 ? 'var(--red-2)' : (pct > 50 ? 'var(--amber-2)' : 'var(--emerald-2)');
-    } else {
-      heroLoad.textContent = '—';
-      heroLoad.style.color = '';
-    }
-  }
-
-  if (pill) pill.textContent = cachedServerData?.online ? `${onlineCount} онлайн` : 'оффлайн';
-
-  if (!cachedServerData?.online){
-    container.innerHTML = '<div class="players-empty" style="grid-column:1/-1">Сервер оффлайн или недоступен</div>';
-    return;
-  }
-
-  const filtered = search ? list.filter(n => n.toLowerCase().includes(search)) : list;
-  if (!filtered.length){
-    if (!list.length){
-      container.innerHTML = `<div class="players-empty" style="grid-column:1/-1">${onlineCount > 0 ? 'Список скрыт настройками сервера' : 'Никого нет онлайн'}</div>`;
-    } else {
-      container.innerHTML = `<div class="players-empty" style="grid-column:1/-1">Никого не найдено по запросу «${escapeHtml(search)}»</div>`;
-    }
-    return;
-  }
-
-  container.innerHTML = '';
-  for (const nick of filtered){
-    const hasProfile = players.some(x => x.nickname.toLowerCase() === nick.toLowerCase());
-    const el = document.createElement('div');
-    el.className = 'mc-player';
-    el.innerHTML = `
-      ${avatarImgHtml(nick, 64)}
-      <div class="mcp-info">
-        <div class="mcp-name">${escapeHtml(nick)}</div>
-        <div class="mcp-status">в игре</div>
-      </div>
-      <div class="mcp-arrow">${hasProfile ? '→' : ''}</div>`;
-    if (hasProfile){
-      el.onclick = () => {
-        const player = players.find(x => x.nickname.toLowerCase() === nick.toLowerCase());
-        if (player){ closeServerModal(); openProfile(player.id); }
-      };
-    } else {
-      el.style.cursor = 'default';
-    }
-    container.appendChild(el);
-  }
-}
-
-/* ===== ОНЛАЙН: 4 API × 3 хоста ===== */
-function fetchJsonWithTimeout(url, ms){
-  return new Promise((resolve, reject) => {
-    const ctrl = new AbortController();
-    const t = setTimeout(() => { ctrl.abort(); reject(new Error('timeout')); }, ms);
-    fetch(url, { signal: ctrl.signal, cache: 'no-store' })
-      .then(r => { clearTimeout(t); if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-      .then(resolve)
-      .catch(err => { clearTimeout(t); reject(err); });
-  });
-}
-async function tryMcstatusV2(host, port){
-  const r = await fetchJsonWithTimeout(`https://api.mcstatus.io/v2/status/java/${host}:${port}?_=${Date.now()}`, 8000);
-  if (!r || !r.online) throw new Error('offline');
-  return { online: true, online_count: r.players?.online ?? 0, max: r.players?.max ?? 0,
-           players: (r.players?.list || []).map(p => p.name_clean || p.name) };
-}
-async function tryMcstatusNoPort(host){
-  const r = await fetchJsonWithTimeout(`https://api.mcstatus.io/v2/status/java/${host}?_=${Date.now()}`, 8000);
-  if (!r || !r.online) throw new Error('offline');
-  return { online: true, online_count: r.players?.online ?? 0, max: r.players?.max ?? 0,
-           players: (r.players?.list || []).map(p => p.name_clean || p.name) };
-}
-async function tryMcsrvstatV3(host){
-  const r = await fetchJsonWithTimeout(`https://api.mcsrvstat.us/3/${host}?_=${Date.now()}`, 8000);
-  if (!r || !r.online) throw new Error('offline');
-  return { online: true, online_count: r.players?.online ?? 0, max: r.players?.max ?? 0,
-           players: (r.players?.list || []).map(p => typeof p === 'string' ? p : p.name) };
-}
-async function tryMcsrvstatV2(host){
-  const r = await fetchJsonWithTimeout(`https://api.mcsrvstat.us/2/${host}?_=${Date.now()}`, 8000);
-  if (!r || !r.online) throw new Error('offline');
-  return { online: true, online_count: r.players?.online ?? 0, max: r.players?.max ?? 0,
-           players: (r.players?.list || []).map(p => typeof p === 'string' ? p : p.name) };
-}
-async function queryServerAnySource(){
-  const tasks = [];
-  for (const host of SERVER_HOSTS){
-    tasks.push(tryMcstatusV2(host, 25565));
-    tasks.push(tryMcstatusNoPort(host));
-    tasks.push(tryMcsrvstatV3(host));
-    tasks.push(tryMcsrvstatV2(host));
-  }
-  try { return await Promise.any(tasks); }
-  catch { return { online: false }; }
 }
 async function fetchServerStatus(){
   const dot = $('btn-status-dot'), num = $('btn-status-num');
-  dot.className = 'dot checking'; num.textContent = '...';
-
-  const result = await queryServerAnySource();
-
-  if (!result.online){
-    dot.className = 'dot offline'; num.textContent = 'оффлайн';
-    cachedServerData = { online: false };
-    onlineNicks = new Set(); renderLeaderboard();
-    if (currentView === 'stats') renderStatsTab();
-    if (currentView === 'map') renderCities();
-    renderOnlinePlayersList();
-    if ($('server-modal').classList.contains('open')) updateChart(currentRange);
-    return;
-  }
-
-  dot.className = 'dot online';
-  const online = result.online_count ?? 0;
-  const max = result.max ?? 0;
-  num.textContent = `${online}/${max}`;
-  const list = result.players || [];
-  onlineNicks = new Set(list.map(n => n.toLowerCase()));
-  cachedServerData = { online: true, players: { online, max, list } };
-  autoAddOnlinePlayers(list); renderLeaderboard();
-  if (currentView === 'stats') renderStatsTab();
-  if (currentView === 'map') renderCities();
-  renderOnlinePlayersList();
-  if ($('server-modal').classList.contains('open')) updateChart(currentRange);
+  dot.className = 'dot checking'; num.textContent = '—/—';
+  try {
+    const res = await fetch(`https://api.mcsrvstat.us/3/${SERVER_IP}`, { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json(); cachedServerData = data;
+    if (!data.online){
+      dot.className = 'dot offline'; num.textContent = 'оффлайн';
+      $('modal-players').innerHTML = '<div class="players-empty" style="grid-column:1/-1">Сервер оффлайн</div>';
+      onlineNicks = new Set(); renderLeaderboard(); if (currentView === 'all') renderAllPlayers();
+      if (currentView === 'stats') renderStatsTab();
+    } else {
+      dot.className = 'dot online';
+      const online = data.players?.online ?? 0, max = data.players?.max ?? 0;
+      num.textContent = `${online}/${max}`;
+      const list = data.players?.list || [];
+      onlineNicks = new Set(list.map(p => (typeof p === 'string' ? p : p.name).toLowerCase()));
+      autoAddOnlinePlayers(list); renderLeaderboard(); if (currentView === 'all') renderAllPlayers();
+      if (currentView === 'stats') renderStatsTab();
+      const grid = $('modal-players'); grid.innerHTML = '';
+      if (!list.length){
+        grid.innerHTML = `<div class="players-empty" style="grid-column:1/-1">${online > 0 ? 'Список скрыт' : 'Никого нет онлайн'}</div>`;
+      } else {
+        for (const p of list){
+          const nick = typeof p === 'string' ? p : p.name;
+          const el = document.createElement('div'); el.className = 'mc-player';
+          el.innerHTML = `<span class="mcp-name">${escapeHtml(nick)}</span>`;
+          el.onclick = () => { const player = players.find(x => x.nickname.toLowerCase() === nick.toLowerCase()); if (player){ closeServerModal(); openProfile(player.id); } };
+          grid.appendChild(el);
+        }
+      }
+      if ($('server-modal').classList.contains('open')) updateChart(currentRange);
+    }
+  } catch (e){ console.error(e); dot.className = 'dot offline'; num.textContent = 'ошибка'; }
 }
-document.addEventListener('input', e => {
-  if (e.target.id === 'server-players-search'){
-    serverPlayersSearch = e.target.value;
-    renderOnlinePlayersList();
-  }
-});
-
 function generateHistory(range){
   const online = cachedServerData?.online ? (cachedServerData.players?.online ?? 0) : 0;
   const max = cachedServerData?.online ? (cachedServerData.players?.max ?? 99) : 99;
@@ -1782,65 +988,54 @@ function updateChart(range){
   $('chart-svg').innerHTML = `<defs><linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3b82f6" stop-opacity="0.55"/><stop offset="100%" stop-color="#3b82f6" stop-opacity="0.02"/></linearGradient></defs><polygon points="${area}" fill="url(#chartGrad)"/><polyline points="${line}" fill="none" stroke="#3b82f6" stroke-width="1.6" stroke-linejoin="round"/>`;
 }
 
-/* ===== ГОРОДА ===== */
-function renderCities(){
-  const grid = $('cities-grid');
-  if (!grid) return;
-  const search = ($('city-search')?.value || '').toLowerCase().trim();
-  grid.innerHTML = '';
-  let totalFound = 0;
-
-  for (const city of CITIES){
-    const membersAll = city.mayor ? [city.mayor, ...city.members] : [...city.members];
-    const filtered = membersAll.filter(n => !search || n.toLowerCase().includes(search));
-    const cityMatches = !search || city.name.toLowerCase().includes(search);
-    if (search && !cityMatches && filtered.length === 0) continue;
-    totalFound++;
-
-    const shownMembers = (!search || cityMatches) ? membersAll : filtered;
-
-    const card = document.createElement('div');
-    card.className = 'city-card';
-    card.style.setProperty('--city-color', city.color);
-
-    const membersHtml = shownMembers.length
-      ? shownMembers.map(nick => {
-          const p = players.find(x => x.nickname.toLowerCase() === nick.toLowerCase());
-          const isMayor = nick === city.mayor;
-          const isOnline = onlineNicks.has(nick.toLowerCase());
-          const rating = p ? `${p.rating > 0 ? '+' : ''}${p.rating.toFixed(1)}` : '—';
-          const ratingCls = p && p.rating > 0 ? 'pos' : p && p.rating < 0 ? 'neg' : 'zero';
-          const playerId = p ? p.id : null;
-          return `<div class="city-member${isMayor ? ' mayor' : ''}${playerId ? '' : ' unknown'}"${playerId ? ` onclick="openProfile(${playerId})"` : ''}>
-            <div class="city-member-avatar">${avatarImgHtml(nick, 32)}${isOnline ? '<span class="city-online-dot"></span>' : ''}</div>
-            <div class="city-member-info">
-              <div class="city-member-nick">${escapeHtml(nick)}${isMayor ? ' <span class="mayor-tag">МЭР</span>' : ''}</div>
-              <div class="city-member-rating ${ratingCls}">${rating}</div>
-            </div>
-          </div>`;
-        }).join('')
-      : '<div class="city-empty">Ничего не найдено</div>';
-
-    card.innerHTML = `
-      <div class="city-head">
-        <div class="city-icon">${city.icon}</div>
-        <div class="city-head-info">
-          <div class="city-name">${escapeHtml(city.name)}</div>
-          <div class="city-count">${membersAll.length} игроков${city.mayor ? ' · мэр ' + escapeHtml(city.mayor) : ''}</div>
-        </div>
-      </div>
-      <div class="city-members">${membersHtml}</div>
-    `;
-    grid.appendChild(card);
-  }
-
-  if (totalFound === 0){
-    grid.innerHTML = '<div class="players-empty" style="grid-column:1/-1;padding:60px 20px">Ничего не найдено по запросу «' + escapeHtml(search) + '»</div>';
-  }
+/* ===== ВСЕ ИГРОКИ ===== */
+function setAllPlayersSort(sort){
+  allPlayersSort = sort;
+  document.querySelectorAll('.ap-filter').forEach(b => b.classList.toggle('active', b.dataset.sort === sort));
+  renderAllPlayers();
 }
-document.addEventListener('input', e => {
-  if (e.target.id === 'city-search') renderCities();
-});
+function renderAllPlayers(){
+  const grid = $('ap-grid'); if (!grid) return;
+  const list = [...players];
+  if (allPlayersSort === 'rating') list.sort((a,b) => b.rating - a.rating);
+  else if (allPlayersSort === 'mass') list.sort((a,b) => ((b.ups||0)+(b.downs||0)) - ((a.ups||0)+(a.downs||0)));
+  else if (allPlayersSort === 'recent') list.sort((a,b) => (b.lastActivityAt||b.addedAt||0) - (a.lastActivityAt||a.addedAt||0));
+  $('ap-count').textContent = list.length + ' игроков';
+  if (!list.length){ grid.innerHTML = `<div class="ap-empty" style="grid-column:1/-1"><strong>Пока никого нет</strong>Как только кто-то зайдёт на сервер — он появится тут.</div>`; return; }
+  const globalSorted = [...players].sort((a,b) => b.rating - a.rating);
+  grid.innerHTML = '';
+  list.forEach((p, i) => {
+    const place = globalSorted.findIndex(x => x.id === p.id) + 1;
+    const isOnline = onlineNicks.has(p.nickname.toLowerCase());
+    const ratingCls = p.rating > 0 ? 'pos' : p.rating < 0 ? 'neg' : 'zero';
+    const primaryAka = getPrimaryAka(p);
+    const mass = (p.ups||0) + (p.downs||0);
+    const card = document.createElement('div');
+    card.className = 'ap-card';
+    if (place === 1 && allPlayersSort === 'rating') card.classList.add('top1');
+    if (place === 2 && allPlayersSort === 'rating') card.classList.add('top2');
+    if (place === 3 && allPlayersSort === 'rating') card.classList.add('top3');
+    if (p.banned) card.classList.add('banned');
+    card.style.animationDelay = Math.min(i * 30, 600) + 'ms';
+    const rankLabel = allPlayersSort === 'rating' ? `#${place}` : (allPlayersSort === 'mass' ? `🎯 ${mass}` : `🕐 ${timeAgo(p.lastActivityAt || p.addedAt || Date.now())}`);
+    card.innerHTML = `
+      <span class="ap-card-rank">${rankLabel}</span>
+      ${avatarImgHtml(p.nickname, 144, 'class="ap-card-avatar"')}
+      <div class="ap-card-nick">${escapeHtml(p.nickname)}</div>
+      <div class="ap-card-aka${primaryAka === '—' ? ' empty' : ''}">${primaryAka === '—' ? 'пока без прозвища' : '« ' + escapeHtml(primaryAka) + ' »'}</div>
+      <div class="ap-card-stats">
+        <div class="ap-stat"><div class="v ${ratingCls}">${p.rating > 0 ? '+' : ''}${p.rating.toFixed(1)}</div><div class="l">Рейтинг</div></div>
+        <div class="ap-stat"><div class="v pos">+${p.ups||0}</div><div class="l">За</div></div>
+        <div class="ap-stat"><div class="v neg">−${p.downs||0}</div><div class="l">Против</div></div>
+      </div>
+      <div class="ap-card-foot">
+        <span class="ap-card-status ${isOnline ? 'online' : 'offline'}"><span class="dot"></span>${isOnline ? 'В игре' : 'Офлайн'}</span>
+        <span class="ap-card-score ${ratingCls}" style="color:${p.rating>0?'var(--emerald-2)':p.rating<0?'var(--red-2)':'var(--muted)'}">${p.rating > 0 ? '+' : ''}${p.rating.toFixed(1)}</span>
+      </div>`;
+    card.onclick = () => openProfile(p.id);
+    grid.appendChild(card);
+  });
+}
 
 /* ===== СТРИМЫ ===== */
 const DECAPI = 'https://decapi.me/twitch';
@@ -1880,37 +1075,19 @@ function openStream(channel){
   const wrap = $('stream-iframe-wrap');
   const status = streamStatusCache[channel] || {};
   const displayName = streamer.display || streamer.twitch;
-
   $('stream-name').textContent = displayName;
-  $('stream-meta').textContent = status.online
-    ? `🔴 В эфире · ${status.game || '—'} · ${status.viewers} зрителей`
-    : '⚫ Не в сети';
-
+  $('stream-meta').textContent = status.online ? `🔴 В эфире · ${status.game || '—'} · ${status.viewers} зрителей` : '⚫ Не в сети';
   const av = $('stream-avatar');
   if (status.avatar) av.innerHTML = `<img src="${status.avatar}" alt="">`;
   else av.textContent = displayName.charAt(0).toUpperCase();
-
   $('stream-open').href = `https://twitch.tv/${channel}`;
-
   if (status.online){
-    wrap.innerHTML = `<iframe
-      src="${buildTwitchEmbed(channel)}"
-      allowfullscreen
-      allow="autoplay; fullscreen; encrypted-media"
-      referrerpolicy="origin"
-    ></iframe>`;
+    wrap.innerHTML = `<iframe src="${buildTwitchEmbed(channel)}" allowfullscreen allow="autoplay; fullscreen; encrypted-media" referrerpolicy="origin"></iframe>`;
   } else {
     const initial = displayName.charAt(0).toUpperCase();
     const avatarHtml = status.avatar ? `<img src="${status.avatar}" alt="">` : initial;
-    wrap.innerHTML = `
-      <div class="stream-offline-card">
-        <div class="stream-offline-avatar">${avatarHtml}</div>
-        <div class="stream-offline-nick">${escapeHtml(channel)}</div>
-        <div class="stream-offline-status"><span class="dot-off"></span>Сейчас не в эфире</div>
-        <a class="stream-offline-btn" href="https://twitch.tv/${channel}" target="_blank" rel="noopener">Открыть на Twitch</a>
-      </div>`;
+    wrap.innerHTML = `<div class="stream-offline-card"><div class="stream-offline-avatar">${avatarHtml}</div><div class="stream-offline-nick">${escapeHtml(channel)}</div><div class="stream-offline-status"><span class="dot-off"></span>Сейчас не в эфире</div><a class="stream-offline-btn" href="https://twitch.tv/${channel}" target="_blank" rel="noopener">Открыть на Twitch</a></div>`;
   }
-
   renderStreamList();
 }
 function renderStreamList(){
@@ -1970,18 +1147,12 @@ setInterval(() => { if (currentView === 'streams'){ streamStatusCache = {}; load
 
 /* ===== ГОЛОСОВАНИЕ / ПРОФИЛЬ ===== */
 function updateNavVoteButton(){
-  const btn = $('nav-vote-btn'); const timer = $('nav-vote-timer'); const label = btn.querySelector('.label');
+  const btn = $('nav-vote-btn'), timer = $('nav-vote-timer'), label = btn.querySelector('.label');
   const rem = getCooldownRemaining();
   if (rem > 0){ btn.classList.add('cooling'); label.classList.add('hidden'); timer.classList.remove('hidden'); timer.textContent = formatTime(rem); }
   else { btn.classList.remove('cooling'); label.classList.remove('hidden'); timer.classList.add('hidden'); }
 }
-function startNavTick(){
-  if (navTick) clearInterval(navTick);
-  updateNavVoteButton();
-  navTick = setInterval(() => { updateNavVoteButton(); const rem = getCooldownRemaining(); if (rem<=0 && $('vote-modal').classList.contains('open') && $('vote-cd-timer')) renderVoteModal(); }, 1000);
-}
-
-/* ========== КРАСИВЫЙ ПРОФИЛЬ ИГРОКА ========== */
+function startNavTick(){ if (navTick) clearInterval(navTick); updateNavVoteButton(); navTick = setInterval(() => { updateNavVoteButton(); }, 1000); }
 function openProfile(playerId){
   const p = players.find(x => x.id === playerId); if (!p) return;
   currentProfileId = playerId; akaFormOpen = false; akaCollapsed = true;
@@ -1997,104 +1168,52 @@ function openProfile(playerId){
   const addBtnHtml = myPending ? `<button class="pf-aka-chip-add" disabled>⏳ на модерации</button>` : `<button class="pf-aka-chip-add" id="aka-add-btn" onclick="toggleAkaInput()">+ aka</button>`;
   const collapseBtnHtml = akas.length > 6 ? `<button class="pf-aka-collapse collapsed" id="aka-collapse-btn" onclick="toggleAkaCollapse()"><span>▲</span> Развернуть</button>` : '';
   const akaInputRowHtml = `<div class="pf-aka-input-row hidden" id="pf-aka-input-row"><input class="pf-aka-input" id="aka-input" maxlength="30" placeholder="Например: Дед, Легенда..." autocomplete="off"><button class="pf-aka-send" onclick="submitAka(${p.id})">Отправить</button><button class="pf-aka-cancel" onclick="toggleAkaInput()" title="Отмена">✕</button></div>`;
-
-  // Определяем, какой значок у места
-  let medalIcon = '🏅';
-  if (place === 1) medalIcon = '👑';
-  else if (place === 2) medalIcon = '🥈';
-  else if (place === 3) medalIcon = '🥉';
-
   $('profile-body').innerHTML = `
     <div class="pf-banner">
-      <div class="pf-banner-inner">
-        <div class="pf-avatar-wrap">
-          ${avatarImgHtml(p.nickname, 160, 'class="pf-avatar"')}
-          ${isOnline ? '<div class="online-dot"></div>' : '<div class="offline-dot"></div>'}
-        </div>
-        <div class="pf-nick">${escapeHtml(p.nickname)}</div>
-        <div class="pf-status-badge ${isOnline ? 'online' : 'offline'}">
-          <span class="pf-status-dot"></span>
-          ${isOnline ? 'Сейчас на сервере' : 'Не в сети'}
-        </div>
+      <div class="pf-avatar-wrap">${avatarImgHtml(p.nickname, 160, 'class="pf-avatar"')}${isOnline ? '<div class="online-dot"></div>' : '<div class="offline-dot"></div>'}</div>
+      <div class="pf-nick">${escapeHtml(p.nickname)}</div>
+      <div class="pf-rating-row">
+        <div class="pf-rating-block rating"><div class="val ${ratingCls}">${p.rating > 0 ? '+' : ''}${p.rating.toFixed(1)}</div><div class="lbl">Рейтинг</div></div>
+        <div class="pf-rating-block up"><div class="val">${ups}</div><div class="lbl">За</div></div>
+        <div class="pf-rating-block down"><div class="val">${downs}</div><div class="lbl">Против</div></div>
       </div>
     </div>
-
-    <div class="pf-stats">
-      <div class="pf-stat rating" style="--pf-accent:${p.rating >= 0 ? 'var(--emerald)' : 'var(--red)'}">
-        <div class="ico">${p.rating > 0 ? '📈' : p.rating < 0 ? '📉' : '⚖️'}</div>
-        <div class="val ${ratingCls}">${p.rating > 0 ? '+' : ''}${p.rating.toFixed(1)}</div>
-        <div class="lbl">Рейтинг</div>
-      </div>
-      <div class="pf-stat up">
-        <div class="ico">👍</div>
-        <div class="val">${ups}</div>
-        <div class="lbl">За</div>
-      </div>
-      <div class="pf-stat down">
-        <div class="ico">👎</div>
-        <div class="val">${downs}</div>
-        <div class="lbl">Против</div>
-      </div>
-    </div>
-
-    <div class="pf-place-row">
-      <span class="pf-place-badge">
-        <span class="medal">${medalIcon}</span>
-        <span>Место в рейтинге</span>
-        <span class="num">#${place}</span>
-      </span>
-    </div>
-
     <div class="pf-aka-section">
-      <div class="pf-aka-header">
-        <div class="pf-aka-title">
-          <span class="aka-mini">aka</span>
-          Прозвища
-          <span class="aka-count">${akas.length}</span>
-        </div>
-      </div>
+      <div class="pf-aka-header"><div class="pf-aka-title"><span class="aka-mini">aka</span>Прозвища<span class="aka-count">${akas.length}</span></div></div>
       <div class="pf-aka-cloud${akas.length > 6 ? ' collapsed' : ''}" id="pf-aka-cloud">${chipsHtml}${addBtnHtml}</div>
       ${akaInputRowHtml}
       <div class="pf-aka-toast" id="aka-toast"></div>
       ${collapseBtnHtml ? `<div class="pf-aka-input-row" style="margin-top:12px">${collapseBtnHtml}</div>` : ''}
     </div>
-
+    <div class="pf-status-strip ${isOnline ? 'online' : 'offline'}"><span class="pulse-dot"></span>${isOnline ? 'Сейчас на сервере' : 'Не в сети'}</div>
+    <div class="pf-place-row"><strong>№${place}</strong> в общем рейтинге</div>
     <div class="pf-actions">
       <button class="pf-action-btn primary" onclick="shareProfile(${p.id})">🔗 Поделиться</button>
       <button class="pf-action-btn" onclick="copyNick('${escapeHtml(p.nickname)}')">📋 Скопировать ник</button>
+      <a class="pf-action-btn" href="https://ru.namemc.com/profile/${encodeURIComponent(p.nickname)}" target="_blank" rel="noopener">🌐 NameMC</a>
     </div>`;
   openModal('profile-modal');
   history.replaceState(null, '', '#player=' + p.id);
 }
-function toggleAkaInput(){
-  const row = $('pf-aka-input-row'); const btn = $('aka-add-btn'); if (!row) return;
-  akaFormOpen = !akaFormOpen;
-  if (akaFormOpen){ row.classList.remove('hidden'); if (btn) btn.classList.add('hidden'); setTimeout(() => $('aka-input')?.focus(), 50); }
-  else { row.classList.add('hidden'); if (btn) btn.classList.remove('hidden'); }
-}
-function toggleAkaCollapse(){
-  const cloud = $('pf-aka-cloud'); const btn = $('aka-collapse-btn'); if (!cloud || !btn) return;
-  akaCollapsed = !akaCollapsed;
-  cloud.classList.toggle('collapsed', akaCollapsed);
-  btn.innerHTML = akaCollapsed ? '<span>▲</span> Развернуть' : '<span>▼</span> Свернуть';
-}
+function toggleAkaInput(){ const row = $('pf-aka-input-row'), btn = $('aka-add-btn'); if (!row) return; akaFormOpen = !akaFormOpen; if (akaFormOpen){ row.classList.remove('hidden'); if (btn) btn.classList.add('hidden'); setTimeout(() => $('aka-input')?.focus(), 50); } else { row.classList.add('hidden'); if (btn) btn.classList.remove('hidden'); } }
+function toggleAkaCollapse(){ const cloud = $('pf-aka-cloud'), btn = $('aka-collapse-btn'); if (!cloud || !btn) return; akaCollapsed = !akaCollapsed; cloud.classList.toggle('collapsed', akaCollapsed); btn.innerHTML = akaCollapsed ? '<span>▲</span> Развернуть' : '<span>▼</span> Свернуть'; }
 function shareProfile(id){ const url = location.origin + location.pathname + '#player=' + id; navigator.clipboard.writeText(url).then(() => showToastGlobal('🔗 Ссылка скопирована')); }
-function copyNick(nick){ navigator.clipboard.writeText(nick).then(() => showToastGlobal(`📋 Скопировано: ${nick}`)); }
+function copyNick(nick){ navigator.clipboard.writeText(nick).then(() => showToastGlobal(`📋 Скопирован ник: ${nick}`)); }
 function submitAka(playerId){
   const p = players.find(x => x.id === playerId); if (!p) return;
-  const input = $('aka-input'); const toast = $('aka-toast'); if (!input || !toast) return;
+  const input = $('aka-input'), toast = $('aka-toast'); if (!input || !toast) return;
   const aka = input.value.trim();
   if (aka.length < 2){ toast.textContent = 'Слишком короткое'; toast.className = 'pf-aka-toast err'; return; }
   if (aka.length > 30){ toast.textContent = 'Максимум 30 символов'; toast.className = 'pf-aka-toast err'; return; }
   const banned = ['хуй','пизд','бля','ебан','сук','мраз'];
-  if (banned.some(w => aka.toLowerCase().includes(w))){ toast.textContent = 'Прозвище не прошло фильтр'; toast.className = 'pf-aka-toast err'; return; }
+  if (banned.some(w => aka.toLowerCase().includes(w))){ toast.textContent = 'Не прошло фильтр'; toast.className = 'pf-aka-toast err'; return; }
   const moderation = loadModeration();
-  if (moderation.find(m => m.playerId === playerId && m.status === 'pending' && m.fromThisBrowser)){ toast.textContent = 'Уже есть заявка на модерации'; toast.className = 'pf-aka-toast pending'; return; }
+  if (moderation.find(m => m.playerId === playerId && m.status === 'pending' && m.fromThisBrowser)){ toast.textContent = 'Уже есть заявка'; toast.className = 'pf-aka-toast pending'; return; }
   const u = getCurrentUser();
   moderation.unshift({ id: Date.now() + Math.floor(Math.random() * 1000), playerId, playerNick: p.nickname, aka, ts: Date.now(), status: 'pending', fromThisBrowser: true, authorDiscordId: u ? u.id : null, authorDiscordName: u ? getDisplayName(u) : null });
   saveModeration(moderation); updateModBadge();
-  addLog('aka', `Прозвище <strong>${escapeHtml(aka)}</strong> предложено для <strong>${p.nickname}</strong>`, p.nickname);
-  toast.textContent = '✅ Заявка отправлена'; toast.className = 'pf-aka-toast ok';
+  addLog('aka', `Прозвище <strong>${escapeHtml(aka)}</strong> для <strong>${p.nickname}</strong>`, p.nickname);
+  toast.textContent = '✅ Отправлено'; toast.className = 'pf-aka-toast ok';
   setTimeout(() => { if (currentProfileId === playerId) openProfile(playerId); }, 900);
 }
 function renderVoteModal(){
@@ -2108,17 +1227,11 @@ function renderVoteModal(){
     tick(); cooldownTick = setInterval(tick, 1000); return;
   }
   const active = players.filter(p => !p.banned);
-  if (!active.length){ body.innerHTML = `<div class="vote-empty"><strong>Пока нет игроков</strong>Игроки появятся автоматически.</div>`; return; }
+  if (!active.length){ body.innerHTML = `<div class="vote-empty"><strong>Пока нет игроков</strong></div>`; return; }
   votePool = shuffle(active).slice(0, settings.poolSize);
   for (const k of Object.keys(picks)) delete picks[k];
   body.innerHTML = `
-    <div class="vote-info">
-      <div class="vote-info-text">Выбери по одному: <span class="pill up">за</span> <span class="pill down">против</span></div>
-      <div class="vote-counters">
-        <div class="counter up"><span class="icon">+</span><strong id="count-up">0</strong>/${settings.maxUp}</div>
-        <div class="counter down"><span class="icon">−</span><strong id="count-down">0</strong>/${settings.maxDown}</div>
-      </div>
-    </div>
+    <div class="vote-info"><div class="vote-info-text">Выбери по одному: <span class="pill up">за</span> <span class="pill down">против</span></div><div class="vote-counters"><div class="counter up"><span class="icon">+</span><strong id="count-up">0</strong>/${settings.maxUp}</div><div class="counter down"><span class="icon">−</span><strong id="count-down">0</strong>/${settings.maxDown}</div></div></div>
     <div class="vote-list" id="vote-list"></div>
     <div class="vote-actions"><button class="submit-vote" id="submit-vote" disabled>Отправить голос</button><span class="vote-hint">Нажми + или − на карточке игрока</span></div>`;
   const list = $('vote-list');
@@ -2133,23 +1246,10 @@ function renderVoteModal(){
   $('submit-vote').onclick = submitVote;
   updatePicksUI();
 }
-function togglePick(playerId, type){
-  const cur = picks[playerId];
-  if (cur === type){ delete picks[playerId]; updatePicksUI(); return; }
-  const sameType = Object.entries(picks).filter(([,v])=>v===type);
-  const limit = type === 'up' ? settings.maxUp : settings.maxDown;
-  if (sameType.length >= limit) delete picks[sameType[0][0]];
-  picks[playerId] = type; updatePicksUI();
-}
+function togglePick(playerId, type){ const cur = picks[playerId]; if (cur === type){ delete picks[playerId]; updatePicksUI(); return; } const sameType = Object.entries(picks).filter(([,v])=>v===type); const limit = type === 'up' ? settings.maxUp : settings.maxDown; if (sameType.length >= limit) delete picks[sameType[0][0]]; picks[playerId] = type; updatePicksUI(); }
 function updatePicksUI(){
-  document.querySelectorAll('.vote-item').forEach(item=>{
-    const pid = Number(item.dataset.playerId); const state = picks[pid] || 'none';
-    item.dataset.state = state;
-    item.querySelector('.vote-btn.plus').classList.toggle('active', state==='up');
-    item.querySelector('.vote-btn.minus').classList.toggle('active', state==='down');
-  });
-  const up = Object.values(picks).filter(v=>v==='up').length;
-  const down = Object.values(picks).filter(v=>v==='down').length;
+  document.querySelectorAll('.vote-item').forEach(item => { const pid = Number(item.dataset.playerId); const state = picks[pid] || 'none'; item.dataset.state = state; item.querySelector('.vote-btn.plus').classList.toggle('active', state==='up'); item.querySelector('.vote-btn.minus').classList.toggle('active', state==='down'); });
+  const up = Object.values(picks).filter(v=>v==='up').length, down = Object.values(picks).filter(v=>v==='down').length;
   if ($('count-up')) $('count-up').textContent = up;
   if ($('count-down')) $('count-down').textContent = down;
   if ($('submit-vote')) $('submit-vote').disabled = Object.keys(picks).length === 0;
@@ -2159,17 +1259,17 @@ function submitVote(){
   const downs = Object.entries(picks).filter(([,v])=>v==='down').map(([k])=>Number(k));
   if (!ups.length && !downs.length) return;
   const upsNames = [], downsNames = [];
-  for (const id of ups){ const p = players.find(x=>x.id===id); if (p){ p.rating = clampRating(p.rating + 0.1 * (1 + Math.floor(Math.random() * 3))); p.ups = (p.ups||0)+1; upsNames.push(p.nickname); } }
-  for (const id of downs){ const p = players.find(x=>x.id===id); if (p){ p.rating = clampRating(p.rating - 0.1 * (1 + Math.floor(Math.random() * 3))); p.downs = (p.downs||0)+1; downsNames.push(p.nickname); } }
+  for (const id of ups){ const p = players.find(x=>x.id===id); if (p){ p.rating = clampRating(p.rating + 0.1 * (1 + Math.floor(Math.random() * 3))); p.ups = (p.ups||0)+1; p.lastActivityAt = Date.now(); upsNames.push(p.nickname); } }
+  for (const id of downs){ const p = players.find(x=>x.id===id); if (p){ p.rating = clampRating(p.rating - 0.1 * (1 + Math.floor(Math.random() * 3))); p.downs = (p.downs||0)+1; p.lastActivityAt = Date.now(); downsNames.push(p.nickname); } }
   savePlayers(players);
   localStorage.setItem(COOLDOWN_KEY, String(Date.now()));
   const logText = [upsNames.length ? `<strong>${upsNames.join(', ')}</strong> +` : '', downsNames.length ? `<strong>${downsNames.join(', ')}</strong> −` : ''].filter(Boolean).join(' · ');
   addLog('vote', `Проголосовано: ${logText}`, '');
-  renderLeaderboard(); updateNavVoteButton(); renderVoteModal();
+  renderLeaderboard(); if (currentView === 'all') renderAllPlayers(); updateNavVoteButton(); renderVoteModal();
 }
 function renderLeaderboard(){
   $('hero-count').textContent = players.length + ' игроков';
-  if (!players.length){ $('lb-board').innerHTML = `<div class="lb-empty-state"><h3>Список пока пуст</h3><p>Как только кто-то зайдёт на сервер — он появится здесь автоматически.</p><div class="live-pill">Ожидание игроков…</div></div>`; return; }
+  if (!players.length){ $('lb-board').innerHTML = `<div class="lb-empty-state"><h3>Список пока пуст</h3><p>Как только кто-то зайдёт на сервер — он появится здесь.</p><div class="live-pill">Ожидание игроков…</div></div>`; return; }
   const board = $('lb-board'); board.innerHTML = '';
   const sortedAll = [...players].sort((a,b)=>b.rating - a.rating);
   const searchLc = currentSearch.toLowerCase().trim();
@@ -2194,11 +1294,12 @@ function renderLeaderboard(){
         const up = p.ups || 0, down = p.downs || 0, mass = up + down;
         const isOnline = onlineNicks.has(p.nickname.toLowerCase());
         const randomAka = getRandomAka(p);
-        const akaSub = randomAka ? `aka « ${escapeHtml(randomAka)} »` : `aka ${escapeHtml(cat.name)}`;
+        const akaInline = randomAka ? `<span class="aka-inline">« ${escapeHtml(randomAka)} »</span>` : '';
+        const primaryAka = getPrimaryAka(p);
         row.innerHTML = `
           <div class="lb-pos"><div class="lb-pos-num">${idx}</div><div class="lb-pos-label">место</div></div>
           <div class="lb-avatar">${crown}${avatarImgHtml(p.nickname, 64)}${isOnline ? '<div class="online-dot"></div>' : ''}</div>
-          <div class="lb-name"><div class="lb-nick">${escapeHtml(p.nickname)}</div><div class="lb-aka">${akaSub}</div></div>
+          <div class="lb-name"><div class="lb-nick">${escapeHtml(p.nickname)} ${akaInline}</div><div class="lb-aka">${primaryAka !== '—' ? 'aka « ' + escapeHtml(primaryAka) + ' »' : 'aka ' + escapeHtml(cat.name)}</div></div>
           <div class="lb-votes"><span class="lb-up">+${up}</span><span class="lb-down">−${down}</span></div>
           <div class="lb-mass"><span class="lb-mass-num">${mass}</span><span class="lb-mass-label">масса</span></div>
           <div class="lb-rating ${ratingCls}">${p.rating > 0 ? '+' : ''}${p.rating.toFixed(1)}</div>`;
@@ -2228,22 +1329,11 @@ function renderStatsTab(){
     <div class="stat-card" style="--accent:#a78bfa"><div class="ico">✍️</div><div class="lbl">Прозвищ</div><div class="val">${totalAkas}</div><div class="sub">у ${withAka} игроков</div></div>
     <div class="stat-card" style="--accent:#10b981"><div class="ico">🟢</div><div class="lbl">Онлайн</div><div class="val">${cachedServerData?.online ? online : '—'}</div><div class="sub">${cachedServerData?.online ? `из ${maxOnline}` : 'нет связи'}</div></div>
     <div class="stat-card" style="--accent:#ec4899"><div class="ico">💬</div><div class="lbl">Средняя масса</div><div class="val">${total > 0 ? Math.round(totalVotes/total) : 0}</div><div class="sub">голосов на игрока</div></div>`;
-  const renderTop = (list, target, valFn) => {
-    const el = $(target); el.innerHTML = '';
-    if (!list.length){ el.innerHTML = '<div class="players-empty">Пусто</div>'; return; }
-    list.forEach((p, i) => {
-      const item = document.createElement('div'); item.className = 'top-item';
-      item.innerHTML = `<span class="rank-num">#${i + 1}</span>${avatarImgHtml(p.nickname, 32)}<span class="top-name">${escapeHtml(p.nickname)}</span><span class="top-val ${valFn(p).cls}">${valFn(p).text}</span>`;
-      item.onclick = () => openProfile(p.id);
-      el.appendChild(item);
-    });
-  };
-  const topGood = [...good].sort((a,b)=>b.rating-a.rating).slice(0, 10);
+  const renderTop = (list, target, valFn) => { const el = $(target); el.innerHTML = ''; if (!list.length){ el.innerHTML = '<div class="players-empty">Пусто</div>'; return; } list.forEach((p, i) => { const item = document.createElement('div'); item.className = 'top-item'; item.innerHTML = `<span class="rank-num">#${i + 1}</span>${avatarImgHtml(p.nickname, 32)}<span class="top-name">${escapeHtml(p.nickname)}</span><span class="top-val ${valFn(p).cls}">${valFn(p).text}</span>`; item.onclick = () => openProfile(p.id); el.appendChild(item); }); };
+  renderTop([...good].sort((a,b)=>b.rating-a.rating).slice(0, 10), 'top-good-list', p => ({ cls: '', text: (p.rating > 0 ? '+' : '') + p.rating.toFixed(1) }));
   $('top-good-count').textContent = `${good.length} игроков`;
-  renderTop(topGood, 'top-good-list', p => ({ cls: '', text: (p.rating > 0 ? '+' : '') + p.rating.toFixed(1) }));
-  const topEvil = [...evil].sort((a,b)=>a.rating-b.rating).slice(0, 10);
+  renderTop([...evil].sort((a,b)=>a.rating-b.rating).slice(0, 10), 'top-evil-list', p => ({ cls: 'neg', text: p.rating.toFixed(1) }));
   $('top-evil-count').textContent = `${evil.length} игроков`;
-  renderTop(topEvil, 'top-evil-list', p => ({ cls: 'neg', text: p.rating.toFixed(1) }));
   const ranges = [
     { from:-5.0, to:-4.0, label:'−5.0', cls:'neg' }, { from:-4.0, to:-3.0, label:'−4.0', cls:'neg' },
     { from:-3.0, to:-2.0, label:'−3.0', cls:'neg' }, { from:-2.0, to:-1.0, label:'−2.0', cls:'neg' },
@@ -2254,12 +1344,7 @@ function renderStatsTab(){
   const histContainer = $('rating-histogram'); histContainer.innerHTML = '';
   const counts = ranges.map(r => players.filter(p => p.rating >= r.from && p.rating < r.to).length);
   const maxCount = Math.max(...counts, 1);
-  ranges.forEach((r, i) => {
-    const count = counts[i]; const heightPct = count === 0 ? 0 : Math.max(4, (count / maxCount) * 100);
-    const bar = document.createElement('div'); bar.className = 'hist-bar';
-    bar.innerHTML = `<span class="hist-bar-count">${count}</span><div class="hist-bar-fill ${r.cls}" style="height:${heightPct}%"></div><span class="hist-bar-label">${r.label}</span>`;
-    histContainer.appendChild(bar);
-  });
+  ranges.forEach((r, i) => { const count = counts[i]; const heightPct = count === 0 ? 0 : Math.max(4, (count / maxCount) * 100); const bar = document.createElement('div'); bar.className = 'hist-bar'; bar.innerHTML = `<span class="hist-bar-count">${count}</span><div class="hist-bar-fill ${r.cls}" style="height:${heightPct}%"></div><span class="hist-bar-label">${r.label}</span>`; histContainer.appendChild(bar); });
   const catDist = $('category-distribution'); catDist.innerHTML = '';
   const total2 = players.length || 1;
   const dist = [
@@ -2267,16 +1352,9 @@ function renderStatsTab(){
     { name:'С прозвищами', count: withAka, cls:'gold' }, { name:'Активные', count: active, cls:'green' },
     { name:'Забаненные', count: banned, cls:'red' },
   ];
-  dist.forEach(d => {
-    const pct = Math.round((d.count / total2) * 100);
-    const row = document.createElement('div'); row.className = 'dist-row';
-    row.innerHTML = `<span class="dist-label">${d.name}</span><div class="dist-bar-track"><div class="dist-bar-fill ${d.cls}" style="width:${pct}%"></div></div><span class="dist-val">${d.count} (${pct}%)</span>`;
-    catDist.appendChild(row);
-  });
-  const topLoved = [...players].sort((a,b)=>(b.ups||0)-(a.ups||0)).slice(0, 10).filter(p => (p.ups||0) > 0);
-  renderTop(topLoved, 'top-loved-list', p => ({ cls: '', text: `+${p.ups} ▲` }));
-  const topHated = [...players].sort((a,b)=>(b.downs||0)-(a.downs||0)).slice(0, 10).filter(p => (p.downs||0) > 0);
-  renderTop(topHated, 'top-hated-list', p => ({ cls: 'neg', text: `−${p.downs} ▼` }));
+  dist.forEach(d => { const pct = Math.round((d.count / total2) * 100); const row = document.createElement('div'); row.className = 'dist-row'; row.innerHTML = `<span class="dist-label">${d.name}</span><div class="dist-bar-track"><div class="dist-bar-fill ${d.cls}" style="width:${pct}%"></div></div><span class="dist-val">${d.count} (${pct}%)</span>`; catDist.appendChild(row); });
+  renderTop([...players].sort((a,b)=>(b.ups||0)-(a.ups||0)).slice(0, 10).filter(p => (p.ups||0) > 0), 'top-loved-list', p => ({ cls: '', text: `+${p.ups} ▲` }));
+  renderTop([...players].sort((a,b)=>(b.downs||0)-(a.downs||0)).slice(0, 10).filter(p => (p.downs||0) > 0), 'top-hated-list', p => ({ cls: 'neg', text: `−${p.downs} ▼` }));
 }
 
 /* ===== АДМИНКА ===== */
@@ -2288,7 +1366,6 @@ document.querySelectorAll('.admin-tab').forEach(tab => {
     const pane = document.getElementById('pane-' + tab.dataset.tab);
     if (pane) pane.classList.add('active');
     if (tab.dataset.tab === 'moderation') renderModeration();
-    if (tab.dataset.tab === 'users') loadRegisteredUsers();
   });
 });
 let adminSearch = '';
@@ -2302,19 +1379,18 @@ function renderAdminPlayers(){
   for (const p of list){
     const ratingCls = p.rating > 0 ? '' : p.rating < 0 ? 'neg' : 'zero';
     const statusCls = p.banned ? 'banned' : '';
-    const statusText = p.banned ? 'Забанен' : 'Активен';
     const randomAka = getRandomAka(p);
     const akaHtml = randomAka ? `<span class="ap-aka">« ${escapeHtml(randomAka)} »</span>` : '';
     const row = document.createElement('div'); row.className = 'admin-player-row';
-    row.innerHTML = `${avatarImgHtml(p.nickname, 36)}<div class="ap-nick">${escapeHtml(p.nickname)} ${akaHtml}</div><div class="ap-rating ${ratingCls}">${p.rating > 0 ? '+' : ''}${p.rating.toFixed(1)}</div><div class="ap-status ${statusCls}">${statusText}</div><div class="ap-actions"><button class="ap-icon-btn" title="Изменить рейтинг" onclick="adminEditRating(${p.id})">✏️</button><button class="ap-icon-btn" title="Изменить ник" onclick="adminEditNick(${p.id})">📝</button><button class="ap-icon-btn purple" title="Прозвища" onclick="adminEditAka(${p.id})">✍️</button><button class="ap-icon-btn" title="${p.banned ? 'Разбанить' : 'Забанить'}" onclick="adminToggleBan(${p.id})">${p.banned ? '✅' : '🚫'}</button><button class="ap-icon-btn danger" title="Удалить" onclick="adminDelete(${p.id})">🗑</button></div>`;
+    row.innerHTML = `${avatarImgHtml(p.nickname, 36)}<div class="ap-nick">${escapeHtml(p.nickname)} ${akaHtml}</div><div class="ap-rating ${ratingCls}">${p.rating > 0 ? '+' : ''}${p.rating.toFixed(1)}</div><div class="ap-status ${statusCls}">${p.banned ? 'Забанен' : 'Активен'}</div><div class="ap-actions"><button class="ap-icon-btn" onclick="adminEditRating(${p.id})">✏️</button><button class="ap-icon-btn" onclick="adminEditNick(${p.id})">📝</button><button class="ap-icon-btn purple" onclick="adminEditAka(${p.id})">✍️</button><button class="ap-icon-btn" onclick="adminToggleBan(${p.id})">${p.banned ? '✅' : '🚫'}</button><button class="ap-icon-btn danger" onclick="adminDelete(${p.id})">🗑</button></div>`;
     container.appendChild(row);
   }
 }
-function adminEditRating(id){ const p = players.find(x => x.id === id); if (!p) return; const v = prompt(`Текущий рейтинг ${p.nickname}: ${p.rating}\nНовый (−5..+5):`, p.rating); if (v === null) return; const n = parseFloat(v); if (isNaN(n)) return alert('Некорректное число'); const old = p.rating; p.rating = clampRating(n); savePlayers(players); addLog('edit', `Рейтинг <strong>${p.nickname}</strong>: ${old.toFixed(1)} → ${p.rating.toFixed(1)}`, p.nickname); renderAdminPlayers(); renderLeaderboard(); }
-function adminEditNick(id){ const p = players.find(x => x.id === id); if (!p) return; const v = prompt(`Текущий ник: ${p.nickname}\nНовый ник:`, p.nickname); if (v === null) return; const nick = v.trim(); if (!/^[A-Za-z0-9_]{3,16}$/.test(nick)) return alert('Ник: 3-16 символов'); if (players.some(x => x.id !== id && x.nickname.toLowerCase() === nick.toLowerCase())) return alert('Такой ник уже есть'); const old = p.nickname; p.nickname = nick; savePlayers(players); addLog('edit', `Ник <strong>${old}</strong> → <strong>${nick}</strong>`, nick); renderAdminPlayers(); renderLeaderboard(); }
-function adminEditAka(id){ const p = players.find(x => x.id === id); if (!p) return; const current = (p.akas || []).join(', '); const v = prompt(`Прозвища для ${p.nickname}:\n${current || '(пусто)'}\n\nЧерез запятую (пусто = удалить):`, current); if (v === null) return; const newList = v.split(',').map(s => s.trim()).filter(Boolean).slice(0, 30); p.akas = newList; savePlayers(players); addLog('aka', `Прозвища <strong>${p.nickname}</strong> обновлены (${newList.length})`, p.nickname); renderAdminPlayers(); renderLeaderboard(); }
-function adminToggleBan(id){ const p = players.find(x => x.id === id); if (!p) return; p.banned = !p.banned; savePlayers(players); addLog('ban', `<strong>${p.nickname}</strong> ${p.banned ? 'забанен' : 'разбанен'}`, p.nickname); renderAdminPlayers(); renderLeaderboard(); renderAdminStats(); }
-function adminDelete(id){ const p = players.find(x => x.id === id); if (!p) return; if (!confirm(`Удалить ${p.nickname}?`)) return; players = players.filter(x => x.id !== id); savePlayers(players); addLog('remove', `Удалён <strong>${p.nickname}</strong>`, p.nickname); renderAdminPlayers(); renderLeaderboard(); renderAdminStats(); }
+function adminEditRating(id){ const p = players.find(x => x.id === id); if (!p) return; const v = prompt(`Новый рейтинг (−5..+5):`, p.rating); if (v === null) return; const n = parseFloat(v); if (isNaN(n)) return alert('Число'); p.rating = clampRating(n); savePlayers(players); addLog('edit', `Рейтинг <strong>${p.nickname}</strong> → ${p.rating.toFixed(1)}`, p.nickname); renderAdminPlayers(); renderLeaderboard(); if (currentView === 'all') renderAllPlayers(); }
+function adminEditNick(id){ const p = players.find(x => x.id === id); if (!p) return; const v = prompt(`Новый ник:`, p.nickname); if (v === null) return; const nick = v.trim(); if (!/^[A-Za-z0-9_]{3,16}$/.test(nick)) return alert('Ник: 3-16 символов'); if (players.some(x => x.id !== id && x.nickname.toLowerCase() === nick.toLowerCase())) return alert('Такой ник есть'); p.nickname = nick; savePlayers(players); addLog('edit', `Ник → <strong>${nick}</strong>`, nick); renderAdminPlayers(); renderLeaderboard(); if (currentView === 'all') renderAllPlayers(); }
+function adminEditAka(id){ const p = players.find(x => x.id === id); if (!p) return; const current = (p.akas || []).join(', '); const v = prompt(`Прозвища через запятую:`, current); if (v === null) return; p.akas = v.split(',').map(s => s.trim()).filter(Boolean).slice(0, 30); savePlayers(players); addLog('aka', `Прозвища <strong>${p.nickname}</strong> обновлены`, p.nickname); renderAdminPlayers(); renderLeaderboard(); if (currentView === 'all') renderAllPlayers(); }
+function adminToggleBan(id){ const p = players.find(x => x.id === id); if (!p) return; p.banned = !p.banned; savePlayers(players); addLog('ban', `<strong>${p.nickname}</strong> ${p.banned ? 'забанен' : 'разбанен'}`, p.nickname); renderAdminPlayers(); renderLeaderboard(); if (currentView === 'all') renderAllPlayers(); renderAdminStats(); }
+function adminDelete(id){ const p = players.find(x => x.id === id); if (!p) return; if (!confirm(`Удалить ${p.nickname}?`)) return; players = players.filter(x => x.id !== id); savePlayers(players); addLog('remove', `Удалён <strong>${p.nickname}</strong>`, p.nickname); renderAdminPlayers(); renderLeaderboard(); if (currentView === 'all') renderAllPlayers(); renderAdminStats(); }
 function renderModeration(){
   const container = $('mod-list'); if (!container) return;
   const moderation = loadModeration();
@@ -2329,124 +1405,61 @@ function renderModeration(){
   updateModBadge();
 }
 function moderationApprove(id){
-  const moderation = loadModeration(); const m = moderation.find(x => x.id === id);
-  if (!m || m.status !== 'pending') return;
+  const moderation = loadModeration(); const m = moderation.find(x => x.id === id); if (!m || m.status !== 'pending') return;
   const p = players.find(x => x.id === m.playerId); if (!p) return;
   if (!Array.isArray(p.akas)) p.akas = [];
   if (!p.akas.includes(m.aka)) p.akas.push(m.aka);
-  savePlayers(players); m.status = 'approved'; m.resolvedAt = Date.now(); delete m.fromThisBrowser; saveModeration(moderation);
+  savePlayers(players); m.status = 'approved'; delete m.fromThisBrowser; saveModeration(moderation);
   addLog('aka', `Прозвище <strong>« ${escapeHtml(m.aka)} »</strong> одобрено для <strong>${p.nickname}</strong>`, p.nickname);
-  renderModeration(); renderAdminPlayers(); renderLeaderboard(); showToastGlobal('✅ Прозвище одобрено');
+  renderModeration(); renderAdminPlayers(); renderLeaderboard(); if (currentView === 'all') renderAllPlayers(); showToastGlobal('✅ Прозвище одобрено');
 }
 function moderationReject(id){
-  const moderation = loadModeration(); const m = moderation.find(x => x.id === id);
-  if (!m || m.status !== 'pending') return;
-  m.status = 'rejected'; m.resolvedAt = Date.now(); delete m.fromThisBrowser; saveModeration(moderation);
+  const moderation = loadModeration(); const m = moderation.find(x => x.id === id); if (!m || m.status !== 'pending') return;
+  m.status = 'rejected'; delete m.fromThisBrowser; saveModeration(moderation);
   addLog('aka', `Прозвище <strong>« ${escapeHtml(m.aka)} »</strong> отклонено`, m.playerNick);
   renderModeration(); showToastGlobal('✕ Прозвище отклонено');
 }
-function adminAddSingle(){ const nickname = $('add-nick').value.trim(); if (!/^[A-Za-z0-9_]{3,16}$/.test(nickname)) return showAdminToast('add-toast', 'Ник: 3-16 символов', 'err'); if (players.some(p => p.nickname.toLowerCase() === nickname.toLowerCase())) return showAdminToast('add-toast', 'Такой игрок уже есть', 'err'); players.push({ id: nextId++, nickname, rating: 0, ups: 0, downs: 0, autoAdded: false, addedAt: Date.now(), banned: false, akas: [] }); savePlayers(players); $('add-nick').value = ''; showAdminToast('add-toast', 'Добавлен: ' + nickname, 'ok'); addLog('add', `Добавлен <strong>${nickname}</strong>`, nickname); renderAdminPlayers(); renderLeaderboard(); }
-function adminAddBulk(){ const text = $('add-bulk').value.trim(); if (!text) return showAdminToast('add-toast', 'Введи список', 'err'); const nicks = text.split(/[\s,]+/).map(s => s.trim()).filter(Boolean); let added = 0, skipped = 0; for (const nick of nicks){ if (!/^[A-Za-z0-9_]{3,16}$/.test(nick)){ skipped++; continue; } if (players.some(p => p.nickname.toLowerCase() === nick.toLowerCase())){ skipped++; continue; } players.push({ id: nextId++, nickname: nick, rating: 0, ups: 0, downs: 0, autoAdded: false, addedAt: Date.now(), banned: false, akas: [] }); added++; } savePlayers(players); $('add-bulk').value = ''; showAdminToast('add-toast', `Добавлено: ${added}, пропущено: ${skipped}`, added > 0 ? 'ok' : 'err'); if (added > 0) addLog('add', `Массовое добавление: ${added}`, ''); renderAdminPlayers(); renderLeaderboard(); }
+function adminAddSingle(){ const nickname = $('add-nick').value.trim(); if (!/^[A-Za-z0-9_]{3,16}$/.test(nickname)) return showAdminToast('add-toast', 'Ник: 3-16 символов', 'err'); if (players.some(p => p.nickname.toLowerCase() === nickname.toLowerCase())) return showAdminToast('add-toast', 'Уже есть', 'err'); players.push({ id: nextId++, nickname, rating: 0, ups: 0, downs: 0, autoAdded: false, addedAt: Date.now(), lastActivityAt: Date.now(), banned: false, akas: [] }); savePlayers(players); $('add-nick').value = ''; showAdminToast('add-toast', 'Добавлен: ' + nickname, 'ok'); addLog('add', `Добавлен <strong>${nickname}</strong>`, nickname); renderAdminPlayers(); renderLeaderboard(); if (currentView === 'all') renderAllPlayers(); }
+function adminAddBulk(){ const text = $('add-bulk').value.trim(); if (!text) return showAdminToast('add-toast', 'Введи список', 'err'); const nicks = text.split(/[\s,]+/).map(s => s.trim()).filter(Boolean); let added = 0, skipped = 0; for (const nick of nicks){ if (!/^[A-Za-z0-9_]{3,16}$/.test(nick)){ skipped++; continue; } if (players.some(p => p.nickname.toLowerCase() === nick.toLowerCase())){ skipped++; continue; } players.push({ id: nextId++, nickname: nick, rating: 0, ups: 0, downs: 0, autoAdded: false, addedAt: Date.now(), lastActivityAt: Date.now(), banned: false, akas: [] }); added++; } savePlayers(players); $('add-bulk').value = ''; showAdminToast('add-toast', `Добавлено: ${added}, пропущено: ${skipped}`, added > 0 ? 'ok' : 'err'); if (added > 0) addLog('add', `Массовое добавление: ${added}`, ''); renderAdminPlayers(); renderLeaderboard(); if (currentView === 'all') renderAllPlayers(); }
 function loadSettingsToForm(){ $('set-cooldown').value = settings.cooldownHours; $('set-max-up').value = settings.maxUp; $('set-max-down').value = settings.maxDown; $('set-pool').value = settings.poolSize; }
-function adminSaveSettings(){ settings.cooldownHours = Math.max(0.1, Math.min(72, parseFloat($('set-cooldown').value) || 4)); settings.maxUp = Math.max(1, Math.min(10, parseInt($('set-max-up').value) || 1)); settings.maxDown = Math.max(1, Math.min(10, parseInt($('set-max-down').value) || 1)); settings.poolSize = Math.max(3, Math.min(20, parseInt($('set-pool').value) || 6)); saveSettings(settings); showAdminToast('set-toast', 'Настройки сохранены', 'ok'); addLog('edit', 'Настройки обновлены', ''); }
+function adminSaveSettings(){ settings.cooldownHours = Math.max(0.1, Math.min(72, parseFloat($('set-cooldown').value) || 4)); settings.maxUp = Math.max(1, Math.min(10, parseInt($('set-max-up').value) || 1)); settings.maxDown = Math.max(1, Math.min(10, parseInt($('set-max-down').value) || 1)); settings.poolSize = Math.max(3, Math.min(20, parseInt($('set-pool').value) || 6)); saveSettings(settings); showAdminToast('set-toast', 'Сохранено', 'ok'); addLog('edit', 'Настройки обновлены', ''); }
 function adminResetSettings(){ settings = { ...DEFAULT_SETTINGS }; saveSettings(settings); loadSettingsToForm(); showAdminToast('set-toast', 'Сброшено', 'ok'); }
-function adminResetCooldown(){ if (!confirm('Сбросить кулдаун?')) return; localStorage.removeItem(COOLDOWN_KEY); updateNavVoteButton(); showToastGlobal('⏱ Кулдаун сброшен'); addLog('edit', 'Кулдаун сброшен', ''); }
-function adminResetAllVotes(){ if (!confirm('Обнулить все голоса?')) return; players.forEach(p => { p.ups = 0; p.downs = 0; }); savePlayers(players); renderLeaderboard(); renderAdminPlayers(); showToastGlobal('🗳 Все голоса обнулены'); addLog('edit', 'Обнулены голоса', ''); }
-function adminResetRatings(){ if (!confirm('Обнулить рейтинги?')) return; players.forEach(p => { p.rating = 0; }); savePlayers(players); renderLeaderboard(); renderAdminPlayers(); showToastGlobal('📊 Рейтинги обнулены'); addLog('edit', 'Обнулены рейтинги', ''); }
+function adminResetCooldown(){ if (!confirm('Сбросить?')) return; localStorage.removeItem(COOLDOWN_KEY); updateNavVoteButton(); showToastGlobal('⏱ Сброшен'); addLog('edit', 'Кулдаун сброшен', ''); }
+function adminResetAllVotes(){ if (!confirm('Обнулить голоса?')) return; players.forEach(p => { p.ups = 0; p.downs = 0; }); savePlayers(players); renderLeaderboard(); renderAdminPlayers(); if (currentView === 'all') renderAllPlayers(); showToastGlobal('🗳 Обнулено'); addLog('edit', 'Обнулены голоса', ''); }
+function adminResetRatings(){ if (!confirm('Обнулить рейтинги?')) return; players.forEach(p => { p.rating = 0; }); savePlayers(players); renderLeaderboard(); renderAdminPlayers(); if (currentView === 'all') renderAllPlayers(); showToastGlobal('📊 Обнулено'); addLog('edit', 'Обнулены рейтинги', ''); }
 function renderAdminLogs(){ const container = $('admin-log-list'); if (!container) return; const logs = loadLogs(); if (!logs.length){ container.innerHTML = '<div class="players-empty">Пусто</div>'; return; } container.innerHTML = ''; for (const log of logs){ const el = document.createElement('div'); el.className = 'admin-log-item'; const d = new Date(log.ts); const pad = (n) => String(n).padStart(2, '0'); el.innerHTML = `<div class="time">${pad(d.getDate())}.${pad(d.getMonth()+1)} ${pad(d.getHours())}:${pad(d.getMinutes())}</div><div class="text">${log.text}</div>`; container.appendChild(el); } }
-function adminClearLogs(){ if (!confirm('Очистить логи?')) return; saveLogs([]); renderAdminLogs(); if (currentView === 'stats') renderStatsTab(); }
-const ADMIN_USERS_ENDPOINT = DISCORD_REDIRECT_URI + '/admin/users';
-async function loadRegisteredUsers(){
-  const container = $('registered-users-list'); const label = $('users-count-label');
-  const u = getCurrentUser();
-  if (!u || !u.token){ container.innerHTML = '<div class="players-empty">Нет сохранённого токена — выйди и войди через Discord заново</div>'; return; }
-  container.innerHTML = '<div class="players-empty">Загрузка…</div>';
-  try {
-    const res = await fetch(ADMIN_USERS_ENDPOINT, { headers: { Authorization: 'Bearer ' + u.token } });
-    if (!res.ok){
-      const err = await res.json().catch(() => ({}));
-      container.innerHTML = `<div class="players-empty">Ошибка: ${escapeHtml(err.error || String(res.status))}</div>`;
-      return;
-    }
-    const data = await res.json();
-    const list = (data.users || []).slice().sort((a, b) => b.lastLoginAt - a.lastLoginAt);
-    label.textContent = `${list.length} чел.`;
-    if (!list.length){ container.innerHTML = '<div class="players-empty">Пока никто не заходил</div>'; return; }
-    container.innerHTML = '';
-    for (const ru of list){
-      const el = document.createElement('div'); el.className = 'admin-log-item';
-      el.innerHTML = `<img src="${getDiscordAvatar(ru, 40)}" alt="" style="width:36px;height:36px;border-radius:50%;flex-shrink:0">
-        <div class="text">
-          <div style="color:#fff;font-weight:600">${escapeHtml(getDisplayName(ru))} <span style="color:var(--muted);font-weight:400">@${escapeHtml(ru.username)}</span></div>
-          <div style="font-size:11px;color:var(--muted);margin-top:2px">ID: ${escapeHtml(ru.id)} · заходов: ${ru.loginCount || 1} · впервые: ${new Date(ru.firstLoginAt).toLocaleDateString('ru-RU')} · последний раз: ${timeAgo(ru.lastLoginAt)}</div>
-        </div>`;
-      container.appendChild(el);
-    }
-  } catch (e){
-    console.error('loadRegisteredUsers error:', e);
-    container.innerHTML = '<div class="players-empty">Не удалось загрузить — см. консоль (F12)</div>';
-  }
-}
+function adminClearLogs(){ if (!confirm('Очистить?')) return; saveLogs([]); renderAdminLogs(); }
 function renderAdminStats(){
   const container = $('admin-stats'); if (!container) return;
   const total = players.length, banned = players.filter(p => p.banned).length;
   const totalUps = players.reduce((s,p)=>s+(p.ups||0),0), totalDowns = players.reduce((s,p)=>s+(p.downs||0),0);
   const totalVotes = totalUps + totalDowns, avg = total > 0 ? players.reduce((s,p)=>s+p.rating,0)/total : 0;
-  const topPlayer = [...players].sort((a,b)=>b.rating-a.rating)[0], worstPlayer = [...players].sort((a,b)=>a.rating-b.rating)[0];
-  const mostLoved = [...players].sort((a,b)=>(b.ups||0)-(a.ups||0))[0], mostHated = [...players].sort((a,b)=>(b.downs||0)-(a.downs||0))[0];
   const totalAkas = players.reduce((s,p) => s + (p.akas?.length || 0), 0);
   const modPending = loadModeration().filter(m => m.status === 'pending').length;
   container.innerHTML = `
     <div class="admin-stat"><div class="lbl">Игроков</div><div class="val">${total}</div></div>
-    <div class="admin-stat"><div class="lbl">Добрых</div><div class="val pos">${players.filter(p => p.rating >= 0).length}</div></div>
-    <div class="admin-stat"><div class="lbl">Злых</div><div class="val neg">${players.filter(p => p.rating < 0).length}</div></div>
     <div class="admin-stat"><div class="lbl">Забанено</div><div class="val neg">${banned}</div></div>
     <div class="admin-stat"><div class="lbl">Средний</div><div class="val">${avg.toFixed(2)}</div></div>
-    <div class="admin-stat"><div class="lbl">"За"</div><div class="val pos">${totalUps}</div></div>
-    <div class="admin-stat"><div class="lbl">"Против"</div><div class="val neg">${totalDowns}</div></div>
     <div class="admin-stat"><div class="lbl">Голосов</div><div class="val">${totalVotes}</div></div>
-    <div class="admin-stat"><div class="lbl">Топ-1</div><div class="val" style="font-size:14px">${topPlayer ? escapeHtml(topPlayer.nickname) : '—'}</div></div>
-    <div class="admin-stat"><div class="lbl">Худший</div><div class="val" style="font-size:14px">${worstPlayer ? escapeHtml(worstPlayer.nickname) : '—'}</div></div>
-    <div class="admin-stat"><div class="lbl">Любимчик</div><div class="val" style="font-size:14px">${mostLoved ? escapeHtml(mostLoved.nickname) : '—'}</div></div>
-    <div class="admin-stat"><div class="lbl">Ненавистный</div><div class="val" style="font-size:14px">${mostHated ? escapeHtml(mostHated.nickname) : '—'}</div></div>
     <div class="admin-stat"><div class="lbl">Прозвищ</div><div class="val">${totalAkas}</div></div>
     <div class="admin-stat"><div class="lbl">Заявок</div><div class="val ${modPending > 0 ? 'pos' : ''}">${modPending}</div></div>`;
 }
 function renderExport(){ const data = { players, settings, moderation: loadModeration(), exportedAt: new Date().toISOString(), version: 4 }; $('data-export').value = JSON.stringify(data, null, 2); }
 function copyExport(){ const ta = $('data-export'); ta.select(); navigator.clipboard.writeText(ta.value).then(() => showToastGlobal('📋 Скопировано')); }
 function downloadExport(){ const blob = new Blob([$('data-export').value], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = `ptusmp-backup-${Date.now()}.json`; a.click(); URL.revokeObjectURL(url); showToastGlobal('💾 Скачано'); }
-function importData(){
-  const text = $('data-import').value.trim(); if (!text) return showAdminToast('data-toast', 'Вставь JSON', 'err');
-  try {
-    const data = JSON.parse(text); if (!Array.isArray(data.players)) throw new Error('Нет players');
-    if (!confirm(`Импортировать ${data.players.length} игроков?`)) return;
-    players = data.players.map(p => ({ id: p.id, nickname: p.nickname, rating: p.rating, ups: p.ups || 0, downs: p.downs || 0, autoAdded: p.autoAdded || false, addedAt: p.addedAt || Date.now(), banned: p.banned || false, akas: Array.isArray(p.akas) ? p.akas : (p.aka ? [p.aka] : []) }));
-    nextId = players.length ? Math.max(0, ...players.map(p => p.id)) + 1 : 1;
-    if (data.settings){ settings = { ...DEFAULT_SETTINGS, ...data.settings }; saveSettings(settings); loadSettingsToForm(); }
-    if (Array.isArray(data.moderation)) saveModeration(data.moderation);
-    savePlayers(players); showAdminToast('data-toast', 'Импортировано: ' + players.length, 'ok'); addLog('edit', `Импортировано ${players.length} игроков`, '');
-    renderAdminPlayers(); renderLeaderboard(); renderAdminStats(); renderModeration();
-  } catch (e){ showAdminToast('data-toast', 'Ошибка: ' + e.message, 'err'); }
-}
+function importData(){ const text = $('data-import').value.trim(); if (!text) return showAdminToast('data-toast', 'Вставь JSON', 'err'); try { const data = JSON.parse(text); if (!Array.isArray(data.players)) throw new Error('Нет players'); if (!confirm(`Импортировать ${data.players.length}?`)) return; players = data.players.map(p => ({ id: p.id, nickname: p.nickname, rating: p.rating, ups: p.ups || 0, downs: p.downs || 0, autoAdded: p.autoAdded || false, addedAt: p.addedAt || Date.now(), lastActivityAt: p.lastActivityAt || p.addedAt || Date.now(), banned: p.banned || false, akas: Array.isArray(p.akas) ? p.akas : (p.aka ? [p.aka] : []) })); nextId = players.length ? Math.max(0, ...players.map(p => p.id)) + 1 : 1; if (data.settings){ settings = { ...DEFAULT_SETTINGS, ...data.settings }; saveSettings(settings); loadSettingsToForm(); } if (Array.isArray(data.moderation)) saveModeration(data.moderation); savePlayers(players); showAdminToast('data-toast', 'Импортировано: ' + players.length, 'ok'); addLog('edit', `Импортировано ${players.length} игроков`, ''); renderAdminPlayers(); renderLeaderboard(); if (currentView === 'all') renderAllPlayers(); renderAdminStats(); renderModeration(); } catch (e){ showAdminToast('data-toast', 'Ошибка: ' + e.message, 'err'); } }
 function showAdminToast(id, msg, type){ const t = $(id); if (!t) return; t.textContent = msg; t.className = 'admin-toast ' + type; setTimeout(() => { t.textContent = ''; t.className = 'admin-toast'; }, 4000); }
 
 /* ===== INIT ===== */
-initTheme();
 $('year').textContent = new Date().getFullYear();
-handleDiscordCallback().then(ok => { if (ok) showToastGlobal('✅ Вы вошли через Discord'); updateAuthUI(); });
-updateAuthUI(); renderLeaderboard(); startNavTick(); updateMskClock(); setInterval(updateMskClock, 1000);
+handleDiscordCallback().then(ok => { if (ok) showToastGlobal('✅ Вы вошли'); updateAuthUI(); });
+updateAuthUI(); renderLeaderboard(); renderAllPlayers(); startNavTick(); updateMskClock(); setInterval(updateMskClock, 1000);
 updateModBadge(); loadSettingsToForm(); fetchServerStatus();
 if (statusTimer) clearInterval(statusTimer);
 statusTimer = setInterval(fetchServerStatus, STATUS_REFRESH_MS);
 function checkUrlHash(){ const m = location.hash.match(/#player=(\d+)/); if (m){ const id = parseInt(m[1], 10); if (players.find(x => x.id === id)) setTimeout(() => openProfile(id), 100); } }
 window.addEventListener('hashchange', checkUrlHash); checkUrlHash();
-if (!sessionStorage.getItem('ptusmp_welcome_v4')){ sessionStorage.setItem('ptusmp_welcome_v4', '1'); addLog('add', 'Открыта главная страница', ''); }
-setTimeout(() => {
-  const topForWarm = [...players].sort((a,b)=>b.rating - a.rating).slice(0, 12);
-  for (const p of topForWarm){
-    const im = new Image(); im.src = `https://minotar.net/helm/${encodeURIComponent(p.nickname)}/64.png`;
-  }
-}, 1200);
+if (!sessionStorage.getItem('ptusmp_welcome_v4')){ sessionStorage.setItem('ptusmp_welcome_v4', '1'); addLog('add', 'Открыта главная', ''); }
 </script>
 </body>
 </html>
