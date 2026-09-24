@@ -6,7 +6,7 @@
 <title>ПТУ SMP — Достижения, летопись, альбом</title>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#070d0a;--bg-2:#0a130f;--line:rgba(255,255,255,.07);--line-2:rgba(255,255,255,.13);--text:#eaf3ee;--text-2:#a8b8b0;--muted:#6a786f;--muted-2:#454d47;--emerald:#10b981;--emerald-2:#34d399;--emerald-glow:rgba(16,185,129,.35);--amber:#f59e0b;--amber-2:#fbbf24;--twitch:#9146ff;--twitch-2:#a970ff;--boosty:#f56a00;--boosty-2:#ff8c33;--discord:#5865F2;--discord-2:#7983f5;--red:#ef4444;--red-2:#f87171;--blue:#3b82f6;--blue-2:#60a5fa;--purple:#8b5cf6;--purple-2:#a78bfa;--pink:#ec4899}
+:root{--bg:#070d0a;--bg-2:#0a130f;--line:rgba(255,255,255,.07);--line-2:rgba(255,255,255,.13);--text:#eaf3ee;--text-2:#a8b8b0;--muted:#6a786f;--muted-2:#454d47;--emerald:#10b981;--emerald-2:#34d399;--emerald-glow:rgba(16,185,129,.35);--amber:#f59e0b;--amber-2:#fbbf24;--twitch:#9146ff;--twitch-2:#a970ff;--discord:#5865F2;--discord-2:#7983f5;--red:#ef4444;--red-2:#f87171;--blue:#3b82f6;--blue-2:#60a5fa;--purple:#8b5cf6;--purple-2:#a78bfa;--pink:#ec4899}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.5;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;position:relative}
@@ -14,12 +14,9 @@ body.modal-open{overflow:hidden}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 15% 10%,rgba(16,185,129,.14),transparent 45%),radial-gradient(circle at 85% 20%,rgba(88,101,242,.10),transparent 45%);pointer-events:none;z-index:0}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes scaleIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
-@keyframes pulse-ring{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.08)}}
 @keyframes dp{0%{box-shadow:0 0 0 0 currentColor;opacity:1}70%{box-shadow:0 0 0 8px transparent;opacity:.7}100%{box-shadow:0 0 0 0 transparent;opacity:1}}
 @keyframes glow{0%,100%{box-shadow:0 0 30px -5px rgba(139,92,246,.45)}50%{box-shadow:0 0 50px -5px rgba(139,92,246,.7)}}
-@keyframes spin-slow{to{transform:rotate(360deg)}}
-@keyframes shine{0%{background-position:-200% center}100%{background-position:200% center}}
+@keyframes pulse-ring{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.08)}}
 nav{position:sticky;top:0;z-index:100;background:rgba(7,13,10,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
 .nav-inner{max-width:1400px;margin:0 auto;height:64px;padding:0 32px;display:flex;align-items:center;gap:16px}
 .brand{display:flex;align-items:center;gap:10px;font-family:'Manrope',sans-serif;font-weight:900;font-size:22px;color:#fff;text-decoration:none;flex-shrink:0;letter-spacing:-.02em}
@@ -86,15 +83,18 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px;flex-wrap:wrap}
 .section-head h2{font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(24px,3vw,36px);letter-spacing:-.03em;line-height:1.1;margin-bottom:6px}
 .section-head p{color:var(--muted);font-size:14px}
-
-/* ACHIEVEMENTS */
-.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
-.ach-card{position:relative;border-radius:18px;padding:20px;background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.008));border:1px solid var(--line);cursor:pointer;transition:all .3s cubic-bezier(.34,1.4,.64,1);overflow:hidden;opacity:0;animation:fadeUp .5s ease forwards}
-.ach-card::before{content:'';position:absolute;inset:0;border-radius:18px;background:radial-gradient(circle at 50% 0%,rgba(139,92,246,.14),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.ach-cat{margin-bottom:32px}
+.ach-cat-head{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.ach-cat-icon{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:20px;background:rgba(255,255,255,.04);border:1px solid var(--line-2)}
+.ach-cat-name{font-family:'Manrope',sans-serif;font-size:18px;font-weight:800;color:#fff}
+.ach-cat-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);padding:2px 8px;border-radius:8px;background:rgba(255,255,255,.04);margin-left:auto}
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.ach-card{position:relative;border-radius:16px;padding:18px;background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.008));border:1px solid var(--line);cursor:pointer;transition:all .3s cubic-bezier(.34,1.4,.64,1);overflow:hidden;opacity:0;animation:fadeUp .5s ease forwards}
+.ach-card::before{content:'';position:absolute;inset:0;border-radius:16px;background:radial-gradient(circle at 50% 0%,rgba(139,92,246,.14),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
 .ach-card:hover{transform:translateY(-6px);border-color:var(--line-2);box-shadow:0 24px 48px -20px rgba(0,0,0,.7)}
 .ach-card:hover::before{opacity:1}
-.ach-icon{width:64px;height:64px;border-radius:16px;display:grid;place-items:center;font-size:32px;background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(236,72,153,.1));border:2px solid rgba(139,92,246,.35);margin-bottom:14px;position:relative;z-index:1}
-.ach-name{font-family:'Manrope',sans-serif;font-size:17px;font-weight:800;color:#fff;margin-bottom:6px;position:relative;z-index:1}
+.ach-icon{width:56px;height:56px;border-radius:14px;display:grid;place-items:center;font-size:28px;background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(236,72,153,.1));border:2px solid rgba(139,92,246,.35);margin-bottom:12px;position:relative;z-index:1}
+.ach-name{font-family:'Manrope',sans-serif;font-size:16px;font-weight:800;color:#fff;margin-bottom:6px;position:relative;z-index:1}
 .ach-desc{font-size:13px;color:var(--text-2);line-height:1.5;margin-bottom:14px;position:relative;z-index:1;min-height:38px}
 .ach-footer{display:flex;justify-content:space-between;align-items:center;gap:8px;position:relative;z-index:1;padding-top:12px;border-top:1px solid var(--line)}
 .ach-holders{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
@@ -107,8 +107,6 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .ach-rarity.rare{color:var(--blue-2);background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.3)}
 .ach-rarity.epic{color:var(--purple-2);background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3)}
 .ach-rarity.legendary{color:var(--amber-2);background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);animation:dp 2s infinite}
-
-/* LEADERBOARD ACH */
 .ach-top-list{display:flex;flex-direction:column;gap:8px}
 .ach-top-item{display:grid;grid-template-columns:56px 48px 1fr auto;gap:14px;align-items:center;padding:12px 16px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.005));border:1px solid var(--line);cursor:pointer;transition:all .25s;opacity:0;animation:fadeUp .4s ease forwards}
 .ach-top-item:hover{transform:translateX(6px);border-color:var(--line-2)}
@@ -125,8 +123,6 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .ach-top-badge{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;font-size:13px;background:rgba(255,255,255,.04);border:1px solid var(--line-2);transition:transform .2s}
 .ach-top-badge:hover{transform:scale(1.15)}
 .ach-top-count{font-family:'Manrope',sans-serif;font-size:22px;font-weight:900;color:var(--emerald-2);text-align:right}
-
-/* CHRONICLE TIMELINE */
 .timeline{position:relative;padding:20px 0}
 .timeline::before{content:'';position:absolute;left:24px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,transparent,var(--line-2) 10%,var(--line-2) 90%,transparent)}
 .tl-item{position:relative;padding-left:70px;margin-bottom:28px;opacity:0;animation:fadeUp .5s ease forwards}
@@ -135,14 +131,13 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .tl-item.red::before{border-color:var(--red-2);box-shadow:0 0 16px rgba(248,113,113,.5)}
 .tl-item.purple::before{border-color:var(--purple-2);box-shadow:0 0 16px rgba(139,92,246,.5)}
 .tl-date{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);margin-bottom:6px;letter-spacing:.03em}
-.tl-card{padding:18px 20px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.008));border:1px solid var(--line);transition:all .3s}
+.tl-card{padding:18px 20px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.008));border:1px solid var(--line);transition:all .3s;position:relative}
 .tl-card:hover{border-color:var(--line-2);transform:translateX(4px);box-shadow:0 12px 30px -15px rgba(0,0,0,.6)}
-.tl-title{font-family:'Manrope',sans-serif;font-size:17px;font-weight:800;color:#fff;margin-bottom:8px}
-.tl-text{font-size:14px;color:var(--text-2);line-height:1.6;margin-bottom:8px}
-.tl-author{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px}
-.tl-author-av{width:18px;height:18px;border-radius:5px;image-rendering:pixelated}
-
-/* ALBUM */
+.tl-title{font-family:'Manrope',sans-serif;font-size:17px;font-weight:800;color:#fff;margin-bottom:8px;padding-right:36px}
+.tl-text{font-size:14px;color:var(--text-2);line-height:1.6}
+.tl-delete{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:8px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:var(--red-2);cursor:pointer;display:grid;place-items:center;font-size:13px;opacity:0;transition:all .2s}
+.tl-card:hover .tl-delete{opacity:1}
+.tl-delete:hover{background:rgba(239,68,68,.25);transform:scale(1.1)}
 .album-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
 .album-item{position:relative;border-radius:16px;overflow:hidden;background:rgba(255,255,255,.02);border:1px solid var(--line);cursor:pointer;transition:all .3s cubic-bezier(.34,1.4,.64,1);aspect-ratio:1;opacity:0;animation:fadeUp .5s ease forwards}
 .album-item:hover{transform:translateY(-6px) scale(1.02);border-color:var(--line-2);box-shadow:0 24px 48px -20px rgba(0,0,0,.8)}
@@ -151,16 +146,16 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .album-item-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.85));display:flex;flex-direction:column;justify-content:flex-end;padding:14px;pointer-events:none}
 .album-item-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:14px;color:#fff;margin-bottom:4px;text-shadow:0 2px 8px rgba(0,0,0,.8)}
 .album-item-meta{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;font-family:'JetBrains Mono',monospace;color:rgba(255,255,255,.7)}
-.album-item-likes{display:inline-flex;align-items:center;gap:4px;background:rgba(236,72,153,.2);border:1px solid rgba(236,72,153,.4);padding:3px 8px;border-radius:100px;color:#fff;font-weight:700;pointer-events:auto}
+.album-item-likes{display:inline-flex;align-items:center;gap:4px;background:rgba(236,72,153,.2);border:1px solid rgba(236,72,153,.4);padding:3px 8px;border-radius:100px;color:#fff;font-weight:700;pointer-events:auto;cursor:pointer;transition:all .2s}
+.album-item-likes:hover{transform:scale(1.1)}
 .album-item-likes.liked{background:var(--pink);border-color:var(--pink)}
-
-/* Empty states */
+.album-item-delete{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:10px;background:rgba(239,68,68,.85);border:1px solid var(--red);color:#fff;cursor:pointer;display:grid;place-items:center;font-size:14px;opacity:0;transition:all .2s;z-index:5;backdrop-filter:blur(8px)}
+.album-item:hover .album-item-delete{opacity:1}
+.album-item-delete:hover{background:var(--red);transform:scale(1.12)}
 .empty-state{padding:60px 40px;text-align:center;border:2px dashed var(--line-2);border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.015),rgba(255,255,255,.005))}
 .empty-state .ico{font-size:48px;margin-bottom:16px;opacity:.4}
 .empty-state h3{font-family:'Manrope',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:10px}
 .empty-state p{color:var(--muted);font-size:14px;max-width:480px;margin:0 auto 20px}
-
-/* Modals */
 .modal-overlay{position:fixed;inset:0;background:rgba(3,6,5,.75);backdrop-filter:blur(8px);display:grid;place-items:center;z-index:1000;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s;padding:24px;overflow-y:auto}
 .modal-overlay.open{opacity:1;visibility:visible}
 .modal{width:100%;max-width:900px;background:var(--bg-2);border:1px solid var(--line-2);border-radius:24px;overflow:hidden;transform:scale(.92) translateY(30px);transition:transform .4s cubic-bezier(.34,1.4,.64,1);position:relative;max-height:calc(100vh - 48px);display:flex;flex-direction:column;box-shadow:0 40px 80px -20px rgba(0,0,0,.9)}
@@ -179,8 +174,6 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 #album-view img{max-width:100%;max-height:80vh;display:block}
 #admin-modal .modal{max-width:1100px}
 #admin-modal .modal-body{padding:0}
-
-/* Achievement submit modal */
 .form-row{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
 .form-row label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
 .form-row input,.form-row textarea,.form-row select{padding:11px 14px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text);border-radius:10px;font-family:inherit;font-size:14px;transition:all .15s}
@@ -188,31 +181,21 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .form-row textarea{min-height:90px;font-family:'JetBrains Mono',monospace;font-size:13px;resize:vertical}
 .form-info{padding:12px 16px;border-radius:12px;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.25);font-size:13px;color:var(--text-2);line-height:1.5;margin-bottom:16px}
 .form-info strong{color:#fff}
-
 .btn-primary{padding:12px 24px;border-radius:100px;background:var(--emerald);border:none;color:#062a1c;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s}
 .btn-primary:hover{background:var(--emerald-2);transform:translateY(-1px)}
-.btn-primary:disabled{background:rgba(255,255,255,.05);color:var(--muted-2);cursor:not-allowed;transform:none}
-.btn-ghost{padding:12px 24px;border-radius:100px;background:transparent;border:1px solid var(--line-2);color:var(--text-2);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s}
-.btn-ghost:hover{border-color:rgba(255,255,255,.25);color:#fff}
-
-/* Profile */
 .pf-banner{position:relative;padding:36px 24px 24px;background:radial-gradient(circle at 30% 30%,rgba(16,185,129,.22),transparent 60%),radial-gradient(circle at 70% 70%,rgba(139,92,246,.18),transparent 60%),#0a0d14;text-align:center;overflow:hidden}
-.pf-avatar-wrap{position:relative;width:120px;height:120px;margin:0 auto 16px}
-.pf-avatar{width:120px;height:120px;border-radius:22px;image-rendering:pixelated;background:#000;border:3px solid rgba(139,92,246,.6);display:block;object-fit:cover;animation:glow 3s ease-in-out infinite;position:relative;z-index:2}
+.pf-avatar{width:120px;height:120px;border-radius:22px;image-rendering:pixelated;background:#000;border:3px solid rgba(139,92,246,.6);display:block;object-fit:cover;animation:glow 3s ease-in-out infinite;margin:0 auto 16px;position:relative;z-index:2}
 .pf-nick{font-family:'Manrope',sans-serif;font-size:26px;font-weight:800;color:#fff;margin-bottom:6px;position:relative;z-index:2;letter-spacing:-.02em}
 .pf-titles{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;position:relative;z-index:2}
 .pf-title{padding:5px 12px;border-radius:100px;font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:.02em;background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(236,72,153,.15));border:1px solid rgba(139,92,246,.4);color:#fff;display:inline-flex;align-items:center;gap:5px}
 .pf-ach-grid{padding:20px 24px;display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:10px}
-.pf-ach{width:100%;aspect-ratio:1;border-radius:14px;display:grid;place-items:center;font-size:28px;background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(236,72,153,.08));border:2px solid rgba(139,92,246,.35);cursor:pointer;transition:all .25s;position:relative}
+.pf-ach{width:100%;aspect-ratio:1;border-radius:14px;display:grid;place-items:center;font-size:28px;background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(236,72,153,.08));border:2px solid rgba(139,92,246,.35);cursor:pointer;transition:all .25s}
 .pf-ach:hover{transform:scale(1.08);border-color:var(--purple);box-shadow:0 0 20px -4px rgba(139,92,246,.6)}
 .pf-ach-empty{aspect-ratio:1;border-radius:14px;display:grid;place-items:center;font-size:20px;color:var(--muted-2);background:rgba(255,255,255,.02);border:2px dashed var(--line-2)}
 .pf-actions{padding:16px 24px 24px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
 .pf-action-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid var(--line-2);color:var(--text-2);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none;font-family:inherit}
 .pf-action-btn:hover{color:#fff;border-color:rgba(255,255,255,.25);transform:translateY(-2px)}
-.pf-action-btn.primary{background:linear-gradient(135deg,var(--purple),var(--pink));border-color:transparent;color:#fff}
 .pf-section-title{padding:16px 24px 0;font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;color:var(--text-2);text-transform:uppercase;letter-spacing:.1em}
-
-/* Admin */
 .admin-tabs{display:flex;gap:2px;padding:4px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);margin:0 28px 20px;overflow-x:auto}
 .admin-tab{padding:9px 18px;border-radius:100px;background:transparent;border:none;color:var(--text-2);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;transition:all .2s;font-family:inherit}
 .admin-tab.active{background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff}
@@ -221,7 +204,6 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .admin-pane.active{display:block}
 .admin-btn{padding:10px 18px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:1px solid transparent;transition:all .2s;font-family:inherit}
 .admin-btn.primary{background:var(--emerald);color:#062a1c}
-.admin-btn.primary:hover{background:var(--emerald-2)}
 .admin-btn.danger{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.3);color:var(--red-2)}
 .admin-btn.ghost{background:rgba(255,255,255,.03);border-color:var(--line-2);color:var(--text-2)}
 .admin-btn.purple{background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff}
@@ -230,7 +212,6 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .admin-form-row label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
 .admin-form-row input,.admin-form-row textarea,.admin-form-row select{padding:11px 14px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text);border-radius:10px;font-family:inherit;font-size:14px}
 .admin-form-row textarea{min-height:80px;font-family:'JetBrains Mono',monospace;font-size:13px}
-
 .mod-item{padding:14px;border-radius:14px;background:linear-gradient(180deg,rgba(139,92,246,.04),rgba(139,92,246,.01));border:1px solid rgba(139,92,246,.2);display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;margin-bottom:10px;animation:fadeUp .3s ease}
 .mod-item img.preview{width:52px;height:52px;border-radius:10px;object-fit:cover;border:1px solid var(--line-2)}
 .mod-info .mod-line{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:4px;letter-spacing:.03em;text-transform:uppercase}
@@ -240,15 +221,11 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .mod-actions{display:flex;gap:6px;flex-shrink:0}
 .mod-btn{padding:8px 14px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid transparent;transition:all .2s;font-family:inherit}
 .mod-btn.approve{background:var(--emerald);color:#062a1c}
-.mod-btn.approve:hover{background:var(--emerald-2);transform:translateY(-1px)}
 .mod-btn.reject{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.3);color:var(--red-2)}
-.mod-btn.reject:hover{background:rgba(239,68,68,.2)}
 .mod-empty{text-align:center;padding:50px 20px;color:var(--muted);font-size:13px;font-family:'JetBrains Mono',monospace;border:1px dashed var(--line-2);border-radius:16px}
 .admin-toast{margin-top:14px;font-size:14px;font-weight:500;min-height:20px}
 .admin-toast.ok{color:var(--emerald-2)}
 .admin-toast.err{color:var(--red-2)}
-
-/* Streams (kept) */
 .streams-layout{display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start}
 @media(max-width:1000px){.streams-layout{grid-template-columns:1fr}}
 .stream-player-wrap{border-radius:20px;overflow:hidden;background:rgba(255,255,255,.015);border:1px solid var(--line)}
@@ -300,7 +277,6 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .stream-offline-status .dot-off{width:8px;height:8px;border-radius:50%;background:var(--muted-2)}
 .stream-offline-btn{margin-top:8px;display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:100px;background:transparent;border:1px solid rgba(255,255,255,.25);color:#fff;font-family:inherit;font-size:14px;font-weight:600;text-decoration:none;cursor:pointer;transition:all .2s}
 .stream-offline-btn:hover{background:var(--twitch);border-color:var(--twitch);transform:translateY(-2px)}
-
 .hidden{display:none!important}
 footer{padding:40px 32px;border-top:1px solid var(--line);position:relative;z-index:1;text-align:center;color:var(--muted);font-size:13px}
 footer .heart{color:var(--red-2);animation:dp 1.5s infinite}
@@ -365,7 +341,6 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
 </nav>
 
 <main>
-  <!-- ACHIEVEMENTS VIEW -->
   <div class="view" id="view-ach">
     <section class="hero">
       <div class="breadcrumb">
@@ -374,41 +349,34 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
         <span id="ach-hero-count">0 ачивок</span><span class="dot">·</span>
         <span class="live">заявки принимаются</span>
       </div>
-      <h1>Кто на что <span class="amber">способен.</span><br>Докажи — получи <span class="emerald">титул.</span></h1>
-      <p>Выбирай достижение, кидай пруф (скриншот), модерация проверяет — и ты получаешь <strong>титул</strong> в профиле. Чем больше подтверждённых — тем выше в топе.</p>
+      <h1>Инженерия, авиация<br>и <span class="amber">война.</span></h1>
+      <p>Выбирай достижение, кидай пруф (скриншот), модерация проверяет — и ты получаешь <strong>титул</strong> в профиле. Строй, летай, воюй — и доказывай это.</p>
       <div class="hero-actions">
         <button class="btn-hero primary" onclick="openAchievementPicker()">🏆 Получить достижение</button>
-        <button class="btn-hero ghost" onclick="scrollToTop10()">👑 Топ игроков</button>
+        <button class="btn-hero ghost" onclick="document.getElementById('top10-anchor').scrollIntoView({behavior:'smooth'})">👑 Топ игроков</button>
       </div>
     </section>
-
-    <section class="section">
-      <div class="section-head"><div><h2>Доступные достижения</h2><p>Кликни по карточке — узнаешь, кто уже получил</p></div></div>
-      <div class="ach-grid" id="ach-grid"></div>
-    </section>
-
+    <section class="section" id="ach-catalog"></section>
     <section class="section" id="top10-anchor">
       <div class="section-head"><div><h2>Топ по достижениям</h2><p>У кого больше всего подтверждённых титулов</p></div></div>
       <div class="ach-top-list" id="ach-top-list"></div>
     </section>
   </div>
 
-  <!-- CHRONICLE VIEW -->
   <div class="view hidden" id="view-chronicle">
     <section class="hero">
       <div class="breadcrumb"><span>Летопись сервера</span><span class="dot">·</span><span>ПТУ SMP</span></div>
       <h1>История <span class="purple">по дням.</span></h1>
-      <p>Что происходило на сервере — от постройки первых домов до великих войн и примирений.</p>
+      <p>Что происходило на сервере — от первых построек до великих войн и примирений.</p>
     </section>
     <section class="section"><div class="timeline" id="timeline"></div></section>
   </div>
 
-  <!-- ALBUM VIEW -->
   <div class="view hidden" id="view-album">
     <section class="hero">
       <div class="breadcrumb"><span>Альбом сервера</span><span class="dot">·</span><span id="album-hero-count">0 скринов</span></div>
       <h1>Лучшие <span class="emerald">моменты.</span></h1>
-      <p>Закаты, базы, смешные баги и первые алмазы — со скринами от игроков.</p>
+      <p>Закаты, базы, воздушные бои и великие механизмы — со скринами от игроков.</p>
       <div class="hero-actions">
         <button class="btn-hero primary" onclick="openAlbumUpload()">📸 Добавить скриншот</button>
       </div>
@@ -425,7 +393,6 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
     </section>
   </div>
 
-  <!-- STREAMS VIEW -->
   <div class="view hidden" id="view-streams">
     <section class="hero"><h1>Стримы <span class="purple">сервера</span></h1><p>Смотри стримеров ПТУ SMP прямо тут.</p></section>
     <div class="streams-layout">
@@ -453,7 +420,6 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
     </div>
   </div>
 
-  <!-- MAP VIEW -->
   <div class="view hidden" id="view-map">
     <section class="hero"><h1>Карта <span class="purple">мира</span></h1><p>Живая карта сервера ПТУ SMP.</p></section>
     <div style="text-align:center;padding:60px 24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.015)">
@@ -475,21 +441,19 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
   <div class="visits" id="visits-counter">— посещение</div>
 </footer>
 
-<!-- ACHIEVEMENT SUBMIT MODAL -->
 <div class="modal-overlay" id="ach-modal">
   <div class="modal">
-    <div class="modal-head"><div><h2 id="ach-modal-title">Получить достижение</h2><p id="ach-modal-sub">Выбери ачивку и приложи пруф</p></div><button class="modal-close" onclick="closeAchievementModal()">✕</button></div>
+    <div class="modal-head"><div><h2>Получить достижение</h2><p>Выбери ачивку и приложи пруф</p></div><button class="modal-close" onclick="closeModal('ach-modal')">✕</button></div>
     <div class="modal-body">
-      <div class="form-info">📸 <strong>Что такое пруф?</strong> Ссылка на скриншот (imgur.com, cdn.discordapp.com или любой другой хостинг картинок). Модерация проверит и выдаст тебе титул.</div>
+      <div class="form-info">📸 <strong>Что такое пруф?</strong> Ссылка на скриншот (imgur.com, cdn.discordapp.com или любой другой хостинг картинок). Модерация проверит и выдаст титул.</div>
       <div class="form-row"><label>Достижение</label><select id="ach-submit-select"></select></div>
       <div class="form-row"><label>Ссылка на пруф-скриншот</label><input type="url" id="ach-submit-proof" placeholder="https://i.imgur.com/xxxxx.png"></div>
-      <div class="form-row"><label>Короткий комментарий (необязательно)</label><input type="text" id="ach-submit-note" placeholder="Например: сделал это 12 мая" maxlength="100"></div>
+      <div class="form-row"><label>Комментарий (необязательно)</label><input type="text" id="ach-submit-note" placeholder="Например: сбил на своём биплане 5 врагов" maxlength="100"></div>
       <button class="btn-primary" onclick="submitAchievement()" style="width:100%">📤 Отправить на проверку</button>
     </div>
   </div>
 </div>
 
-<!-- ACHIEVEMENT INFO MODAL -->
 <div class="modal-overlay" id="ach-info-modal">
   <div class="modal">
     <div class="modal-head"><div><h2 id="ach-info-title">Достижение</h2><p id="ach-info-sub">Кто получил</p></div><button class="modal-close" onclick="closeModal('ach-info-modal')">✕</button></div>
@@ -497,14 +461,13 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
   </div>
 </div>
 
-<!-- ALBUM UPLOAD MODAL -->
 <div class="modal-overlay" id="album-modal">
   <div class="modal">
-    <div class="modal-head"><div><h2>Добавить скриншот</h2><p>Твой скрин попадёт в галерею после проверки</p></div><button class="modal-close" onclick="closeAlbumModal()">✕</button></div>
+    <div class="modal-head"><div><h2>Добавить скриншот</h2><p>Попадёт в галерею после проверки</p></div><button class="modal-close" onclick="closeModal('album-modal')">✕</button></div>
     <div class="modal-body">
       <div class="form-info">📸 Вставь <strong>прямую ссылку на картинку</strong> (заканчивается на .png, .jpg или .jpeg). Например: <code>https://i.imgur.com/abc123.png</code></div>
       <div class="form-row"><label>Ссылка на картинку</label><input type="url" id="album-url" placeholder="https://i.imgur.com/xxxxx.png"></div>
-      <div class="form-row"><label>Название</label><input type="text" id="album-title" placeholder="Закат над базой" maxlength="60"></div>
+      <div class="form-row"><label>Название</label><input type="text" id="album-title" placeholder="Воздушный бой над спавном" maxlength="60"></div>
       <div class="form-row"><label>Описание (необязательно)</label><textarea id="album-desc" placeholder="Что изображено, где, когда..." maxlength="200"></textarea></div>
       <button class="btn-primary" onclick="submitAlbumScreenshot()" style="width:100%">📤 Отправить</button>
       <div id="album-preview" style="margin-top:16px;text-align:center"></div>
@@ -512,7 +475,6 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
   </div>
 </div>
 
-<!-- ALBUM VIEW MODAL -->
 <div class="modal-overlay" id="album-view">
   <div class="modal">
     <button class="modal-close" style="position:absolute;top:16px;right:16px;z-index:5;background:rgba(0,0,0,.6)" onclick="closeModal('album-view')">✕</button>
@@ -520,23 +482,17 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
   </div>
 </div>
 
-<!-- PROFILE MODAL -->
 <div class="modal-overlay" id="profile-modal">
   <div class="modal"><button class="modal-close" style="position:absolute;top:16px;right:16px;z-index:5" onclick="closeProfileModal()">✕</button><div class="modal-body" id="profile-body"></div></div>
 </div>
 
-<!-- SERVER MODAL -->
 <div class="modal-overlay" id="server-modal">
   <div class="modal">
     <div class="modal-head"><div><h2>Онлайн сервера</h2><p>eu.ptu-smp.ru</p></div><button class="modal-close" onclick="closeModal('server-modal')">✕</button></div>
-    <div class="modal-body">
-      <div class="form-info" style="background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.25)">Данные приходят через <strong>api.mcsrvstat.us</strong> в реальном времени.</div>
-      <div id="modal-players-body"><div style="text-align:center;padding:30px;color:var(--muted)">Загрузка…</div></div>
-    </div>
+    <div class="modal-body" id="modal-players-body"><div style="text-align:center;padding:30px;color:var(--muted)">Загрузка…</div></div>
   </div>
 </div>
 
-<!-- ADMIN MODAL -->
 <div class="modal-overlay" id="admin-modal">
   <div class="modal">
     <div class="modal-head"><div><h2>Админ-панель</h2><p id="admin-status">Готово</p></div><button class="modal-close" onclick="closeAdminModal()">✕</button></div>
@@ -548,29 +504,23 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
         <button class="admin-tab" data-tab="players">👥 Игроки</button>
         <button class="admin-tab" data-tab="data">💾 Данные</button>
       </div>
-
       <div class="admin-pane active" id="pane-ach-submissions"><div id="ach-subs-list"></div></div>
       <div class="admin-pane" id="pane-album-submissions"><div id="album-subs-list"></div></div>
-
       <div class="admin-pane" id="pane-chronicle">
-        <div class="admin-form-row"><label>Дата (текст — например «12 мая 2024»)</label><input type="text" id="tl-date" placeholder="12 мая 2024"></div>
+        <div class="admin-form-row"><label>Дата (текст)</label><input type="text" id="tl-date" placeholder="12 мая 2024"></div>
         <div class="admin-form-row"><label>Заголовок</label><input type="text" id="tl-title" placeholder="Основан город Невервуд"></div>
         <div class="admin-form-row"><label>Описание</label><textarea id="tl-text" placeholder="Что произошло..."></textarea></div>
-        <div class="admin-form-row"><label>Цвет маркера</label>
-          <select id="tl-color"><option value="">🟢 Зелёный (обычное)</option><option value="amber">🟡 Жёлтый (важное)</option><option value="red">🔴 Красный (война/беда)</option><option value="purple">🟣 Фиолетовый (легенда)</option></select>
-        </div>
+        <div class="admin-form-row"><label>Цвет маркера</label><select id="tl-color"><option value="">🟢 Зелёный (обычное)</option><option value="amber">🟡 Жёлтый (важное)</option><option value="red">🔴 Красный (война)</option><option value="purple">🟣 Фиолетовый (легенда)</option></select></div>
         <div class="admin-actions"><button class="admin-btn primary" onclick="adminAddChronicle()">+ Добавить событие</button></div>
         <div style="height:24px;border-top:1px solid var(--line);padding-top:20px;margin-top:20px">
           <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px">Существующие события</div>
           <div id="chronicle-admin-list"></div>
         </div>
       </div>
-
       <div class="admin-pane" id="pane-players">
-        <div style="font-size:13px;color:var(--muted);margin-bottom:12px">Игроки попадают сюда автоматически, когда заходят на сервер. Если ты хочешь вручную выдать ачивку — открой заявки во вкладке «Заявки на ачивки».</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:12px">Игроки попадают сюда автоматически, когда заходят на сервер. Можно выдать ачивку вручную.</div>
         <div id="admin-players-list"></div>
       </div>
-
       <div class="admin-pane" id="pane-data">
         <div class="admin-form-row"><label>Экспорт JSON</label><textarea id="data-export" readonly></textarea></div>
         <div class="admin-actions" style="margin-top:0"><button class="admin-btn primary" onclick="copyExport()">Скопировать</button><button class="admin-btn ghost" onclick="downloadExport()">Скачать</button></div>
@@ -589,6 +539,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
 const DISCORD_CLIENT_ID = '1549536016560423053';
 const DISCORD_REDIRECT_URI = 'https://misty-wood-5387.maratdzhagiev88.workers.dev';
 const ADMIN_DISCORD_IDS = ['1382696497438654505', '432419959914758149', '421971697001037826'];
+const MODERATOR_DISCORD_IDS = ['250237274086703104', '432419959914758149', '1382696497438654505', '421971697001037826'];
 const AUTH_KEY = 'ptusmp_auth_v1';
 const SERVER_IP = 'eu.ptu-smp.ru';
 const STATUS_REFRESH_MS = 60 * 1000;
@@ -598,40 +549,65 @@ const STREAMERS = [
   { twitch: 'kopch02',   display: 'kopch',     note: 'разраб' },
 ];
 
-/* ===== ACHIEVEMENTS CATALOG ===== */
+const ACH_CATEGORIES = [
+  { id:'create', name:'Create / Инженерия', icon:'⚙️' },
+  { id:'avia', name:'Авиация (Create Planes)', icon:'✈️' },
+  { id:'war', name:'Война', icon:'⚔️' },
+  { id:'server', name:'Вклад в сервер', icon:'🏛️' },
+  { id:'special', name:'Особые', icon:'🌟' },
+];
+
 const DEFAULT_ACHIEVEMENTS = [
-  { id:'first_home', icon:'🏠', name:'Первый дом', desc:'Построил свой первый дом на сервере', rarity:'common' },
-  { id:'dragon_killer', icon:'🐉', name:'Убийца дракона', desc:'Победил дракона Края', rarity:'legendary' },
-  { id:'diamond_mogul', icon:'💎', name:'Алмазный магнат', desc:'Добыл 100+ алмазов', rarity:'epic' },
-  { id:'night_survivor', icon:'🌙', name:'Ночной страж', desc:'Пережил ночь без единого источника света', rarity:'rare' },
-  { id:'first_join', icon:'🥇', name:'Первый на сервере', desc:'Зашёл на сервер одним из первых', rarity:'legendary' },
-  { id:'best_trader', icon:'💰', name:'Лучший торговец', desc:'Совершил самую крупную сделку сервера', rarity:'epic' },
-  { id:'blade_master', icon:'⚔️', name:'Мастер клинка', desc:'Победил 50+ мобов в ближнем бою', rarity:'rare' },
-  { id:'castle_builder', icon:'🏰', name:'Зодчий', desc:'Построил замок или крупное сооружение', rarity:'epic' },
-  { id:'invincible', icon:'🔥', name:'Неуязвимый', desc:'100 часов без единой смерти', rarity:'legendary' },
-  { id:'fisher_luck', icon:'🎣', name:'Рыбак удачи', desc:'Поймал 100+ рыб', rarity:'common' },
-  { id:'nether_walker', icon:'🌋', name:'Покоритель Нижнего', desc:'Побывал в Нижнем мире', rarity:'common' },
-  { id:'elytra_flyer', icon:'🦋', name:'Небесный житель', desc:'Нашёл элитры', rarity:'epic' },
+  { id:'first_machine', cat:'create', icon:'⚙️', name:'Первый механизм', desc:'Собрал первую работающую машину на Create', rarity:'common' },
+  { id:'factory', cat:'create', icon:'🏭', name:'Инженер-механик', desc:'Построил завод или крупную фабрику', rarity:'epic' },
+  { id:'railroad', cat:'create', icon:'🚂', name:'Железнодорожник', desc:'Проложил рабочую сеть рельсов между базами', rarity:'rare' },
+  { id:'automation', cat:'create', icon:'⛏️', name:'Автоматизатор', desc:'Автоматизировал добычу или переработку ресурсов', rarity:'rare' },
+  { id:'fluid_master', cat:'create', icon:'💧', name:'Мастер жидкостей', desc:'Запустил систему с жидкостями (вода, лава, масло)', rarity:'rare' },
+  { id:'logic_master', cat:'create', icon:'🎛️', name:'Логик', desc:'Собрал сложную схему на редстоуне или контроллерах', rarity:'epic' },
+  { id:'contraption', cat:'create', icon:'🛠️', name:'Изобретатель', desc:'Придумал собственную уникальную конструкцию', rarity:'epic' },
+  { id:'train_driver', cat:'create', icon:'🚆', name:'Машинист', desc:'Перевёз пассажиров или груз по своей ж/д', rarity:'rare' },
+  { id:'first_flight', cat:'avia', icon:'✈️', name:'Первый полёт', desc:'Построил и поднял в воздух первый самолёт', rarity:'common' },
+  { id:'aviator_ace', cat:'avia', icon:'🛩️', name:'Ас авиации', desc:'Сбил 5+ вражеских самолётов', rarity:'legendary' },
+  { id:'bomber', cat:'avia', icon:'💣', name:'Бомбардир', desc:'Успешно сбросил бомбы на базу противника', rarity:'epic' },
+  { id:'soft_landing', cat:'avia', icon:'🛬', name:'Мягкая посадка', desc:'Посадил самолёт без единого повреждения', rarity:'rare' },
+  { id:'multi_vehicle', cat:'avia', icon:'🚁', name:'Мультироль', desc:'Построил и самолёт, и вертолёт', rarity:'epic' },
+  { id:'air_battle', cat:'avia', icon:'🌩️', name:'Воздушный бой', desc:'Участвовал в массовом воздушном сражении', rarity:'rare' },
+  { id:'cargo_master', cat:'avia', icon:'📦', name:'Грузоперевозчик', desc:'Перевёз крупный груз самолётом между базами', rarity:'rare' },
+  { id:'first_blood', cat:'war', icon:'⚔️', name:'Первая кровь', desc:'Первое убийство игрока на сервере', rarity:'common' },
+  { id:'duelist', cat:'war', icon:'🗡️', name:'Дуэлянт', desc:'Победил в 5+ дуэлях', rarity:'rare' },
+  { id:'commander', cat:'war', icon:'🎖️', name:'Командир', desc:'Привёл свой отряд к победе в бою', rarity:'epic' },
+  { id:'raider', cat:'war', icon:'🏰', name:'Захватчик', desc:'Захватил чужую базу', rarity:'legendary' },
+  { id:'defender', cat:'war', icon:'🛡️', name:'Защитник', desc:'Отбил атаку на свою базу', rarity:'epic' },
+  { id:'saboteur', cat:'war', icon:'💥', name:'Диверсант', desc:'Уничтожил важный объект врага', rarity:'epic' },
+  { id:'sniper', cat:'war', icon:'🎯', name:'Снайпер', desc:'Убийство с дальней дистанции', rarity:'rare' },
+  { id:'warlord', cat:'war', icon:'👑', name:'Полководец', desc:'Организовал крупную военную операцию', rarity:'legendary' },
+  { id:'spy', cat:'war', icon:'🕵️', name:'Разведчик', desc:'Добыл ценные данные о базе врага', rarity:'rare' },
+  { id:'architect', cat:'server', icon:'🏛️', name:'Архитектор', desc:'Построил важный для сервера объект (спавн, арену)', rarity:'legendary' },
+  { id:'sponsor', cat:'server', icon:'💰', name:'Спонсор', desc:'Помог серверу материально', rarity:'epic' },
+  { id:'ideologue', cat:'server', icon:'📣', name:'Идеолог', desc:'Предложил идею, которая вошла в игру', rarity:'epic' },
+  { id:'peacemaker', cat:'server', icon:'🤝', name:'Миротворец', desc:'Примирил враждующие стороны', rarity:'rare' },
+  { id:'builder_team', cat:'server', icon:'🏗️', name:'Стройотряд', desc:'Участвовал в массовой стройке', rarity:'common' },
+  { id:'veteran', cat:'server', icon:'🎗️', name:'Ветеран', desc:'Играет с самого начала сервера', rarity:'epic' },
+  { id:'champion', cat:'special', icon:'🏆', name:'Чемпион', desc:'Победил в турнире сервера', rarity:'legendary' },
+  { id:'artist', cat:'special', icon:'🎨', name:'Художник', desc:'Построил признанный арт-проект', rarity:'epic' },
+  { id:'legend', cat:'special', icon:'🌟', name:'Легенда сервера', desc:'За особые заслуги перед сервером', rarity:'legendary' },
 ];
 
 const RARITY_LABEL = { common:'Обычное', rare:'Редкое', epic:'Эпическое', legendary:'Легендарное' };
 
-/* ===== STORAGE ===== */
 const KEYS = {
-  players: 'ptusmp_players_v40',
-  achCustom: 'ptusmp_ach_custom_v40',
-  achSubs: 'ptusmp_ach_subs_v40',
-  chronicle: 'ptusmp_chronicle_v40',
-  album: 'ptusmp_album_v40',
-  albumSubs: 'ptusmp_album_subs_v40',
-  albumLikes: 'ptusmp_album_likes_v40',
+  players: 'ptusmp_players_v41',
+  achSubs: 'ptusmp_ach_subs_v41',
+  chronicle: 'ptusmp_chronicle_v41',
+  album: 'ptusmp_album_v41',
+  albumSubs: 'ptusmp_album_subs_v41',
+  albumLikes: 'ptusmp_album_likes_v41',
 };
 const $ = (id) => document.getElementById(id);
 function ls(k, def){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch { return def; } }
 function lsSet(k, v){ localStorage.setItem(k, JSON.stringify(v)); }
 
 let players = ls(KEYS.players, []);
-let achCustom = ls(KEYS.achCustom, []);
 let achSubs = ls(KEYS.achSubs, []);
 let chronicle = ls(KEYS.chronicle, []);
 let album = ls(KEYS.album, []);
@@ -649,10 +625,8 @@ function saveAlbumSubs(){ lsSet(KEYS.albumSubs, albumSubs); }
 function saveChronicle(){ lsSet(KEYS.chronicle, chronicle); }
 function saveAlbumLikes(){ lsSet(KEYS.albumLikes, albumLikes); }
 
-function getAchievements(){ return [...DEFAULT_ACHIEVEMENTS, ...achCustom]; }
-function findAchievement(id){ return getAchievements().find(a => a.id === id); }
+function findAchievement(id){ return DEFAULT_ACHIEVEMENTS.find(a => a.id === id); }
 
-/* ===== HELPERS ===== */
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function avatarImgHtml(nickname, size = 64, extra = ''){
   const nick = encodeURIComponent(nickname);
@@ -661,7 +635,6 @@ function avatarImgHtml(nickname, size = 64, extra = ''){
 function getPlayerAch(playerId){ return achSubs.filter(s => s.playerId === playerId && s.status === 'approved'); }
 function getPlayerAchIds(playerId){ return getPlayerAch(playerId).map(s => s.achievementId); }
 
-/* ===== DISCORD AUTH ===== */
 function getCurrentUser(){ try { const raw = localStorage.getItem(AUTH_KEY); if (!raw) return null; const data = JSON.parse(raw); if (data.expires_at && Date.now() > data.expires_at){ localStorage.removeItem(AUTH_KEY); return null; } return data; } catch { return null; } }
 function saveUser(u){ localStorage.setItem(AUTH_KEY, JSON.stringify(u)); }
 function loginWithDiscord(){ const p = new URLSearchParams({ client_id: DISCORD_CLIENT_ID, redirect_uri: DISCORD_REDIRECT_URI, response_type: 'code', scope: 'identify' }); location.href = 'https://discord.com/api/oauth2/authorize?' + p.toString(); }
@@ -685,6 +658,7 @@ function logoutDiscord(){ localStorage.removeItem(AUTH_KEY); updateAuthUI(); sho
 function getDisplayName(u){ return u ? (u.global_name || u.username) : ''; }
 function getDiscordAvatar(u, size = 64){ if (!u) return ''; if (u.avatar) return `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=${size}`; const idx = u.discriminator === '0' ? Number((BigInt(u.id) >> 22n) % 6n) : parseInt(u.discriminator) % 5; return `https://cdn.discordapp.com/embed/avatars/${idx}.png`; }
 function isAdmin(){ const u = getCurrentUser(); if (!u) return ADMIN_DISCORD_IDS.length === 0; return ADMIN_DISCORD_IDS.length === 0 || ADMIN_DISCORD_IDS.includes(u.id); }
+function isModerator(){ const u = getCurrentUser(); if (!u) return MODERATOR_DISCORD_IDS.length === 0; return MODERATOR_DISCORD_IDS.length === 0 || MODERATOR_DISCORD_IDS.includes(u.id); }
 function updateAuthUI(){
   const btn = $('nav-auth-btn'), content = $('auth-content'), menu = $('user-menu');
   if (!btn || !content) return;
@@ -692,7 +666,7 @@ function updateAuthUI(){
   if (u){
     btn.classList.add('logged-in');
     content.innerHTML = `<img src="${getDiscordAvatar(u, 64)}" alt=""><span class="auth-name">${escapeHtml(getDisplayName(u))}</span>`;
-    menu.innerHTML = `<div class="user-menu-header"><div class="name">${escapeHtml(getDisplayName(u))}</div><div class="id">@${escapeHtml(u.username)}</div></div>${isAdmin() ? `<div class="user-menu-item" onclick="closeUserMenu();openAdminModal()">⚙️ Админ-панель <span class="auth-badge">ADMIN</span></div>` : ''}<button class="user-menu-item danger" onclick="closeUserMenu();logoutDiscord()">🚪 Выйти</button>`;
+    menu.innerHTML = `<div class="user-menu-header"><div class="name">${escapeHtml(getDisplayName(u))}</div><div class="id">@${escapeHtml(u.username)}</div></div>${isAdmin() ? `<div class="user-menu-item" onclick="closeUserMenu();openAdminModal()">⚙️ Админ-панель <span class="auth-badge">ADMIN</span></div>` : ''}${!isAdmin() && isModerator() ? `<div class="user-menu-item" style="cursor:default">🛡️ Модератор <span class="auth-badge">MOD</span></div>` : ''}<button class="user-menu-item danger" onclick="closeUserMenu();logoutDiscord()">🚪 Выйти</button>`;
   } else {
     btn.classList.remove('logged-in'); content.textContent = 'Войти'; menu.innerHTML = ''; menu.classList.remove('open');
   }
@@ -701,13 +675,11 @@ function handleAuthClick(){ const u = getCurrentUser(); if (u) $('user-menu').cl
 function closeUserMenu(){ $('user-menu')?.classList.remove('open'); }
 document.addEventListener('click', e => { if (!e.target.closest('.auth-wrap')) closeUserMenu(); });
 
-/* ===== MODALS ===== */
 function openModal(id){ $(id).classList.add('open'); document.body.classList.add('modal-open'); }
 function closeModal(id){ $(id).classList.remove('open'); document.body.classList.remove('modal-open'); }
 document.querySelectorAll('.modal-overlay').forEach(el => { el.addEventListener('click', e => { if (e.target === el) closeModal(el.id); }); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => closeModal(m.id)); });
 
-/* ===== TOAST ===== */
 let toastTimer = null;
 function showToast(msg){
   let el = document.getElementById('global-toast');
@@ -723,14 +695,10 @@ function showToast(msg){
   toastTimer = setTimeout(() => { el.style.transform = 'translateX(-50%) translateY(120px)'; }, 2400);
 }
 
-/* ===== MSK CLOCK ===== */
 function updateMskClock(){ const now = new Date(); const msk = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + 3 * 3600000); const pad = (n) => String(n).padStart(2, '0'); const el = $('msk-time'); if (el) el.textContent = `${pad(msk.getHours())}:${pad(msk.getMinutes())}:${pad(msk.getSeconds())}`; }
 setInterval(updateMskClock, 1000); updateMskClock();
+(function(){ const KEY='ptusmp_visits_v41', S='ptusmp_vs_v41'; let c=parseInt(localStorage.getItem(KEY)||'0',10); if(!sessionStorage.getItem(S)){c++;localStorage.setItem(KEY,String(c));sessionStorage.setItem(S,'1');} const el=$('visits-counter'); if(el) el.textContent=c.toLocaleString('ru-RU')+' посещений'; })();
 
-/* ===== VISITS ===== */
-(function(){ const KEY='ptusmp_visits_v40', S='ptusmp_vs_v40'; let c=parseInt(localStorage.getItem(KEY)||'0',10); if(!sessionStorage.getItem(S)){c++;localStorage.setItem(KEY,String(c));sessionStorage.setItem(S,'1');} const el=$('visits-counter'); if(el) el.textContent=c.toLocaleString('ru-RU')+' посещений'; })();
-
-/* ===== VIEW SWITCH ===== */
 function switchView(v){
   currentView = v;
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.toggle('active', t.dataset.view === v));
@@ -743,49 +711,45 @@ function switchView(v){
   if (v === 'streams') loadStreams();
 }
 
-/* ===== RENDER: ACHIEVEMENTS ===== */
 function renderAchievements(){
-  const list = getAchievements();
-  $('ach-hero-count').textContent = list.length + ' ачивок';
-  const grid = $('ach-grid');
-  grid.innerHTML = '';
-  list.forEach((a, i) => {
-    const holders = achSubs.filter(s => s.achievementId === a.id && s.status === 'approved');
-    const card = document.createElement('div');
-    card.className = 'ach-card';
-    card.style.animationDelay = (i * 40) + 'ms';
-    const holdersAvatars = holders.slice(0, 3).map(s => {
-      const p = players.find(x => x.id === s.playerId);
-      return p ? avatarImgHtml(p.nickname, 32) : '';
-    }).join('');
-    card.innerHTML = `
-      <div class="ach-icon">${a.icon}</div>
-      <div class="ach-name">${escapeHtml(a.name)}</div>
-      <div class="ach-desc">${escapeHtml(a.desc)}</div>
-      <div class="ach-footer">
-        <div class="ach-holders">
-          ${holders.length > 0 ? `<div class="ach-holders-avatars">${holdersAvatars}</div><span class="ach-holders-count">${holders.length} ${holders.length === 1 ? 'игрок' : 'игроков'}</span>` : '<span style="font-size:11px;color:var(--muted-2)">ещё никто</span>'}
-        </div>
-        <span class="ach-rarity ${a.rarity}">${RARITY_LABEL[a.rarity]}</span>
-      </div>`;
-    card.onclick = () => showAchInfo(a.id);
-    grid.appendChild(card);
+  $('ach-hero-count').textContent = DEFAULT_ACHIEVEMENTS.length + ' ачивок';
+  const container = $('ach-catalog');
+  container.innerHTML = '';
+  ACH_CATEGORIES.forEach(cat => {
+    const list = DEFAULT_ACHIEVEMENTS.filter(a => a.cat === cat.id);
+    if (!list.length) return;
+    const catEl = document.createElement('div');
+    catEl.className = 'ach-cat';
+    catEl.innerHTML = `<div class="ach-cat-head"><div class="ach-cat-icon">${cat.icon}</div><div class="ach-cat-name">${cat.name}</div><div class="ach-cat-count">${list.length}</div></div><div class="ach-grid"></div>`;
+    const grid = catEl.querySelector('.ach-grid');
+    list.forEach((a, i) => {
+      const holders = achSubs.filter(s => s.achievementId === a.id && s.status === 'approved');
+      const card = document.createElement('div');
+      card.className = 'ach-card';
+      card.style.animationDelay = (i * 30) + 'ms';
+      const holdersAvatars = holders.slice(0, 3).map(s => { const p = players.find(x => x.id === s.playerId); return p ? avatarImgHtml(p.nickname, 32) : ''; }).join('');
+      card.innerHTML = `
+        <div class="ach-icon">${a.icon}</div>
+        <div class="ach-name">${escapeHtml(a.name)}</div>
+        <div class="ach-desc">${escapeHtml(a.desc)}</div>
+        <div class="ach-footer">
+          <div class="ach-holders">
+            ${holders.length > 0 ? `<div class="ach-holders-avatars">${holdersAvatars}</div><span class="ach-holders-count">${holders.length} ${holders.length === 1 ? 'игрок' : 'игроков'}</span>` : '<span style="font-size:11px;color:var(--muted-2)">ещё никто</span>'}
+          </div>
+          <span class="ach-rarity ${a.rarity}">${RARITY_LABEL[a.rarity]}</span>
+        </div>`;
+      card.onclick = () => showAchInfo(a.id);
+      grid.appendChild(card);
+    });
+    container.appendChild(catEl);
   });
   renderAchTop();
 }
 function renderAchTop(){
-  const ranked = players.map(p => {
-    const count = getPlayerAch(p.id).length;
-    const badges = getPlayerAch(p.id).map(s => findAchievement(s.achievementId)).filter(Boolean).slice(0, 6);
-    return { ...p, achCount: count, badges };
-  }).sort((a, b) => b.achCount - a.achCount).slice(0, 20).filter(p => p.achCount > 0);
-
+  const ranked = players.map(p => { const list = getPlayerAch(p.id); const badges = list.map(s => findAchievement(s.achievementId)).filter(Boolean).slice(0, 6); return { ...p, achCount: list.length, badges }; }).sort((a, b) => b.achCount - a.achCount).slice(0, 20).filter(p => p.achCount > 0);
   const list = $('ach-top-list');
   list.innerHTML = '';
-  if (!ranked.length){
-    list.innerHTML = `<div class="empty-state"><div class="ico">🏆</div><h3>Пока никто не получил ачивок</h3><p>Стань первым — отправь заявку через кнопку сверху.</p></div>`;
-    return;
-  }
+  if (!ranked.length){ list.innerHTML = `<div class="empty-state"><div class="ico">🏆</div><h3>Пока никто не получил ачивок</h3><p>Стань первым — отправь заявку через кнопку сверху.</p></div>`; return; }
   ranked.forEach((p, i) => {
     const item = document.createElement('div');
     item.className = 'ach-top-item';
@@ -794,32 +758,27 @@ function renderAchTop(){
     if (i === 2) item.classList.add('top3');
     item.style.animationDelay = (i * 40) + 'ms';
     const badgesHtml = p.badges.map(a => `<span class="ach-top-badge" title="${escapeHtml(a.name)}">${a.icon}</span>`).join('');
-    item.innerHTML = `
-      <div class="ach-top-pos">#${i + 1}</div>
-      ${avatarImgHtml(p.nickname, 48, 'class="ach-top-avatar"')}
-      <div>
-        <div class="ach-top-name">${escapeHtml(p.nickname)}</div>
-        <div class="ach-top-badges">${badgesHtml}</div>
-      </div>
-      <div class="ach-top-count">${p.achCount}</div>`;
+    item.innerHTML = `<div class="ach-top-pos">#${i + 1}</div>${avatarImgHtml(p.nickname, 48, 'class="ach-top-avatar"')}<div><div class="ach-top-name">${escapeHtml(p.nickname)}</div><div class="ach-top-badges">${badgesHtml}</div></div><div class="ach-top-count">${p.achCount}</div>`;
     item.onclick = () => openProfile(p.id);
     list.appendChild(item);
   });
 }
-function scrollToTop10(){ document.getElementById('top10-anchor')?.scrollIntoView({ behavior: 'smooth' }); }
 
-/* ===== ACHIEVEMENT SUBMIT ===== */
 function openAchievementPicker(){
   const u = getCurrentUser();
   if (!u){ showToast('🔐 Сначала войди через Discord'); loginWithDiscord(); return; }
   const select = $('ach-submit-select');
-  const achList = getAchievements();
-  select.innerHTML = achList.map(a => `<option value="${a.id}">${a.icon} ${escapeHtml(a.name)} — ${escapeHtml(RARITY_LABEL[a.rarity])}</option>`).join('');
+  const opts = [];
+  ACH_CATEGORIES.forEach(cat => {
+    const list = DEFAULT_ACHIEVEMENTS.filter(a => a.cat === cat.id);
+    if (!list.length) return;
+    opts.push(`<optgroup label="${cat.icon} ${cat.name}">${list.map(a => `<option value="${a.id}">${a.icon} ${escapeHtml(a.name)} — ${RARITY_LABEL[a.rarity]}</option>`).join('')}</optgroup>`);
+  });
+  select.innerHTML = opts.join('');
   $('ach-submit-proof').value = '';
   $('ach-submit-note').value = '';
   openModal('ach-modal');
 }
-function closeAchievementModal(){ closeModal('ach-modal'); }
 function submitAchievement(){
   const u = getCurrentUser();
   if (!u){ showToast('🔐 Войди через Discord'); return; }
@@ -828,35 +787,16 @@ function submitAchievement(){
   const note = $('ach-submit-note').value.trim();
   if (!proof){ showToast('📸 Нужна ссылка на пруф'); return; }
   if (!/^https?:\/\//.test(proof)){ showToast('❌ Ссылка должна начинаться с http:// или https://'); return; }
-
   let player = players.find(p => p.discordId === u.id);
-  if (!player){
-    showToast('👤 Сначала зайди на сервер хотя бы раз — мы добавим тебя в базу');
-    return;
-  }
-  const already = achSubs.find(s => s.playerId === player.id && s.achievementId === achId && s.status === 'approved');
-  if (already){ showToast('✅ У тебя уже есть это достижение'); return; }
-  const pending = achSubs.find(s => s.playerId === player.id && s.achievementId === achId && s.status === 'pending');
-  if (pending){ showToast('⏳ Заявка уже на проверке'); return; }
-
-  achSubs.unshift({
-    id: Date.now() + Math.floor(Math.random() * 1000),
-    playerId: player.id,
-    playerNick: player.nickname,
-    achievementId: achId,
-    proof,
-    note,
-    discordId: u.id,
-    discordName: getDisplayName(u),
-    ts: Date.now(),
-    status: 'pending',
-  });
+  if (!player){ showToast('👤 Сначала зайди на сервер хотя бы раз'); return; }
+  if (achSubs.find(s => s.playerId === player.id && s.achievementId === achId && s.status === 'approved')){ showToast('✅ Уже есть'); return; }
+  if (achSubs.find(s => s.playerId === player.id && s.achievementId === achId && s.status === 'pending')){ showToast('⏳ Уже на проверке'); return; }
+  achSubs.unshift({ id: Date.now() + Math.floor(Math.random() * 1000), playerId: player.id, playerNick: player.nickname, achievementId: achId, proof, note, discordId: u.id, discordName: getDisplayName(u), ts: Date.now(), status: 'pending' });
   saveAchSubs();
   updateAdminBadge();
-  closeAchievementModal();
+  closeModal('ach-modal');
   showToast('📤 Заявка отправлена на модерацию');
 }
-
 function showAchInfo(achId){
   const a = findAchievement(achId);
   if (!a) return;
@@ -864,47 +804,36 @@ function showAchInfo(achId){
   $('ach-info-title').textContent = `${a.icon} ${a.name}`;
   $('ach-info-sub').textContent = RARITY_LABEL[a.rarity] + ' · ' + holders.length + ' получили';
   const body = $('ach-info-body');
-  if (!holders.length){
-    body.innerHTML = `<div class="empty-state" style="border:none;padding:20px 0"><div class="ico">🎯</div><h3>Пока никто не получил</h3><p>${escapeHtml(a.desc)}</p></div>`;
-  } else {
-    body.innerHTML = `
-      <div style="font-size:14px;color:var(--text-2);margin-bottom:16px">${escapeHtml(a.desc)}</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px">Получили</div>
-      <div style="display:flex;flex-direction:column;gap:6px">
-        ${holders.map(s => {
-          const p = players.find(x => x.id === s.playerId);
-          if (!p) return '';
-          return `<div style="display:flex;gap:10px;align-items:center;padding:10px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid var(--line);cursor:pointer" onclick="closeModal('ach-info-modal');openProfile(${p.id})">
-            ${avatarImgHtml(p.nickname, 36)}<div style="flex:1"><div style="font-weight:700;color:#fff;font-size:13px">${escapeHtml(p.nickname)}</div><div style="font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace">${new Date(s.ts).toLocaleDateString('ru-RU')}</div></div>
-            <a href="${escapeHtml(s.proof)}" target="_blank" style="font-size:11px;color:var(--purple-2);text-decoration:none">пруф →</a>
-          </div>`;
-        }).join('')}
-      </div>`;
+  if (!holders.length){ body.innerHTML = `<div class="empty-state" style="border:none;padding:20px 0"><div class="ico">🎯</div><h3>Пока никто не получил</h3><p>${escapeHtml(a.desc)}</p></div>`; }
+  else {
+    body.innerHTML = `<div style="font-size:14px;color:var(--text-2);margin-bottom:16px">${escapeHtml(a.desc)}</div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px">Получили</div><div style="display:flex;flex-direction:column;gap:6px">${holders.map(s => { const p = players.find(x => x.id === s.playerId); if (!p) return ''; return `<div style="display:flex;gap:10px;align-items:center;padding:10px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid var(--line);cursor:pointer" onclick="closeModal('ach-info-modal');openProfile(${p.id})">${avatarImgHtml(p.nickname, 36)}<div style="flex:1"><div style="font-weight:700;color:#fff;font-size:13px">${escapeHtml(p.nickname)}</div><div style="font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace">${new Date(s.ts).toLocaleDateString('ru-RU')}</div></div><a href="${escapeHtml(s.proof)}" target="_blank" style="font-size:11px;color:var(--purple-2);text-decoration:none">пруф →</a></div>`; }).join('')}</div>`;
   }
   openModal('ach-info-modal');
 }
 
-/* ===== CHRONICLE ===== */
 function renderChronicle(){
   const tl = $('timeline');
   tl.innerHTML = '';
-  if (!chronicle.length){
-    tl.innerHTML = `<div class="empty-state"><div class="ico">📜</div><h3>Летопись пока пуста</h3><p>Скоро здесь появятся главные события сервера.</p></div>`;
-    return;
-  }
-  const sorted = [...chronicle].sort((a, b) => b.ts - a.ts);
-  sorted.forEach((ev, i) => {
+  const canDelete = isModerator();
+  if (!chronicle.length){ tl.innerHTML = `<div class="empty-state"><div class="ico">📜</div><h3>Летопись пока пуста</h3><p>Скоро здесь появятся главные события сервера.</p></div>`; return; }
+  [...chronicle].sort((a, b) => b.ts - a.ts).forEach((ev, i) => {
     const item = document.createElement('div');
     item.className = 'tl-item ' + (ev.color || '');
     item.style.animationDelay = (i * 50) + 'ms';
-    item.innerHTML = `
-      <div class="tl-date">${escapeHtml(ev.date)}</div>
-      <div class="tl-card">
-        <div class="tl-title">${escapeHtml(ev.title)}</div>
-        <div class="tl-text">${escapeHtml(ev.text)}</div>
-      </div>`;
+    item.innerHTML = `<div class="tl-date">${escapeHtml(ev.date)}</div><div class="tl-card">${canDelete ? `<button class="tl-delete" onclick="modDeleteChronicle(${ev.id})" title="Удалить событие">🗑</button>` : ''}<div class="tl-title">${escapeHtml(ev.title)}</div><div class="tl-text">${escapeHtml(ev.text)}</div></div>`;
     tl.appendChild(item);
   });
+}
+function modDeleteChronicle(id){
+  if (!isModerator()){ showToast('🚫 Только для модераторов'); return; }
+  const ev = chronicle.find(x => x.id === id);
+  if (!ev) return;
+  if (!confirm(`Удалить событие «${ev.title}»?`)) return;
+  chronicle = chronicle.filter(x => x.id !== id);
+  saveChronicle();
+  renderChronicle();
+  renderChronicleAdminList();
+  showToast('🗑 Событие удалено');
 }
 function adminAddChronicle(){
   const date = $('tl-date').value.trim();
@@ -927,25 +856,11 @@ function renderChronicleAdminList(){
   [...chronicle].sort((a, b) => b.ts - a.ts).forEach(ev => {
     const el = document.createElement('div');
     el.className = 'mod-item';
-    el.innerHTML = `
-      <div style="width:42px;height:42px;border-radius:10px;display:grid;place-items:center;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.3);font-size:18px">📜</div>
-      <div class="mod-info">
-        <div class="mod-line">${escapeHtml(ev.date)}</div>
-        <div class="mod-title">${escapeHtml(ev.title)}</div>
-        <div class="mod-desc">${escapeHtml((ev.text || '').slice(0, 80))}</div>
-      </div>
-      <button class="mod-btn reject" onclick="adminDeleteChronicle(${ev.id})">🗑</button>`;
+    el.innerHTML = `<div style="width:42px;height:42px;border-radius:10px;display:grid;place-items:center;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.3);font-size:18px">📜</div><div class="mod-info"><div class="mod-line">${escapeHtml(ev.date)}</div><div class="mod-title">${escapeHtml(ev.title)}</div><div class="mod-desc">${escapeHtml((ev.text || '').slice(0, 80))}</div></div><button class="mod-btn reject" onclick="modDeleteChronicle(${ev.id})">🗑</button>`;
     c.appendChild(el);
   });
 }
-function adminDeleteChronicle(id){
-  chronicle = chronicle.filter(x => x.id !== id);
-  saveChronicle();
-  renderChronicle();
-  renderChronicleAdminList();
-}
 
-/* ===== ALBUM ===== */
 function openAlbumUpload(){
   const u = getCurrentUser();
   if (!u){ showToast('🔐 Сначала войди через Discord'); loginWithDiscord(); return; }
@@ -953,7 +868,6 @@ function openAlbumUpload(){
   $('album-preview').innerHTML = '';
   openModal('album-modal');
 }
-function closeAlbumModal(){ closeModal('album-modal'); }
 $('album-url').addEventListener('input', e => {
   const url = e.target.value.trim();
   if (!url || !/^https?:\/\//.test(url)){ $('album-preview').innerHTML = ''; return; }
@@ -967,23 +881,13 @@ function submitAlbumScreenshot(){
   const desc = $('album-desc').value.trim();
   if (!url || !/^https?:\/\//.test(url)){ showToast('❌ Нужна ссылка на картинку'); return; }
   if (!title){ showToast('❌ Придумай название'); return; }
-
   let player = players.find(p => p.discordId === u.id);
   const author = player ? player.nickname : getDisplayName(u);
   const authorId = player ? player.id : null;
-
-  albumSubs.unshift({
-    id: Date.now() + Math.floor(Math.random() * 1000),
-    url, title, desc,
-    author, authorId,
-    discordId: u.id,
-    discordName: getDisplayName(u),
-    ts: Date.now(),
-    status: 'pending',
-  });
+  albumSubs.unshift({ id: Date.now() + Math.floor(Math.random() * 1000), url, title, desc, author, authorId, discordId: u.id, discordName: getDisplayName(u), ts: Date.now(), status: 'pending' });
   saveAlbumSubs();
   updateAdminBadge();
-  closeAlbumModal();
+  closeModal('album-modal');
   showToast('📤 Скрин отправлен на модерацию');
 }
 function setAlbumSort(s){
@@ -995,33 +899,32 @@ function renderAlbum(){
   $('album-hero-count').textContent = album.length + ' скринов';
   const grid = $('album-grid');
   grid.innerHTML = '';
-  if (!album.length){
-    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="ico">📸</div><h3>Альбом пока пуст</h3><p>Стань первым — отправь свой скриншот с сервера.</p></div>`;
-    return;
-  }
+  if (!album.length){ grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="ico">📸</div><h3>Альбом пока пуст</h3><p>Стань первым — отправь свой скриншот с сервера.</p></div>`; return; }
   let list = [...album];
   if (albumSort === 'likes') list.sort((a, b) => (albumLikes[b.id]?.length || 0) - (albumLikes[a.id]?.length || 0));
   else list.sort((a, b) => b.ts - a.ts);
-
   const u = getCurrentUser();
+  const canDelete = isModerator();
   list.forEach((a, i) => {
     const item = document.createElement('div');
     item.className = 'album-item';
     item.style.animationDelay = Math.min(i * 40, 500) + 'ms';
     const likes = albumLikes[a.id] || [];
     const liked = u && likes.includes(u.id);
-    item.innerHTML = `
-      <img src="${escapeHtml(a.url)}" alt="${escapeHtml(a.title)}" onerror="this.src='https://placehold.co/400x400/0a130f/10b981?text=no+image'">
-      <div class="album-item-overlay">
-        <div class="album-item-title">${escapeHtml(a.title)}</div>
-        <div class="album-item-meta">
-          <span>${escapeHtml(a.author)}</span>
-          <span class="album-item-likes ${liked ? 'liked' : ''}" onclick="event.stopPropagation(); toggleLike(${a.id})">${liked ? '❤️' : '🤍'} ${likes.length}</span>
-        </div>
-      </div>`;
+    item.innerHTML = `<img src="${escapeHtml(a.url)}" alt="${escapeHtml(a.title)}" onerror="this.src='https://placehold.co/400x400/0a130f/10b981?text=no+image'">${canDelete ? `<button class="album-item-delete" onclick="event.stopPropagation();modDeleteAlbum(${a.id})" title="Удалить">🗑</button>` : ''}<div class="album-item-overlay"><div class="album-item-title">${escapeHtml(a.title)}</div><div class="album-item-meta"><span>${escapeHtml(a.author)}</span><span class="album-item-likes ${liked ? 'liked' : ''}" onclick="event.stopPropagation(); toggleLike(${a.id})">${liked ? '❤️' : '🤍'} ${likes.length}</span></div></div>`;
     item.onclick = () => showAlbumView(a);
     grid.appendChild(item);
   });
+}
+function modDeleteAlbum(id){
+  if (!isModerator()){ showToast('🚫 Только для модераторов'); return; }
+  const a = album.find(x => x.id === id);
+  if (!a) return;
+  if (!confirm(`Удалить «${a.title}»?`)) return;
+  album = album.filter(x => x.id !== id);
+  saveAlbum();
+  renderAlbum();
+  showToast('🗑 Скрин удалён');
 }
 function toggleLike(id){
   const u = getCurrentUser();
@@ -1034,49 +937,21 @@ function toggleLike(id){
   renderAlbum();
 }
 function showAlbumView(a){
-  $('album-view-body').innerHTML = `
-    <div style="text-align:center;width:100%">
-      <img src="${escapeHtml(a.url)}" onerror="this.src='https://placehold.co/800x600/0a130f/10b981?text=no+image'">
-      <div style="padding:16px;background:var(--bg-2);color:#fff">
-        <div style="font-family:'Manrope',sans-serif;font-weight:800;font-size:18px;margin-bottom:6px">${escapeHtml(a.title)}</div>
-        ${a.desc ? `<div style="font-size:13px;color:var(--text-2);margin-bottom:8px">${escapeHtml(a.desc)}</div>` : ''}
-        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)">от ${escapeHtml(a.author)} · ${new Date(a.ts).toLocaleDateString('ru-RU')}</div>
-      </div>
-    </div>`;
+  $('album-view-body').innerHTML = `<div style="text-align:center;width:100%"><img src="${escapeHtml(a.url)}" onerror="this.src='https://placehold.co/800x600/0a130f/10b981?text=no+image'"><div style="padding:16px;background:var(--bg-2);color:#fff"><div style="font-family:'Manrope',sans-serif;font-weight:800;font-size:18px;margin-bottom:6px">${escapeHtml(a.title)}</div>${a.desc ? `<div style="font-size:13px;color:var(--text-2);margin-bottom:8px">${escapeHtml(a.desc)}</div>` : ''}<div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)">от ${escapeHtml(a.author)} · ${new Date(a.ts).toLocaleDateString('ru-RU')}</div></div></div>`;
   openModal('album-view');
 }
 
-/* ===== PROFILE ===== */
 function openProfile(playerId){
   const p = players.find(x => x.id === playerId); if (!p) return;
   currentProfileId = playerId;
-  const achIds = getPlayerAchIds(p.id);
-  const achList = achIds.map(id => findAchievement(id)).filter(Boolean);
+  const achList = getPlayerAchIds(p.id).map(id => findAchievement(id)).filter(Boolean);
   const titles = achList.slice(0, 5);
-
-  $('profile-body').innerHTML = `
-    <div class="pf-banner">
-      ${avatarImgHtml(p.nickname, 160, 'class="pf-avatar"')}
-      <div class="pf-nick">${escapeHtml(p.nickname)}</div>
-      <div class="pf-titles">
-        ${titles.map(a => `<span class="pf-title">${a.icon} ${escapeHtml(a.name)}</span>`).join('') || '<span style="color:var(--muted);font-size:12px">Пока без титулов</span>'}
-      </div>
-    </div>
-    <div class="pf-section-title">Достижения (${achList.length})</div>
-    <div class="pf-ach-grid">
-      ${achList.map(a => `<div class="pf-ach" title="${escapeHtml(a.name)}" onclick="closeProfileModal();showAchInfo('${a.id}')">${a.icon}</div>`).join('')}
-      ${Array(Math.max(0, 6 - achList.length)).fill(0).map(() => '<div class="pf-ach-empty">?</div>').join('')}
-    </div>
-    <div class="pf-actions">
-      <button class="pf-action-btn" onclick="copyNick('${escapeHtml(p.nickname)}')">📋 Скопировать ник</button>
-      <a class="pf-action-btn" href="https://ru.namemc.com/profile/${encodeURIComponent(p.nickname)}" target="_blank" rel="noopener">🌐 NameMC</a>
-    </div>`;
+  $('profile-body').innerHTML = `<div class="pf-banner">${avatarImgHtml(p.nickname, 160, 'class="pf-avatar"')}<div class="pf-nick">${escapeHtml(p.nickname)}</div><div class="pf-titles">${titles.map(a => `<span class="pf-title">${a.icon} ${escapeHtml(a.name)}</span>`).join('') || '<span style="color:var(--muted);font-size:12px">Пока без титулов</span>'}</div></div><div class="pf-section-title">Достижения (${achList.length})</div><div class="pf-ach-grid">${achList.map(a => `<div class="pf-ach" title="${escapeHtml(a.name)}" onclick="closeProfileModal();showAchInfo('${a.id}')">${a.icon}</div>`).join('')}${Array(Math.max(0, 6 - achList.length)).fill(0).map(() => '<div class="pf-ach-empty">?</div>').join('')}</div><div class="pf-actions"><button class="pf-action-btn" onclick="copyNick('${escapeHtml(p.nickname)}')">📋 Скопировать ник</button><a class="pf-action-btn" href="https://ru.namemc.com/profile/${encodeURIComponent(p.nickname)}" target="_blank" rel="noopener">🌐 NameMC</a></div>`;
   openModal('profile-modal');
 }
 function closeProfileModal(){ closeModal('profile-modal'); currentProfileId = null; }
 function copyNick(nick){ navigator.clipboard.writeText(nick).then(() => showToast('📋 Скопирован ник: ' + nick)); }
 
-/* ===== STREAMS ===== */
 const DECAPI = 'https://decapi.me/twitch';
 let streamStatusCache = {}, currentStreamFilter = 'all', currentStreamSearch = '', currentStreamChannel = null;
 async function fetchStreamerStatus(twitch){
@@ -1140,7 +1015,6 @@ async function loadStreams(){
 document.addEventListener('input', e => { if (e.target.id === 'stream-search'){ currentStreamSearch = e.target.value; renderStreamList(); } });
 document.addEventListener('click', e => { const b = e.target.closest('.stream-filter[data-filter]'); if (b){ document.querySelectorAll('.stream-filter[data-filter]').forEach(x => x.classList.remove('active')); b.classList.add('active'); currentStreamFilter = b.dataset.filter; renderStreamList(); } });
 
-/* ===== SERVER STATUS ===== */
 async function fetchServerStatus(){
   const dot = $('btn-status-dot'), num = $('btn-status-num');
   dot.className = 'dot checking'; num.textContent = '—/—';
@@ -1159,17 +1033,7 @@ async function fetchServerStatus(){
       if (body){
         if (!list.length){ body.innerHTML = '<div style="text-align:center;padding:20px;color:var(--muted)">Никого нет онлайн</div>'; }
         else {
-          body.innerHTML = `<div style="font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;color:var(--text-2);text-transform:uppercase;letter-spacing:.1em;padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--line)">На сервере сейчас</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            ${list.map(p => {
-              const nick = typeof p === 'string' ? p : p.name;
-              const pl = players.find(x => x.nickname.toLowerCase() === nick.toLowerCase());
-              return `<div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:12px;cursor:pointer" onclick="closeModal('server-modal');${pl ? `openProfile(${pl.id})` : ''}">
-                ${avatarImgHtml(nick, 36, 'style="width:36px;height:36px;border-radius:8px;image-rendering:pixelated"')}
-                <span style="font-weight:600;font-size:14px">${escapeHtml(nick)}</span>
-              </div>`;
-            }).join('')}
-          </div>`;
+          body.innerHTML = `<div style="font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;color:var(--text-2);text-transform:uppercase;letter-spacing:.1em;padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--line)">На сервере сейчас</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">${list.map(p => { const nick = typeof p === 'string' ? p : p.name; const pl = players.find(x => x.nickname.toLowerCase() === nick.toLowerCase()); return `<div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:12px;cursor:pointer" onclick="closeModal('server-modal');${pl ? `openProfile(${pl.id})` : ''}">${avatarImgHtml(nick, 36, 'style="width:36px;height:36px;border-radius:8px;image-rendering:pixelated"')}<span style="font-weight:600;font-size:14px">${escapeHtml(nick)}</span></div>`; }).join('')}</div>`;
         }
       }
     }
@@ -1185,11 +1049,10 @@ function autoAddOnlinePlayers(list){
     players.push({ id: nextPlayerId++, nickname: nick, discordId: null, addedAt: Date.now() });
     existing.add(nick.toLowerCase()); added++;
   }
-  if (added){ savePlayers(); }
+  if (added) savePlayers();
   return added;
 }
 
-/* ===== ADMIN ===== */
 document.querySelectorAll('.admin-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
@@ -1230,17 +1093,7 @@ function renderAdminAchSubs(){
     const a = findAchievement(s.achievementId);
     const el = document.createElement('div');
     el.className = 'mod-item';
-    el.innerHTML = `
-      <img class="preview" src="${escapeHtml(s.proof)}" onerror="this.src='https://placehold.co/100x100/0a130f/10b981?text=?'">
-      <div class="mod-info">
-        <div class="mod-line">${a ? a.icon + ' ' + escapeHtml(a.name) : 'Ачивка'} · ${escapeHtml(s.playerNick)}</div>
-        <div class="mod-desc">${s.note ? escapeHtml(s.note) : 'Без комментария'}</div>
-        <div class="mod-link"><a href="${escapeHtml(s.proof)}" target="_blank" style="color:var(--purple-2)">${escapeHtml(s.proof)}</a></div>
-      </div>
-      <div class="mod-actions">
-        <button class="mod-btn approve" onclick="approveAch(${s.id})">✓ Принять</button>
-        <button class="mod-btn reject" onclick="rejectAch(${s.id})">✕ Отклонить</button>
-      </div>`;
+    el.innerHTML = `<img class="preview" src="${escapeHtml(s.proof)}" onerror="this.src='https://placehold.co/100x100/0a130f/10b981?text=?'"><div class="mod-info"><div class="mod-line">${a ? a.icon + ' ' + escapeHtml(a.name) : 'Ачивка'} · ${escapeHtml(s.playerNick)}</div><div class="mod-desc">${s.note ? escapeHtml(s.note) : 'Без комментария'}</div><div class="mod-link"><a href="${escapeHtml(s.proof)}" target="_blank" style="color:var(--purple-2)">${escapeHtml(s.proof)}</a></div></div><div class="mod-actions"><button class="mod-btn approve" onclick="approveAch(${s.id})">✓ Принять</button><button class="mod-btn reject" onclick="rejectAch(${s.id})">✕ Отклонить</button></div>`;
     container.appendChild(el);
   });
   updateAdminBadge();
@@ -1268,17 +1121,7 @@ function renderAdminAlbumSubs(){
   pending.forEach(s => {
     const el = document.createElement('div');
     el.className = 'mod-item';
-    el.innerHTML = `
-      <img class="preview" src="${escapeHtml(s.url)}" onerror="this.src='https://placehold.co/100x100/0a130f/10b981?text=?'">
-      <div class="mod-info">
-        <div class="mod-line">📸 Скриншот · ${escapeHtml(s.author)}</div>
-        <div class="mod-title">${escapeHtml(s.title)}</div>
-        <div class="mod-desc">${escapeHtml(s.desc || 'Без описания')}</div>
-      </div>
-      <div class="mod-actions">
-        <button class="mod-btn approve" onclick="approveAlbum(${s.id})">✓ Опубликовать</button>
-        <button class="mod-btn reject" onclick="rejectAlbum(${s.id})">✕ Отклонить</button>
-      </div>`;
+    el.innerHTML = `<img class="preview" src="${escapeHtml(s.url)}" onerror="this.src='https://placehold.co/100x100/0a130f/10b981?text=?'"><div class="mod-info"><div class="mod-line">📸 Скриншот · ${escapeHtml(s.author)}</div><div class="mod-title">${escapeHtml(s.title)}</div><div class="mod-desc">${escapeHtml(s.desc || 'Без описания')}</div></div><div class="mod-actions"><button class="mod-btn approve" onclick="approveAlbum(${s.id})">✓ Опубликовать</button><button class="mod-btn reject" onclick="rejectAlbum(${s.id})">✕ Отклонить</button></div>`;
     container.appendChild(el);
   });
   updateAdminBadge();
@@ -1308,29 +1151,20 @@ function renderAdminPlayers(){
     const count = getPlayerAch(p.id).length;
     const el = document.createElement('div');
     el.className = 'mod-item';
-    el.innerHTML = `
-      ${avatarImgHtml(p.nickname, 48, 'class="preview"')}
-      <div class="mod-info">
-        <div class="mod-title">${escapeHtml(p.nickname)}</div>
-        <div class="mod-desc">Ачивок: ${count} · Discord: ${p.discordId ? escapeHtml(p.discordId) : '—'}</div>
-      </div>
-      <div class="mod-actions">
-        <button class="mod-btn approve" onclick="adminGiveAch(${p.id})">+ Ачивка</button>
-        <button class="mod-btn reject" onclick="adminDeletePlayer(${p.id})">🗑</button>
-      </div>`;
+    el.innerHTML = `${avatarImgHtml(p.nickname, 48, 'class="preview"')}<div class="mod-info"><div class="mod-title">${escapeHtml(p.nickname)}</div><div class="mod-desc">Ачивок: ${count} · Discord: ${p.discordId ? escapeHtml(p.discordId) : '—'}</div></div><div class="mod-actions"><button class="mod-btn approve" onclick="adminGiveAch(${p.id})">+ Ачивка</button><button class="mod-btn reject" onclick="adminDeletePlayer(${p.id})">🗑</button></div>`;
     c.appendChild(el);
   });
 }
 function adminGiveAch(playerId){
   const p = players.find(x => x.id === playerId); if (!p) return;
-  const list = getAchievements();
+  const list = DEFAULT_ACHIEVEMENTS;
   const opts = list.map((a, i) => `${i + 1}. ${a.icon} ${a.name}`).join('\n');
   const v = prompt('Введи номер ачивки:\n' + opts, '1');
   if (!v) return;
   const idx = parseInt(v, 10) - 1;
   if (idx < 0 || idx >= list.length) return;
   const a = list[idx];
-  if (achSubs.find(s => s.playerId === playerId && s.achievementId === a.id && s.status === 'approved')) { showToast('Уже есть'); return; }
+  if (achSubs.find(s => s.playerId === playerId && s.achievementId === a.id && s.status === 'approved')){ showToast('Уже есть'); return; }
   achSubs.unshift({ id: Date.now(), playerId, playerNick: p.nickname, achievementId: a.id, proof: 'manual', note: 'Выдано админом', ts: Date.now(), status: 'approved' });
   saveAchSubs();
   renderAdminPlayers();
@@ -1345,9 +1179,8 @@ function adminDeletePlayer(id){
   renderAdminPlayers();
 }
 
-/* ===== EXPORT / IMPORT ===== */
 function renderExport(){
-  const data = { players, achCustom, achSubs, chronicle, album, albumSubs, albumLikes, exportedAt: new Date().toISOString(), version: 1 };
+  const data = { players, achSubs, chronicle, album, albumSubs, albumLikes, exportedAt: new Date().toISOString(), version: 1 };
   $('data-export').value = JSON.stringify(data, null, 2);
 }
 function copyExport(){ const t = $('data-export'); t.select(); navigator.clipboard.writeText(t.value).then(() => showToast('📋 Скопировано')); }
@@ -1357,7 +1190,6 @@ function importData(){
   try {
     const d = JSON.parse(t);
     if (d.players) { players = d.players; savePlayers(); }
-    if (d.achCustom) { achCustom = d.achCustom; lsSet(KEYS.achCustom, achCustom); }
     if (d.achSubs) { achSubs = d.achSubs; saveAchSubs(); }
     if (d.chronicle) { chronicle = d.chronicle; saveChronicle(); }
     if (d.album) { album = d.album; saveAlbum(); }
@@ -1368,9 +1200,8 @@ function importData(){
   } catch (e){ showToast('❌ Ошибка: ' + e.message); }
 }
 
-/* ===== INIT ===== */
 $('year').textContent = new Date().getFullYear();
-handleDiscordCallback().then(ok => { if (ok) showToast('✅ Вы вошли'); updateAuthUI(); });
+handleDiscordCallback().then(ok => { if (ok) showToast('✅ Вы вошли'); updateAuthUI(); renderChronicle(); renderAlbum(); });
 updateAuthUI();
 renderAchievements();
 renderChronicle();
