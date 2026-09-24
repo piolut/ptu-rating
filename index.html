@@ -169,9 +169,9 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 #ach-modal .modal{max-width:600px}
 #profile-modal .modal{max-width:560px}
 #profile-modal .modal-body{padding:0}
-#album-view .modal{max-width:1000px;background:#000}
-#album-view .modal-body{padding:0;display:flex;align-items:center;justify-content:center;max-height:80vh}
-#album-view img{max-width:100%;max-height:80vh;display:block}
+#album-view .modal{width:auto;max-width:min(1000px,calc(100vw - 48px));background:var(--bg-2)}
+#album-view .modal-body{padding:0;display:flex;align-items:center;justify-content:center}
+#album-view img{max-width:100%;max-height:80vh;width:auto;height:auto;display:block}
 #admin-modal .modal{max-width:1100px}
 #admin-modal .modal-body{padding:0}
 .form-row{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
@@ -226,6 +226,13 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .admin-toast{margin-top:14px;font-size:14px;font-weight:500;min-height:20px}
 .admin-toast.ok{color:var(--emerald-2)}
 .admin-toast.err{color:var(--red-2)}
+.map-players-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:24px}
+.map-player-card{display:flex;align-items:center;gap:12px;padding:12px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.005));border:1px solid var(--line);cursor:pointer;transition:all .25s;opacity:0;animation:fadeUp .4s ease forwards}
+.map-player-card:hover{transform:translateY(-3px);border-color:var(--emerald);box-shadow:0 12px 30px -12px rgba(16,185,129,.4)}
+.map-player-card img{width:42px;height:42px;border-radius:10px;image-rendering:pixelated;border:2px solid var(--line-2);background:#000;flex-shrink:0}
+.map-player-card .mp-name{font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.map-player-card .mp-status{font-size:11px;color:var(--emerald-2);font-family:'JetBrains Mono',monospace;display:flex;align-items:center;gap:5px;margin-top:2px}
+.map-player-card .mp-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--emerald-2);animation:dp 1.5s infinite}
 .streams-layout{display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start}
 @media(max-width:1000px){.streams-layout{grid-template-columns:1fr}}
 .stream-player-wrap{border-radius:20px;overflow:hidden;background:rgba(255,255,255,.015);border:1px solid var(--line)}
@@ -349,8 +356,8 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
         <span id="ach-hero-count">0 ачивок</span><span class="dot">·</span>
         <span class="live">заявки принимаются</span>
       </div>
-      <h1>Инженерия, авиация<br>и <span class="amber">война.</span></h1>
-      <p>Выбирай достижение, кидай пруф (скриншот), модерация проверяет — и ты получаешь <strong>титул</strong> в профиле. Строй, летай, воюй — и доказывай это.</p>
+      <h1>Инженерия, авиация<br>и <span class="amber">бесконечный гринд.</span></h1>
+      <p>Выбирай достижение, кидай пруф (скриншот), модерация проверяет — и ты получаешь <strong>титул</strong> в профиле. Строй, летай, фарми — и доказывай это.</p>
       <div class="hero-actions">
         <button class="btn-hero primary" onclick="openAchievementPicker()">🏆 Получить достижение</button>
         <button class="btn-hero ghost" onclick="document.getElementById('top10-anchor').scrollIntoView({behavior:'smooth'})">👑 Топ игроков</button>
@@ -367,7 +374,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
     <section class="hero">
       <div class="breadcrumb"><span>Летопись сервера</span><span class="dot">·</span><span>ПТУ SMP</span></div>
       <h1>История <span class="purple">по дням.</span></h1>
-      <p>Что происходило на сервере — от первых построек до великих войн и примирений.</p>
+      <p>Что происходило на сервере — от первых построек до великих проектов и примирений.</p>
     </section>
     <section class="section"><div class="timeline" id="timeline"></div></section>
   </div>
@@ -421,21 +428,39 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
   </div>
 
   <div class="view hidden" id="view-map">
-    <section class="hero"><h1>Карта <span class="purple">мира</span></h1><p>Живая карта сервера ПТУ SMP.</p></section>
-    <div style="text-align:center;padding:60px 24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.015)">
-      <div style="font-size:72px;opacity:.4;margin-bottom:20px">🗺️</div>
-      <h3 style="font-family:'Manrope',sans-serif;font-size:24px;font-weight:800;color:#fff;margin-bottom:12px">Интерактивная карта мира</h3>
-      <p style="color:var(--muted);font-size:15px;max-width:540px;margin:0 auto 28px;line-height:1.6">Карта открывается в новой вкладке — так браузер не блокирует её из-за разных протоколов (http/https).</p>
-      <a class="btn-hero primary" href="http://212.22.85.14:40087/" target="_blank" rel="noopener" style="font-size:16px;padding:16px 32px">🗺️ Открыть карту →</a>
-    </div>
+    <section class="hero">
+      <div class="breadcrumb"><span>Карта мира</span><span class="dot">·</span><span>ПТУ SMP</span><span class="dot">·</span><span id="map-online-count">0 игроков онлайн</span></div>
+      <h1>Карта и <span class="emerald">игроки.</span></h1>
+      <p>Живая карта сервера и список игроков, которые сейчас в игре.</p>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="section-head" style="margin-bottom:14px">
+        <div><h2 style="font-size:24px">🟢 Игроки онлайн</h2><p>Кто сейчас на сервере — обновляется автоматически</p></div>
+        <button class="btn-hero ghost" onclick="refreshMapPlayers()" style="padding:10px 18px;font-size:13px">🔄 Обновить</button>
+      </div>
+      <div class="map-players-grid" id="map-players-grid">
+        <div class="empty-state" style="grid-column:1/-1;padding:40px 20px"><div class="ico">⏳</div><p>Загрузка списка игроков…</p></div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="section-head" style="margin-bottom:14px">
+        <div><h2 style="font-size:24px">🗺️ Карта мира</h2><p>Интерактивная карта сервера</p></div>
+      </div>
+      <div style="text-align:center;padding:60px 24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.015)">
+        <div style="font-size:72px;opacity:.4;margin-bottom:20px">🗺️</div>
+        <h3 style="font-family:'Manrope',sans-serif;font-size:24px;font-weight:800;color:#fff;margin-bottom:12px">Интерактивная карта мира</h3>
+        <p style="color:var(--muted);font-size:15px;max-width:540px;margin:0 auto 28px;line-height:1.6">Карта открывается в новой вкладке — так браузер не блокирует её из-за разных протоколов (http/https).</p>
+        <a class="btn-hero primary" href="http://212.22.85.14:40087/" target="_blank" rel="noopener" style="font-size:16px;padding:16px 32px">🗺️ Открыть карту →</a>
+      </div>
+    </section>
   </div>
 </main>
 
 <footer>
   <div class="footer-links">
     <a href="https://discord.gg/bBvJ9VHXc" target="_blank" class="footer-link"><svg viewBox="0 0 24 24"><path d="M20.317 4.369a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg> Discord</a>
-    <a href="https://www.twitch.tv/evgexa" target="_blank" class="footer-link">Твич Евгехи</a>
-    <a href="https://www.twitch.tv/kopch02" target="_blank" class="footer-link">Твич kopch</a>
   </div>
   ПТУ SMP © <span id="year"></span> · Сделано с <span class="heart">♥</span>
   <div class="visits" id="visits-counter">— посещение</div>
@@ -448,7 +473,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
       <div class="form-info">📸 <strong>Что такое пруф?</strong> Ссылка на скриншот (imgur.com, cdn.discordapp.com или любой другой хостинг картинок). Модерация проверит и выдаст титул.</div>
       <div class="form-row"><label>Достижение</label><select id="ach-submit-select"></select></div>
       <div class="form-row"><label>Ссылка на пруф-скриншот</label><input type="url" id="ach-submit-proof" placeholder="https://i.imgur.com/xxxxx.png"></div>
-      <div class="form-row"><label>Комментарий (необязательно)</label><input type="text" id="ach-submit-note" placeholder="Например: сбил на своём биплане 5 врагов" maxlength="100"></div>
+      <div class="form-row"><label>Комментарий (необязательно)</label><input type="text" id="ach-submit-note" placeholder="Например: нафармил 1000 железной руды" maxlength="100"></div>
       <button class="btn-primary" onclick="submitAchievement()" style="width:100%">📤 Отправить на проверку</button>
     </div>
   </div>
@@ -467,7 +492,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
     <div class="modal-body">
       <div class="form-info">📸 Вставь <strong>прямую ссылку на картинку</strong> (заканчивается на .png, .jpg или .jpeg). Например: <code>https://i.imgur.com/abc123.png</code></div>
       <div class="form-row"><label>Ссылка на картинку</label><input type="url" id="album-url" placeholder="https://i.imgur.com/xxxxx.png"></div>
-      <div class="form-row"><label>Название</label><input type="text" id="album-title" placeholder="Воздушный бой над спавном" maxlength="60"></div>
+      <div class="form-row"><label>Название</label><input type="text" id="album-title" placeholder="Закат над базой" maxlength="60"></div>
       <div class="form-row"><label>Описание (необязательно)</label><textarea id="album-desc" placeholder="Что изображено, где, когда..." maxlength="200"></textarea></div>
       <button class="btn-primary" onclick="submitAlbumScreenshot()" style="width:100%">📤 Отправить</button>
       <div id="album-preview" style="margin-top:16px;text-align:center"></div>
@@ -510,7 +535,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
         <div class="admin-form-row"><label>Дата (текст)</label><input type="text" id="tl-date" placeholder="12 мая 2024"></div>
         <div class="admin-form-row"><label>Заголовок</label><input type="text" id="tl-title" placeholder="Основан город Невервуд"></div>
         <div class="admin-form-row"><label>Описание</label><textarea id="tl-text" placeholder="Что произошло..."></textarea></div>
-        <div class="admin-form-row"><label>Цвет маркера</label><select id="tl-color"><option value="">🟢 Зелёный (обычное)</option><option value="amber">🟡 Жёлтый (важное)</option><option value="red">🔴 Красный (война)</option><option value="purple">🟣 Фиолетовый (легенда)</option></select></div>
+        <div class="admin-form-row"><label>Цвет маркера</label><select id="tl-color"><option value="">🟢 Зелёный (обычное)</option><option value="amber">🟡 Жёлтый (важное)</option><option value="red">🔴 Красный (важное событие)</option><option value="purple">🟣 Фиолетовый (легенда)</option></select></div>
         <div class="admin-actions"><button class="admin-btn primary" onclick="adminAddChronicle()">+ Добавить событие</button></div>
         <div style="height:24px;border-top:1px solid var(--line);padding-top:20px;margin-top:20px">
           <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px">Существующие события</div>
@@ -552,12 +577,13 @@ const STREAMERS = [
 const ACH_CATEGORIES = [
   { id:'create', name:'Create / Инженерия', icon:'⚙️' },
   { id:'avia', name:'Авиация (Create Planes)', icon:'✈️' },
-  { id:'war', name:'Война', icon:'⚔️' },
+  { id:'grind', name:'Гринд / Фарм', icon:'⛏️' },
   { id:'server', name:'Вклад в сервер', icon:'🏛️' },
   { id:'special', name:'Особые', icon:'🌟' },
 ];
 
 const DEFAULT_ACHIEVEMENTS = [
+  // CREATE
   { id:'first_machine', cat:'create', icon:'⚙️', name:'Первый механизм', desc:'Собрал первую работающую машину на Create', rarity:'common' },
   { id:'factory', cat:'create', icon:'🏭', name:'Инженер-механик', desc:'Построил завод или крупную фабрику', rarity:'epic' },
   { id:'railroad', cat:'create', icon:'🚂', name:'Железнодорожник', desc:'Проложил рабочую сеть рельсов между базами', rarity:'rare' },
@@ -566,28 +592,47 @@ const DEFAULT_ACHIEVEMENTS = [
   { id:'logic_master', cat:'create', icon:'🎛️', name:'Логик', desc:'Собрал сложную схему на редстоуне или контроллерах', rarity:'epic' },
   { id:'contraption', cat:'create', icon:'🛠️', name:'Изобретатель', desc:'Придумал собственную уникальную конструкцию', rarity:'epic' },
   { id:'train_driver', cat:'create', icon:'🚆', name:'Машинист', desc:'Перевёз пассажиров или груз по своей ж/д', rarity:'rare' },
+  { id:'big_mechanism', cat:'create', icon:'🔧', name:'Мега-механизм', desc:'Собрал огромный механизм (кран, экскаватор, пресс)', rarity:'epic' },
+  // AVIA
   { id:'first_flight', cat:'avia', icon:'✈️', name:'Первый полёт', desc:'Построил и поднял в воздух первый самолёт', rarity:'common' },
-  { id:'aviator_ace', cat:'avia', icon:'🛩️', name:'Ас авиации', desc:'Сбил 5+ вражеских самолётов', rarity:'legendary' },
-  { id:'bomber', cat:'avia', icon:'💣', name:'Бомбардир', desc:'Успешно сбросил бомбы на базу противника', rarity:'epic' },
   { id:'soft_landing', cat:'avia', icon:'🛬', name:'Мягкая посадка', desc:'Посадил самолёт без единого повреждения', rarity:'rare' },
   { id:'multi_vehicle', cat:'avia', icon:'🚁', name:'Мультироль', desc:'Построил и самолёт, и вертолёт', rarity:'epic' },
-  { id:'air_battle', cat:'avia', icon:'🌩️', name:'Воздушный бой', desc:'Участвовал в массовом воздушном сражении', rarity:'rare' },
   { id:'cargo_master', cat:'avia', icon:'📦', name:'Грузоперевозчик', desc:'Перевёз крупный груз самолётом между базами', rarity:'rare' },
-  { id:'first_blood', cat:'war', icon:'⚔️', name:'Первая кровь', desc:'Первое убийство игрока на сервере', rarity:'common' },
-  { id:'duelist', cat:'war', icon:'🗡️', name:'Дуэлянт', desc:'Победил в 5+ дуэлях', rarity:'rare' },
-  { id:'commander', cat:'war', icon:'🎖️', name:'Командир', desc:'Привёл свой отряд к победе в бою', rarity:'epic' },
-  { id:'raider', cat:'war', icon:'🏰', name:'Захватчик', desc:'Захватил чужую базу', rarity:'legendary' },
-  { id:'defender', cat:'war', icon:'🛡️', name:'Защитник', desc:'Отбил атаку на свою базу', rarity:'epic' },
-  { id:'saboteur', cat:'war', icon:'💥', name:'Диверсант', desc:'Уничтожил важный объект врага', rarity:'epic' },
-  { id:'sniper', cat:'war', icon:'🎯', name:'Снайпер', desc:'Убийство с дальней дистанции', rarity:'rare' },
-  { id:'warlord', cat:'war', icon:'👑', name:'Полководец', desc:'Организовал крупную военную операцию', rarity:'legendary' },
-  { id:'spy', cat:'war', icon:'🕵️', name:'Разведчик', desc:'Добыл ценные данные о базе врага', rarity:'rare' },
+  { id:'long_flight', cat:'avia', icon:'🌍', name:'Дальний рейс', desc:'Пролетел 5000+ блоков без посадки', rarity:'epic' },
+  { id:'air_show', cat:'avia', icon:'🎪', name:'Пилотажник', desc:'Показал фигуры высшего пилотажа', rarity:'rare' },
+  { id:'giant_plane', cat:'avia', icon:'🛩️', name:'Авиаконструктор', desc:'Построил самолёт более 20 блоков длиной', rarity:'epic' },
+  // GRIND
+  { id:'miner_1k', cat:'grind', icon:'⛏️', name:'Шахтёр', desc:'Сломал 1000+ блоков в шахте', rarity:'common' },
+  { id:'miner_10k', cat:'grind', icon:'🏔️', name:'Горный король', desc:'Сломал 10 000+ блоков', rarity:'legendary' },
+  { id:'diamond_hunter', cat:'grind', icon:'💎', name:'Алмазный охотник', desc:'Нашёл 100+ алмазов', rarity:'rare' },
+  { id:'diamond_king', cat:'grind', icon:'👑', name:'Алмазный король', desc:'Нашёл 500+ алмазов', rarity:'legendary' },
+  { id:'iron_master', cat:'grind', icon:'🔩', name:'Железный мастер', desc:'Добыл 500+ железной руды', rarity:'rare' },
+  { id:'woodcutter', cat:'grind', icon:'🪓', name:'Лесоруб', desc:'Срубил 500+ брёвен', rarity:'common' },
+  { id:'farmer', cat:'grind', icon:'🌾', name:'Фермер', desc:'Собрал 1000+ пшеницы', rarity:'rare' },
+  { id:'fish_man', cat:'grind', icon:'🎣', name:'Рыбак', desc:'Поймал 500+ рыб', rarity:'rare' },
+  { id:'hunter', cat:'grind', icon:'🏹', name:'Охотник', desc:'Убил 500+ мобов', rarity:'common' },
+  { id:'slayer', cat:'grind', icon:'⚔️', name:'Истребитель', desc:'Убил 5000+ мобов', rarity:'legendary' },
+  { id:'baker', cat:'grind', icon:'🍞', name:'Пекарь', desc:'Испек 500+ хлеба', rarity:'common' },
+  { id:'alchemist', cat:'grind', icon:'🧪', name:'Алхимик', desc:'Сварил 100+ зелий', rarity:'rare' },
+  { id:'enchanter', cat:'grind', icon:'📚', name:'Зачарователь', desc:'Зачаровал 50+ предметов', rarity:'rare' },
+  { id:'armorer', cat:'grind', icon:'🛡️', name:'Бронник', desc:'Скрафтил полный сет алмазной брони', rarity:'rare' },
+  { id:'blacksmith', cat:'grind', icon:'⚒️', name:'Кузнец', desc:'Починил 100+ инструментов на наковальне', rarity:'rare' },
+  { id:'builder_10k', cat:'grind', icon:'🏗️', name:'Мегастроитель', desc:'Поставил 10 000+ блоков', rarity:'legendary' },
+  { id:'rich_man', cat:'grind', icon:'💰', name:'Богач', desc:'Накопил 64 алмазных блока', rarity:'epic' },
+  { id:'beekeeper', cat:'grind', icon:'🐝', name:'Пасечник', desc:'Собрал 500+ мёда', rarity:'rare' },
+  { id:'shepherd', cat:'grind', icon:'🐑', name:'Пастух', desc:'Стриг 100+ овец', rarity:'common' },
+  { id:'potion_master', cat:'grind', icon:'⚗️', name:'Зельевар', desc:'Сварил 10+ разных зелий', rarity:'epic' },
+  { id:'trader', cat:'grind', icon:'🏪', name:'Торговец', desc:'Совершил 100+ сделок с жителями', rarity:'rare' },
+  { id:'veteran_hours', cat:'grind', icon:'⏰', name:'Заядлый игрок', desc:'Провёл 100+ часов на сервере', rarity:'epic' },
+  // SERVER
   { id:'architect', cat:'server', icon:'🏛️', name:'Архитектор', desc:'Построил важный для сервера объект (спавн, арену)', rarity:'legendary' },
-  { id:'sponsor', cat:'server', icon:'💰', name:'Спонсор', desc:'Помог серверу материально', rarity:'epic' },
+  { id:'sponsor', cat:'server', icon:'💎', name:'Спонсор', desc:'Помог серверу материально', rarity:'epic' },
   { id:'ideologue', cat:'server', icon:'📣', name:'Идеолог', desc:'Предложил идею, которая вошла в игру', rarity:'epic' },
   { id:'peacemaker', cat:'server', icon:'🤝', name:'Миротворец', desc:'Примирил враждующие стороны', rarity:'rare' },
-  { id:'builder_team', cat:'server', icon:'🏗️', name:'Стройотряд', desc:'Участвовал в массовой стройке', rarity:'common' },
+  { id:'builder_team', cat:'server', icon:'👷', name:'Стройотряд', desc:'Участвовал в массовой стройке', rarity:'common' },
   { id:'veteran', cat:'server', icon:'🎗️', name:'Ветеран', desc:'Играет с самого начала сервера', rarity:'epic' },
+  { id:'wiki_master', cat:'server', icon:'📖', name:'Хранитель знаний', desc:'Помог с документацией или вики сервера', rarity:'rare' },
+  // SPECIAL
   { id:'champion', cat:'special', icon:'🏆', name:'Чемпион', desc:'Победил в турнире сервера', rarity:'legendary' },
   { id:'artist', cat:'special', icon:'🎨', name:'Художник', desc:'Построил признанный арт-проект', rarity:'epic' },
   { id:'legend', cat:'special', icon:'🌟', name:'Легенда сервера', desc:'За особые заслуги перед сервером', rarity:'legendary' },
@@ -626,7 +671,6 @@ function saveChronicle(){ lsSet(KEYS.chronicle, chronicle); }
 function saveAlbumLikes(){ lsSet(KEYS.albumLikes, albumLikes); }
 
 function findAchievement(id){ return DEFAULT_ACHIEVEMENTS.find(a => a.id === id); }
-
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function avatarImgHtml(nickname, size = 64, extra = ''){
   const nick = encodeURIComponent(nickname);
@@ -709,6 +753,7 @@ function switchView(v){
   if (v === 'chronicle') renderChronicle();
   if (v === 'album') renderAlbum();
   if (v === 'streams') loadStreams();
+  if (v === 'map') refreshMapPlayers();
 }
 
 function renderAchievements(){
@@ -728,16 +773,7 @@ function renderAchievements(){
       card.className = 'ach-card';
       card.style.animationDelay = (i * 30) + 'ms';
       const holdersAvatars = holders.slice(0, 3).map(s => { const p = players.find(x => x.id === s.playerId); return p ? avatarImgHtml(p.nickname, 32) : ''; }).join('');
-      card.innerHTML = `
-        <div class="ach-icon">${a.icon}</div>
-        <div class="ach-name">${escapeHtml(a.name)}</div>
-        <div class="ach-desc">${escapeHtml(a.desc)}</div>
-        <div class="ach-footer">
-          <div class="ach-holders">
-            ${holders.length > 0 ? `<div class="ach-holders-avatars">${holdersAvatars}</div><span class="ach-holders-count">${holders.length} ${holders.length === 1 ? 'игрок' : 'игроков'}</span>` : '<span style="font-size:11px;color:var(--muted-2)">ещё никто</span>'}
-          </div>
-          <span class="ach-rarity ${a.rarity}">${RARITY_LABEL[a.rarity]}</span>
-        </div>`;
+      card.innerHTML = `<div class="ach-icon">${a.icon}</div><div class="ach-name">${escapeHtml(a.name)}</div><div class="ach-desc">${escapeHtml(a.desc)}</div><div class="ach-footer"><div class="ach-holders">${holders.length > 0 ? `<div class="ach-holders-avatars">${holdersAvatars}</div><span class="ach-holders-count">${holders.length} ${holders.length === 1 ? 'игрок' : 'игроков'}</span>` : '<span style="font-size:11px;color:var(--muted-2)">ещё никто</span>'}</div><span class="ach-rarity ${a.rarity}">${RARITY_LABEL[a.rarity]}</span></div>`;
       card.onclick = () => showAchInfo(a.id);
       grid.appendChild(card);
     });
@@ -937,7 +973,7 @@ function toggleLike(id){
   renderAlbum();
 }
 function showAlbumView(a){
-  $('album-view-body').innerHTML = `<div style="text-align:center;width:100%"><img src="${escapeHtml(a.url)}" onerror="this.src='https://placehold.co/800x600/0a130f/10b981?text=no+image'"><div style="padding:16px;background:var(--bg-2);color:#fff"><div style="font-family:'Manrope',sans-serif;font-weight:800;font-size:18px;margin-bottom:6px">${escapeHtml(a.title)}</div>${a.desc ? `<div style="font-size:13px;color:var(--text-2);margin-bottom:8px">${escapeHtml(a.desc)}</div>` : ''}<div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)">от ${escapeHtml(a.author)} · ${new Date(a.ts).toLocaleDateString('ru-RU')}</div></div></div>`;
+  $('album-view-body').innerHTML = `<div style="text-align:center;width:100%"><img src="${escapeHtml(a.url)}" onerror="this.src='https://placehold.co/800x600/0a130f/10b981?text=no+image'"><div style="padding:14px 20px;background:var(--bg-2);color:#fff"><div style="font-family:'Manrope',sans-serif;font-weight:800;font-size:17px;margin-bottom:4px">${escapeHtml(a.title)}</div>${a.desc ? `<div style="font-size:13px;color:var(--text-2);margin-bottom:6px">${escapeHtml(a.desc)}</div>` : ''}<div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)">от ${escapeHtml(a.author)} · ${new Date(a.ts).toLocaleDateString('ru-RU')}</div></div></div>`;
   openModal('album-view');
 }
 
@@ -1051,6 +1087,42 @@ function autoAddOnlinePlayers(list){
   }
   if (added) savePlayers();
   return added;
+}
+
+async function refreshMapPlayers(){
+  const grid = $('map-players-grid');
+  if (!grid) return;
+  grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;padding:40px 20px"><div class="ico">⏳</div><p>Загрузка списка игроков…</p></div>';
+  try {
+    const res = await fetch(`https://api.mcsrvstat.us/3/${SERVER_IP}`, { cache: 'no-store' });
+    const data = await res.json();
+    const onlineCount = data.online ? (data.players?.online ?? 0) : 0;
+    $('map-online-count').textContent = onlineCount + ' игроков онлайн';
+    if (!data.online){
+      grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;padding:40px 20px"><div class="ico">⚫</div><h3>Сервер оффлайн</h3><p>Как только сервер поднимется, тут появится список игроков.</p></div>';
+      return;
+    }
+    const list = data.players?.list || [];
+    if (!list.length){
+      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;padding:40px 20px"><div class="ico">💤</div><h3>${onlineCount > 0 ? 'Список игроков скрыт' : 'Никого нет онлайн'}</h3><p>${onlineCount > 0 ? 'Сервер не отдаёт список игроков.' : 'Заходи первым — займи топ по достижениям!'}</p></div>`;
+      return;
+    }
+    autoAddOnlinePlayers(list);
+    grid.innerHTML = '';
+    list.forEach((p, i) => {
+      const nick = typeof p === 'string' ? p : p.name;
+      const pl = players.find(x => x.nickname.toLowerCase() === nick.toLowerCase());
+      const card = document.createElement('div');
+      card.className = 'map-player-card';
+      card.style.animationDelay = (i * 40) + 'ms';
+      card.innerHTML = `${avatarImgHtml(nick, 64)}<div style="min-width:0"><div class="mp-name">${escapeHtml(nick)}</div><div class="mp-status">на сервере</div></div>`;
+      card.onclick = () => { if (pl) openProfile(pl.id); };
+      grid.appendChild(card);
+    });
+  } catch (e){
+    console.error(e);
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;padding:40px 20px"><div class="ico">❌</div><h3>Ошибка загрузки</h3><p>Не удалось получить данные о сервере. Попробуй обновить через минуту.</p></div>';
+  }
 }
 
 document.querySelectorAll('.admin-tab').forEach(tab => {
