@@ -222,6 +222,7 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .mod-btn{padding:8px 14px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid transparent;transition:all .2s;font-family:inherit}
 .mod-btn.approve{background:var(--emerald);color:#062a1c}
 .mod-btn.reject{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.3);color:var(--red-2)}
+.mod-btn.ghost{background:rgba(255,255,255,.05);border-color:var(--line-2);color:var(--text-2)}
 .mod-empty{text-align:center;padding:50px 20px;color:var(--muted);font-size:13px;font-family:'JetBrains Mono',monospace;border:1px dashed var(--line-2);border-radius:16px}
 .admin-toast{margin-top:14px;font-size:14px;font-weight:500;min-height:20px}
 .admin-toast.ok{color:var(--emerald-2)}
@@ -233,6 +234,20 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .map-player-card .mp-name{font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .map-player-card .mp-status{font-size:11px;color:var(--emerald-2);font-family:'JetBrains Mono',monospace;display:flex;align-items:center;gap:5px;margin-top:2px}
 .map-player-card .mp-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--emerald-2);animation:dp 1.5s infinite}
+.map-player-card .mp-residence{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.players-toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
+.players-search{flex:1;min-width:220px;padding:11px 16px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text);border-radius:100px;font-size:14px;font-family:inherit}
+.players-search:focus{outline:none;border-color:var(--emerald)}
+.players-sort{display:flex;gap:6px;flex-wrap:wrap}
+.players-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.player-card{display:flex;align-items:center;gap:12px;padding:14px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.005));border:1px solid var(--line);cursor:pointer;transition:all .25s;opacity:0;animation:fadeUp .4s ease forwards}
+.player-card:hover{transform:translateY(-3px);border-color:var(--line-2);box-shadow:0 16px 34px -16px rgba(0,0,0,.6)}
+.player-card img{width:52px;height:52px;border-radius:12px;image-rendering:pixelated;border:2px solid var(--line-2);background:#000;flex-shrink:0}
+.player-card .pc-info{min-width:0;flex:1}
+.player-card .pc-name{font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:6px}
+.player-card .pc-verified{font-size:11px;flex-shrink:0}
+.player-card .pc-meta{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.player-card .pc-ach{font-family:'Manrope',sans-serif;font-weight:900;font-size:18px;color:var(--emerald-2);flex-shrink:0}
 .streams-layout{display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start}
 @media(max-width:1000px){.streams-layout{grid-template-columns:1fr}}
 .stream-player-wrap{border-radius:20px;overflow:hidden;background:rgba(255,255,255,.015);border:1px solid var(--line)}
@@ -323,6 +338,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
       <button class="nav-tab" data-view="chronicle" onclick="switchView('chronicle')">📜 Летопись</button>
       <button class="nav-tab" data-view="album" onclick="switchView('album')">📸 Альбом</button>
       <button class="nav-tab" data-view="streams" onclick="switchView('streams')">📺 Стримы</button>
+      <button class="nav-tab" data-view="players" onclick="switchView('players')">👥 Игроки</button>
       <button class="nav-tab" data-view="map" onclick="switchView('map')">🗺️ Карта</button>
     </div>
     <div class="nav-right">
@@ -356,8 +372,8 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
         <span id="ach-hero-count">0 ачивок</span><span class="dot">·</span>
         <span class="live">заявки принимаются</span>
       </div>
-      <h1>Инженерия, авиация<br>и <span class="amber">бесконечный гринд.</span></h1>
-      <p>Выбирай достижение, кидай пруф (скриншот), модерация проверяет — и ты получаешь <strong>титул</strong> в профиле. Строй, летай, фарми — и доказывай это.</p>
+      <h1>Только для тех, кто<br>не боится <span class="amber">гринда и Create.</span></h1>
+      <p>Тут нет ачивок за «поставь кубик». Каждая требует либо серьёзного инженерного скилла в <strong>Create</strong> и <strong>Create: Aeronautics</strong>, либо десятков/сотен часов реального времени на сервере. Кидай пруф (скриншот) — модерация проверит и выдаст <strong>титул</strong>.</p>
       <div class="hero-actions">
         <button class="btn-hero primary" onclick="openAchievementPicker()">🏆 Получить достижение</button>
         <button class="btn-hero ghost" onclick="document.getElementById('top10-anchor').scrollIntoView({behavior:'smooth'})">👑 Топ игроков</button>
@@ -427,11 +443,30 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
     </div>
   </div>
 
+  <div class="view hidden" id="view-players">
+    <section class="hero">
+      <div class="breadcrumb"><span>Игроки сервера</span><span class="dot">·</span><span>ПТУ SMP</span><span class="dot">·</span><span id="players-hero-count">0 игроков</span></div>
+      <h1>Все, кто <span class="emerald">когда-либо заходил.</span></h1>
+      <p>Полный список игроков сервера: ник, привязка к Discord, количество достижений и место проживания на карте.</p>
+    </section>
+    <section class="section" style="padding-top:0">
+      <div class="players-toolbar">
+        <input type="text" class="players-search" id="players-search" placeholder="🔍 Поиск по нику или месту проживания..." oninput="renderPlayersView()">
+        <div class="players-sort">
+          <button class="stream-filter active" data-players-sort="nick" onclick="setPlayersSort('nick')">🔤 По нику</button>
+          <button class="stream-filter" data-players-sort="ach" onclick="setPlayersSort('ach')">🏆 По ачивкам</button>
+          <button class="stream-filter" data-players-sort="residence" onclick="setPlayersSort('residence')">🏠 По месту</button>
+        </div>
+      </div>
+      <div class="players-grid" id="players-grid"></div>
+    </section>
+  </div>
+
   <div class="view hidden" id="view-map">
     <section class="hero">
       <div class="breadcrumb"><span>Карта мира</span><span class="dot">·</span><span>ПТУ SMP</span><span class="dot">·</span><span id="map-online-count">0 игроков онлайн</span></div>
       <h1>Карта и <span class="emerald">игроки.</span></h1>
-      <p>Живая карта сервера и список игроков, которые сейчас в игре.</p>
+      <p>Живая карта сервера, список тех кто в игре, и место проживания каждого игрока.</p>
     </section>
 
     <section class="section" style="padding-top:0">
@@ -441,6 +476,16 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
       </div>
       <div class="map-players-grid" id="map-players-grid">
         <div class="empty-state" style="grid-column:1/-1;padding:40px 20px"><div class="ico">⏳</div><p>Загрузка списка игроков…</p></div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0">
+      <div class="section-head" style="margin-bottom:14px">
+        <div><h2 style="font-size:24px">🏠 Кто где живёт</h2><p>Место проживания указывают сами игроки в своём профиле</p></div>
+        <button class="btn-hero ghost" onclick="openOwnResidencePrompt()" style="padding:10px 18px;font-size:13px">🏠 Указать своё место</button>
+      </div>
+      <div class="map-players-grid" id="map-residence-grid">
+        <div class="empty-state" style="grid-column:1/-1;padding:32px 20px"><div class="ico">🏠</div><p>Загрузка…</p></div>
       </div>
     </section>
 
@@ -507,6 +552,17 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
   </div>
 </div>
 
+<div class="modal-overlay" id="nick-modal">
+  <div class="modal">
+    <div class="modal-head"><div><h2>Привязать ник Minecraft</h2><p>Чтобы на сайте отображался твой игровой ник, а не имя из Discord</p></div><button class="modal-close" onclick="closeModal('nick-modal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-info">🎮 <strong>Как это работает:</strong> зайди на сервер под своим ником, затем введи его сюда и нажми «Привязать». Если ты сейчас онлайн под этим ником — привязка произойдёт мгновенно. Если офлайн — заявку проверит админ вручную.</div>
+      <div class="form-row"><label>Ник в Minecraft</label><input type="text" id="nick-input" placeholder="Steve" maxlength="16"></div>
+      <button class="btn-primary" id="nick-submit-btn" onclick="submitNickLink()" style="width:100%">🔗 Привязать ник</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="profile-modal">
   <div class="modal"><button class="modal-close" style="position:absolute;top:16px;right:16px;z-index:5" onclick="closeProfileModal()">✕</button><div class="modal-body" id="profile-body"></div></div>
 </div>
@@ -525,12 +581,14 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
       <div class="admin-tabs">
         <button class="admin-tab active" data-tab="ach-submissions">🏆 Заявки на ачивки <span class="tab-badge hidden" id="ach-badge">0</span></button>
         <button class="admin-tab" data-tab="album-submissions">📸 Заявки в альбом <span class="tab-badge hidden" id="album-badge">0</span></button>
+        <button class="admin-tab" data-tab="nick-requests">🎮 Привязка ников <span class="tab-badge hidden" id="nick-badge">0</span></button>
         <button class="admin-tab" data-tab="chronicle">📜 Летопись</button>
         <button class="admin-tab" data-tab="players">👥 Игроки</button>
         <button class="admin-tab" data-tab="data">💾 Данные</button>
       </div>
       <div class="admin-pane active" id="pane-ach-submissions"><div id="ach-subs-list"></div></div>
       <div class="admin-pane" id="pane-album-submissions"><div id="album-subs-list"></div></div>
+      <div class="admin-pane" id="pane-nick-requests"><div id="nick-requests-list"></div></div>
       <div class="admin-pane" id="pane-chronicle">
         <div class="admin-form-row"><label>Дата (текст)</label><input type="text" id="tl-date" placeholder="12 мая 2024"></div>
         <div class="admin-form-row"><label>Заголовок</label><input type="text" id="tl-title" placeholder="Основан город Невервуд"></div>
@@ -543,7 +601,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
         </div>
       </div>
       <div class="admin-pane" id="pane-players">
-        <div style="font-size:13px;color:var(--muted);margin-bottom:12px">Игроки попадают сюда автоматически, когда заходят на сервер. Можно выдать ачивку вручную.</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:12px">Игроки попадают сюда автоматически, когда заходят на сервер. Можно выдать ачивку вручную, указать место проживания или отвязать Discord.</div>
         <div id="admin-players-list"></div>
       </div>
       <div class="admin-pane" id="pane-data">
@@ -576,77 +634,66 @@ const STREAMERS = [
 
 const ACH_CATEGORIES = [
   { id:'create', name:'Create / Инженерия', icon:'⚙️' },
-  { id:'avia', name:'Авиация (Create Planes)', icon:'✈️' },
-  { id:'grind', name:'Гринд / Фарм', icon:'⛏️' },
+  { id:'aero', name:'Create: Aeronautics / Авиация', icon:'✈️' },
+  { id:'marathon', name:'Марафон / Время', icon:'⏳' },
   { id:'server', name:'Вклад в сервер', icon:'🏛️' },
   { id:'special', name:'Особые', icon:'🌟' },
 ];
 
+// Все ачивки ниже — либо требуют серьёзного инженерного скилла в Create /
+// Create: Aeronautics, либо десятков-сотен часов реального времени.
+// Лёгких ачивок намеренно нет — минимальная редкость: rare.
 const DEFAULT_ACHIEVEMENTS = [
-  // CREATE
-  { id:'first_machine', cat:'create', icon:'⚙️', name:'Первый механизм', desc:'Собрал первую работающую машину на Create', rarity:'common' },
-  { id:'factory', cat:'create', icon:'🏭', name:'Инженер-механик', desc:'Построил завод или крупную фабрику', rarity:'epic' },
-  { id:'railroad', cat:'create', icon:'🚂', name:'Железнодорожник', desc:'Проложил рабочую сеть рельсов между базами', rarity:'rare' },
-  { id:'automation', cat:'create', icon:'⛏️', name:'Автоматизатор', desc:'Автоматизировал добычу или переработку ресурсов', rarity:'rare' },
-  { id:'fluid_master', cat:'create', icon:'💧', name:'Мастер жидкостей', desc:'Запустил систему с жидкостями (вода, лава, масло)', rarity:'rare' },
-  { id:'logic_master', cat:'create', icon:'🎛️', name:'Логик', desc:'Собрал сложную схему на редстоуне или контроллерах', rarity:'epic' },
-  { id:'contraption', cat:'create', icon:'🛠️', name:'Изобретатель', desc:'Придумал собственную уникальную конструкцию', rarity:'epic' },
-  { id:'train_driver', cat:'create', icon:'🚆', name:'Машинист', desc:'Перевёз пассажиров или груз по своей ж/д', rarity:'rare' },
-  { id:'big_mechanism', cat:'create', icon:'🔧', name:'Мега-механизм', desc:'Собрал огромный механизм (кран, экскаватор, пресс)', rarity:'epic' },
-  // AVIA
-  { id:'first_flight', cat:'avia', icon:'✈️', name:'Первый полёт', desc:'Построил и поднял в воздух первый самолёт', rarity:'common' },
-  { id:'soft_landing', cat:'avia', icon:'🛬', name:'Мягкая посадка', desc:'Посадил самолёт без единого повреждения', rarity:'rare' },
-  { id:'multi_vehicle', cat:'avia', icon:'🚁', name:'Мультироль', desc:'Построил и самолёт, и вертолёт', rarity:'epic' },
-  { id:'cargo_master', cat:'avia', icon:'📦', name:'Грузоперевозчик', desc:'Перевёз крупный груз самолётом между базами', rarity:'rare' },
-  { id:'long_flight', cat:'avia', icon:'🌍', name:'Дальний рейс', desc:'Пролетел 5000+ блоков без посадки', rarity:'epic' },
-  { id:'air_show', cat:'avia', icon:'🎪', name:'Пилотажник', desc:'Показал фигуры высшего пилотажа', rarity:'rare' },
-  { id:'giant_plane', cat:'avia', icon:'🛩️', name:'Авиаконструктор', desc:'Построил самолёт более 20 блоков длиной', rarity:'epic' },
-  // GRIND
-  { id:'miner_1k', cat:'grind', icon:'⛏️', name:'Шахтёр', desc:'Сломал 1000+ блоков в шахте', rarity:'common' },
-  { id:'miner_10k', cat:'grind', icon:'🏔️', name:'Горный король', desc:'Сломал 10 000+ блоков', rarity:'legendary' },
-  { id:'diamond_hunter', cat:'grind', icon:'💎', name:'Алмазный охотник', desc:'Нашёл 100+ алмазов', rarity:'rare' },
-  { id:'diamond_king', cat:'grind', icon:'👑', name:'Алмазный король', desc:'Нашёл 500+ алмазов', rarity:'legendary' },
-  { id:'iron_master', cat:'grind', icon:'🔩', name:'Железный мастер', desc:'Добыл 500+ железной руды', rarity:'rare' },
-  { id:'woodcutter', cat:'grind', icon:'🪓', name:'Лесоруб', desc:'Срубил 500+ брёвен', rarity:'common' },
-  { id:'farmer', cat:'grind', icon:'🌾', name:'Фермер', desc:'Собрал 1000+ пшеницы', rarity:'rare' },
-  { id:'fish_man', cat:'grind', icon:'🎣', name:'Рыбак', desc:'Поймал 500+ рыб', rarity:'rare' },
-  { id:'hunter', cat:'grind', icon:'🏹', name:'Охотник', desc:'Убил 500+ мобов', rarity:'common' },
-  { id:'slayer', cat:'grind', icon:'⚔️', name:'Истребитель', desc:'Убил 5000+ мобов', rarity:'legendary' },
-  { id:'baker', cat:'grind', icon:'🍞', name:'Пекарь', desc:'Испек 500+ хлеба', rarity:'common' },
-  { id:'alchemist', cat:'grind', icon:'🧪', name:'Алхимик', desc:'Сварил 100+ зелий', rarity:'rare' },
-  { id:'enchanter', cat:'grind', icon:'📚', name:'Зачарователь', desc:'Зачаровал 50+ предметов', rarity:'rare' },
-  { id:'armorer', cat:'grind', icon:'🛡️', name:'Бронник', desc:'Скрафтил полный сет алмазной брони', rarity:'rare' },
-  { id:'blacksmith', cat:'grind', icon:'⚒️', name:'Кузнец', desc:'Починил 100+ инструментов на наковальне', rarity:'rare' },
-  { id:'builder_10k', cat:'grind', icon:'🏗️', name:'Мегастроитель', desc:'Поставил 10 000+ блоков', rarity:'legendary' },
-  { id:'rich_man', cat:'grind', icon:'💰', name:'Богач', desc:'Накопил 64 алмазных блока', rarity:'epic' },
-  { id:'beekeeper', cat:'grind', icon:'🐝', name:'Пасечник', desc:'Собрал 500+ мёда', rarity:'rare' },
-  { id:'shepherd', cat:'grind', icon:'🐑', name:'Пастух', desc:'Стриг 100+ овец', rarity:'common' },
-  { id:'potion_master', cat:'grind', icon:'⚗️', name:'Зельевар', desc:'Сварил 10+ разных зелий', rarity:'epic' },
-  { id:'trader', cat:'grind', icon:'🏪', name:'Торговец', desc:'Совершил 100+ сделок с жителями', rarity:'rare' },
-  { id:'veteran_hours', cat:'grind', icon:'⏰', name:'Заядлый игрок', desc:'Провёл 100+ часов на сервере', rarity:'epic' },
-  // SERVER
-  { id:'architect', cat:'server', icon:'🏛️', name:'Архитектор', desc:'Построил важный для сервера объект (спавн, арену)', rarity:'legendary' },
-  { id:'sponsor', cat:'server', icon:'💎', name:'Спонсор', desc:'Помог серверу материально', rarity:'epic' },
-  { id:'ideologue', cat:'server', icon:'📣', name:'Идеолог', desc:'Предложил идею, которая вошла в игру', rarity:'epic' },
-  { id:'peacemaker', cat:'server', icon:'🤝', name:'Миротворец', desc:'Примирил враждующие стороны', rarity:'rare' },
-  { id:'builder_team', cat:'server', icon:'👷', name:'Стройотряд', desc:'Участвовал в массовой стройке', rarity:'common' },
-  { id:'veteran', cat:'server', icon:'🎗️', name:'Ветеран', desc:'Играет с самого начала сервера', rarity:'epic' },
-  { id:'wiki_master', cat:'server', icon:'📖', name:'Хранитель знаний', desc:'Помог с документацией или вики сервера', rarity:'rare' },
+  // CREATE — сложная инженерия
+  { id:'gearshift_synth', cat:'create', icon:'⚙️', name:'Синхронизатор', desc:'Собери линию минимум из 5 механизмов, синхронизированных через Sequenced Gearshift, без единого сбоя цикла', rarity:'epic' },
+  { id:'stress_network', cat:'create', icon:'🔋', name:'Энергосеть', desc:'Построй механическую сеть суммарной нагрузкой 4096+ SU минимум от 3 разных источников энергии (вода, ветряк, двигатель)', rarity:'epic' },
+  { id:'deployer_army', cat:'create', icon:'🤖', name:'Армия деплоеров', desc:'Настрой автоматическую цепочку крафта минимум из 8 Deployer\'ов, работающих последовательно друг за другом', rarity:'epic' },
+  { id:'smart_factory', cat:'create', icon:'🏭', name:'Умный завод', desc:'Построй полностью автономную фабрику с фильтрацией и сортировкой, которая проработала 24+ часа реального времени без вмешательства человека', rarity:'legendary' },
+  { id:'mega_railroad', cat:'create', icon:'🚂', name:'Магистраль', desc:'Проложи рабочую железную дорогу Create длиной 2000+ блоков минимум с 3 станциями и автоматическим расписанием поездов', rarity:'legendary' },
+  { id:'contraption_giant', cat:'create', icon:'🏗️', name:'Подвижный гигант', desc:'Собери движущийся контрапшн (поезд, корабль, платформу), габаритами от 15×15×15 блоков', rarity:'legendary' },
+  { id:'brass_baron', cat:'create', icon:'🔶', name:'Латунный барон', desc:'Автоматизируй полную цепочку от руды до латуни и переработай 10 000+ латунных слитков за всё время', rarity:'epic' },
+  { id:'schematic_master', cat:'create', icon:'🖨️', name:'Мастер схематики', desc:'Спроектируй и распечатай через Schematicannon сооружение размером от 30×30×30 блоков', rarity:'legendary' },
+  { id:'fluid_grid', cat:'create', icon:'💧', name:'Гидроинженер', desc:'Построй систему из труб и насосов минимум с 3 разными жидкостями, работающими одновременно в одной установке', rarity:'epic' },
+  { id:'redstone_brain', cat:'create', icon:'🧠', name:'Мозг фабрики', desc:'Собери логическую схему на редстоуне и дисплей-линках, управляющую минимум 5 процессами одновременно', rarity:'epic' },
+  // AERO — Create: Aeronautics
+  { id:'first_liftoff', cat:'aero', icon:'✈️', name:'Первый взлёт', desc:'Построй и подними в воздух рабочий летательный аппарат на Create: Aeronautics (тяга + управление)', rarity:'rare' },
+  { id:'altitude_king', cat:'aero', icon:'🚀', name:'Покоритель высоты', desc:'Поднимись выше Y=400 на полностью управляемом летательном аппарате', rarity:'epic' },
+  { id:'nonstop_flight', cat:'aero', icon:'🌍', name:'Беспосадочный рейс', desc:'Соверши беспосадочный перелёт на одном аппарате протяжённостью 10 000+ блоков', rarity:'legendary' },
+  { id:'air_fleet', cat:'aero', icon:'🛩️', name:'Воздушный флот', desc:'Построй и одновременно поддерживай в рабочем состоянии 3+ разных летательных аппарата (самолёт, дирижабль, вертолёт)', rarity:'epic' },
+  { id:'dogfighter', cat:'aero', icon:'🎯', name:'Ас воздушного боя', desc:'Одержи победу в воздушном бою с использованием вооружения Create: Aeronautics', rarity:'legendary' },
+  { id:'cargo_airline', cat:'aero', icon:'📦', name:'Грузовая авиалиния', desc:'Организуй регулярную грузоперевозку между двумя базами по воздуху — минимум 5 успешных рейсов подряд', rarity:'epic' },
+  { id:'precision_pilot', cat:'aero', icon:'🪂', name:'Ювелирная посадка', desc:'Посади аппарат длиной от 10 блоков точно в размеченную зону 3×3 без единого повреждения', rarity:'epic' },
+  { id:'diesel_titan', cat:'aero', icon:'⛽', name:'Дизель-инженер', desc:'Собери двигатель на дизель-генераторах, способный поднять в воздух тяжёлое (50+ блоков) судно', rarity:'legendary' },
+  { id:'airport_architect', cat:'aero', icon:'🛫', name:'Архитектор аэропорта', desc:'Построй полноценный аэропорт: ангар, взлётно-посадочную полосу и диспетчерскую вышку', rarity:'legendary' },
+  // MARATHON — достижения, которые требуют времени
+  { id:'grind_100h', cat:'marathon', icon:'⏱️', name:'Сотка', desc:'Проведи 100+ часов на сервере', rarity:'rare' },
+  { id:'grind_500h', cat:'marathon', icon:'⏳', name:'Ветеран гринда', desc:'Проведи 500+ часов на сервере', rarity:'epic' },
+  { id:'grind_1000h', cat:'marathon', icon:'⌛', name:'Легенда онлайна', desc:'Проведи 1000+ часов на сервере', rarity:'legendary' },
+  { id:'daily_streak_30', cat:'marathon', icon:'📅', name:'Каждый день', desc:'Заходи на сервер каждый день на протяжении 30 дней подряд', rarity:'epic' },
+  { id:'no_death_30', cat:'marathon', icon:'💀', name:'Без единой смерти', desc:'Проживи 30 реальных дней на сервере, не умерев ни разу', rarity:'legendary' },
+  { id:'mega_miner', cat:'marathon', icon:'⛏️', name:'Гигашахтёр', desc:'Сломай 100 000+ блоков за всё время игры на сервере', rarity:'legendary' },
+  { id:'mega_builder', cat:'marathon', icon:'🧱', name:'Гигастроитель', desc:'Установи 100 000+ блоков за всё время игры на сервере', rarity:'legendary' },
+  { id:'long_project', cat:'marathon', icon:'📆', name:'Долгострой', desc:'Веди один и тот же проект минимум 3 месяца реального времени с промежуточными скринами в летописи', rarity:'legendary' },
+  // SERVER — вклад в сообщество
+  { id:'founder', cat:'server', icon:'🏁', name:'Отец-основатель', desc:'Играл на сервере с самого первого дня его открытия', rarity:'legendary' },
+  { id:'server_architect', cat:'server', icon:'🏛️', name:'Архитектор сервера', desc:'Построил ключевой для сервера объект: спавн, хаб или центральную станцию', rarity:'legendary' },
+  { id:'event_master', cat:'server', icon:'🎪', name:'Организатор', desc:'Организовал и провёл ивент или турнир для игроков сервера', rarity:'epic' },
+  { id:'mentor', cat:'server', icon:'🧑‍🏫', name:'Наставник', desc:'Помог 5+ новым игрокам освоить Create или авиацию', rarity:'rare' },
   // SPECIAL
-  { id:'champion', cat:'special', icon:'🏆', name:'Чемпион', desc:'Победил в турнире сервера', rarity:'legendary' },
-  { id:'artist', cat:'special', icon:'🎨', name:'Художник', desc:'Построил признанный арт-проект', rarity:'epic' },
-  { id:'legend', cat:'special', icon:'🌟', name:'Легенда сервера', desc:'За особые заслуги перед сервером', rarity:'legendary' },
+  { id:'champion', cat:'special', icon:'🏆', name:'Абсолютный чемпион', desc:'Победил в главном турнире сервера', rarity:'legendary' },
+  { id:'legend', cat:'special', icon:'🌟', name:'Легенда ПТУ SMP', desc:'Особый вклад в сервер, признанный всем сообществом', rarity:'legendary' },
 ];
 
 const RARITY_LABEL = { common:'Обычное', rare:'Редкое', epic:'Эпическое', legendary:'Легендарное' };
 
 const KEYS = {
   players: 'ptusmp_players_v41',
-  achSubs: 'ptusmp_ach_subs_v41',
+  achSubs: 'ptusmp_ach_subs_v42',
   chronicle: 'ptusmp_chronicle_v41',
   album: 'ptusmp_album_v41',
   albumSubs: 'ptusmp_album_subs_v41',
   albumLikes: 'ptusmp_album_likes_v41',
+  nickReq: 'ptusmp_nick_requests_v1',
 };
 const $ = (id) => document.getElementById(id);
 function ls(k, def){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch { return def; } }
@@ -658,10 +705,12 @@ let chronicle = ls(KEYS.chronicle, []);
 let album = ls(KEYS.album, []);
 let albumSubs = ls(KEYS.albumSubs, []);
 let albumLikes = ls(KEYS.albumLikes, {});
+let nickRequests = ls(KEYS.nickReq, []);
 let nextPlayerId = players.length ? Math.max(0, ...players.map(p => p.id)) + 1 : 1;
 let currentProfileId = null;
 let currentView = 'ach';
 let albumSort = 'recent';
+let playersSort = 'nick';
 
 function savePlayers(){ lsSet(KEYS.players, players); }
 function saveAchSubs(){ lsSet(KEYS.achSubs, achSubs); }
@@ -669,6 +718,8 @@ function saveAlbum(){ lsSet(KEYS.album, album); }
 function saveAlbumSubs(){ lsSet(KEYS.albumSubs, albumSubs); }
 function saveChronicle(){ lsSet(KEYS.chronicle, chronicle); }
 function saveAlbumLikes(){ lsSet(KEYS.albumLikes, albumLikes); }
+function saveNickRequests(){ lsSet(KEYS.nickReq, nickRequests); }
+function findPlayerByNick(nick){ return players.find(p => p.nickname.toLowerCase() === nick.toLowerCase()); }
 
 function findAchievement(id){ return DEFAULT_ACHIEVEMENTS.find(a => a.id === id); }
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
@@ -699,8 +750,13 @@ async function handleDiscordCallback(){
   } catch (e){ console.error(e); return false; }
 }
 function logoutDiscord(){ localStorage.removeItem(AUTH_KEY); updateAuthUI(); showToast('👋 Вы вышли'); }
-function getDisplayName(u){ return u ? (u.global_name || u.username) : ''; }
+function getDiscordName(u){ return u ? (u.global_name || u.username) : ''; }
 function getDiscordAvatar(u, size = 64){ if (!u) return ''; if (u.avatar) return `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=${size}`; const idx = u.discriminator === '0' ? Number((BigInt(u.id) >> 22n) % 6n) : parseInt(u.discriminator) % 5; return `https://cdn.discordapp.com/embed/avatars/${idx}.png`; }
+function getLinkedPlayer(u){ return u ? players.find(p => p.discordId === u.id) : null; }
+// Везде на сайте должен фигурировать игровой ник, а не имя из Discord —
+// если аккаунт привязан к нику Minecraft, используем именно его.
+function getDisplayName(u){ if (!u) return ''; const p = getLinkedPlayer(u); return p ? p.nickname : getDiscordName(u); }
+function getUserAvatar(u, size = 64){ if (!u) return ''; const p = getLinkedPlayer(u); return p ? `https://mc-heads.net/avatar/${encodeURIComponent(p.nickname)}/${size}` : getDiscordAvatar(u, size); }
 function isAdmin(){ const u = getCurrentUser(); if (!u) return ADMIN_DISCORD_IDS.length === 0; return ADMIN_DISCORD_IDS.length === 0 || ADMIN_DISCORD_IDS.includes(u.id); }
 function isModerator(){ const u = getCurrentUser(); if (!u) return MODERATOR_DISCORD_IDS.length === 0; return MODERATOR_DISCORD_IDS.length === 0 || MODERATOR_DISCORD_IDS.includes(u.id); }
 function updateAuthUI(){
@@ -708,9 +764,10 @@ function updateAuthUI(){
   if (!btn || !content) return;
   const u = getCurrentUser();
   if (u){
+    const linked = getLinkedPlayer(u);
     btn.classList.add('logged-in');
-    content.innerHTML = `<img src="${getDiscordAvatar(u, 64)}" alt=""><span class="auth-name">${escapeHtml(getDisplayName(u))}</span>`;
-    menu.innerHTML = `<div class="user-menu-header"><div class="name">${escapeHtml(getDisplayName(u))}</div><div class="id">@${escapeHtml(u.username)}</div></div>${isAdmin() ? `<div class="user-menu-item" onclick="closeUserMenu();openAdminModal()">⚙️ Админ-панель <span class="auth-badge">ADMIN</span></div>` : ''}${!isAdmin() && isModerator() ? `<div class="user-menu-item" style="cursor:default">🛡️ Модератор <span class="auth-badge">MOD</span></div>` : ''}<button class="user-menu-item danger" onclick="closeUserMenu();logoutDiscord()">🚪 Выйти</button>`;
+    content.innerHTML = `<img src="${getUserAvatar(u, 64)}" alt=""><span class="auth-name">${escapeHtml(getDisplayName(u))}</span>`;
+    menu.innerHTML = `<div class="user-menu-header"><div class="name">${escapeHtml(getDisplayName(u))}</div><div class="id">@${escapeHtml(u.username)}${linked ? ' · 🎮 ник привязан' : ''}</div></div>${linked ? '' : `<div class="user-menu-item" onclick="closeUserMenu();openNickLinkModal()">🎮 Привязать ник Minecraft</div>`}${isAdmin() ? `<div class="user-menu-item" onclick="closeUserMenu();openAdminModal()">⚙️ Админ-панель <span class="auth-badge">ADMIN</span></div>` : ''}${!isAdmin() && isModerator() ? `<div class="user-menu-item" style="cursor:default">🛡️ Модератор <span class="auth-badge">MOD</span></div>` : ''}<button class="user-menu-item danger" onclick="closeUserMenu();logoutDiscord()">🚪 Выйти</button>`;
   } else {
     btn.classList.remove('logged-in'); content.textContent = 'Войти'; menu.innerHTML = ''; menu.classList.remove('open');
   }
@@ -753,6 +810,7 @@ function switchView(v){
   if (v === 'chronicle') renderChronicle();
   if (v === 'album') renderAlbum();
   if (v === 'streams') loadStreams();
+  if (v === 'players') renderPlayersView();
   if (v === 'map') refreshMapPlayers();
 }
 
@@ -800,9 +858,36 @@ function renderAchTop(){
   });
 }
 
+function setPlayersSort(s){
+  playersSort = s;
+  document.querySelectorAll('[data-players-sort]').forEach(b => b.classList.toggle('active', b.dataset.playersSort === s));
+  renderPlayersView();
+}
+function renderPlayersView(){
+  const grid = $('players-grid'); if (!grid) return;
+  const heroCount = $('players-hero-count'); if (heroCount) heroCount.textContent = players.length + ' игроков';
+  const search = ($('players-search')?.value || '').toLowerCase().trim();
+  let list = players.filter(p => !search || p.nickname.toLowerCase().includes(search) || (p.residence || '').toLowerCase().includes(search));
+  let withCount = list.map(p => ({ ...p, achCount: getPlayerAch(p.id).length }));
+  if (playersSort === 'ach') withCount.sort((a, b) => b.achCount - a.achCount || a.nickname.localeCompare(b.nickname, 'ru'));
+  else if (playersSort === 'residence') withCount.sort((a, b) => (a.residence || '\uffff').localeCompare(b.residence || '\uffff', 'ru'));
+  else withCount.sort((a, b) => a.nickname.localeCompare(b.nickname, 'ru'));
+  grid.innerHTML = '';
+  if (!withCount.length){ grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="ico">👥</div><h3>Никого не найдено</h3><p>Игроки появляются в списке автоматически, когда заходят на сервер.</p></div>`; return; }
+  withCount.forEach((p, i) => {
+    const el = document.createElement('div');
+    el.className = 'player-card';
+    el.style.animationDelay = Math.min(i * 25, 400) + 'ms';
+    el.innerHTML = `${avatarImgHtml(p.nickname, 52)}<div class="pc-info"><div class="pc-name">${escapeHtml(p.nickname)}${p.discordId ? '<span class="pc-verified" title="Привязан к Discord">🔗</span>' : ''}</div><div class="pc-meta">${p.residence ? '🏠 ' + escapeHtml(p.residence) : '🏠 место не указано'}</div></div><div class="pc-ach" title="Достижений">${p.achCount}</div>`;
+    el.onclick = () => openProfile(p.id);
+    grid.appendChild(el);
+  });
+}
+
 function openAchievementPicker(){
   const u = getCurrentUser();
   if (!u){ showToast('🔐 Сначала войди через Discord'); loginWithDiscord(); return; }
+  if (!getLinkedPlayer(u)){ showToast('🎮 Сначала привяжи ник Minecraft'); openNickLinkModal(); return; }
   const select = $('ach-submit-select');
   const opts = [];
   ACH_CATEGORIES.forEach(cat => {
@@ -823,11 +908,11 @@ function submitAchievement(){
   const note = $('ach-submit-note').value.trim();
   if (!proof){ showToast('📸 Нужна ссылка на пруф'); return; }
   if (!/^https?:\/\//.test(proof)){ showToast('❌ Ссылка должна начинаться с http:// или https://'); return; }
-  let player = players.find(p => p.discordId === u.id);
-  if (!player){ showToast('👤 Сначала зайди на сервер хотя бы раз'); return; }
+  let player = getLinkedPlayer(u);
+  if (!player){ showToast('🎮 Сначала привяжи ник Minecraft'); openNickLinkModal(); return; }
   if (achSubs.find(s => s.playerId === player.id && s.achievementId === achId && s.status === 'approved')){ showToast('✅ Уже есть'); return; }
   if (achSubs.find(s => s.playerId === player.id && s.achievementId === achId && s.status === 'pending')){ showToast('⏳ Уже на проверке'); return; }
-  achSubs.unshift({ id: Date.now() + Math.floor(Math.random() * 1000), playerId: player.id, playerNick: player.nickname, achievementId: achId, proof, note, discordId: u.id, discordName: getDisplayName(u), ts: Date.now(), status: 'pending' });
+  achSubs.unshift({ id: Date.now() + Math.floor(Math.random() * 1000), playerId: player.id, playerNick: player.nickname, achievementId: achId, proof, note, discordId: u.id, discordName: getDiscordName(u), ts: Date.now(), status: 'pending' });
   saveAchSubs();
   updateAdminBadge();
   closeModal('ach-modal');
@@ -900,6 +985,7 @@ function renderChronicleAdminList(){
 function openAlbumUpload(){
   const u = getCurrentUser();
   if (!u){ showToast('🔐 Сначала войди через Discord'); loginWithDiscord(); return; }
+  if (!getLinkedPlayer(u)){ showToast('🎮 Сначала привяжи ник Minecraft'); openNickLinkModal(); return; }
   $('album-url').value = ''; $('album-title').value = ''; $('album-desc').value = '';
   $('album-preview').innerHTML = '';
   openModal('album-modal');
@@ -917,10 +1003,11 @@ function submitAlbumScreenshot(){
   const desc = $('album-desc').value.trim();
   if (!url || !/^https?:\/\//.test(url)){ showToast('❌ Нужна ссылка на картинку'); return; }
   if (!title){ showToast('❌ Придумай название'); return; }
-  let player = players.find(p => p.discordId === u.id);
-  const author = player ? player.nickname : getDisplayName(u);
-  const authorId = player ? player.id : null;
-  albumSubs.unshift({ id: Date.now() + Math.floor(Math.random() * 1000), url, title, desc, author, authorId, discordId: u.id, discordName: getDisplayName(u), ts: Date.now(), status: 'pending' });
+  let player = getLinkedPlayer(u);
+  if (!player){ showToast('🎮 Сначала привяжи ник Minecraft'); openNickLinkModal(); return; }
+  const author = player.nickname;
+  const authorId = player.id;
+  albumSubs.unshift({ id: Date.now() + Math.floor(Math.random() * 1000), url, title, desc, author, authorId, discordId: u.id, discordName: getDiscordName(u), ts: Date.now(), status: 'pending' });
   saveAlbumSubs();
   updateAdminBadge();
   closeModal('album-modal');
@@ -982,11 +1069,92 @@ function openProfile(playerId){
   currentProfileId = playerId;
   const achList = getPlayerAchIds(p.id).map(id => findAchievement(id)).filter(Boolean);
   const titles = achList.slice(0, 5);
-  $('profile-body').innerHTML = `<div class="pf-banner">${avatarImgHtml(p.nickname, 160, 'class="pf-avatar"')}<div class="pf-nick">${escapeHtml(p.nickname)}</div><div class="pf-titles">${titles.map(a => `<span class="pf-title">${a.icon} ${escapeHtml(a.name)}</span>`).join('') || '<span style="color:var(--muted);font-size:12px">Пока без титулов</span>'}</div></div><div class="pf-section-title">Достижения (${achList.length})</div><div class="pf-ach-grid">${achList.map(a => `<div class="pf-ach" title="${escapeHtml(a.name)}" onclick="closeProfileModal();showAchInfo('${a.id}')">${a.icon}</div>`).join('')}${Array(Math.max(0, 6 - achList.length)).fill(0).map(() => '<div class="pf-ach-empty">?</div>').join('')}</div><div class="pf-actions"><button class="pf-action-btn" onclick="copyNick('${escapeHtml(p.nickname)}')">📋 Скопировать ник</button><a class="pf-action-btn" href="https://ru.namemc.com/profile/${encodeURIComponent(p.nickname)}" target="_blank" rel="noopener">🌐 NameMC</a></div>`;
+  const u = getCurrentUser();
+  const isOwn = !!(u && p.discordId === u.id);
+  const canEditResidence = isOwn || isModerator();
+  $('profile-body').innerHTML = `<div class="pf-banner">${avatarImgHtml(p.nickname, 160, 'class="pf-avatar"')}<div class="pf-nick">${escapeHtml(p.nickname)}</div>${p.residence ? `<div style="font-size:13px;color:var(--text-2);margin-top:-4px;margin-bottom:6px">🏠 ${escapeHtml(p.residence)}</div>` : ''}<div class="pf-titles">${titles.map(a => `<span class="pf-title">${a.icon} ${escapeHtml(a.name)}</span>`).join('') || '<span style="color:var(--muted);font-size:12px">Пока без титулов</span>'}</div></div><div class="pf-section-title">Достижения (${achList.length})</div><div class="pf-ach-grid">${achList.map(a => `<div class="pf-ach" title="${escapeHtml(a.name)}" onclick="closeProfileModal();showAchInfo('${a.id}')">${a.icon}</div>`).join('')}${Array(Math.max(0, 6 - achList.length)).fill(0).map(() => '<div class="pf-ach-empty">?</div>').join('')}</div><div class="pf-actions"><button class="pf-action-btn" onclick="copyNick('${escapeHtml(p.nickname)}')">📋 Скопировать ник</button><a class="pf-action-btn" href="https://ru.namemc.com/profile/${encodeURIComponent(p.nickname)}" target="_blank" rel="noopener">🌐 NameMC</a>${canEditResidence ? `<button class="pf-action-btn" onclick="setResidence(${p.id})">🏠 ${p.residence ? 'Изменить место' : 'Указать место'}</button>` : ''}</div>`;
   openModal('profile-modal');
 }
 function closeProfileModal(){ closeModal('profile-modal'); currentProfileId = null; }
 function copyNick(nick){ navigator.clipboard.writeText(nick).then(() => showToast('📋 Скопирован ник: ' + nick)); }
+
+function setResidence(playerId){
+  const p = players.find(x => x.id === playerId); if (!p) return;
+  const u = getCurrentUser();
+  const isOwn = !!(u && p.discordId === u.id);
+  if (!isOwn && !isModerator()){ showToast('🚫 Менять можно только своё место (или быть модератором)'); return; }
+  const v = prompt(`Где живёт ${p.nickname}? Например: "Спавн, дом у моста" или координаты X/Z`, p.residence || '');
+  if (v === null) return;
+  p.residence = v.trim();
+  savePlayers();
+  renderMapResidenceGrid();
+  renderPlayersView();
+  if (currentProfileId === playerId) openProfile(playerId);
+  showToast('🏠 Место сохранено');
+}
+function openOwnResidencePrompt(){
+  const u = getCurrentUser();
+  if (!u){ showToast('🔐 Сначала войди через Discord'); loginWithDiscord(); return; }
+  const p = getLinkedPlayer(u);
+  if (!p){ showToast('🎮 Сначала привяжи ник Minecraft'); openNickLinkModal(); return; }
+  setResidence(p.id);
+}
+function renderMapResidenceGrid(){
+  const grid = $('map-residence-grid'); if (!grid) return;
+  const withResidence = players.filter(p => p.residence && p.residence.trim());
+  if (!withResidence.length){ grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;padding:32px 20px"><div class="ico">🏠</div><h3>Пока никто не указал место жительства</h3><p>Войди через Discord, привяжи ник Minecraft и укажи, где ты живёшь на карте — через свой профиль.</p></div>`; return; }
+  grid.innerHTML = '';
+  withResidence.forEach((p, i) => {
+    const card = document.createElement('div');
+    card.className = 'map-player-card';
+    card.style.animationDelay = (i * 30) + 'ms';
+    card.innerHTML = `${avatarImgHtml(p.nickname, 42)}<div style="min-width:0"><div class="mp-name">${escapeHtml(p.nickname)}</div><div class="mp-residence">🏠 ${escapeHtml(p.residence)}</div></div>`;
+    card.onclick = () => openProfile(p.id);
+    grid.appendChild(card);
+  });
+}
+
+// ===== Привязка игрового ника (авторизация под ником Minecraft, а не Discord) =====
+function openNickLinkModal(){
+  const u = getCurrentUser();
+  if (!u){ showToast('🔐 Сначала войди через Discord'); loginWithDiscord(); return; }
+  $('nick-input').value = '';
+  openModal('nick-modal');
+}
+async function fetchOnlineNicks(){
+  try {
+    const res = await fetch(`https://api.mcsrvstat.us/3/${SERVER_IP}`, { cache: 'no-store' });
+    const data = await res.json();
+    if (!data.online) return [];
+    return (data.players?.list || []).map(p => (typeof p === 'string' ? p : p.name).toLowerCase());
+  } catch { return []; }
+}
+async function submitNickLink(){
+  const u = getCurrentUser();
+  if (!u) return;
+  const nick = $('nick-input').value.trim();
+  if (!nick || nick.length < 2 || nick.length > 16){ showToast('❌ Введи корректный игровой ник'); return; }
+  const existing = findPlayerByNick(nick);
+  if (existing && existing.discordId && existing.discordId !== u.id){ showToast('❌ Этот ник уже привязан к другому аккаунту'); return; }
+  const btn = $('nick-submit-btn');
+  btn.disabled = true; btn.textContent = '⏳ Проверяем, онлайн ли ты...';
+  const online = await fetchOnlineNicks();
+  btn.disabled = false; btn.textContent = '🔗 Привязать ник';
+  if (online.includes(nick.toLowerCase())){
+    if (existing){ existing.nickname = nick; existing.discordId = u.id; existing.mcVerified = true; }
+    else { players.push({ id: nextPlayerId++, nickname: nick, discordId: u.id, addedAt: Date.now(), mcVerified: true }); }
+    savePlayers();
+    updateAuthUI(); renderAchievements(); renderPlayersView(); renderMapResidenceGrid();
+    closeModal('nick-modal');
+    showToast('✅ Ник привязан: ' + nick);
+  } else {
+    nickRequests.unshift({ id: Date.now(), discordId: u.id, discordName: getDiscordName(u), nickname: nick, ts: Date.now(), status: 'pending' });
+    saveNickRequests();
+    updateAdminBadge();
+    closeModal('nick-modal');
+    showToast('📤 Ты сейчас офлайн — заявка отправлена админу на проверку');
+  }
+}
 
 const DECAPI = 'https://decapi.me/twitch';
 let streamStatusCache = {}, currentStreamFilter = 'all', currentStreamSearch = '', currentStreamChannel = null;
@@ -1093,6 +1261,7 @@ async function refreshMapPlayers(){
   const grid = $('map-players-grid');
   if (!grid) return;
   grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;padding:40px 20px"><div class="ico">⏳</div><p>Загрузка списка игроков…</p></div>';
+  renderMapResidenceGrid();
   try {
     const res = await fetch(`https://api.mcsrvstat.us/3/${SERVER_IP}`, { cache: 'no-store' });
     const data = await res.json();
@@ -1134,6 +1303,7 @@ document.querySelectorAll('.admin-tab').forEach(tab => {
     if (pane) pane.classList.add('active');
     if (tab.dataset.tab === 'ach-submissions') renderAdminAchSubs();
     if (tab.dataset.tab === 'album-submissions') renderAdminAlbumSubs();
+    if (tab.dataset.tab === 'nick-requests') renderAdminNickRequests();
     if (tab.dataset.tab === 'chronicle') renderChronicleAdminList();
     if (tab.dataset.tab === 'players') renderAdminPlayers();
     if (tab.dataset.tab === 'data') renderExport();
@@ -1142,19 +1312,56 @@ document.querySelectorAll('.admin-tab').forEach(tab => {
 function openAdminModal(){
   if (!isAdmin()){ showToast('🚫 Только для админов'); return; }
   openModal('admin-modal');
-  renderAdminAchSubs(); renderAdminAlbumSubs(); renderChronicleAdminList(); renderAdminPlayers(); renderExport(); updateAdminBadge();
+  renderAdminAchSubs(); renderAdminAlbumSubs(); renderAdminNickRequests(); renderChronicleAdminList(); renderAdminPlayers(); renderExport(); updateAdminBadge();
 }
 function closeAdminModal(){ closeModal('admin-modal'); }
 function updateAdminBadge(){
   const achPending = achSubs.filter(s => s.status === 'pending').length;
   const albumPending = albumSubs.filter(s => s.status === 'pending').length;
-  const total = achPending + albumPending;
+  const nickPending = nickRequests.filter(r => r.status === 'pending').length;
+  const total = achPending + albumPending + nickPending;
   const ab = $('admin-mod-badge');
   if (ab){ if (total > 0){ ab.textContent = total > 9 ? '9+' : String(total); ab.classList.remove('hidden'); } else ab.classList.add('hidden'); }
   const achBadge = $('ach-badge');
   if (achBadge){ if (achPending > 0){ achBadge.textContent = achPending; achBadge.classList.remove('hidden'); } else achBadge.classList.add('hidden'); }
   const albumBadge = $('album-badge');
   if (albumBadge){ if (albumPending > 0){ albumBadge.textContent = albumPending; albumBadge.classList.remove('hidden'); } else albumBadge.classList.add('hidden'); }
+  const nickBadge = $('nick-badge');
+  if (nickBadge){ if (nickPending > 0){ nickBadge.textContent = nickPending; nickBadge.classList.remove('hidden'); } else nickBadge.classList.add('hidden'); }
+}
+function renderAdminNickRequests(){
+  const c = $('nick-requests-list'); if (!c) return;
+  const pending = nickRequests.filter(r => r.status === 'pending');
+  if (!pending.length){ c.innerHTML = '<div class="mod-empty">✅ Заявок нет</div>'; updateAdminBadge(); return; }
+  c.innerHTML = '';
+  pending.forEach(r => {
+    const el = document.createElement('div');
+    el.className = 'mod-item';
+    el.innerHTML = `${avatarImgHtml(r.nickname, 52, 'class="preview"')}<div class="mod-info"><div class="mod-line">🎮 Заявка на привязку ника</div><div class="mod-title">${escapeHtml(r.nickname)}</div><div class="mod-desc">Discord: ${escapeHtml(r.discordName)} (${escapeHtml(r.discordId)})</div></div><div class="mod-actions"><button class="mod-btn approve" onclick="approveNickLink(${r.id})">✓ Подтвердить</button><button class="mod-btn reject" onclick="rejectNickLink(${r.id})">✕ Отклонить</button></div>`;
+    c.appendChild(el);
+  });
+  updateAdminBadge();
+}
+function approveNickLink(id){
+  const r = nickRequests.find(x => x.id === id); if (!r) return;
+  const existing = findPlayerByNick(r.nickname);
+  if (existing && existing.discordId && existing.discordId !== r.discordId){ showToast('❌ Этот ник уже привязан к другому аккаунту'); return; }
+  if (existing){ existing.discordId = r.discordId; existing.nickname = r.nickname; existing.mcVerified = true; }
+  else { players.push({ id: nextPlayerId++, nickname: r.nickname, discordId: r.discordId, addedAt: Date.now(), mcVerified: true }); }
+  savePlayers();
+  r.status = 'approved';
+  saveNickRequests();
+  renderAdminNickRequests();
+  renderAdminPlayers();
+  updateAuthUI();
+  showToast('✅ Ник привязан: ' + r.nickname);
+}
+function rejectNickLink(id){
+  const r = nickRequests.find(x => x.id === id); if (!r) return;
+  r.status = 'rejected';
+  saveNickRequests();
+  renderAdminNickRequests();
+  showToast('✕ Заявка отклонена');
 }
 function renderAdminAchSubs(){
   const container = $('ach-subs-list');
@@ -1223,9 +1430,18 @@ function renderAdminPlayers(){
     const count = getPlayerAch(p.id).length;
     const el = document.createElement('div');
     el.className = 'mod-item';
-    el.innerHTML = `${avatarImgHtml(p.nickname, 48, 'class="preview"')}<div class="mod-info"><div class="mod-title">${escapeHtml(p.nickname)}</div><div class="mod-desc">Ачивок: ${count} · Discord: ${p.discordId ? escapeHtml(p.discordId) : '—'}</div></div><div class="mod-actions"><button class="mod-btn approve" onclick="adminGiveAch(${p.id})">+ Ачивка</button><button class="mod-btn reject" onclick="adminDeletePlayer(${p.id})">🗑</button></div>`;
+    el.innerHTML = `${avatarImgHtml(p.nickname, 48, 'class="preview"')}<div class="mod-info"><div class="mod-title">${escapeHtml(p.nickname)}</div><div class="mod-desc">Ачивок: ${count} · Discord: ${p.discordId ? escapeHtml(p.discordId) : '—'} · 🏠 ${p.residence ? escapeHtml(p.residence) : 'не указано'}</div></div><div class="mod-actions"><button class="mod-btn approve" onclick="adminGiveAch(${p.id})">+ Ачивка</button><button class="mod-btn ghost" onclick="setResidence(${p.id})">🏠</button>${p.discordId ? `<button class="mod-btn reject" onclick="adminUnlinkDiscord(${p.id})">🔓</button>` : ''}<button class="mod-btn reject" onclick="adminDeletePlayer(${p.id})">🗑</button></div>`;
     c.appendChild(el);
   });
+}
+function adminUnlinkDiscord(id){
+  const p = players.find(x => x.id === id); if (!p) return;
+  if (!confirm(`Отвязать Discord у игрока ${p.nickname}?`)) return;
+  p.discordId = null; p.mcVerified = false;
+  savePlayers();
+  renderAdminPlayers();
+  updateAuthUI();
+  showToast('🔓 Discord отвязан');
 }
 function adminGiveAch(playerId){
   const p = players.find(x => x.id === playerId); if (!p) return;
@@ -1252,7 +1468,7 @@ function adminDeletePlayer(id){
 }
 
 function renderExport(){
-  const data = { players, achSubs, chronicle, album, albumSubs, albumLikes, exportedAt: new Date().toISOString(), version: 1 };
+  const data = { players, achSubs, chronicle, album, albumSubs, albumLikes, nickRequests, exportedAt: new Date().toISOString(), version: 2 };
   $('data-export').value = JSON.stringify(data, null, 2);
 }
 function copyExport(){ const t = $('data-export'); t.select(); navigator.clipboard.writeText(t.value).then(() => showToast('📋 Скопировано')); }
@@ -1267,8 +1483,9 @@ function importData(){
     if (d.album) { album = d.album; saveAlbum(); }
     if (d.albumSubs) { albumSubs = d.albumSubs; saveAlbumSubs(); }
     if (d.albumLikes) { albumLikes = d.albumLikes; saveAlbumLikes(); }
+    if (d.nickRequests) { nickRequests = d.nickRequests; saveNickRequests(); }
     showToast('✅ Импортировано');
-    renderAchievements(); renderChronicle(); renderAlbum(); renderAdminPlayers();
+    renderAchievements(); renderChronicle(); renderAlbum(); renderAdminPlayers(); renderPlayersView(); updateAdminBadge();
   } catch (e){ showToast('❌ Ошибка: ' + e.message); }
 }
 
