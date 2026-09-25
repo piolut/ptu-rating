@@ -6,7 +6,7 @@
 <title>ПТУ SMP — Достижения, летопись, альбом</title>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#070d0a;--bg-2:#0a130f;--line:rgba(255,255,255,.07);--line-2:rgba(255,255,255,.13);--text:#eaf3ee;--text-2:#a8b8b0;--muted:#6a786f;--muted-2:#454d47;--emerald:#10b981;--emerald-2:#34d399;--emerald-glow:rgba(16,185,129,.35);--amber:#f59e0b;--amber-2:#fbbf24;--discord:#5865F2;--discord-2:#7983f5;--red:#ef4444;--red-2:#f87171;--blue:#3b82f6;--blue-2:#60a5fa;--purple:#8b5cf6;--purple-2:#a78bfa;--pink:#ec4899;--cyan:#06b6d4;--cyan-2:#22d3ee;--gold:#fbbf24}
+:root{--bg:#070d0a;--bg-2:#0a130f;--line:rgba(255,255,255,.07);--line-2:rgba(255,255,255,.13);--text:#eaf3ee;--text-2:#a8b8b0;--muted:#6a786f;--muted-2:#454d47;--emerald:#10b981;--emerald-2:#34d399;--emerald-glow:rgba(16,185,129,.35);--amber:#f59e0b;--amber-2:#fbbf24;--discord:#5865F2;--discord-2:#7983f5;--red:#ef4444;--red-2:#f87171;--blue:#3b82f6;--blue-2:#60a5fa;--purple:#8b5cf6;--purple-2:#a78bfa;--pink:#ec4899;--cyan:#06b6d4;--cyan-2:#22d3ee}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.5;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;position:relative}
@@ -16,19 +16,16 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 @keyframes dp{0%{box-shadow:0 0 0 0 currentColor;opacity:1}70%{box-shadow:0 0 0 8px transparent;opacity:.7}100%{box-shadow:0 0 0 0 transparent;opacity:1}}
 @keyframes glow{0%,100%{box-shadow:0 0 30px -5px rgba(139,92,246,.45)}50%{box-shadow:0 0 50px -5px rgba(139,92,246,.7)}}
 @keyframes pulse-ring{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.08)}}
-@keyframes timelineDot{0%{transform:scale(0)}60%{transform:scale(1.3)}100%{transform:scale(1)}}
-@keyframes slideIn{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
 @keyframes saved{0%{opacity:0;transform:translateY(10px)}20%{opacity:1;transform:translateY(0)}80%{opacity:1}100%{opacity:0;transform:translateY(-10px)}}
 @keyframes arrowSlide{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
-@keyframes mapGlow{0%,100%{box-shadow:0 8px 30px -8px rgba(16,185,129,.5),0 0 0 1px rgba(16,185,129,.3)}50%{box-shadow:0 12px 40px -8px rgba(16,185,129,.8),0 0 0 1px rgba(52,211,153,.6)}}
 @keyframes mapPulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.15);opacity:.2}}
 nav{position:sticky;top:0;z-index:100;background:rgba(7,13,10,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
 .nav-inner{max-width:1400px;margin:0 auto;height:64px;padding:0 32px;display:flex;align-items:center;gap:16px}
 .brand{display:flex;align-items:center;gap:10px;font-family:'Manrope',sans-serif;font-weight:900;font-size:22px;color:#fff;text-decoration:none;flex-shrink:0;letter-spacing:-.02em}
 .brand .badge-proto{font-size:11px;font-weight:600;color:var(--text-2);padding:4px 10px;border-radius:100px;border:1px solid var(--line-2);background:rgba(255,255,255,.02)}
 .nav-tabs{display:flex;gap:2px;padding:4px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);margin-left:6px;flex-shrink:0}
-.nav-tab{padding:7px 18px;border-radius:100px;background:transparent;border:none;color:var(--text-2);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:all .25s cubic-bezier(.34,1.4,.64,1);white-space:nowrap}
-.nav-tab:hover{color:#fff;background:rgba(255,255,255,.04);transform:translateY(-1px)}
+.nav-tab{padding:7px 18px;border-radius:100px;background:transparent;border:none;color:var(--text-2);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:all .25s;white-space:nowrap}
+.nav-tab:hover{color:#fff;background:rgba(255,255,255,.04)}
 .nav-tab.active{background:var(--emerald);color:#062a1c;box-shadow:0 4px 14px -6px var(--emerald-glow)}
 .nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:auto}
 .btn-icon{width:38px;height:38px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text-2);display:grid;place-items:center;cursor:pointer;transition:all .15s;position:relative;flex-shrink:0}
@@ -37,30 +34,29 @@ nav{position:sticky;top:0;z-index:100;background:rgba(7,13,10,.85);backdrop-filt
 .btn-msk{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--text-2);white-space:nowrap}
 .btn-msk .lbl{color:var(--muted);font-size:10px;letter-spacing:.06em;text-transform:uppercase}
 .btn-msk .time{color:var(--emerald-2);font-weight:700}
-.btn-status{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
-.btn-status:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.25)}
+.btn-status{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+.btn-status:hover{background:rgba(255,255,255,.06)}
 .btn-status .dot{width:8px;height:8px;border-radius:50%;background:var(--muted-2);flex-shrink:0}
 .btn-status .dot.online{background:var(--emerald-2);animation:dp 2s infinite}
 .btn-status .dot.offline{background:var(--red-2);animation:dp 2s infinite}
 .btn-status .dot.checking{background:var(--amber-2);animation:dp 1s infinite}
 .btn-status .num{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--emerald-2)}
 .btn-status .lbl{color:var(--muted);font-size:12px}
-.btn-discord-icon{width:38px;height:38px;border-radius:100px;background:var(--discord);border:1px solid var(--discord);color:#fff;display:grid;place-items:center;cursor:pointer;transition:all .15s;text-decoration:none;flex-shrink:0}
-.btn-discord-icon:hover{background:var(--discord-2);transform:translateY(-1px)}
+.btn-discord-icon{width:38px;height:38px;border-radius:100px;background:var(--discord);border:1px solid var(--discord);color:#fff;display:grid;place-items:center;cursor:pointer;text-decoration:none;flex-shrink:0}
+.btn-discord-icon:hover{background:var(--discord-2)}
 .btn-discord-icon svg{width:20px;height:20px;fill:currentColor}
-.btn-auth{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:100px;background:var(--discord);border:1px solid var(--discord);color:#fff;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0}
-.btn-auth:hover{background:var(--discord-2);transform:translateY(-1px)}
+.btn-auth{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:100px;background:var(--discord);border:1px solid var(--discord);color:#fff;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.btn-auth:hover{background:var(--discord-2)}
 .btn-auth.logged-in{background:rgba(255,255,255,.03);border-color:var(--line-2);color:var(--text);padding:6px 14px 6px 6px}
-.btn-auth.logged-in:hover{background:rgba(255,255,255,.06);transform:none}
 .btn-auth img{width:26px;height:26px;border-radius:50%;border:1px solid var(--line-2);display:block;image-rendering:pixelated}
 .btn-auth .auth-name{font-weight:600;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .auth-wrap{position:relative;flex-shrink:0}
-.user-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:220px;padding:8px;border-radius:14px;background:var(--bg-2);border:1px solid var(--line-2);box-shadow:0 20px 60px -20px rgba(0,0,0,.8);display:none;z-index:200;animation:fadeUp .2s ease}
+.user-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:220px;padding:8px;border-radius:14px;background:var(--bg-2);border:1px solid var(--line-2);box-shadow:0 20px 60px -20px rgba(0,0,0,.8);display:none;z-index:200}
 .user-menu.open{display:block}
 .user-menu-header{padding:10px 12px;border-bottom:1px solid var(--line);margin-bottom:6px}
-.user-menu-header .name{font-weight:700;color:#fff;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.user-menu-header .name{font-weight:700;color:#fff;font-size:14px}
 .user-menu-header .id{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-top:2px}
-.user-menu-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:var(--text-2);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;border:none;background:transparent;width:100%;text-align:left;font-family:inherit}
+.user-menu-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:var(--text-2);font-size:13px;font-weight:600;cursor:pointer;border:none;background:transparent;width:100%;text-align:left;font-family:inherit}
 .user-menu-item:hover{background:rgba(255,255,255,.05);color:#fff}
 .user-menu-item.danger:hover{background:rgba(239,68,68,.12);color:var(--red-2)}
 .auth-badge{padding:2px 8px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;margin-left:auto}
@@ -74,15 +70,14 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-bottom:24px;font-weight:500;flex-wrap:wrap}
 .breadcrumb .dot{color:var(--muted-2)}
 .breadcrumb .live{color:var(--emerald-2);display:inline-flex;align-items:center;gap:6px}
-.breadcrumb .live::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--emerald-2);box-shadow:0 0 8px var(--emerald-2);animation:dp 2s infinite}
+.breadcrumb .live::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--emerald-2);animation:dp 2s infinite}
 .hero h1{font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(36px,6vw,72px);line-height:1.05;letter-spacing:-.04em;margin-bottom:24px;color:#fff}
 .hero h1 .emerald{color:var(--emerald-2)}
 .hero h1 .purple{color:var(--purple-2)}
 .hero h1 .amber{color:var(--amber-2)}
-.hero h1 .cyan{color:var(--cyan-2)}
 .hero p{font-size:16px;line-height:1.65;color:var(--text-2);max-width:720px;margin-bottom:32px}
 .hero p strong{color:#fff;font-weight:600}
-.btn-hero{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:100px;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;border:1px solid transparent;text-decoration:none}
+.btn-hero{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:100px;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;border:1px solid transparent;text-decoration:none}
 .btn-hero.primary{background:var(--emerald);color:#062a1c}
 .btn-hero.primary:hover{background:var(--emerald-2);transform:translateY(-2px)}
 .btn-hero.ghost{background:transparent;border:1px solid var(--line-2);color:var(--text-2)}
@@ -92,33 +87,25 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px;flex-wrap:wrap}
 .section-head h2{font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(24px,3vw,36px);letter-spacing:-.03em;line-height:1.1;margin-bottom:6px}
 .section-head p{color:var(--muted);font-size:14px}
-/* КРАСИВАЯ КНОПКА КАРТЫ */
 .map-block{position:relative;padding:44px 32px;text-align:center;border-radius:24px;background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(139,92,246,.05),rgba(6,182,212,.06));border:1px solid var(--line-2);overflow:hidden;margin-bottom:32px}
 .map-block::before{content:'';position:absolute;top:-50%;left:-20%;width:500px;height:500px;background:radial-gradient(circle,rgba(16,185,129,.15),transparent 70%);pointer-events:none;animation:mapPulse 6s ease-in-out infinite}
-.map-block::after{content:'';position:absolute;bottom:-50%;right:-20%;width:500px;height:500px;background:radial-gradient(circle,rgba(139,92,246,.12),transparent 70%);pointer-events:none;animation:mapPulse 8s ease-in-out infinite reverse}
-.map-block-icon{width:96px;height:96px;border-radius:24px;display:grid;place-items:center;font-size:52px;background:linear-gradient(135deg,rgba(16,185,129,.25),rgba(6,182,212,.15));border:2px solid rgba(16,185,129,.5);margin:0 auto 20px;position:relative;z-index:1;box-shadow:0 0 50px -8px rgba(16,185,129,.6),inset 0 0 30px -8px rgba(52,211,153,.3)}
+.map-block-icon{width:96px;height:96px;border-radius:24px;display:grid;place-items:center;font-size:52px;background:linear-gradient(135deg,rgba(16,185,129,.25),rgba(6,182,212,.15));border:2px solid rgba(16,185,129,.5);margin:0 auto 20px;position:relative;z-index:1;box-shadow:0 0 50px -8px rgba(16,185,129,.6)}
 .map-block h3{font-family:'Manrope',sans-serif;font-size:32px;font-weight:900;color:#fff;margin-bottom:14px;letter-spacing:-.03em;position:relative;z-index:1}
 .map-block p{color:var(--text-2);font-size:15px;max-width:560px;margin:0 auto 32px;line-height:1.65;position:relative;z-index:1}
 .map-block p strong{color:var(--emerald-2);font-weight:700}
-.map-open-btn{position:relative;z-index:1;display:inline-flex;align-items:center;gap:14px;padding:18px 34px;border-radius:100px;background:linear-gradient(135deg,var(--emerald),#059669);color:#fff;font-family:inherit;font-size:17px;font-weight:800;text-decoration:none;border:none;cursor:pointer;transition:all .35s cubic-bezier(.34,1.4,.64,1);animation:mapGlow 3s ease-in-out infinite;text-shadow:0 1px 2px rgba(0,0,0,.2)}
-.map-open-btn:hover{transform:translateY(-4px) scale(1.03);background:linear-gradient(135deg,#34d399,#10b981);animation-play-state:paused;box-shadow:0 18px 50px -10px rgba(16,185,129,.9),0 0 0 2px rgba(52,211,153,.7)}
-.map-open-btn .map-btn-icon{width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.2);display:grid;place-items:center;font-size:20px;flex-shrink:0;transition:transform .35s}
-.map-open-btn:hover .map-btn-icon{transform:rotate(-15deg) scale(1.1)}
-.map-open-btn .map-btn-arrow{font-size:22px;font-weight:900;transition:transform .3s}
+.map-open-btn{position:relative;z-index:1;display:inline-flex;align-items:center;gap:14px;padding:18px 34px;border-radius:100px;background:linear-gradient(135deg,var(--emerald),#059669);color:#fff;font-family:inherit;font-size:17px;font-weight:800;text-decoration:none;border:none;cursor:pointer;transition:all .35s}
+.map-open-btn:hover{transform:translateY(-4px) scale(1.03);background:linear-gradient(135deg,#34d399,#10b981)}
+.map-open-btn .map-btn-icon{width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.2);display:grid;place-items:center;font-size:20px;flex-shrink:0}
+.map-open-btn .map-btn-arrow{font-size:22px;font-weight:900}
 .map-open-btn:hover .map-btn-arrow{animation:arrowSlide 1s ease-in-out infinite}
-.map-block-stats{display:flex;justify-content:center;gap:24px;margin-top:28px;flex-wrap:wrap;position:relative;z-index:1}
-.map-block-stat{display:flex;flex-direction:column;gap:2px;padding:8px 16px;border-radius:12px;background:rgba(0,0,0,.25);border:1px solid var(--line-2)}
-.map-block-stat .n{font-family:'Manrope',sans-serif;font-size:18px;font-weight:900;color:#fff}
-.map-block-stat .l{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
-/* ПРАВИЛА */
-.rules-banner{position:relative;border-radius:22px;padding:0;overflow:hidden;background:linear-gradient(135deg,rgba(139,92,246,.08),rgba(16,185,129,.05));border:1px solid var(--line-2);margin-bottom:8px}
-.rules-banner-head{display:flex;align-items:center;gap:14px;padding:20px 26px;cursor:pointer;user-select:none}
+.rules-banner{position:relative;border-radius:22px;overflow:hidden;background:linear-gradient(135deg,rgba(139,92,246,.08),rgba(16,185,129,.05));border:1px solid var(--line-2)}
+.rules-banner-head{display:flex;align-items:center;gap:14px;padding:20px 26px;cursor:pointer}
 .rules-banner-icon{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:linear-gradient(135deg,rgba(139,92,246,.25),rgba(16,185,129,.15));border:1px solid rgba(139,92,246,.4);flex-shrink:0}
 .rules-banner-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:17px;color:#fff;margin-bottom:3px}
 .rules-banner-sub{font-size:13px;color:var(--text-2)}
 .rules-banner-arrow{margin-left:auto;font-size:18px;color:var(--muted);transition:transform .3s}
 .rules-banner.open .rules-banner-arrow{transform:rotate(180deg)}
-.rules-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1)}
+.rules-body{max-height:0;overflow:hidden;transition:max-height .5s}
 .rules-banner.open .rules-body{max-height:1200px}
 .rules-body-inner{padding:0 26px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
 .rule-card{padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.02);border:1px solid var(--line)}
@@ -126,7 +113,6 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .rule-card .rc-title{font-family:'Manrope',sans-serif;font-weight:800;font-size:14px;color:#fff;margin-bottom:6px}
 .rule-card .rc-text{font-size:13px;color:var(--text-2);line-height:1.55}
 .rule-card .rc-text strong{color:var(--emerald-2);font-weight:700}
-/* АЧИВКИ */
 .ach-cat{margin-bottom:44px}
 .ach-cat-head{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--line)}
 .ach-cat-icon{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:22px;background:linear-gradient(135deg,rgba(139,92,246,.18),rgba(236,72,153,.08));border:1px solid var(--line-2)}
@@ -134,48 +120,37 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .ach-cat-sub{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:2px}
 .ach-cat-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-2);padding:4px 12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid var(--line-2);margin-left:auto}
 .ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
-.ach-card-v2{position:relative;border-radius:18px;padding:20px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.008));border:1px solid var(--line);cursor:pointer;transition:all .35s;overflow:hidden;opacity:0;animation:fadeUp .5s ease forwards;--rarity-color:var(--muted);--rarity-glow:rgba(255,255,255,.15)}
-.ach-card-v2::before{content:'';position:absolute;inset:0;border-radius:18px;background:radial-gradient(circle at 50% -20%,var(--rarity-glow),transparent 60%);opacity:0;transition:opacity .4s;pointer-events:none}
-.ach-card-v2::after{content:'';position:absolute;top:0;left:15%;right:15%;height:2px;background:linear-gradient(90deg,transparent,var(--rarity-color),transparent);opacity:.4;transition:opacity .3s,left .3s,right .3s}
+.ach-card-v2{position:relative;border-radius:18px;padding:20px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.008));border:1px solid var(--line);cursor:pointer;transition:all .35s;overflow:hidden;--rarity-color:var(--muted);--rarity-glow:rgba(255,255,255,.15)}
 .ach-card-v2:hover{transform:translateY(-8px);border-color:var(--rarity-color);box-shadow:0 28px 56px -20px var(--rarity-glow)}
-.ach-card-v2:hover::before{opacity:1}
-.ach-card-v2:hover::after{opacity:1;left:0;right:0}
 .ach-card-v2[data-rarity="common"]{--rarity-color:#34d399;--rarity-glow:rgba(16,185,129,.35)}
 .ach-card-v2[data-rarity="rare"]{--rarity-color:#60a5fa;--rarity-glow:rgba(59,130,246,.35)}
 .ach-card-v2[data-rarity="epic"]{--rarity-color:#a78bfa;--rarity-glow:rgba(139,92,246,.4)}
 .ach-card-v2[data-rarity="legendary"]{--rarity-color:#fbbf24;--rarity-glow:rgba(245,158,11,.4)}
-.ach-card-v2 .ach-icon-v2{width:64px;height:64px;border-radius:18px;display:grid;place-items:center;font-size:32px;background:linear-gradient(135deg,var(--rarity-glow),transparent);border:1.5px solid var(--rarity-color);margin-bottom:14px;position:relative;z-index:1;box-shadow:0 0 20px -8px var(--rarity-color);transition:transform .3s}
-.ach-card-v2:hover .ach-icon-v2{transform:scale(1.08) rotate(-3deg)}
-.ach-card-v2 .ach-name-v2{font-family:'Manrope',sans-serif;font-size:16px;font-weight:800;color:#fff;margin-bottom:8px;position:relative;z-index:1}
-.ach-card-v2 .ach-desc-v2{font-size:13px;color:var(--text-2);line-height:1.5;margin-bottom:16px;position:relative;z-index:1;min-height:56px}
-.ach-card-v2 .ach-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;letter-spacing:.05em;text-transform:uppercase;background:rgba(6,182,212,.12);border:1px solid rgba(6,182,212,.3);color:var(--cyan-2);margin-bottom:12px;position:relative;z-index:1}
-.ach-card-v2 .ach-footer-v2{display:flex;justify-content:space-between;align-items:center;gap:8px;position:relative;z-index:1;padding-top:12px;border-top:1px solid var(--line)}
-.ach-card-v2 .ach-holders{display:flex;align-items:center;gap:8px;min-width:0}
+.ach-card-v2 .ach-icon-v2{width:64px;height:64px;border-radius:18px;display:grid;place-items:center;font-size:32px;background:linear-gradient(135deg,var(--rarity-glow),transparent);border:1.5px solid var(--rarity-color);margin-bottom:14px;box-shadow:0 0 20px -8px var(--rarity-color)}
+.ach-card-v2 .ach-name-v2{font-family:'Manrope',sans-serif;font-size:16px;font-weight:800;color:#fff;margin-bottom:8px}
+.ach-card-v2 .ach-desc-v2{font-size:13px;color:var(--text-2);line-height:1.5;margin-bottom:16px;min-height:56px}
+.ach-card-v2 .ach-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;text-transform:uppercase;background:rgba(6,182,212,.12);border:1px solid rgba(6,182,212,.3);color:var(--cyan-2);margin-bottom:12px}
+.ach-card-v2 .ach-footer-v2{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:12px;border-top:1px solid var(--line)}
+.ach-card-v2 .ach-holders{display:flex;align-items:center;gap:8px}
 .ach-card-v2 .ach-holders-avatars{display:flex}
 .ach-card-v2 .ach-holders-avatars img{width:22px;height:22px;border-radius:7px;border:2px solid var(--bg);margin-left:-8px;image-rendering:pixelated}
 .ach-card-v2 .ach-holders-avatars img:first-child{margin-left:0}
-.ach-card-v2 .ach-holders-text{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ach-card-v2 .ach-holders-text{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
 .ach-card-v2 .ach-holders-text.nobody{font-style:italic;color:var(--muted-2)}
-.ach-card-v2 .ach-rarity-v2{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:4px 10px;border-radius:8px;letter-spacing:.06em;text-transform:uppercase;color:var(--rarity-color);background:var(--rarity-glow);border:1px solid var(--rarity-color);flex-shrink:0}
-/* КАСТОМНЫЙ ПИКЕР АЧИВОК */
-.ach-picker-current{padding:16px 18px;border-radius:14px;background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(6,182,212,.06));border:1.5px solid rgba(16,185,129,.4);display:flex;align-items:center;gap:14px;margin-bottom:14px;cursor:pointer;transition:all .25s}
-.ach-picker-current:hover{border-color:var(--emerald);background:linear-gradient(135deg,rgba(16,185,129,.18),rgba(6,182,212,.09));transform:translateY(-2px)}
+.ach-card-v2 .ach-rarity-v2{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:4px 10px;border-radius:8px;text-transform:uppercase;color:var(--rarity-color);background:var(--rarity-glow);border:1px solid var(--rarity-color)}
+.ach-picker-current{padding:16px 18px;border-radius:14px;background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(6,182,212,.06));border:1.5px solid rgba(16,185,129,.4);display:flex;align-items:center;gap:14px;margin-bottom:14px;cursor:pointer}
+.ach-picker-current:hover{border-color:var(--emerald);transform:translateY(-2px)}
 .ach-picker-current .apc-icon{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:28px;background:rgba(0,0,0,.3);border:1.5px solid var(--emerald);flex-shrink:0}
 .ach-picker-current .apc-info{flex:1;min-width:0}
-.ach-picker-current .apc-name{font-family:'Manrope',sans-serif;font-weight:800;font-size:16px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ach-picker-current .apc-name{font-family:'Manrope',sans-serif;font-weight:800;font-size:16px;color:#fff}
 .ach-picker-current .apc-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--emerald-2);margin-top:3px}
-.ach-picker-current .apc-change{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;flex-shrink:0}
+.ach-picker-current .apc-change{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;flex-shrink:0}
 .ach-picker-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
-.ach-picker-tab{padding:8px 14px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text-2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
-.ach-picker-tab:hover{color:#fff;border-color:rgba(255,255,255,.25)}
-.ach-picker-tab.active{background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;border-color:transparent;box-shadow:0 4px 14px -6px rgba(139,92,246,.6)}
+.ach-picker-tab{padding:8px 14px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text-2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
+.ach-picker-tab.active{background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;border-color:transparent}
 .ach-picker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;max-height:440px;overflow-y:auto;padding-right:6px}
-.ach-picker-grid::-webkit-scrollbar{width:8px}
-.ach-picker-grid::-webkit-scrollbar-track{background:rgba(255,255,255,.02);border-radius:100px}
-.ach-picker-grid::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:100px}
-.ach-picker-grid::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.2)}
-.ach-picker-item{display:flex;gap:12px;padding:12px;border-radius:14px;background:rgba(255,255,255,.02);border:1.5px solid var(--line);cursor:pointer;transition:all .25s;position:relative;--rc:var(--muted);--rg:rgba(255,255,255,.1)}
-.ach-picker-item:hover{background:rgba(255,255,255,.05);border-color:var(--rc);transform:translateY(-3px);box-shadow:0 12px 30px -12px var(--rg)}
+.ach-picker-item{display:flex;gap:12px;padding:12px;border-radius:14px;background:rgba(255,255,255,.02);border:1.5px solid var(--line);cursor:pointer;--rc:var(--muted);--rg:rgba(255,255,255,.1)}
+.ach-picker-item:hover{background:rgba(255,255,255,.05);border-color:var(--rc);transform:translateY(-3px)}
 .ach-picker-item.selected{background:var(--rg);border-color:var(--rc);box-shadow:0 0 0 2px var(--rc)}
 .ach-picker-item[data-rarity="common"]{--rc:#34d399;--rg:rgba(16,185,129,.2)}
 .ach-picker-item[data-rarity="rare"]{--rc:#60a5fa;--rg:rgba(59,130,246,.2)}
@@ -183,16 +158,16 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .ach-picker-item[data-rarity="legendary"]{--rc:#fbbf24;--rg:rgba(245,158,11,.25)}
 .ach-picker-item .api-icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:22px;background:linear-gradient(135deg,var(--rg),transparent);border:1.5px solid var(--rc);flex-shrink:0}
 .ach-picker-item .api-info{flex:1;min-width:0}
-.ach-picker-item .api-name{font-family:'Manrope',sans-serif;font-weight:800;font-size:14px;color:#fff;line-height:1.25;margin-bottom:4px}
+.ach-picker-item .api-name{font-family:'Manrope',sans-serif;font-weight:800;font-size:14px;color:#fff;margin-bottom:4px}
 .ach-picker-item .api-desc{font-size:11px;color:var(--text-2);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.ach-picker-item .api-rarity{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;padding:2px 6px;border-radius:6px;background:var(--rg);border:1px solid var(--rc);color:var(--rc);letter-spacing:.05em;text-transform:uppercase;display:inline-block;margin-top:6px}
+.ach-picker-item .api-rarity{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;padding:2px 6px;border-radius:6px;background:var(--rg);border:1px solid var(--rc);color:var(--rc);text-transform:uppercase;display:inline-block;margin-top:6px}
 .pf-ach-section{padding:20px 24px 0}
 .pf-ach-cat-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
 .pf-ach-cat-icon{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:15px;background:rgba(255,255,255,.04);border:1px solid var(--line-2)}
 .pf-ach-cat-name{font-family:'Manrope',sans-serif;font-size:13px;font-weight:800;color:#fff}
 .pf-ach-cat-count{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-left:auto}
 .pf-ach-grid-v2{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:8px;margin-bottom:18px}
-.pf-ach-v2{position:relative;aspect-ratio:1;border-radius:14px;display:grid;place-items:center;font-size:26px;cursor:pointer;transition:all .3s;border:1.5px solid;--rarity-color:var(--muted);--rarity-glow:rgba(255,255,255,.1)}
+.pf-ach-v2{position:relative;aspect-ratio:1;border-radius:14px;display:grid;place-items:center;font-size:26px;cursor:pointer;border:1.5px solid;--rarity-color:var(--muted);--rarity-glow:rgba(255,255,255,.1)}
 .pf-ach-v2.locked{background:rgba(255,255,255,.015);border-color:var(--line-2);border-style:dashed;color:var(--muted-2);filter:grayscale(1) opacity(.5)}
 .pf-ach-v2.locked::after{content:'🔒';position:absolute;font-size:11px;bottom:3px;right:3px;opacity:.7}
 .pf-ach-v2.unlocked{background:linear-gradient(135deg,var(--rarity-glow),transparent);border-color:var(--rarity-color);box-shadow:0 0 16px -6px var(--rarity-color);color:#fff}
@@ -205,15 +180,15 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .pf-stat-value{font-family:'Manrope',sans-serif;font-size:24px;font-weight:900;color:#fff;line-height:1.1}
 .pf-stat-value.rarity-legendary{color:#fbbf24}
 .pf-stat-value.rarity-epic{color:#a78bfa}
-.pf-stat-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
+.pf-stat-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;margin-top:4px}
 .ach-top-list{display:flex;flex-direction:column;gap:8px}
-.ach-top-item{display:grid;grid-template-columns:56px 48px 1fr auto;gap:14px;align-items:center;padding:12px 16px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.005));border:1px solid var(--line);cursor:pointer;transition:all .25s;opacity:0;animation:fadeUp .4s ease forwards}
+.ach-top-item{display:grid;grid-template-columns:56px 48px 1fr auto;gap:14px;align-items:center;padding:12px 16px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.005));border:1px solid var(--line);cursor:pointer}
 .ach-top-item:hover{transform:translateX(6px);border-color:var(--line-2)}
 .ach-top-item.top1{border-color:rgba(251,191,36,.4);background:linear-gradient(90deg,rgba(251,191,36,.08),rgba(251,191,36,.01))}
 .ach-top-item.top2{border-color:rgba(199,199,199,.35)}
 .ach-top-item.top3{border-color:rgba(205,127,50,.35)}
 .ach-top-pos{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:800;color:var(--muted);text-align:center}
-.ach-top-item.top1 .ach-top-pos{color:#fbbf24;text-shadow:0 0 12px rgba(251,191,36,.6)}
+.ach-top-item.top1 .ach-top-pos{color:#fbbf24}
 .ach-top-item.top2 .ach-top-pos{color:#c7c7c7}
 .ach-top-item.top3 .ach-top-pos{color:#cd7f32}
 .ach-top-avatar{width:48px;height:48px;border-radius:12px;image-rendering:pixelated;background:#000;border:2px solid var(--line-2);object-fit:cover;display:block}
@@ -221,21 +196,19 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .ach-top-badges{display:flex;gap:4px;flex-wrap:wrap}
 .ach-top-badge{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;font-size:13px;background:rgba(255,255,255,.04);border:1px solid var(--line-2)}
 .ach-top-count{font-family:'Manrope',sans-serif;font-size:22px;font-weight:900;color:var(--emerald-2);text-align:right}
-/* ЛЕТОПИСЬ */
 .chronicle-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:32px}
 .ch-stat{padding:18px 20px;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.008));border:1px solid var(--line);position:relative;overflow:hidden}
 .ch-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--stat-color,var(--emerald)),transparent);opacity:.6}
 .ch-stat-icon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:rgba(255,255,255,.04);border:1px solid var(--line-2);margin-bottom:12px}
 .ch-stat-value{font-family:'Manrope',sans-serif;font-size:26px;font-weight:900;color:#fff;line-height:1}
-.ch-stat-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:6px}
+.ch-stat-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;margin-top:6px}
 .ch-toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:24px;padding:14px 18px;border-radius:18px;background:rgba(255,255,255,.015);border:1px solid var(--line)}
 .ch-filters{display:flex;gap:6px;flex-wrap:wrap;flex:1}
-.ch-filter{padding:8px 14px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text-2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.ch-filter{padding:8px 14px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text-2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
 .ch-filter.active{background:var(--emerald);color:#062a1c;border-color:var(--emerald)}
 .ch-search{flex:1;min-width:200px;padding:9px 14px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text);border-radius:100px;font-size:13px;font-family:inherit}
 .ch-search:focus{outline:none;border-color:var(--emerald)}
-.ch-btn-add{padding:9px 18px;border-radius:100px;background:linear-gradient(135deg,var(--purple),var(--pink));border:none;color:#fff;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
-.ch-btn-add:hover{transform:translateY(-2px)}
+.ch-btn-add{padding:9px 18px;border-radius:100px;background:linear-gradient(135deg,var(--purple),var(--pink));border:none;color:#fff;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer}
 .ch-year{margin-bottom:36px}
 .ch-year-head{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding:14px 22px;border-radius:18px;background:linear-gradient(90deg,rgba(139,92,246,.1),rgba(236,72,153,.04),transparent);border:1px solid var(--line);position:relative;overflow:hidden}
 .ch-year-head::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--purple-2),var(--pink))}
@@ -244,7 +217,7 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .ch-year-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);padding:4px 12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid var(--line-2)}
 .ch-timeline{position:relative;padding-left:60px}
 .ch-timeline::before{content:'';position:absolute;left:22px;top:12px;bottom:12px;width:2px;background:linear-gradient(180deg,transparent,var(--line-2) 8%,var(--line-2) 92%,transparent)}
-.ch-event{position:relative;margin-bottom:22px;animation:slideIn .5s ease forwards;opacity:0}
+.ch-event{position:relative;margin-bottom:22px}
 .ch-event-dot{position:absolute;left:-46px;top:20px;width:28px;height:28px;border-radius:50%;background:var(--bg);border:2.5px solid var(--ev-color,var(--emerald));display:grid;place-items:center;font-size:12px;z-index:2;box-shadow:0 0 16px -2px var(--ev-color,var(--emerald))}
 .ch-event-card{position:relative;border-radius:18px;padding:20px 22px;background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,.008));border:1px solid var(--line);transition:all .3s;overflow:hidden}
 .ch-event-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--ev-color,var(--emerald));opacity:.7}
@@ -265,9 +238,8 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .ch-empty-ico{font-size:64px;opacity:.35;margin-bottom:20px;display:block}
 .ch-empty h3{font-family:'Manrope',sans-serif;font-size:24px;font-weight:800;color:#fff;margin-bottom:10px}
 .ch-empty p{color:var(--muted);font-size:14px;max-width:480px;margin:0 auto 24px}
-/* АЛЬБОМ */
 .album-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
-.album-item{position:relative;border-radius:16px;overflow:hidden;background:rgba(255,255,255,.02);border:1px solid var(--line);cursor:pointer;transition:all .3s;aspect-ratio:1;opacity:0;animation:fadeUp .5s ease forwards}
+.album-item{position:relative;border-radius:16px;overflow:hidden;background:rgba(255,255,255,.02);border:1px solid var(--line);cursor:pointer;aspect-ratio:1}
 .album-item:hover{transform:translateY(-6px) scale(1.02);border-color:var(--line-2)}
 .album-item img{width:100%;height:100%;object-fit:cover;display:block}
 .album-item-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.85));display:flex;flex-direction:column;justify-content:flex-end;padding:14px;pointer-events:none}
@@ -281,15 +253,14 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .empty-state .ico{font-size:48px;margin-bottom:16px;opacity:.4}
 .empty-state h3{font-family:'Manrope',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:10px}
 .empty-state p{color:var(--muted);font-size:14px}
-/* МОДАЛКИ */
 .modal-overlay{position:fixed;inset:0;background:rgba(3,6,5,.75);backdrop-filter:blur(8px);display:grid;place-items:center;z-index:1000;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s;padding:24px;overflow-y:auto}
 .modal-overlay.open{opacity:1;visibility:visible}
-.modal{width:100%;max-width:900px;background:var(--bg-2);border:1px solid var(--line-2);border-radius:24px;overflow:hidden;transform:scale(.92) translateY(30px);transition:transform .4s cubic-bezier(.34,1.4,.64,1);position:relative;max-height:calc(100vh - 48px);display:flex;flex-direction:column;box-shadow:0 40px 80px -20px rgba(0,0,0,.9)}
+.modal{width:100%;max-width:900px;background:var(--bg-2);border:1px solid var(--line-2);border-radius:24px;overflow:hidden;transform:scale(.92) translateY(30px);transition:transform .4s;position:relative;max-height:calc(100vh - 48px);display:flex;flex-direction:column;box-shadow:0 40px 80px -20px rgba(0,0,0,.9)}
 .modal-overlay.open .modal{transform:scale(1) translateY(0)}
 .modal-head{padding:24px 28px 18px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-shrink:0}
 .modal-head h2{font-family:'Manrope',sans-serif;font-size:24px;font-weight:800;color:#fff;margin-bottom:6px}
 .modal-head p{color:var(--muted);font-size:13px;font-family:'JetBrains Mono',monospace}
-.modal-close{width:36px;height:36px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text-2);cursor:pointer;display:grid;place-items:center;font-size:16px;transition:all .2s;flex-shrink:0}
+.modal-close{width:36px;height:36px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text-2);cursor:pointer;display:grid;place-items:center;font-size:16px;flex-shrink:0}
 .modal-close:hover{color:#fff;background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.35);transform:rotate(90deg)}
 .modal-body{padding:24px 28px 28px;overflow-y:auto}
 #ach-modal .modal,#ch-event-modal .modal,#ach-picker-modal .modal{max-width:720px}
@@ -298,43 +269,42 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 #rules-modal .modal{max-width:820px}
 #ach-view-modal .modal{max-width:640px}
 #city-modal .modal{max-width:900px}
-#album-view .modal{width:auto;max-width:min(1000px,calc(100vw - 48px));background:var(--bg-2)}
+#album-view .modal{width:auto;max-width:min(1000px,calc(100vw - 48px))}
 #album-view .modal-body{padding:0;display:flex;align-items:center;justify-content:center}
 #album-view img{max-width:100%;max-height:80vh;width:auto;height:auto;display:block}
 #admin-modal .modal{max-width:1100px}
 #admin-modal .modal-body{padding:0}
 .form-row{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
-.form-row label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
-.form-row input,.form-row textarea,.form-row select{padding:11px 14px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text);border-radius:10px;font-family:inherit;font-size:14px;transition:all .15s}
+.form-row label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase}
+.form-row input,.form-row textarea,.form-row select{padding:11px 14px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text);border-radius:10px;font-family:inherit;font-size:14px}
 .form-row input:focus,.form-row textarea:focus,.form-row select:focus{outline:none;border-color:var(--emerald)}
 .form-row textarea{min-height:90px;font-family:'JetBrains Mono',monospace;font-size:13px;resize:vertical}
 .form-info{padding:12px 16px;border-radius:12px;background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.25);font-size:13px;color:var(--text-2);line-height:1.5;margin-bottom:16px}
 .form-info strong{color:#fff}
 .form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.btn-primary{padding:12px 24px;border-radius:100px;background:var(--emerald);border:none;color:#062a1c;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-primary{padding:12px 24px;border-radius:100px;background:var(--emerald);border:none;color:#062a1c;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer}
 .btn-primary:hover{background:var(--emerald-2);transform:translateY(-1px)}
-.btn-discord-share{padding:12px 24px;border-radius:100px;background:var(--discord);border:none;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;justify-content:center;gap:8px}
-.btn-discord-share:hover{background:var(--discord-2);transform:translateY(-1px)}
+.btn-discord-share{padding:12px 24px;border-radius:100px;background:var(--discord);border:none;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn-discord-share:hover{background:var(--discord-2)}
 .btn-discord-share svg{width:16px;height:16px;fill:currentColor}
 .ch-type-picker{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.ch-type-opt{padding:8px 14px;border-radius:100px;background:rgba(255,255,255,.03);border:1.5px solid var(--line-2);color:var(--text-2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.ch-type-opt{padding:8px 14px;border-radius:100px;background:rgba(255,255,255,.03);border:1.5px solid var(--line-2);color:var(--text-2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
 .ch-type-opt.active{background:var(--tc-bg);color:var(--tc);border-color:var(--tc)}
 .pf-banner{position:relative;padding:36px 24px 24px;background:radial-gradient(circle at 30% 30%,rgba(16,185,129,.22),transparent 60%),radial-gradient(circle at 70% 70%,rgba(139,92,246,.18),transparent 60%),#0a0d14;text-align:center;overflow:hidden}
-.pf-avatar{width:120px;height:120px;border-radius:22px;image-rendering:pixelated;background:#000;border:3px solid rgba(139,92,246,.6);display:block;object-fit:cover;animation:glow 3s ease-in-out infinite;margin:0 auto 16px;position:relative;z-index:2}
+.pf-avatar{width:120px;height:120px;border-radius:22px;image-rendering:pixelated;background:#000;border:3px solid rgba(139,92,246,.6);display:block;object-fit:cover;margin:0 auto 16px;position:relative;z-index:2}
 .pf-nick{font-family:'Manrope',sans-serif;font-size:26px;font-weight:800;color:#fff;margin-bottom:6px;position:relative;z-index:2}
 .pf-titles{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;position:relative;z-index:2}
 .pf-title{padding:5px 12px;border-radius:100px;font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace;background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(236,72,153,.15));border:1px solid rgba(139,92,246,.4);color:#fff;display:inline-flex;align-items:center;gap:5px}
 .pf-actions{padding:16px 24px 24px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.pf-action-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid var(--line-2);color:var(--text-2);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none;font-family:inherit}
+.pf-action-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid var(--line-2);color:var(--text-2);font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;font-family:inherit}
 .pf-action-btn:hover{color:#fff;border-color:rgba(255,255,255,.25);transform:translateY(-2px)}
-/* АДМИНКА */
 .admin-tabs{display:flex;gap:2px;padding:4px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);margin:0 28px 20px;overflow-x:auto}
-.admin-tab{padding:9px 18px;border-radius:100px;background:transparent;border:none;color:var(--text-2);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;transition:all .2s;font-family:inherit}
+.admin-tab{padding:9px 18px;border-radius:100px;background:transparent;border:none;color:var(--text-2);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;font-family:inherit}
 .admin-tab.active{background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff}
 .admin-tab .tab-badge{min-width:18px;height:18px;padding:0 5px;background:var(--red);color:#fff;font-size:10px;font-weight:700;border-radius:100px;display:grid;place-items:center}
 .admin-pane{display:none;padding:0 28px 28px}
 .admin-pane.active{display:block}
-.admin-btn{padding:10px 18px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:1px solid transparent;transition:all .2s;font-family:inherit}
+.admin-btn{padding:10px 18px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:1px solid transparent;font-family:inherit}
 .admin-btn.primary{background:var(--emerald);color:#062a1c}
 .admin-btn.ghost{background:rgba(255,255,255,.03);border-color:var(--line-2);color:var(--text-2)}
 .admin-btn.purple{background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff}
@@ -351,7 +321,7 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .mod-info .mod-desc{font-size:12px;color:var(--text-2);margin-bottom:6px}
 .mod-info .mod-link{font-size:11px;color:var(--purple-2);font-family:'JetBrains Mono',monospace;word-break:break-all}
 .mod-actions{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
-.mod-btn{padding:8px 14px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid transparent;transition:all .2s;font-family:inherit}
+.mod-btn{padding:8px 14px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid transparent;font-family:inherit}
 .mod-btn.approve{background:var(--emerald);color:#062a1c}
 .mod-btn.reject{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.3);color:var(--red-2)}
 .mod-btn.ghost{background:rgba(255,255,255,.05);border-color:var(--line-2);color:var(--text-2)}
@@ -360,7 +330,6 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .admin-toast{margin-top:14px;font-size:14px;font-weight:500;min-height:20px}
 .admin-toast.ok{color:var(--emerald-2)}
 .admin-toast.err{color:var(--red-2)}
-/* КАРТА */
 .map-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:32px}
 @media(max-width:900px){.map-tiles{grid-template-columns:repeat(2,1fr)}}
 .map-tile{padding:20px;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.008));border:1px solid var(--line);position:relative;overflow:hidden;transition:all .35s}
@@ -368,10 +337,10 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .map-tile:hover{transform:translateY(-4px);border-color:var(--tc,var(--emerald))}
 .map-tile-icon{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:22px;background:rgba(255,255,255,.04);border:1px solid var(--line-2);margin-bottom:12px}
 .map-tile-value{font-family:'Manrope',sans-serif;font-size:30px;font-weight:900;color:#fff;line-height:1}
-.map-tile-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:6px}
+.map-tile-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;margin-top:6px}
 .online-strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;padding:16px;border-radius:20px;background:linear-gradient(135deg,rgba(16,185,129,.06),rgba(6,182,212,.03));border:1px solid rgba(16,185,129,.25);margin-bottom:32px}
-.online-card{display:flex;align-items:center;gap:10px;padding:8px;border-radius:12px;background:rgba(0,0,0,.25);border:1px solid var(--line);cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
-.online-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--emerald-2);box-shadow:0 0 8px var(--emerald-2)}
+.online-card{display:flex;align-items:center;gap:10px;padding:8px;border-radius:12px;background:rgba(0,0,0,.25);border:1px solid var(--line);cursor:pointer;position:relative;overflow:hidden}
+.online-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--emerald-2)}
 .online-card:hover{transform:translateX(4px);border-color:var(--emerald);background:rgba(16,185,129,.08)}
 .online-card img{width:36px;height:36px;border-radius:9px;image-rendering:pixelated;border:2px solid var(--line-2);flex-shrink:0}
 .online-card .oc-name{font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -379,7 +348,7 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .city-block{margin-bottom:28px}
 .city-block-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-radius:18px 18px 0 0;background:linear-gradient(90deg,var(--cbg),transparent);border:1px solid var(--line);border-bottom:1px solid var(--cc)}
 .city-block-left{display:flex;align-items:center;gap:14px;min-width:0}
-.city-block-icon{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:26px;background:var(--cbg);border:2px solid var(--cc);box-shadow:0 0 20px -6px var(--cc);flex-shrink:0}
+.city-block-icon{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:26px;background:var(--cbg);border:2px solid var(--cc);flex-shrink:0}
 .city-block-name{font-family:'Manrope',sans-serif;font-size:22px;font-weight:900;color:#fff;line-height:1.1}
 .city-block-mayor{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cc);font-weight:700;margin-top:3px}
 .city-block-count{font-family:'JetBrains Mono',monospace;font-size:12px;padding:6px 12px;border-radius:100px;background:var(--cbg);border:1px solid var(--cc);color:var(--cc);font-weight:700;flex-shrink:0}
@@ -402,25 +371,23 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .city-hero-mayor .label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase}
 .city-hero-mayor .name{font-family:'Manrope',sans-serif;font-size:15px;font-weight:800;color:#fff;margin-top:1px}
 .city-residents-full{padding:22px 28px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-.city-resident-card{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;background:rgba(255,255,255,.02);border:1px solid var(--line);cursor:pointer;transition:all .2s}
+.city-resident-card{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;background:rgba(255,255,255,.02);border:1px solid var(--line);cursor:pointer}
 .city-resident-card:hover{transform:translateY(-3px);border-color:var(--city-color);background:var(--city-color-bg)}
 .city-resident-card img{width:40px;height:40px;border-radius:10px;image-rendering:pixelated;border:2px solid var(--line-2);flex-shrink:0}
 .city-resident-card .rname{font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .city-resident-card .rbadge{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;color:var(--city-color);text-transform:uppercase;margin-top:2px}
-/* ИГРОКИ */
 .players-toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
 .players-search{flex:1;min-width:220px;padding:11px 16px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text);border-radius:100px;font-size:14px;font-family:inherit}
 .players-search:focus{outline:none;border-color:var(--emerald)}
 .players-sort{display:flex;gap:6px;flex-wrap:wrap}
 .players-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
-.player-card{display:flex;align-items:center;gap:12px;padding:14px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.005));border:1px solid var(--line);cursor:pointer;transition:all .25s;opacity:0;animation:fadeUp .4s ease forwards}
+.player-card{display:flex;align-items:center;gap:12px;padding:14px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.005));border:1px solid var(--line);cursor:pointer}
 .player-card:hover{transform:translateY(-3px);border-color:var(--line-2)}
 .player-card img{width:52px;height:52px;border-radius:12px;image-rendering:pixelated;border:2px solid var(--line-2);background:#000;flex-shrink:0}
 .player-card .pc-info{min-width:0;flex:1}
 .player-card .pc-name{font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:6px}
 .player-card .pc-meta{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .player-card .pc-ach{font-family:'Manrope',sans-serif;font-weight:900;font-size:18px;color:var(--emerald-2);flex-shrink:0}
-/* СТРИМЫ */
 .streams-layout{display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start}
 @media(max-width:1000px){.streams-layout{grid-template-columns:1fr}}
 .stream-player-wrap{border-radius:20px;overflow:hidden;background:rgba(255,255,255,.015);border:1px solid var(--line)}
@@ -430,7 +397,7 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .stream-avatar img{width:100%;height:100%;object-fit:cover;display:block}
 .stream-name{font-weight:700;font-size:15px;color:#fff;margin-bottom:2px}
 .stream-meta{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace}
-.stream-open{padding:8px 14px;border-radius:100px;background:var(--twitch,#9146ff);color:#fff;font-size:12px;font-weight:700;text-decoration:none;flex-shrink:0}
+.stream-open{padding:8px 14px;border-radius:100px;background:#9146ff;color:#fff;font-size:12px;font-weight:700;text-decoration:none;flex-shrink:0}
 .stream-iframe-wrap{position:relative;width:100%;aspect-ratio:16/9;background:#000}
 .stream-iframe-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .stream-placeholder{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--muted);font-size:14px;gap:10px;background:#000}
@@ -442,13 +409,12 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .stream-filter{flex:1;padding:7px 10px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text-2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
 .stream-filter.active{background:linear-gradient(135deg,var(--purple),var(--pink));border-color:transparent;color:#fff}
 .stream-list{display:flex;flex-direction:column;gap:6px;overflow-y:auto;flex:1}
-.stream-item{display:grid;grid-template-columns:40px 1fr auto;gap:10px;align-items:center;padding:10px;border-radius:12px;background:rgba(255,255,255,.02);border:1px solid transparent;cursor:pointer;transition:all .25s}
+.stream-item{display:grid;grid-template-columns:40px 1fr auto;gap:10px;align-items:center;padding:10px;border-radius:12px;background:rgba(255,255,255,.02);border:1px solid transparent;cursor:pointer}
 .stream-item:hover{background:rgba(255,255,255,.05);border-color:var(--line-2)}
 .stream-item.active{background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(236,72,153,.08));border-color:rgba(139,92,246,.4)}
 .stream-item.offline{opacity:.55}
 .stream-item-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,rgba(139,92,246,.3),rgba(236,72,153,.2));display:grid;place-items:center;font-weight:800;color:#fff;font-size:14px;position:relative;overflow:hidden}
 .stream-item-avatar img{width:100%;height:100%;object-fit:cover;display:block}
-.stream-item-avatar .live-ring{position:absolute;inset:-3px;border:2px solid var(--red-2);border-radius:50%;animation:pulse-ring 1.5s infinite}
 .stream-item-info{min-width:0}
 .stream-item-name{font-weight:700;font-size:13px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px}
 .stream-item-note{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -457,28 +423,23 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .stream-item-status.offline{color:var(--muted-2)}
 .stream-empty{padding:30px 20px;text-align:center;color:var(--muted);font-size:12px;font-family:'JetBrains Mono',monospace;border:1px dashed var(--line-2);border-radius:12px}
 .stream-offline-card{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;background:#0a0a0f;text-align:center}
-.stream-offline-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,#9146ff,#a970ff);display:grid;place-items:center;font-weight:800;color:#fff;font-size:34px;overflow:hidden;flex-shrink:0;border:3px solid rgba(145,70,255,.5)}
+.stream-offline-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,#9146ff,#a970ff);display:grid;place-items:center;font-weight:800;color:#fff;font-size:34px;overflow:hidden;flex-shrink:0}
 .stream-offline-avatar img{width:100%;height:100%;object-fit:cover;display:block}
 .stream-offline-nick{font-family:'Manrope',sans-serif;font-size:22px;font-weight:800;color:#fff}
 .stream-offline-status{font-size:14px;color:var(--muted);display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace}
 .stream-offline-status .dot-off{width:8px;height:8px;border-radius:50%;background:var(--muted-2)}
-.stream-offline-btn{margin-top:8px;display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:100px;background:transparent;border:1px solid rgba(255,255,255,.25);color:#fff;font-family:inherit;font-size:14px;font-weight:600;text-decoration:none;cursor:pointer;transition:all .2s}
-.stream-offline-btn:hover{background:var(--twitch,#9146ff);border-color:var(--twitch,#9146ff);transform:translateY(-2px)}
-/* ВЕРИФИКАТОР */
+.stream-offline-btn{margin-top:8px;display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:100px;background:transparent;border:1px solid rgba(255,255,255,.25);color:#fff;font-family:inherit;font-size:14px;font-weight:600;text-decoration:none;cursor:pointer}
 .verify-tabs{display:flex;gap:4px;padding:4px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);margin-bottom:20px;flex-wrap:wrap}
-.verify-tab{flex:1;min-width:120px;padding:10px 14px;border-radius:100px;background:transparent;border:none;color:var(--text-2);font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;transition:all .25s;white-space:nowrap}
+.verify-tab{flex:1;min-width:120px;padding:10px 14px;border-radius:100px;background:transparent;border:none;color:var(--text-2);font-family:inherit;font-size:12px;font-weight:700;cursor:pointer}
 .verify-tab.active{background:linear-gradient(135deg,var(--emerald),var(--cyan));color:#062a1c}
-.method-pane{display:none;animation:fadeUp .3s ease}
+.method-pane{display:none}
 .method-pane.active{display:block}
 .code-box{display:flex;flex-direction:column;align-items:center;padding:20px;border-radius:16px;background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(236,72,153,.06));border:1px solid rgba(139,92,246,.35);margin:16px 0}
-.code-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
-.code-value{font-family:'JetBrains Mono',monospace;font-size:38px;font-weight:900;color:#fff;letter-spacing:.14em;text-shadow:0 0 20px rgba(139,92,246,.7);cursor:pointer;transition:all .2s;user-select:all}
-.code-value:hover{transform:scale(1.05)}
+.code-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+.code-value{font-family:'JetBrains Mono',monospace;font-size:38px;font-weight:900;color:#fff;letter-spacing:.14em;cursor:pointer;user-select:all}
 .code-copy-hint{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:6px}
 .chat-example{padding:16px;border-radius:12px;background:rgba(0,0,0,.4);border:1px solid var(--line-2);font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.7;margin:12px 0;position:relative}
 .chat-example::before{content:'💬 Команда в игре';position:absolute;top:-9px;left:14px;padding:0 8px;background:var(--bg-2);font-size:10px;color:var(--muted);text-transform:uppercase}
-.chat-example .player{color:#fbbf24;font-weight:700}
-.chat-example .text{color:#fff}
 .chat-example .code-in-chat{color:var(--purple-2);font-weight:700;text-decoration:underline}
 .steps-mini{display:flex;flex-direction:column;gap:8px;margin:14px 0}
 .step-mini{display:flex;gap:10px;padding:10px 14px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid var(--line);font-size:13px;color:var(--text-2);line-height:1.5}
@@ -491,11 +452,11 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .verify-progress{height:6px;border-radius:100px;background:rgba(255,255,255,.05);overflow:hidden;margin-top:12px}
 .verify-progress-fill{height:100%;background:linear-gradient(90deg,var(--emerald),var(--cyan));border-radius:100px;transition:width .5s}
 .hidden{display:none!important}
-footer{padding:40px 32px;border-top:1px solid var(--line);position:relative;z-index:1;text-align:center;color:var(--muted);font-size:13px}
+footer{padding:40px 32px;border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:13px}
 footer .heart{color:var(--red-2);animation:dp 1.5s infinite}
 .footer-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:16px}
-.footer-link{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text-2);text-decoration:none;font-size:13px;font-weight:600;transition:all .2s}
-.footer-link:hover{color:#fff;border-color:rgba(255,255,255,.25);transform:translateY(-2px)}
+.footer-link{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:100px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text-2);text-decoration:none;font-size:13px;font-weight:600}
+.footer-link:hover{color:#fff;border-color:rgba(255,255,255,.25)}
 .footer-link svg{width:14px;height:14px;fill:currentColor}
 footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted-2);margin-top:8px}
 @media(max-width:900px){
@@ -584,7 +545,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
           <div class="rules-banner-icon">📖</div>
           <div>
             <div class="rules-banner-title">Правила получения достижений</div>
-            <div class="rules-banner-sub">Коротко о том, как получить ачивку — кликни, чтобы развернуть</div>
+            <div class="rules-banner-sub">Коротко — кликни, чтобы развернуть</div>
           </div>
           <div class="rules-banner-arrow">▼</div>
         </div>
@@ -602,7 +563,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
     <section class="hero">
       <div class="breadcrumb"><span>Летопись сервера</span><span class="dot">·</span><span>ПТУ SMP</span><span class="dot">·</span><span id="ch-hero-count">0 событий</span></div>
       <h1>История сервера<br><span class="purple">по годам и дням.</span></h1>
-      <p>Каждое важное событие сервера. <strong>Любой игрок может предложить событие</strong> — оно уйдёт модератору.</p>
+      <p>Каждое важное событие. <strong>Любой игрок может предложить событие</strong> — оно уйдёт модератору.</p>
     </section>
     <section class="section" style="padding-top:0">
       <div class="chronicle-stats" id="ch-stats"></div>
@@ -686,7 +647,6 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
       <h1>Карта, города и <span class="emerald">жители.</span></h1>
       <p>Интерактивная карта сервера, все города с мэрами, кто где живёт и кто онлайн прямо сейчас.</p>
     </section>
-
     <section class="section" style="padding-top:0">
       <div class="map-block">
         <div class="map-block-icon">🗺️</div>
@@ -697,14 +657,8 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
           <span>Открыть карту мира</span>
           <span class="map-btn-arrow">→</span>
         </a>
-        <div class="map-block-stats">
-          <div class="map-block-stat"><span class="n">4000</span><span class="l">блоков радиус</span></div>
-          <div class="map-block-stat"><span class="n" id="map-stat-cities">5</span><span class="l">городов</span></div>
-          <div class="map-block-stat"><span class="n" id="map-stat-residents">38</span><span class="l">жителей</span></div>
-        </div>
       </div>
     </section>
-
     <section class="section" style="padding-top:0">
       <div class="section-head" style="margin-bottom:14px">
         <div><h2 style="font-size:24px">🟢 Сейчас в игре</h2><p>Обновляется каждую минуту</p></div>
@@ -714,7 +668,6 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
         <div class="no-residents" style="grid-column:1/-1">⏳ Загрузка…</div>
       </div>
     </section>
-
     <section class="section" style="padding-top:0">
       <div class="section-head" style="margin-bottom:14px">
         <div><h2 style="font-size:24px">🏙️ Города и жители</h2><p>Кто где живёт и кто правит</p></div>
@@ -766,7 +719,6 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
   <div class="form-row"><label>Заголовок</label><input type="text" id="ch-title" placeholder="Основан город Невервуд" maxlength="120"></div>
   <div class="form-row"><label>Описание</label><textarea id="ch-text" placeholder="Подробно опиши событие..." maxlength="800"></textarea></div>
   <div class="form-row"><label>Ссылка на картинку (необязательно)</label><input type="url" id="ch-image" placeholder="https://i.imgur.com/xxxxx.png"></div>
-  <div id="ch-image-preview" style="margin-bottom:14px"></div>
   <div class="form-row"><label>Твой ник</label><input type="text" id="ch-author" placeholder="Steve" maxlength="20"></div>
   <button class="btn-primary" id="ch-save-btn" onclick="saveChronicleEvent()" style="width:100%">📤 Отправить</button>
   <div id="ch-modal-toast" class="admin-toast"></div>
@@ -802,9 +754,8 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
       <button class="admin-tab" data-tab="ch-submissions">📜 Летопись <span class="tab-badge hidden" id="chsub-badge">0</span></button>
       <button class="admin-tab" data-tab="album-submissions">📸 Альбом <span class="tab-badge hidden" id="album-badge">0</span></button>
       <button class="admin-tab" data-tab="nick-requests">🎮 Ники <span class="tab-badge hidden" id="nick-badge">0</span></button>
-      <button class="admin-tab" data-tab="chronicle">📖 Летопись (управление)</button>
+      <button class="admin-tab" data-tab="chronicle">📖 Управление летописью</button>
       <button class="admin-tab" data-tab="players">👥 Игроки</button>
-      <button class="admin-tab admin-only" data-tab="webhook">🔔 Вебхук</button>
       <button class="admin-tab admin-only" data-tab="data">💾 Данные</button>
     </div>
     <div class="admin-pane active" id="pane-ach-submissions"><div id="ach-subs-list"></div></div>
@@ -812,34 +763,26 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
     <div class="admin-pane" id="pane-album-submissions"><div id="album-subs-list"></div></div>
     <div class="admin-pane" id="pane-nick-requests"><div id="nick-requests-list"></div></div>
     <div class="admin-pane" id="pane-chronicle">
-      <div style="font-size:13px;color:var(--muted);margin-bottom:16px">Все события летописи. Добавляй, редактируй, удаляй.</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:16px">Все события летописи.</div>
       <button class="admin-btn primary" onclick="closeAdminModal();openChronicleModal(null,true)">➕ Добавить напрямую</button>
       <div style="height:20px"></div>
       <div id="chronicle-admin-list"></div>
     </div>
-    <div class="admin-pane" id="pane-players">
-      <div style="font-size:13px;color:var(--muted);margin-bottom:12px">Модераторы могут выдавать ачивки и менять место. Удалять игроков — только админ.</div>
-      <div id="admin-players-list"></div>
-    </div>
-    <div class="admin-pane admin-only" id="pane-webhook">
-      <div class="form-info">🔔 <strong>Discord вебхук</strong> — сюда будут приходить уведомления о новых заявках (ачивки, летопись, альбом, привязки).<br><br>Как получить:<br>1. Зайди в Discord → настройки канала → Интеграции → Вебхуки<br>2. Создай вебхук, скопируй URL<br>3. Вставь сюда</div>
-      <div class="admin-form-row"><label>URL вебхука Discord</label><input type="url" id="webhook-url-input" placeholder="https://discord.com/api/webhooks/..."></div>
-      <div class="admin-actions"><button class="admin-btn primary" onclick="saveWebhookUrl()">💾 Сохранить</button><button class="admin-btn ghost" onclick="testWebhook()">🧪 Тест</button></div>
-      <div class="admin-toast" id="webhook-toast"></div>
-    </div>
+    <div class="admin-pane" id="pane-players"><div id="admin-players-list"></div></div>
     <div class="admin-pane admin-only" id="pane-data">
       <div class="admin-form-row"><label>Экспорт JSON</label><textarea id="data-export" readonly rows="12" style="font-family:'JetBrains Mono',monospace;font-size:11px"></textarea></div>
       <div class="admin-actions"><button class="admin-btn primary" onclick="copyExport()">Скопировать</button><button class="admin-btn ghost" onclick="downloadExport()">Скачать</button></div>
-      <div style="height:24px;border-top:1px solid var(--line);padding-top:20px;margin-top:20px">
-        <div class="admin-form-row"><label>Импорт JSON</label><textarea id="data-import" placeholder='{"players":[...]}' rows="6"></textarea></div>
-        <div class="admin-actions"><button class="admin-btn purple" onclick="importData()">Импортировать</button></div>
-      </div>
-      <div class="admin-toast" id="data-toast"></div>
     </div>
   </div>
 </div></div>
 
 <script>
+/* ============================================================
+   ПОДКЛЮЧЕНИЕ К DISCORD-БОТУ (Cloudflare Worker)
+   Замени на свой URL из `wrangler deploy`
+   ============================================================ */
+const BOT_API_URL = 'https://ptu-smp-bot.maratdzhagiev88.workers.dev';
+
 /* ===== CONFIG ===== */
 const DISCORD_CLIENT_ID = '1549536016560423053';
 const DISCORD_REDIRECT_URI = 'https://misty-wood-5387.maratdzhagiev88.workers.dev';
@@ -854,25 +797,12 @@ const STREAMERS = [
   { twitch: 'kopch02', display: 'kopch', note: 'разраб' },
 ];
 
-/* ВСТАВЬ СЮДА URL ВЕБХУКА DISCORD — уведомления о новых заявках */
-const DISCORD_WEBHOOK_URL = '';
-
 const CITIES = [
-  { id: 'gkb', name: 'ГКБ', icon: '🏥', mayor: 'Miwaperwin777', colorRaw: '#10b981',
-    description: 'Главный координационный блок — центральное сообщество сервера.',
-    residents: ['Miwaperwin777', 'NikitaSa', 'baton11313', 'chilovsky', 'roroma'] },
-  { id: 'npz', name: 'НПЗ', icon: '🏭', mayor: 'bambambombompuk', colorRaw: '#f59e0b',
-    description: 'Нефтеперерабатывающий завод — промышленное сердце сервера.',
-    residents: ['bambambombompuk', 'BimBim', 'MightyG', 'Tair'] },
-  { id: 'ostrova', name: 'Острова желаний', icon: '🏝️', mayor: 'Arisych', colorRaw: '#06b6d4',
-    description: 'Райский архипелаг — базы на островах с уникальной архитектурой.',
-    residents: ['Arisych', 'sadvely', 'Aron4ikk', 'Andrey500z', 'rewom5373', 'ezpotato111', 'xxevgehaxx'] },
-  { id: 'putana', name: 'Путана Ленд', icon: '🌴', mayor: '_DeD_48_', colorRaw: '#ec4899',
-    description: 'Самая большая коммуна сервера — тут живёт больше всех игроков.',
-    residents: ['_DeD_48_', 'temniy_da', 'Melkuia', 'givingO_2', 'Stallkpo', 'Mr_Baby_9638', 'Fava2022', 'Koffe_lov', '_Felix', 'Arkadeon', 'Ronz1k', 'VoKa_Play1'] },
-  { id: 'sosi', name: 'СОСИ', icon: '🛢️', mayor: 'StuART_Original', colorRaw: '#8b5cf6',
-    description: 'Строительная организация серверных инженеров.',
-    residents: ['StuART_Original', 'Aleks_Bur', 'DemonRaflius', 'tek1q', 'Vipa_4', 'EVGEXA', 'kopch02'] },
+  { id: 'gkb', name: 'ГКБ', icon: '🏥', mayor: 'Miwaperwin777', colorRaw: '#10b981', description: 'Главный координационный блок.', residents: ['Miwaperwin777', 'NikitaSa', 'baton11313', 'chilovsky', 'roroma'] },
+  { id: 'npz', name: 'НПЗ', icon: '🏭', mayor: 'bambambombompuk', colorRaw: '#f59e0b', description: 'Нефтеперерабатывающий завод.', residents: ['bambambombompuk', 'BimBim', 'MightyG', 'Tair'] },
+  { id: 'ostrova', name: 'Острова желаний', icon: '🏝️', mayor: 'Arisych', colorRaw: '#06b6d4', description: 'Райский архипелаг.', residents: ['Arisych', 'sadvely', 'Aron4ikk', 'Andrey500z', 'rewom5373', 'ezpotato111', 'xxevgehaxx'] },
+  { id: 'putana', name: 'Путана Ленд', icon: '🌴', mayor: '_DeD_48_', colorRaw: '#ec4899', description: 'Крупнейшая коммуна.', residents: ['_DeD_48_', 'temniy_da', 'Melkuia', 'givingO_2', 'Stallkpo', 'Mr_Baby_9638', 'Fava2022', 'Koffe_lov', '_Felix', 'Arkadeon', 'Ronz1k', 'VoKa_Play1'] },
+  { id: 'sosi', name: 'СОСИ', icon: '🛢️', mayor: 'StuART_Original', colorRaw: '#8b5cf6', description: 'Строительная организация.', residents: ['StuART_Original', 'Aleks_Bur', 'DemonRaflius', 'tek1q', 'Vipa_4', 'EVGEXA', 'kopch02'] },
 ];
 
 const CH_TYPES = [
@@ -887,94 +817,93 @@ const CH_TYPES = [
 ];
 
 const ACH_RULES = [
-  { icon:'📸', title:'Пруф обязателен', text:'Каждая заявка должна содержать <strong>скриншот</strong> с выполнением условия.' },
-  { icon:'🕐', title:'Срок проверки', text:'Модерация проверяет заявки в течение <strong>24–48 часов</strong>.' },
-  { icon:'🎮', title:'Ник должен совпадать', text:'Пруф должен быть под ником, привязанным к твоему <strong>Discord</strong>.' },
+  { icon:'📸', title:'Пруф обязателен', text:'Каждая заявка должна содержать <strong>скриншот</strong>.' },
+  { icon:'🕐', title:'Срок проверки', text:'Модерация проверяет <strong>24–48 часов</strong>.' },
+  { icon:'🎮', title:'Ник должен совпадать', text:'Пруф под ником, привязанным к <strong>Discord</strong>.' },
   { icon:'🚫', title:'Без читов', text:'Запрещены читы, x-ray, автокликер.' },
-  { icon:'🔁', title:'Одна ачивка = одна заявка', text:'Нельзя получить одно достижение дважды.' },
-  { icon:'📝', title:'Пиши подробно', text:'Укажи <strong>координаты, ник, дату</strong> в комментарии.' },
+  { icon:'🔁', title:'Одна ачивка = одна заявка', text:'Нельзя получить дважды.' },
+  { icon:'📝', title:'Пиши подробно', text:'Координаты, ник, дату.' },
   { icon:'🛠️', title:'Что считается пруфом', text:'Скрин постройки, видео, F3, скрин мода.' },
   { icon:'🏆', title:'Спорные случаи', text:'Решает админ.' },
 ];
 
 const ACH_CATEGORIES = [
   { id:'create', name:'Create / Инженерия', sub:'Механизмы, логистика, автоматизация', icon:'⚙️' },
-  { id:'weapons', name:'Оружие и защита', sub:'Big Cannons, Gunsmithing, Access Denied', icon:'💥' },
+  { id:'weapons', name:'Оружие и защита', sub:'Big Cannons, Gunsmithing', icon:'💥' },
   { id:'aero', name:'Авиация', sub:'Aeronautics, Jetpack', icon:'✈️' },
   { id:'power', name:'Энергетика', sub:'New Age, Generators', icon:'⚡' },
-  { id:'spec', name:'Специализированные', sub:'Central Kitchen, Enchantment Industry', icon:'🧪' },
+  { id:'spec', name:'Специализированные', sub:'Central Kitchen, Enchantment', icon:'🧪' },
   { id:'server', name:'Вклад в сервер', sub:'Всё для сообщества', icon:'🏛️' },
-  { id:'special', name:'Особые', sub:'Выдаются за особые заслуги', icon:'🌟' },
+  { id:'special', name:'Особые', sub:'За особые заслуги', icon:'🌟' },
 ];
 
 const DEFAULT_ACHIEVEMENTS = [
-  { id:'factory_100', cat:'create', icon:'🏭', name:'Мега-завод', desc:'Завод из 100+ механизмов Create в единой цепи', tag:'Create', rarity:'epic' },
-  { id:'full_cycle', cat:'create', icon:'♻️', name:'Полный цикл', desc:'Автономная база: добывает, перерабатывает, крафтит сутки', tag:'Create', rarity:'legendary' },
-  { id:'train_10', cat:'create', icon:'🚂', name:'Поезд-гигант', desc:'Поезд из 10+ вагонов на своём маршруте', tag:'Create', rarity:'epic' },
-  { id:'station_auto', cat:'create', icon:'🚉', name:'Автоматический вокзал', desc:'Станция с расписанием и автоматической погрузкой', tag:'Create', rarity:'legendary' },
-  { id:'contraption_20', cat:'create', icon:'🏗️', name:'Подвижный гигант', desc:'Контрапшн 20×20×20+ блоков', tag:'Create', rarity:'legendary' },
-  { id:'fluid_3in1', cat:'create', icon:'💧', name:'Гидроинженер', desc:'Система с 3+ жидкостями одновременно', tag:'Create', rarity:'epic' },
-  { id:'logic_10', cat:'create', icon:'🧠', name:'Мозг фабрики', desc:'Логическая схема на 10+ процессов', tag:'Create', rarity:'legendary' },
-  { id:'schematic_big', cat:'create', icon:'🖨️', name:'Мастер схематики', desc:'Распечатай Schematicannon 40×40×40+', tag:'Schematic', rarity:'legendary' },
-  { id:'brass_magnate', cat:'create', icon:'🔶', name:'Латунный магнат', desc:'10 000+ латунных слитков через автоматизацию', tag:'Create', rarity:'epic' },
-  { id:'big_mechanism', cat:'create', icon:'🔧', name:'Механический монстр', desc:'Гигантский механизм 500+ блоков', tag:'Create', rarity:'legendary' },
-  { id:'mega_rail', cat:'create', icon:'🛤️', name:'Магистраль', desc:'Ж/д сеть 2000+ блоков с 3+ станциями', tag:'Create', rarity:'legendary' },
-  { id:'storage_5k', cat:'create', icon:'📦', name:'Сортировочный центр', desc:'Хранилище на 5000+ предметов с сортировкой', tag:'Create', rarity:'epic' },
-  { id:'first_cannon', cat:'weapons', icon:'💥', name:'Первый выстрел', desc:'Пушка Create Big Cannons, первый выстрел', tag:'Big Cannons', rarity:'rare' },
-  { id:'siege_cannon', cat:'weapons', icon:'🎯', name:'Осадное орудие', desc:'Пушка калибром 100+ мм', tag:'Big Cannons', rarity:'epic' },
-  { id:'auto_turret', cat:'weapons', icon:'🛡️', name:'Автоматическая турель', desc:'Турель с автозарядкой и наводкой', tag:'Big Cannons', rarity:'epic' },
-  { id:'artillery_salvo', cat:'weapons', icon:'🚀', name:'Артиллерийский залп', desc:'5+ пушек бьют залпом', tag:'Big Cannons', rarity:'legendary' },
-  { id:'first_gun', cat:'weapons', icon:'🔫', name:'Первое огнестрельное', desc:'Огнестрел Create: Gunsmithing', tag:'Gunsmithing', rarity:'rare' },
-  { id:'gun_factory', cat:'weapons', icon:'⚙️', name:'Оружейный цех', desc:'Автоматизация патронов и оружия', tag:'Gunsmithing', rarity:'epic' },
-  { id:'long_shot', cat:'weapons', icon:'🎯', name:'Снайпер', desc:'Попадание на 500+ блоков', tag:'Gunsmithing', rarity:'epic' },
-  { id:'fortress', cat:'weapons', icon:'🏰', name:'Крепость', desc:'База с 5+ турелями и защитой', tag:'Big Cannons', rarity:'legendary' },
-  { id:'base_defense', cat:'weapons', icon:'🔒', name:'Секретная база', desc:'Access Denied защита базы', tag:'Access Denied', rarity:'epic' },
-  { id:'naval_battle', cat:'weapons', icon:'⚓', name:'Морской бой', desc:'Военный корабль и сражение', tag:'Big Cannons', rarity:'legendary' },
-  { id:'aero_first', cat:'aero', icon:'✈️', name:'Опытный пилот', desc:'Подними в воздух летательный аппарат', tag:'Aeronautics', rarity:'rare' },
-  { id:'aero_heli', cat:'aero', icon:'🚁', name:'Вертолётчик', desc:'Рабочий вертолёт с ротором', tag:'Aeronautics', rarity:'epic' },
-  { id:'aero_airship', cat:'aero', icon:'🛳️', name:'Дирижабль', desc:'Дирижабль 40+ блоков', tag:'Aeronautics', rarity:'legendary' },
-  { id:'aero_border', cat:'aero', icon:'🌍', name:'Через всю карту', desc:'4000+ блоков на одном аппарате', tag:'Aeronautics', rarity:'legendary' },
-  { id:'aero_fleet', cat:'aero', icon:'🛫', name:'Воздушный флот', desc:'3+ аппарата одновременно', tag:'Aeronautics', rarity:'legendary' },
-  { id:'aero_airport', cat:'aero', icon:'🏢', name:'Аэропорт', desc:'Ангар, ВПП, вышка', tag:'Aeronautics', rarity:'legendary' },
-  { id:'jetpack_master', cat:'aero', icon:'🚀', name:'Джетпак', desc:'Джетпак и 1000+ блоков полёта', tag:'Jetpack', rarity:'epic' },
-  { id:'aero_bomber', cat:'aero', icon:'💣', name:'Бомбардировщик', desc:'Самолёт с бомбами, 50+ TNT', tag:'Aeronautics+Cannons', rarity:'legendary' },
-  { id:'first_gen', cat:'power', icon:'🔌', name:'Первый генератор', desc:'Генератор Create: Generators', tag:'Generators', rarity:'rare' },
-  { id:'power_grid', cat:'power', icon:'⚡', name:'Промышленная энергосеть', desc:'1000+ единиц энергии', tag:'Generators', rarity:'epic' },
-  { id:'electricity', cat:'power', icon:'💡', name:'Электрификация', desc:'New Age в масштабе базы', tag:'New Age', rarity:'epic' },
-  { id:'hydro_station', cat:'power', icon:'🌊', name:'ГЭС', desc:'ГЭС на 10+ колёс', tag:'Create', rarity:'epic' },
+  { id:'factory_100', cat:'create', icon:'🏭', name:'Мега-завод', desc:'Завод из 100+ механизмов Create', tag:'Create', rarity:'epic' },
+  { id:'full_cycle', cat:'create', icon:'♻️', name:'Полный цикл', desc:'Автономная база', tag:'Create', rarity:'legendary' },
+  { id:'train_10', cat:'create', icon:'🚂', name:'Поезд-гигант', desc:'10+ вагонов', tag:'Create', rarity:'epic' },
+  { id:'station_auto', cat:'create', icon:'🚉', name:'Автоматический вокзал', desc:'Станция с расписанием', tag:'Create', rarity:'legendary' },
+  { id:'contraption_20', cat:'create', icon:'🏗️', name:'Подвижный гигант', desc:'Контрапшн 20×20×20+', tag:'Create', rarity:'legendary' },
+  { id:'fluid_3in1', cat:'create', icon:'💧', name:'Гидроинженер', desc:'3+ жидкости одновременно', tag:'Create', rarity:'epic' },
+  { id:'logic_10', cat:'create', icon:'🧠', name:'Мозг фабрики', desc:'Схема на 10+ процессов', tag:'Create', rarity:'legendary' },
+  { id:'schematic_big', cat:'create', icon:'🖨️', name:'Мастер схематики', desc:'Schematicannon 40×40×40+', tag:'Schematic', rarity:'legendary' },
+  { id:'brass_magnate', cat:'create', icon:'🔶', name:'Латунный магнат', desc:'10 000+ слитков', tag:'Create', rarity:'epic' },
+  { id:'big_mechanism', cat:'create', icon:'🔧', name:'Механический монстр', desc:'Механизм 500+ блоков', tag:'Create', rarity:'legendary' },
+  { id:'mega_rail', cat:'create', icon:'🛤️', name:'Магистраль', desc:'Ж/д 2000+ блоков', tag:'Create', rarity:'legendary' },
+  { id:'storage_5k', cat:'create', icon:'📦', name:'Сортировочный центр', desc:'5000+ предметов', tag:'Create', rarity:'epic' },
+  { id:'first_cannon', cat:'weapons', icon:'💥', name:'Первый выстрел', desc:'Пушка Big Cannons', tag:'Big Cannons', rarity:'rare' },
+  { id:'siege_cannon', cat:'weapons', icon:'🎯', name:'Осадное орудие', desc:'Пушка 100+ мм', tag:'Big Cannons', rarity:'epic' },
+  { id:'auto_turret', cat:'weapons', icon:'🛡️', name:'Авто-турель', desc:'Турель с автозарядкой', tag:'Big Cannons', rarity:'epic' },
+  { id:'artillery_salvo', cat:'weapons', icon:'🚀', name:'Артзалп', desc:'5+ пушек залпом', tag:'Big Cannons', rarity:'legendary' },
+  { id:'first_gun', cat:'weapons', icon:'🔫', name:'Первое огнестрельное', desc:'Огнестрел Gunsmithing', tag:'Gunsmithing', rarity:'rare' },
+  { id:'gun_factory', cat:'weapons', icon:'⚙️', name:'Оружейный цех', desc:'Автоматизация', tag:'Gunsmithing', rarity:'epic' },
+  { id:'long_shot', cat:'weapons', icon:'🎯', name:'Снайпер', desc:'Попадание 500+ блоков', tag:'Gunsmithing', rarity:'epic' },
+  { id:'fortress', cat:'weapons', icon:'🏰', name:'Крепость', desc:'5+ турелей', tag:'Big Cannons', rarity:'legendary' },
+  { id:'base_defense', cat:'weapons', icon:'🔒', name:'Секретная база', desc:'Access Denied', tag:'Access Denied', rarity:'epic' },
+  { id:'naval_battle', cat:'weapons', icon:'⚓', name:'Морской бой', desc:'Военный корабль', tag:'Big Cannons', rarity:'legendary' },
+  { id:'aero_first', cat:'aero', icon:'✈️', name:'Опытный пилот', desc:'Первый летательный аппарат', tag:'Aeronautics', rarity:'rare' },
+  { id:'aero_heli', cat:'aero', icon:'🚁', name:'Вертолётчик', desc:'Рабочий вертолёт', tag:'Aeronautics', rarity:'epic' },
+  { id:'aero_airship', cat:'aero', icon:'🛳️', name:'Дирижабль', desc:'40+ блоков длиной', tag:'Aeronautics', rarity:'legendary' },
+  { id:'aero_border', cat:'aero', icon:'🌍', name:'Через всю карту', desc:'4000+ блоков', tag:'Aeronautics', rarity:'legendary' },
+  { id:'aero_fleet', cat:'aero', icon:'🛫', name:'Воздушный флот', desc:'3+ аппарата', tag:'Aeronautics', rarity:'legendary' },
+  { id:'aero_airport', cat:'aero', icon:'🏢', name:'Аэропорт', desc:'Ангар+ВПП+вышка', tag:'Aeronautics', rarity:'legendary' },
+  { id:'jetpack_master', cat:'aero', icon:'🚀', name:'Джетпак', desc:'1000+ блоков', tag:'Jetpack', rarity:'epic' },
+  { id:'aero_bomber', cat:'aero', icon:'💣', name:'Бомбардировщик', desc:'50+ TNT', tag:'Aeronautics+Cannons', rarity:'legendary' },
+  { id:'first_gen', cat:'power', icon:'🔌', name:'Первый генератор', desc:'Create Generators', tag:'Generators', rarity:'rare' },
+  { id:'power_grid', cat:'power', icon:'⚡', name:'Промэнергосеть', desc:'1000+ единиц', tag:'Generators', rarity:'epic' },
+  { id:'electricity', cat:'power', icon:'💡', name:'Электрификация', desc:'New Age', tag:'New Age', rarity:'epic' },
+  { id:'hydro_station', cat:'power', icon:'🌊', name:'ГЭС', desc:'10+ колёс', tag:'Create', rarity:'epic' },
   { id:'wind_farm', cat:'power', icon:'🌬️', name:'Ветряная ферма', desc:'10+ ветряков', tag:'Create', rarity:'epic' },
-  { id:'steam_power', cat:'power', icon:'💨', name:'Паровые двигатели', desc:'Паровые двигатели в производстве', tag:'Create', rarity:'epic' },
-  { id:'electric_train', cat:'power', icon:'🚄', name:'Электропоезд', desc:'Поезд на электродвиге', tag:'New Age', rarity:'legendary' },
-  { id:'reactor', cat:'power', icon:'☢️', name:'Реактор', desc:'Масштабный реактор New Age', tag:'New Age', rarity:'legendary' },
-  { id:'kitchen_auto', cat:'spec', icon:'🍳', name:'Автоматическая кухня', desc:'Central Kitchen автоматизация', tag:'Central Kitchen', rarity:'epic' },
-  { id:'restaurant', cat:'spec', icon:'🍽️', name:'Ресторан', desc:'Ресторан с меню', tag:'Central Kitchen', rarity:'legendary' },
+  { id:'steam_power', cat:'power', icon:'💨', name:'Паровые двигатели', desc:'Паровой привод', tag:'Create', rarity:'epic' },
+  { id:'electric_train', cat:'power', icon:'🚄', name:'Электропоезд', desc:'Электродвиг', tag:'New Age', rarity:'legendary' },
+  { id:'reactor', cat:'power', icon:'☢️', name:'Реактор', desc:'Масштабный реактор', tag:'New Age', rarity:'legendary' },
+  { id:'kitchen_auto', cat:'spec', icon:'🍳', name:'Авто-кухня', desc:'Central Kitchen', tag:'Central Kitchen', rarity:'epic' },
+  { id:'restaurant', cat:'spec', icon:'🍽️', name:'Ресторан', desc:'С меню', tag:'Central Kitchen', rarity:'legendary' },
   { id:'enchant_auto', cat:'spec', icon:'✨', name:'Авточаровалка', desc:'Enchantment Industry', tag:'Enchantment Industry', rarity:'epic' },
-  { id:'xp_farm', cat:'spec', icon:'🧪', name:'Ферма опыта', desc:'Ферма опыта и жидкого XP', tag:'Enchantment Industry', rarity:'epic' },
-  { id:'copycats_base', cat:'spec', icon:'🎨', name:'Декоратор', desc:'200+ блоков Copycats+', tag:'Copycats+', rarity:'rare' },
-  { id:'connected_system', cat:'spec', icon:'🔗', name:'Система Connected', desc:'5+ механизмов Connected', tag:'Connected', rarity:'epic' },
-  { id:'radar_network', cat:'spec', icon:'📡', name:'Радарная сеть', desc:'Радар 500+ блоков', tag:'Radar', rarity:'epic' },
-  { id:'steam_loco', cat:'spec', icon:'🚂', name:'Паровоз', desc:'Steam \'n\' Rails паровоз', tag:'Steam \'n\' Rails', rarity:'epic' },
-  { id:'nav_5routes', cat:'spec', icon:'🧭', name:'Маршрутная сеть', desc:'5+ маршрутов Railway Navigator', tag:'Railway Navigator', rarity:'epic' },
-  { id:'backpack_craft', cat:'spec', icon:'🎒', name:'Рюкзак-крафтер', desc:'Sophisticated Backpacks автокрафт', tag:'Backpacks', rarity:'rare' },
+  { id:'xp_farm', cat:'spec', icon:'🧪', name:'Ферма опыта', desc:'Жидкий XP', tag:'Enchantment Industry', rarity:'epic' },
+  { id:'copycats_base', cat:'spec', icon:'🎨', name:'Декоратор', desc:'200+ Copycats+', tag:'Copycats+', rarity:'rare' },
+  { id:'connected_system', cat:'spec', icon:'🔗', name:'Система Connected', desc:'5+ механизмов', tag:'Connected', rarity:'epic' },
+  { id:'radar_network', cat:'spec', icon:'📡', name:'Радарная сеть', desc:'500+ блоков', tag:'Radar', rarity:'epic' },
+  { id:'steam_loco', cat:'spec', icon:'🚂', name:'Паровоз', desc:'Steam \'n\' Rails', tag:'Steam \'n\' Rails', rarity:'epic' },
+  { id:'nav_5routes', cat:'spec', icon:'🧭', name:'Маршрутная сеть', desc:'5+ маршрутов', tag:'Railway Navigator', rarity:'epic' },
+  { id:'backpack_craft', cat:'spec', icon:'🎒', name:'Рюкзак-крафтер', desc:'Sophisticated Backpacks', tag:'Backpacks', rarity:'rare' },
   { id:'farmer_delight', cat:'spec', icon:'🍲', name:'Шеф-повар', desc:'Все блюда Farmer\'s Delight', tag:'Farmer\'s Delight', rarity:'epic' },
   { id:'schematic_check', cat:'spec', icon:'📐', name:'Проверка схемы', desc:'Schematic Checker', tag:'Schematic Helper', rarity:'rare' },
-  { id:'server_architect', cat:'server', icon:'🏛️', name:'Архитектор сервера', desc:'Ключевой объект: спавн, хаб, вокзал', tag:'Server', rarity:'legendary' },
-  { id:'event_master', cat:'server', icon:'🎪', name:'Организатор', desc:'Ивент, турнир или гонка', tag:'Server', rarity:'epic' },
-  { id:'peacemaker', cat:'server', icon:'🤝', name:'Миротворец', desc:'Примирение враждующих', tag:'Server', rarity:'epic' },
-  { id:'wiki_helper', cat:'server', icon:'📖', name:'Хранитель знаний', desc:'Документация или гайды', tag:'Server', rarity:'rare' },
-  { id:'champion', cat:'special', icon:'🏆', name:'Чемпион', desc:'Победа в главном турнире', tag:'Special', rarity:'legendary' },
-  { id:'legend', cat:'special', icon:'🌟', name:'Легенда ПТУ SMP', desc:'Особый вклад в сервер', tag:'Special', rarity:'legendary' },
+  { id:'server_architect', cat:'server', icon:'🏛️', name:'Архитектор сервера', desc:'Спавн, хаб, вокзал', tag:'Server', rarity:'legendary' },
+  { id:'event_master', cat:'server', icon:'🎪', name:'Организатор', desc:'Ивент или турнир', tag:'Server', rarity:'epic' },
+  { id:'peacemaker', cat:'server', icon:'🤝', name:'Миротворец', desc:'Примирение', tag:'Server', rarity:'epic' },
+  { id:'wiki_helper', cat:'server', icon:'📖', name:'Хранитель знаний', desc:'Документация', tag:'Server', rarity:'rare' },
+  { id:'champion', cat:'special', icon:'🏆', name:'Чемпион', desc:'Победа в турнире', tag:'Special', rarity:'legendary' },
+  { id:'legend', cat:'special', icon:'🌟', name:'Легенда ПТУ SMP', desc:'Особый вклад', tag:'Special', rarity:'legendary' },
 ];
 
 const RARITY_LABEL = { common:'Обычное', rare:'Редкое', epic:'Эпическое', legendary:'Легендарное' };
 
 const KEYS = {
-  players: 'ptusmp_players_v49', achSubs: 'ptusmp_ach_subs_v49',
-  chronicle: 'ptusmp_chronicle_v49', chronicleSubs: 'ptusmp_ch_subs_v49',
-  album: 'ptusmp_album_v49', albumSubs: 'ptusmp_album_subs_v49',
-  albumLikes: 'ptusmp_album_likes_v49', nickReq: 'ptusmp_nick_requests_v49',
-  chDraft: 'ptusmp_ch_draft_v4', verifyPending: 'ptusmp_verify_v3', seeded: 'ptusmp_seeded_v49',
-  webhookUrl: 'ptusmp_webhook_v49',
+  players: 'ptusmp_players_v50', achSubs: 'ptusmp_ach_subs_v50',
+  chronicle: 'ptusmp_chronicle_v50', chronicleSubs: 'ptusmp_ch_subs_v50',
+  album: 'ptusmp_album_v50', albumSubs: 'ptusmp_album_subs_v50',
+  albumLikes: 'ptusmp_album_likes_v50', nickReq: 'ptusmp_nick_requests_v50',
+  chDraft: 'ptusmp_ch_draft_v5', verifyPending: 'ptusmp_verify_v4', seeded: 'ptusmp_seeded_v50',
 };
 const $ = (id) => document.getElementById(id);
 function ls(k, def){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch { return def; } }
@@ -990,7 +919,6 @@ let album = ls(KEYS.album, []);
 let albumSubs = ls(KEYS.albumSubs, []);
 let albumLikes = ls(KEYS.albumLikes, {});
 let nickRequests = ls(KEYS.nickReq, []);
-let customWebhookUrl = ls(KEYS.webhookUrl, '');
 let nextPlayerId = players.length ? Math.max(0, ...players.map(p => p.id)) + 1 : 1;
 let currentProfileId = null;
 let currentView = 'ach';
@@ -1112,94 +1040,37 @@ function showToast(msg){
 
 function updateMskClock(){ const now = new Date(); const msk = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + 3 * 3600000); const pad = (n) => String(n).padStart(2, '0'); const el = $('msk-time'); if (el) el.textContent = `${pad(msk.getHours())}:${pad(msk.getMinutes())}:${pad(msk.getSeconds())}`; }
 setInterval(updateMskClock, 1000); updateMskClock();
-(function(){ const KEY='ptusmp_visits_v49', S='ptusmp_vs_v49'; let c=parseInt(localStorage.getItem(KEY)||'0',10); if(!sessionStorage.getItem(S)){c++;localStorage.setItem(KEY,String(c));sessionStorage.setItem(S,'1');} const el=$('visits-counter'); if(el) el.textContent=c.toLocaleString('ru-RU')+' посещений'; })();
+(function(){ const KEY='ptusmp_visits_v50', S='ptusmp_vs_v50'; let c=parseInt(localStorage.getItem(KEY)||'0',10); if(!sessionStorage.getItem(S)){c++;localStorage.setItem(KEY,String(c));sessionStorage.setItem(S,'1');} const el=$('visits-counter'); if(el) el.textContent=c.toLocaleString('ru-RU')+' посещений'; })();
 
-/* ===== ВЕБХУК DISCORD ===== */
-function getWebhookUrl(){ return customWebhookUrl || DISCORD_WEBHOOK_URL; }
-async function sendDiscordWebhook(embed){
-  const url = getWebhookUrl();
-  if (!url) return false;
-  try {
-    await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: 'ПТУ SMP | Модерация',
-        avatar_url: 'https://mc-heads.net/avatar/MHF_Steve/128',
-        embeds: [embed],
-      }),
-    });
-    return true;
-  } catch(e){ console.error('Webhook error:', e); return false; }
-}
-function notifyModsNewSubmission(type, data){
-  const typeInfo = {
-    ach: { title: '🏆 Новая заявка на достижение', color: 0xa78bfa },
-    chronicle: { title: '📜 Новое событие в летопись', color: 0x34d399 },
-    album: { title: '📸 Новый скриншот в альбом', color: 0xec4899 },
-    nick: { title: '🎮 Новая заявка на привязку ника', color: 0x06b6d4 },
-  }[type] || { title: '📬 Новая заявка', color: 0x10b981 };
-  const embed = {
-    title: typeInfo.title,
-    color: typeInfo.color,
-    timestamp: new Date().toISOString(),
-    footer: { text: 'ПТУ SMP · открой сайт → Админ-панель чтобы обработать' },
-    fields: [],
-  };
-  if (type === 'ach'){
-    embed.fields.push({ name: '👤 Игрок', value: data.playerNick || '—', inline: true });
-    embed.fields.push({ name: '🏆 Достижение', value: data.achievementName || '—', inline: true });
-    if (data.proof) embed.thumbnail = { url: data.proof };
-    if (data.proof && data.proof !== 'manual') embed.fields.push({ name: '📸 Пруф', value: `[Открыть](${data.proof})` });
-    if (data.note) embed.fields.push({ name: '💬 Комментарий', value: data.note });
-  } else if (type === 'chronicle'){
-    embed.fields.push({ name: '👤 Автор', value: data.author || '—', inline: true });
-    embed.fields.push({ name: '🏷️ Тип', value: data.typeName || '—', inline: true });
-    embed.fields.push({ name: '📅 Дата', value: data.date || '—', inline: true });
-    embed.fields.push({ name: '📝 Заголовок', value: data.title || '—' });
-    if (data.text) embed.fields.push({ name: '📄 Описание', value: data.text.slice(0, 500) });
-    if (data.image) embed.thumbnail = { url: data.image };
-  } else if (type === 'album'){
-    embed.fields.push({ name: '👤 Автор', value: data.author || '—', inline: true });
-    embed.fields.push({ name: '📸 Название', value: data.title || '—', inline: true });
-    if (data.desc) embed.fields.push({ name: '📄 Описание', value: data.desc });
-    if (data.url) embed.image = { url: data.url };
-  } else if (type === 'nick'){
-    embed.fields.push({ name: '👤 Discord', value: data.discordName || '—', inline: true });
-    embed.fields.push({ name: '🎮 Ник', value: data.nickname || '—', inline: true });
-    embed.fields.push({ name: '📋 Метод', value: data.method === 'command' ? '💬 Команда /me' : '🔐 Переименование', inline: true });
-    if (data.code) embed.fields.push({ name: '🔑 Код', value: `\`${data.code}\`` });
-    if (data.proof) embed.image = { url: data.proof };
+/* ===== ОТПРАВКА В DISCORD-БОТ ===== */
+async function notifyModsNewSubmission(type, data){
+  // Отправляем на Cloudflare Worker → в Discord
+  if (BOT_API_URL && BOT_API_URL !== 'ВСТАВЬ_СЮДА_WORKER_URL'){
+    try {
+      const payload = { type, ...data };
+      if (type === 'ach' && data.achievementId) {
+        const a = findAchievement(data.achievementId);
+        if (a) payload.achievementName = a.name;
+      }
+      if (type === 'chronicle') {
+        payload.typeName = getChType(data.type || 'city').name;
+      }
+      const res = await fetch(`${BOT_API_URL}/api/submit`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const j = await res.json();
+      if (!j.ok) console.warn('Bot API error:', j.error);
+      else console.log('✅ Заявка отправлена в Discord');
+    } catch(e) {
+      console.warn('Bot API недоступен:', e);
+    }
+  } else {
+    console.warn('BOT_API_URL не настроен');
   }
-  return sendDiscordWebhook(embed);
-}
-function saveWebhookUrl(){
-  const url = $('webhook-url-input').value.trim();
-  const toast = $('webhook-toast');
-  if (!url){ toast.className = 'admin-toast err'; toast.textContent = '❌ Введи URL'; return; }
-  if (!/^https:\/\/discord\.com\/api\/webhooks\//.test(url)){ toast.className = 'admin-toast err'; toast.textContent = '❌ URL должен начинаться с https://discord.com/api/webhooks/'; return; }
-  customWebhookUrl = url;
-  lsSet(KEYS.webhookUrl, url);
-  toast.className = 'admin-toast ok'; toast.textContent = '✅ URL сохранён';
-  showToast('✅ Вебхук сохранён');
-}
-async function testWebhook(){
-  const toast = $('webhook-toast');
-  const url = $('webhook-url-input').value.trim() || getWebhookUrl();
-  if (!url){ toast.className = 'admin-toast err'; toast.textContent = '❌ Сначала сохрани URL'; return; }
-  toast.className = 'admin-toast'; toast.textContent = '⏳ Отправляю тест...';
-  const ok = await sendDiscordWebhook({
-    title: '🧪 Тестовое уведомление',
-    description: 'Если ты это видишь — вебхук работает! Сюда будут приходить заявки.',
-    color: 0x10b981,
-    timestamp: new Date().toISOString(),
-    footer: { text: 'ПТУ SMP · тест вебхука' },
-  });
-  if (ok){ toast.className = 'admin-toast ok'; toast.textContent = '✅ Тест отправлен! Проверь Discord.'; }
-  else { toast.className = 'admin-toast err'; toast.textContent = '❌ Не удалось отправить. Проверь URL.'; }
 }
 
-/* ===== ПРАВИЛА ===== */
 function renderRules(){
   const grid = $('rules-grid'); if (!grid) return;
   grid.innerHTML = ACH_RULES.map(r => `<div class="rule-card"><span class="rc-icon">${r.icon}</span><div class="rc-title">${escapeHtml(r.title)}</div><div class="rc-text">${r.text}</div></div>`).join('');
@@ -1223,7 +1094,6 @@ function switchView(v){
   if (v === 'map') { refreshMapPlayers(); renderCities(); }
 }
 
-/* ===== ДОСТИЖЕНИЯ ===== */
 function renderAchievements(){
   $('ach-hero-count').textContent = DEFAULT_ACHIEVEMENTS.length + ' ачивок';
   const container = $('ach-catalog');
@@ -1262,7 +1132,6 @@ function renderAchTop(){
     if (i === 0) item.classList.add('top1');
     if (i === 1) item.classList.add('top2');
     if (i === 2) item.classList.add('top3');
-    item.style.animationDelay = (i * 40) + 'ms';
     const badgesHtml = p.badges.map(a => `<span class="ach-top-badge" title="${escapeHtml(a.name)}">${a.icon}</span>`).join('');
     item.innerHTML = `<div class="ach-top-pos">#${i + 1}</div>${avatarImgHtml(p.nickname, 48, 'class="ach-top-avatar"')}<div><div class="ach-top-name">${escapeHtml(p.nickname)}</div><div class="ach-top-badges">${badgesHtml}</div></div><div class="ach-top-count">${p.achCount}</div>`;
     item.onclick = () => openProfile(p.id);
@@ -1276,16 +1145,15 @@ function renderPlayersView(){
   const search = ($('players-search')?.value || '').toLowerCase().trim();
   let list = players.filter(p => !search || p.nickname.toLowerCase().includes(search) || (p.residence || '').toLowerCase().includes(search));
   let withCount = list.map(p => ({ ...p, achCount: getPlayerAch(p.id).length }));
-  if (playersSort === 'ach') withCount.sort((a, b) => b.achCount - a.achCount || a.nickname.localeCompare(b.nickname, 'ru'));
-  else if (playersSort === 'city') withCount.sort((a, b) => (a.residence || '\uffff').localeCompare(b.residence || '\uffff', 'ru') || a.nickname.localeCompare(b.nickname, 'ru'));
+  if (playersSort === 'ach') withCount.sort((a, b) => b.achCount - a.achCount);
+  else if (playersSort === 'city') withCount.sort((a, b) => (a.residence || '\uffff').localeCompare(b.residence || '\uffff', 'ru'));
   else withCount.sort((a, b) => a.nickname.localeCompare(b.nickname, 'ru'));
   grid.innerHTML = '';
   if (!withCount.length){ grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="ico">👥</div><h3>Никого не найдено</h3></div>`; return; }
-  withCount.forEach((p, i) => {
+  withCount.forEach(p => {
     const el = document.createElement('div');
     el.className = 'player-card';
-    el.style.animationDelay = Math.min(i * 25, 400) + 'ms';
-    el.innerHTML = `${avatarImgHtml(p.nickname, 52)}<div class="pc-info"><div class="pc-name">${escapeHtml(p.nickname)}${p.isMayor ? ' 👑' : ''}${p.discordId ? '<span class="pc-verified" title="Привязан к Discord">🔗</span>' : ''}</div><div class="pc-meta">${p.residence ? '🏠 ' + escapeHtml(p.residence) : '🏠 место не указано'}</div></div><div class="pc-ach" title="Достижений">${p.achCount}</div>`;
+    el.innerHTML = `${avatarImgHtml(p.nickname, 52)}<div class="pc-info"><div class="pc-name">${escapeHtml(p.nickname)}${p.isMayor ? ' 👑' : ''}${p.discordId ? '<span title="Привязан к Discord">🔗</span>' : ''}</div><div class="pc-meta">${p.residence ? '🏠 ' + escapeHtml(p.residence) : '🏠 место не указано'}</div></div><div class="pc-ach">${p.achCount}</div>`;
     el.onclick = () => openProfile(p.id);
     grid.appendChild(el);
   });
@@ -1308,8 +1176,7 @@ function updateAchCurrentBlock(){
   } else {
     $('apc-icon').textContent = a.icon;
     $('apc-name').textContent = a.name;
-    const rarity = RARITY_LABEL[a.rarity];
-    $('apc-sub').textContent = `${a.tag || ''} · ${rarity}`;
+    $('apc-sub').textContent = `${a.tag || ''} · ${RARITY_LABEL[a.rarity]}`;
   }
 }
 function openAchPicker(){
@@ -1349,22 +1216,20 @@ function submitAchievement(){
   closeModal('ach-modal');
   showToast('📤 Заявка отправлена');
   const a = findAchievement(achId);
-  notifyModsNewSubmission('ach', { playerNick: player.nickname, achievementName: a?.name, proof, note });
+  notifyModsNewSubmission('ach', { playerNick: player.nickname, achievementId: achId, achievementName: a?.name, proof, note, discordName: getDiscordName(u) });
 }
 function shareAchViaDiscord(){
   const u = getCurrentUser();
   if (!u){ showToast('🔐 Войди через Discord'); return; }
   if (!selectedAchId){ showToast('🏆 Сначала выбери достижение'); return; }
   const a = findAchievement(selectedAchId);
-  const proof = $('ach-submit-proof').value.trim() || '[ссылка на скрин]';
+  const proof = $('ach-submit-proof').value.trim() || '[ссылка]';
   const note = $('ach-submit-note').value.trim();
   const player = getLinkedPlayer(u);
-  const msg = `🎮 **Заявка на достижение ПТУ SMP**\n\n👤 Игрок: \`${player?.nickname || getDiscordName(u)}\`\n🏆 Достижение: **${a?.name || '—'}** (${a?.tag || ''})\n📸 Пруф: ${proof}${note ? `\n💬 Комментарий: ${note}` : ''}\n\n<@${ADMIN_DISCORD_IDS[0]}> <@${MODERATOR_DISCORD_IDS[0]}> — проверьте, пожалуйста!`;
+  const msg = `🎮 **Заявка на достижение ПТУ SMP**\n\n👤 Игрок: \`${player?.nickname || getDiscordName(u)}\`\n🏆 Достижение: **${a?.name || '—'}** (${a?.tag || ''})\n📸 Пруф: ${proof}${note ? `\n💬 Комментарий: ${note}` : ''}\n\n<@${ADMIN_DISCORD_IDS[0]}> <@${MODERATOR_DISCORD_IDS[0]}> — проверьте!`;
   navigator.clipboard.writeText(msg).then(() => {
-    showToast('📋 Сообщение скопировано! Открой Discord и вставь');
+    showToast('📋 Скопировано! Открой Discord');
     window.open('https://discord.gg/bBvJ9VHXc', '_blank');
-  }).catch(() => {
-    showToast('❌ Не удалось скопировать');
   });
 }
 function showAchInfo(achId){
@@ -1376,14 +1241,13 @@ function showAchInfo(achId){
   const rarityStyle = { common:'#34d399', rare:'#60a5fa', epic:'#a78bfa', legendary:'#fbbf24' }[a.rarity];
   const tagHtml = a.tag ? `<div style="display:inline-block;padding:3px 10px;border-radius:8px;background:rgba(6,182,212,.12);border:1px solid rgba(6,182,212,.35);color:var(--cyan-2);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;margin-bottom:14px">${escapeHtml(a.tag)}</div>` : '';
   if (!holders.length){
-    body.innerHTML = `<div style="text-align:center;padding:16px 0 24px"><div style="font-size:64px;margin-bottom:14px;filter:drop-shadow(0 0 24px ${rarityStyle}88)">${a.icon}</div>${tagHtml}<div style="display:block;margin-bottom:14px"><span style="display:inline-block;padding:4px 12px;border-radius:8px;background:${rarityStyle}22;border:1px solid ${rarityStyle}88;color:${rarityStyle};font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase">${RARITY_LABEL[a.rarity]}</span></div><div style="font-size:15px;color:var(--text-2);line-height:1.6;max-width:480px;margin:0 auto 24px">${escapeHtml(a.desc)}</div></div>`;
+    body.innerHTML = `<div style="text-align:center;padding:16px 0 24px"><div style="font-size:64px;margin-bottom:14px">${a.icon}</div>${tagHtml}<div style="font-size:15px;color:var(--text-2);line-height:1.6;max-width:480px;margin:0 auto 24px">${escapeHtml(a.desc)}</div></div>`;
   } else {
-    body.innerHTML = `<div style="text-align:center;padding:16px 0 20px"><div style="font-size:64px;margin-bottom:14px;filter:drop-shadow(0 0 24px ${rarityStyle}88)">${a.icon}</div>${tagHtml}<div style="display:block;margin-bottom:14px"><span style="display:inline-block;padding:4px 12px;border-radius:8px;background:${rarityStyle}22;border:1px solid ${rarityStyle}88;color:${rarityStyle};font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase">${RARITY_LABEL[a.rarity]}</span></div><div style="font-size:15px;color:var(--text-2);line-height:1.6;max-width:480px;margin:0 auto 24px">${escapeHtml(a.desc)}</div></div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:12px">Получили (${holders.length})</div><div style="display:flex;flex-direction:column;gap:6px">${holders.map(s => { const p = players.find(x => x.id === s.playerId); if (!p) return ''; return `<div style="display:flex;gap:10px;align-items:center;padding:10px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid var(--line);cursor:pointer" onclick="closeModal('ach-view-modal');openProfile(${p.id})">${avatarImgHtml(p.nickname, 36)}<div style="flex:1"><div style="font-weight:700;color:#fff;font-size:13px">${escapeHtml(p.nickname)}</div><div style="font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace">${new Date(s.ts).toLocaleDateString('ru-RU')}</div></div>${s.proof && s.proof !== 'manual' ? `<a href="${escapeHtml(s.proof)}" target="_blank" onclick="event.stopPropagation()" style="font-size:11px;color:var(--purple-2);text-decoration:none">пруф →</a>` : ''}</div>`; }).join('')}</div>`;
+    body.innerHTML = `<div style="text-align:center;padding:16px 0 20px"><div style="font-size:64px;margin-bottom:14px">${a.icon}</div>${tagHtml}<div style="font-size:15px;color:var(--text-2);line-height:1.6;max-width:480px;margin:0 auto 24px">${escapeHtml(a.desc)}</div></div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:12px">Получили (${holders.length})</div><div style="display:flex;flex-direction:column;gap:6px">${holders.map(s => { const p = players.find(x => x.id === s.playerId); if (!p) return ''; return `<div style="display:flex;gap:10px;align-items:center;padding:10px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid var(--line);cursor:pointer" onclick="closeModal('ach-view-modal');openProfile(${p.id})">${avatarImgHtml(p.nickname, 36)}<div style="flex:1"><div style="font-weight:700;color:#fff;font-size:13px">${escapeHtml(p.nickname)}</div><div style="font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace">${new Date(s.ts).toLocaleDateString('ru-RU')}</div></div></div>`; }).join('')}</div>`;
   }
   openModal('ach-view-modal');
 }
 
-/* ===== ЛЕТОПИСЬ ===== */
 function getChType(id){ return CH_TYPES.find(t => t.id === id) || CH_TYPES[1]; }
 function getChYear(ev){ if (ev.dateTs) return new Date(ev.dateTs).getFullYear(); const m = String(ev.date || '').match(/(19|20)\d{2}/); return m ? parseInt(m[0], 10) : new Date(ev.ts || Date.now()).getFullYear(); }
 function renderChronicle(){
@@ -1410,35 +1274,33 @@ function renderChronicle(){
   const addBtn = $('ch-add-btn'); if (addBtn) addBtn.style.display = '';
   container.innerHTML = '';
   if (!chronicle.length){
-    container.innerHTML = `<div class="ch-empty"><span class="ch-empty-ico">📜</span><h3>Летопись пока пуста</h3><p>Предложи первое событие — расскажи о великом основании города или грандиозной стройке. Оно уйдёт модератору.</p><button class="ch-btn-add" onclick="openChronicleModal()">➕ Предложить событие</button></div>`;
+    container.innerHTML = `<div class="ch-empty"><span class="ch-empty-ico">📜</span><h3>Летопись пока пуста</h3><p>Предложи первое событие — оно уйдёт модератору.</p><button class="ch-btn-add" onclick="openChronicleModal()">➕ Предложить событие</button></div>`;
     return;
   }
   let list = [...chronicle];
   if (chFilter !== 'all') list = list.filter(ev => (ev.type || 'city') === chFilter);
-  if (chSearch){ const s = chSearch.toLowerCase(); list = list.filter(ev => (ev.title || '').toLowerCase().includes(s) || (ev.text || '').toLowerCase().includes(s) || (ev.date || '').toLowerCase().includes(s)); }
+  if (chSearch){ const s = chSearch.toLowerCase(); list = list.filter(ev => (ev.title || '').toLowerCase().includes(s) || (ev.text || '').toLowerCase().includes(s)); }
   if (!list.length){ container.innerHTML = `<div class="ch-empty"><span class="ch-empty-ico">🔍</span><h3>Ничего не найдено</h3></div>`; return; }
   const grouped = {};
   list.forEach(ev => { const y = getChYear(ev); if (!grouped[y]) grouped[y] = []; grouped[y].push(ev); });
   const yearsSorted = Object.keys(grouped).map(Number).sort((a, b) => b - a);
   const canManage = isModerator();
-  yearsSorted.forEach((year, yi) => {
+  yearsSorted.forEach(year => {
     const events = grouped[year].sort((a, b) => (b.dateTs || b.ts || 0) - (a.dateTs || a.ts || 0));
     const yearEl = document.createElement('div');
     yearEl.className = 'ch-year';
-    yearEl.style.animationDelay = (yi * 100) + 'ms';
     yearEl.innerHTML = `<div class="ch-year-head"><div class="ch-year-num">${year}</div><div class="ch-year-divider"></div><div class="ch-year-count">${events.length} ${events.length === 1 ? 'событие' : 'событий'}</div></div><div class="ch-timeline"></div>`;
     const timeline = yearEl.querySelector('.ch-timeline');
-    events.forEach((ev, i) => {
+    events.forEach(ev => {
       const type = getChType(ev.type || 'city');
       const evEl = document.createElement('div');
       evEl.className = 'ch-event';
-      evEl.style.animationDelay = (i * 60) + 'ms';
       evEl.style.setProperty('--ev-color', type.colorRaw);
       evEl.style.setProperty('--ev-color-bg', type.colorRaw + '22');
-      const imgHtml = ev.image ? `<div class="ch-event-image" onclick="event.stopPropagation();openChImage('${escapeHtml(ev.image)}')"><img src="${escapeHtml(ev.image)}" alt="${escapeHtml(ev.title)}" onerror="this.parentElement.style.display='none'"></div>` : '';
+      const imgHtml = ev.image ? `<div class="ch-event-image" onclick="event.stopPropagation();openChImage('${escapeHtml(ev.image)}')"><img src="${escapeHtml(ev.image)}" alt=""></div>` : '';
       const authorHtml = ev.author ? `<div class="ch-event-author"><span>👤</span><span>${escapeHtml(ev.author)}</span></div>` : '';
       const actionsHtml = canManage ? `<div class="ch-event-actions"><button class="ch-event-act" onclick="event.stopPropagation();openChronicleModal(${ev.id},true)">✏️</button><button class="ch-event-act danger" onclick="event.stopPropagation();deleteChronicleEvent(${ev.id})">🗑</button></div>` : '';
-      evEl.innerHTML = `<div class="ch-event-dot">${type.icon}</div><div class="ch-event-card"><div class="ch-event-head"><div><div class="ch-event-date">📅 ${escapeHtml(ev.date)}</div></div>${actionsHtml}</div><div class="ch-event-title">${escapeHtml(ev.title)}</div>${ev.text ? `<div class="ch-event-text">${escapeHtml(ev.text)}</div>` : ''}${imgHtml}${authorHtml}<div style="margin-top:10px"><span class="ch-event-type">${type.icon} ${type.name}</span></div></div>`;
+      evEl.innerHTML = `<div class="ch-event-dot">${type.icon}</div><div class="ch-event-card"><div class="ch-event-head"><div class="ch-event-date">📅 ${escapeHtml(ev.date)}</div>${actionsHtml}</div><div class="ch-event-title">${escapeHtml(ev.title)}</div>${ev.text ? `<div class="ch-event-text">${escapeHtml(ev.text)}</div>` : ''}${imgHtml}${authorHtml}<div style="margin-top:10px"><span class="ch-event-type">${type.icon} ${type.name}</span></div></div>`;
       timeline.appendChild(evEl);
     });
     container.appendChild(yearEl);
@@ -1450,19 +1312,18 @@ function renderChTypePicker(){
   const picker = $('ch-type-picker'); if (!picker) return;
   picker.innerHTML = CH_TYPES.slice(1).map(t => `<button type="button" class="ch-type-opt ${editingChType === t.id ? 'active' : ''}" style="--tc:${t.colorRaw};--tc-bg:${t.colorRaw}22" onclick="selectChType('${t.id}')">${t.icon} ${t.name}</button>`).join('');
 }
-function selectChType(t){ editingChType = t; renderChTypePicker(); saveChDraft(); }
+function selectChType(t){ editingChType = t; renderChTypePicker(); }
 function openChronicleModal(editId, direct){
   const isMod = isModerator();
   chDirectMode = !!(direct && isMod);
   if (editId && !isMod){ showToast('🚫 Нет прав'); return; }
   editingChId = editId || null;
-  const draft = !editId ? ls(KEYS.chDraft, null) : null;
   const u = getCurrentUser();
   const linkedP = u ? getLinkedPlayer(u) : null;
   if (editId){
     const ev = chronicle.find(x => x.id === editId); if (!ev) return;
-    $('ch-modal-title').textContent = 'Редактировать событие';
-    $('ch-modal-sub').textContent = 'Изменения вступят сразу';
+    $('ch-modal-title').textContent = 'Редактировать';
+    $('ch-modal-sub').textContent = 'Изменения сразу';
     $('ch-date-text').value = ev.date || '';
     $('ch-date-real').value = ev.dateTs ? new Date(ev.dateTs).toISOString().split('T')[0] : '';
     $('ch-title').value = ev.title || '';
@@ -1474,37 +1335,20 @@ function openChronicleModal(editId, direct){
   } else {
     $('ch-modal-title').textContent = chDirectMode ? 'Добавить событие' : 'Предложить событие';
     $('ch-modal-sub').textContent = chDirectMode ? 'Появится сразу' : 'Уйдёт модератору';
-    $('ch-date-text').value = draft?.date || '';
-    $('ch-date-real').value = draft?.dateTs || new Date().toISOString().split('T')[0];
-    $('ch-title').value = draft?.title || '';
-    $('ch-text').value = draft?.text || '';
-    $('ch-image').value = draft?.image || '';
-    $('ch-author').value = draft?.author || (linkedP?.nickname || '');
-    editingChType = draft?.type || 'city';
+    $('ch-date-text').value = '';
+    $('ch-date-real').value = new Date().toISOString().split('T')[0];
+    $('ch-title').value = '';
+    $('ch-text').value = '';
+    $('ch-image').value = '';
+    $('ch-author').value = linkedP?.nickname || '';
+    editingChType = 'city';
     $('ch-save-btn').textContent = chDirectMode ? '💾 Опубликовать' : '📤 Отправить';
   }
-  renderChTypePicker(); updateChImagePreview();
+  renderChTypePicker();
   $('ch-modal-toast').textContent = '';
   openModal('ch-event-modal');
 }
 function closeChronicleModal(){ closeModal('ch-event-modal'); editingChId = null; }
-function saveChDraft(){
-  if (editingChId || chDirectMode) return;
-  lsSet(KEYS.chDraft, {
-    date: $('ch-date-text').value, dateTs: $('ch-date-real').value,
-    title: $('ch-title').value, text: $('ch-text').value,
-    image: $('ch-image').value, author: $('ch-author').value, type: editingChType,
-  }, false);
-}
-['ch-date-text','ch-date-real','ch-title','ch-text','ch-image','ch-author'].forEach(id => {
-  document.addEventListener('input', e => { if (e.target.id === id){ saveChDraft(); if (id === 'ch-image') updateChImagePreview(); } });
-});
-function updateChImagePreview(){
-  const url = $('ch-image')?.value.trim();
-  const prev = $('ch-image-preview'); if (!prev) return;
-  if (!url || !/^https?:\/\//.test(url)){ prev.innerHTML = ''; return; }
-  prev.innerHTML = `<img src="${escapeHtml(url)}" style="max-width:100%;max-height:220px;border-radius:12px;border:1px solid var(--line-2)" onerror="this.parentElement.innerHTML='<div style=\\'color:var(--red-2);font-size:12px\\'>Не удалось загрузить</div>'">`;
-}
 function saveChronicleEvent(){
   const date = $('ch-date-text').value.trim();
   const dateTsRaw = $('ch-date-real').value;
@@ -1515,7 +1359,6 @@ function saveChronicleEvent(){
   const toast = $('ch-modal-toast');
   if (!date){ toast.className = 'admin-toast err'; toast.textContent = '❌ Укажи дату'; return; }
   if (!title){ toast.className = 'admin-toast err'; toast.textContent = '❌ Укажи заголовок'; return; }
-  if (image && !/^https?:\/\//.test(image)){ toast.className = 'admin-toast err'; toast.textContent = '❌ Ссылка на картинку неверна'; return; }
   const dateTs = dateTsRaw ? new Date(dateTsRaw + 'T12:00:00').getTime() : Date.now();
   const u = getCurrentUser();
   const linkedP = u ? getLinkedPlayer(u) : null;
@@ -1525,24 +1368,20 @@ function saveChronicleEvent(){
     Object.assign(ev, { date, dateTs, title, text, image, author, type: editingChType, updatedAt: Date.now() });
     saveChronicle(); renderChronicle(); renderChronicleAdminList();
     toast.className = 'admin-toast ok'; toast.textContent = '✅ Обновлено';
-    showToast('✅ Обновлено');
     setTimeout(() => closeChronicleModal(), 500);
     return;
   }
   if (chDirectMode && isModerator()){
-    chronicle.push({ id: Date.now() + Math.floor(Math.random() * 1000), date, dateTs, title, text, image, author: author || (linkedP?.nickname || ''), type: editingChType, ts: Date.now(), createdBy: u ? getDiscordName(u) : null });
+    chronicle.push({ id: Date.now() + Math.floor(Math.random() * 1000), date, dateTs, title, text, image, author: author || (linkedP?.nickname || ''), type: editingChType, ts: Date.now() });
     saveChronicle(); renderChronicle(); renderChronicleAdminList();
     toast.className = 'admin-toast ok'; toast.textContent = '✅ Опубликовано';
-    showToast('✅ Добавлено');
     setTimeout(() => closeChronicleModal(), 500);
   } else {
     if (!author){ toast.className = 'admin-toast err'; toast.textContent = '❌ Укажи свой ник'; return; }
     const newSub = { id: Date.now() + Math.floor(Math.random() * 1000), date, dateTs, title, text, image, author, type: editingChType, ts: Date.now(), status: 'pending', discordId: u ? u.id : null, discordName: u ? getDiscordName(u) : null };
     chronicleSubs.unshift(newSub);
     saveChronicleSubs(); updateAdminBadge();
-    localStorage.removeItem(KEYS.chDraft);
     toast.className = 'admin-toast ok'; toast.textContent = '📤 Отправлено модератору!';
-    showToast('📤 Отправлено на проверку');
     notifyModsNewSubmission('chronicle', { ...newSub, typeName: getChType(editingChType).name });
     setTimeout(() => closeChronicleModal(), 1200);
   }
@@ -1550,7 +1389,7 @@ function saveChronicleEvent(){
 function deleteChronicleEvent(id){
   if (!isModerator()){ showToast('🚫 Нет прав'); return; }
   const ev = chronicle.find(x => x.id === id); if (!ev) return;
-  if (!confirm(`Удалить событие «${ev.title}»?`)) return;
+  if (!confirm(`Удалить «${ev.title}»?`)) return;
   chronicle = chronicle.filter(x => x.id !== id);
   saveChronicle(); renderChronicle(); renderChronicleAdminList();
   showToast('🗑 Удалено');
@@ -1563,7 +1402,7 @@ function renderChronicleAdminList(){
     const type = getChType(ev.type || 'city');
     const el = document.createElement('div');
     el.className = 'mod-item';
-    el.innerHTML = `<div style="width:52px;height:52px;border-radius:10px;display:grid;place-items:center;background:${type.colorRaw}22;border:1px solid ${type.colorRaw}66;font-size:22px;color:${type.colorRaw}">${type.icon}</div><div class="mod-info"><div class="mod-line">${escapeHtml(ev.date)} · ${type.name}</div><div class="mod-title">${escapeHtml(ev.title)}</div><div class="mod-desc">${escapeHtml((ev.text || '').slice(0, 100))}</div></div><div class="mod-actions"><button class="mod-btn ghost" onclick="closeAdminModal();openChronicleModal(${ev.id},true)">✏️</button><button class="mod-btn reject" onclick="deleteChronicleEvent(${ev.id})">🗑</button></div>`;
+    el.innerHTML = `<div style="width:52px;height:52px;border-radius:10px;display:grid;place-items:center;background:${type.colorRaw}22;border:1px solid ${type.colorRaw}66;font-size:22px;color:${type.colorRaw}">${type.icon}</div><div class="mod-info"><div class="mod-line">${escapeHtml(ev.date)} · ${type.name}</div><div class="mod-title">${escapeHtml(ev.title)}</div></div><div class="mod-actions"><button class="mod-btn ghost" onclick="closeAdminModal();openChronicleModal(${ev.id},true)">✏️</button><button class="mod-btn reject" onclick="deleteChronicleEvent(${ev.id})">🗑</button></div>`;
     c.appendChild(el);
   });
 }
@@ -1576,51 +1415,32 @@ function renderAdminChSubs(){
     const type = getChType(s.type || 'city');
     const el = document.createElement('div');
     el.className = 'mod-item';
-    el.innerHTML = `<div style="width:52px;height:52px;border-radius:10px;display:grid;place-items:center;background:${type.colorRaw}22;border:1px solid ${type.colorRaw}66;font-size:22px;color:${type.colorRaw}">${type.icon}</div><div class="mod-info"><div class="mod-line">📜 ${escapeHtml(s.date)} · ${type.name} · от ${escapeHtml(s.author)}</div><div class="mod-title">${escapeHtml(s.title)}</div><div class="mod-desc">${escapeHtml((s.text || '').slice(0, 120))}</div></div><div class="mod-actions"><button class="mod-btn approve" onclick="approveChSub(${s.id})">✓</button><button class="mod-btn ghost" onclick="editChSub(${s.id})">✏️</button><button class="mod-btn reject" onclick="rejectChSub(${s.id})">✕</button></div>`;
+    el.innerHTML = `<div style="width:52px;height:52px;border-radius:10px;display:grid;place-items:center;background:${type.colorRaw}22;border:1px solid ${type.colorRaw}66;font-size:22px;color:${type.colorRaw}">${type.icon}</div><div class="mod-info"><div class="mod-line">📜 ${escapeHtml(s.date)} · ${type.name} · от ${escapeHtml(s.author)}</div><div class="mod-title">${escapeHtml(s.title)}</div><div class="mod-desc">${escapeHtml((s.text || '').slice(0, 120))}</div></div><div class="mod-actions"><button class="mod-btn approve" onclick="approveChSub(${s.id})">✓</button><button class="mod-btn reject" onclick="rejectChSub(${s.id})">✕</button></div>`;
     c.appendChild(el);
   });
   updateAdminBadge();
 }
 function approveChSub(id){
-  if (!isModerator()){ showToast('🚫 Нет прав'); return; }
+  if (!isModerator()) return;
   const s = chronicleSubs.find(x => x.id === id); if (!s) return;
-  chronicle.push({ id: Date.now() + Math.floor(Math.random() * 1000), date: s.date, dateTs: s.dateTs, title: s.title, text: s.text, image: s.image, author: s.author, type: s.type, ts: s.ts, approvedBy: getDiscordName(getCurrentUser()) });
+  chronicle.push({ id: Date.now() + Math.floor(Math.random() * 1000), date: s.date, dateTs: s.dateTs, title: s.title, text: s.text, image: s.image, author: s.author, type: s.type, ts: s.ts });
   saveChronicle();
   s.status = 'approved';
   saveChronicleSubs();
   renderAdminChSubs(); renderChronicle();
   showToast('✅ Опубликовано');
 }
-function editChSub(id){
-  const s = chronicleSubs.find(x => x.id === id); if (!s) return;
-  chronicleSubs = chronicleSubs.filter(x => x.id !== id);
-  saveChronicleSubs();
-  closeAdminModal();
-  setTimeout(() => {
-    openChronicleModal(null, true);
-    $('ch-date-text').value = s.date;
-    $('ch-date-real').value = s.dateTs ? new Date(s.dateTs).toISOString().split('T')[0] : '';
-    $('ch-title').value = s.title;
-    $('ch-text').value = s.text;
-    $('ch-image').value = s.image || '';
-    $('ch-author').value = s.author || '';
-    editingChType = s.type || 'city';
-    renderChTypePicker();
-    updateChImagePreview();
-  }, 200);
-}
 function rejectChSub(id){
-  if (!isModerator()){ return; }
+  if (!isModerator()) return;
   const s = chronicleSubs.find(x => x.id === id); if (!s) return;
   s.status = 'rejected'; saveChronicleSubs();
   renderAdminChSubs();
   showToast('✕ Отклонено');
 }
 
-/* ===== АЛЬБОМ ===== */
 function openAlbumUpload(){
   const u = getCurrentUser();
-  if (!u){ showToast('🔐 Сначала войди через Discord'); loginWithDiscord(); return; }
+  if (!u){ showToast('🔐 Сначала войди'); loginWithDiscord(); return; }
   if (!getLinkedPlayer(u)){ showToast('🎮 Сначала привяжи ник'); openNickLinkModal(); return; }
   $('album-url').value = ''; $('album-title').value = ''; $('album-desc').value = '';
   $('album-preview').innerHTML = '';
@@ -1629,16 +1449,16 @@ function openAlbumUpload(){
 $('album-url').addEventListener('input', e => {
   const url = e.target.value.trim();
   if (!url || !/^https?:\/\//.test(url)){ $('album-preview').innerHTML = ''; return; }
-  $('album-preview').innerHTML = `<img src="${escapeHtml(url)}" style="max-width:100%;max-height:300px;border-radius:12px;border:1px solid var(--line-2)" onerror="this.parentElement.innerHTML='<div style=\\'color:var(--red-2);font-size:12px\\'>Не удалось загрузить</div>'">`;
+  $('album-preview').innerHTML = `<img src="${escapeHtml(url)}" style="max-width:100%;max-height:300px;border-radius:12px;border:1px solid var(--line-2)">`;
 });
 function submitAlbumScreenshot(){
   const u = getCurrentUser();
-  if (!u){ showToast('🔐 Войди через Discord'); return; }
+  if (!u){ showToast('🔐 Войди'); return; }
   const url = $('album-url').value.trim();
   const title = $('album-title').value.trim();
   const desc = $('album-desc').value.trim();
   if (!url || !/^https?:\/\//.test(url)){ showToast('❌ Нужна ссылка'); return; }
-  if (!title){ showToast('❌ Придумай название'); return; }
+  if (!title){ showToast('❌ Название'); return; }
   let player = getLinkedPlayer(u);
   if (!player){ showToast('🎮 Сначала привяжи ник'); openNickLinkModal(); return; }
   const newSub = { id: Date.now() + Math.floor(Math.random() * 1000), url, title, desc, author: player.nickname, authorId: player.id, discordId: u.id, discordName: getDiscordName(u), ts: Date.now(), status: 'pending' };
@@ -1650,14 +1470,13 @@ function submitAlbumScreenshot(){
 }
 function shareAlbumViaDiscord(){
   const u = getCurrentUser();
-  if (!u){ showToast('🔐 Войди через Discord'); return; }
+  if (!u){ showToast('🔐 Войди'); return; }
   const url = $('album-url').value.trim() || '[ссылка]';
   const title = $('album-title').value.trim() || '[название]';
-  const desc = $('album-desc').value.trim();
   const player = getLinkedPlayer(u);
-  const msg = `📸 **Скриншот в альбом ПТУ SMP**\n\n👤 От: \`${player?.nickname || getDiscordName(u)}\`\n📝 Название: **${title}**\n🔗 Картинка: ${url}${desc ? `\n💬 ${desc}` : ''}\n\n<@${ADMIN_DISCORD_IDS[0]}> <@${MODERATOR_DISCORD_IDS[0]}> — проверьте!`;
+  const msg = `📸 **Скриншот в альбом ПТУ SMP**\n\n👤 От: \`${player?.nickname || getDiscordName(u)}\`\n📝 ${title}\n🔗 ${url}\n\n<@${ADMIN_DISCORD_IDS[0]}> <@${MODERATOR_DISCORD_IDS[0]}> — проверьте!`;
   navigator.clipboard.writeText(msg).then(() => {
-    showToast('📋 Скопировано! Открой Discord');
+    showToast('📋 Скопировано');
     window.open('https://discord.gg/bBvJ9VHXc', '_blank');
   });
 }
@@ -1671,27 +1490,26 @@ function renderAlbum(){
   else list.sort((a, b) => b.ts - a.ts);
   const u = getCurrentUser();
   const canDelete = isModerator();
-  list.forEach((a, i) => {
+  list.forEach(a => {
     const item = document.createElement('div');
     item.className = 'album-item';
-    item.style.animationDelay = Math.min(i * 40, 500) + 'ms';
     const likes = albumLikes[a.id] || [];
     const liked = u && likes.includes(u.id);
-    item.innerHTML = `<img src="${escapeHtml(a.url)}" alt="${escapeHtml(a.title)}" onerror="this.src='https://placehold.co/400x400/0a130f/10b981?text=no+image'">${canDelete ? `<button class="album-item-delete" onclick="event.stopPropagation();modDeleteAlbum(${a.id})">🗑</button>` : ''}<div class="album-item-overlay"><div class="album-item-title">${escapeHtml(a.title)}</div><div class="album-item-meta"><span>${escapeHtml(a.author)}</span><span class="album-item-likes ${liked ? 'liked' : ''}" onclick="event.stopPropagation(); toggleLike(${a.id})">${liked ? '❤️' : '🤍'} ${likes.length}</span></div></div>`;
+    item.innerHTML = `<img src="${escapeHtml(a.url)}" alt="" onerror="this.src='https://placehold.co/400x400/0a130f/10b981?text=no+image'">${canDelete ? `<button class="album-item-delete" onclick="event.stopPropagation();modDeleteAlbum(${a.id})">🗑</button>` : ''}<div class="album-item-overlay"><div class="album-item-title">${escapeHtml(a.title)}</div><div class="album-item-meta"><span>${escapeHtml(a.author)}</span><span class="album-item-likes ${liked ? 'liked' : ''}" onclick="event.stopPropagation(); toggleLike(${a.id})">${liked ? '❤️' : '🤍'} ${likes.length}</span></div></div>`;
     item.onclick = () => showAlbumView(a);
     grid.appendChild(item);
   });
 }
 function modDeleteAlbum(id){
-  if (!isModerator()){ return; }
+  if (!isModerator()) return;
   const a = album.find(x => x.id === id); if (!a) return;
-  if (!confirm(`Удалить «${a.title}»?`)) return;
+  if (!confirm(`Удалить?`)) return;
   album = album.filter(x => x.id !== id);
-  saveAlbum(); renderAlbum(); showToast('🗑 Удалено');
+  saveAlbum(); renderAlbum(); showToast('🗑');
 }
 function toggleLike(id){
   const u = getCurrentUser();
-  if (!u){ showToast('🔐 Войди'); return; }
+  if (!u){ showToast('🔐'); return; }
   const likes = albumLikes[id] || [];
   const idx = likes.indexOf(u.id);
   if (idx === -1) likes.push(u.id); else likes.splice(idx, 1);
@@ -1699,11 +1517,10 @@ function toggleLike(id){
   saveAlbumLikes(); renderAlbum();
 }
 function showAlbumView(a){
-  $('album-view-body').innerHTML = `<div style="text-align:center;width:100%"><img src="${escapeHtml(a.url)}" onerror="this.src='https://placehold.co/800x600/0a130f/10b981?text=no+image'"><div style="padding:14px 20px;background:var(--bg-2);color:#fff"><div style="font-family:'Manrope',sans-serif;font-weight:800;font-size:17px;margin-bottom:4px">${escapeHtml(a.title)}</div>${a.desc ? `<div style="font-size:13px;color:var(--text-2);margin-bottom:6px">${escapeHtml(a.desc)}</div>` : ''}<div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)">от ${escapeHtml(a.author)} · ${new Date(a.ts).toLocaleDateString('ru-RU')}</div></div></div>`;
+  $('album-view-body').innerHTML = `<div style="text-align:center;width:100%"><img src="${escapeHtml(a.url)}"><div style="padding:14px 20px;background:var(--bg-2);color:#fff"><div style="font-weight:800;font-size:17px;margin-bottom:4px">${escapeHtml(a.title)}</div>${a.desc ? `<div style="font-size:13px;color:var(--text-2)">${escapeHtml(a.desc)}</div>` : ''}<div style="font-size:11px;color:var(--muted);margin-top:6px">от ${escapeHtml(a.author)}</div></div></div>`;
   openModal('album-view');
 }
 
-/* ===== ПРОФИЛЬ ===== */
 function openProfile(playerId){
   const p = players.find(x => x.id === playerId); if (!p) return;
   currentProfileId = playerId;
@@ -1724,19 +1541,19 @@ function openProfile(playerId){
     const ownedInCat = list.filter(a => ownedSet.has(a.id)).length;
     return `<div class="pf-ach-section"><div class="pf-ach-cat-head"><div class="pf-ach-cat-icon">${cat.icon}</div><div class="pf-ach-cat-name">${cat.name}</div><div class="pf-ach-cat-count">${ownedInCat}/${list.length}</div></div><div class="pf-ach-grid-v2">${list.map(a => { const owned = ownedSet.has(a.id); return `<div class="pf-ach-v2 ${owned ? 'unlocked' : 'locked'}" data-rarity="${a.rarity}" title="${escapeHtml(a.name)}" onclick="closeProfileModal();showAchInfo('${a.id}')">${a.icon}</div>`; }).join('')}</div></div>`;
   }).join('');
-  const bannerExtra = city ? `<div style="display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:100px;background:${city.colorRaw}22;border:1px solid ${city.colorRaw};margin-top:10px;position:relative;z-index:2;cursor:pointer" onclick="closeProfileModal();openCityModal('${city.id}')"><span style="font-size:16px">${city.icon}</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:${city.colorRaw}">${escapeHtml(city.name)}${p.isMayor ? ' · мэр' : ''}</span></div>` : '';
-  $('profile-body').innerHTML = `<div class="pf-banner">${avatarImgHtml(p.nickname, 160, 'class="pf-avatar"')}<div class="pf-nick">${escapeHtml(p.nickname)}${p.isMayor ? ' 👑' : ''}</div>${bannerExtra}<div class="pf-titles">${titles.map(a => `<span class="pf-title">${a.icon} ${escapeHtml(a.name)}</span>`).join('') || '<span style="color:var(--muted);font-size:12px">Пока без титулов</span>'}</div></div><div class="pf-ach-stats"><div class="pf-stat-card"><div class="pf-stat-value">${totalOwned}<span style="font-size:14px;color:var(--muted);font-weight:700">/${totalAch}</span></div><div class="pf-stat-label">Достижений</div></div><div class="pf-stat-card"><div class="pf-stat-value" style="color:${totalPct >= 50 ? '#34d399' : '#fff'}">${totalPct}%</div><div class="pf-stat-label">Прогресс</div></div><div class="pf-stat-card"><div class="pf-stat-value rarity-legendary">${rarityCount.legendary}</div><div class="pf-stat-label">🏆 Легендарных</div></div><div class="pf-stat-card"><div class="pf-stat-value rarity-epic">${rarityCount.epic}</div><div class="pf-stat-label">🟣 Эпических</div></div></div>${categoriesHtml}<div class="pf-actions"><button class="pf-action-btn" onclick="copyNick('${escapeHtml(p.nickname)}')">📋 Скопировать ник</button><a class="pf-action-btn" href="https://ru.namemc.com/profile/${encodeURIComponent(p.nickname)}" target="_blank" rel="noopener">🌐 NameMC</a>${canEditResidence ? `<button class="pf-action-btn" onclick="setResidence(${p.id})">🏠 ${p.residence ? 'Изменить место' : 'Указать место'}</button>` : ''}${isModerator() ? `<button class="pf-action-btn" onclick="closeProfileModal();adminGiveAchTo(${p.id})">🏆 Выдать ачивку</button>` : ''}</div>`;
+  const bannerExtra = city ? `<div style="display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:100px;background:${city.colorRaw}22;border:1px solid ${city.colorRaw};margin-top:10px;cursor:pointer" onclick="closeProfileModal();openCityModal('${city.id}')"><span>${city.icon}</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:${city.colorRaw}">${escapeHtml(city.name)}${p.isMayor ? ' · мэр' : ''}</span></div>` : '';
+  $('profile-body').innerHTML = `<div class="pf-banner">${avatarImgHtml(p.nickname, 160, 'class="pf-avatar"')}<div class="pf-nick">${escapeHtml(p.nickname)}${p.isMayor ? ' 👑' : ''}</div>${bannerExtra}<div class="pf-titles">${titles.map(a => `<span class="pf-title">${a.icon} ${escapeHtml(a.name)}</span>`).join('') || '<span style="color:var(--muted);font-size:12px">Пока без титулов</span>'}</div></div><div class="pf-ach-stats"><div class="pf-stat-card"><div class="pf-stat-value">${totalOwned}<span style="font-size:14px;color:var(--muted)">/${totalAch}</span></div><div class="pf-stat-label">Достижений</div></div><div class="pf-stat-card"><div class="pf-stat-value" style="color:${totalPct >= 50 ? '#34d399' : '#fff'}">${totalPct}%</div><div class="pf-stat-label">Прогресс</div></div><div class="pf-stat-card"><div class="pf-stat-value rarity-legendary">${rarityCount.legendary}</div><div class="pf-stat-label">🏆 Легендарных</div></div><div class="pf-stat-card"><div class="pf-stat-value rarity-epic">${rarityCount.epic}</div><div class="pf-stat-label">🟣 Эпических</div></div></div>${categoriesHtml}<div class="pf-actions"><button class="pf-action-btn" onclick="copyNick('${escapeHtml(p.nickname)}')">📋 Скопировать ник</button><a class="pf-action-btn" href="https://ru.namemc.com/profile/${encodeURIComponent(p.nickname)}" target="_blank">🌐 NameMC</a>${canEditResidence ? `<button class="pf-action-btn" onclick="setResidence(${p.id})">🏠 ${p.residence ? 'Изменить' : 'Указать'}</button>` : ''}${isModerator() ? `<button class="pf-action-btn" onclick="closeProfileModal();adminGiveAchTo(${p.id})">🏆 Выдать</button>` : ''}</div>`;
   openModal('profile-modal');
 }
 function closeProfileModal(){ closeModal('profile-modal'); currentProfileId = null; }
-function copyNick(nick){ navigator.clipboard.writeText(nick).then(() => showToast('📋 Скопирован ник: ' + nick)); }
+function copyNick(nick){ navigator.clipboard.writeText(nick).then(() => showToast('📋 ' + nick)); }
 function setResidence(playerId){
   const p = players.find(x => x.id === playerId); if (!p) return;
   const u = getCurrentUser();
   const isOwn = !!(u && p.discordId === u.id);
   if (!isOwn && !isModerator()){ showToast('🚫 Нет прав'); return; }
   const citiesList = CITIES.map(c => c.name).join(', ');
-  const v = prompt(`Где живёт ${p.nickname}?\n\nГорода: ${citiesList}\n\nИли укажи своё место:`, p.residence || '');
+  const v = prompt(`Где живёт ${p.nickname}?\n\nГорода: ${citiesList}`, p.residence || '');
   if (v === null) return;
   p.residence = v.trim();
   const city = CITIES.find(c => c.name.toLowerCase() === p.residence.toLowerCase());
@@ -1746,36 +1563,26 @@ function setResidence(playerId){
   showToast('🏠 Сохранено');
 }
 
-/* ===== ВЕРИФИКАЦИЯ ===== */
-function generateVerifyCode(){
-  const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
-  let code = '';
-  for (let i = 0; i < 5; i++) code += chars[Math.floor(Math.random() * chars.length)];
-  return code;
-}
+function generateVerifyCode(){ const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'; let code = ''; for (let i = 0; i < 5; i++) code += chars[Math.floor(Math.random() * chars.length)]; return code; }
 function openNickLinkModal(){
   const u = getCurrentUser();
   if (!u){ showToast('🔐 Сначала войди через Discord'); loginWithDiscord(); return; }
   renderNickModalStart();
   openModal('nick-modal');
 }
-function closeNickModal(){
-  closeModal('nick-modal');
-  if (verifyInterval){ clearInterval(verifyInterval); verifyInterval = null; }
-  if (verifyTimerInt){ clearInterval(verifyTimerInt); verifyTimerInt = null; }
-}
+function closeNickModal(){ closeModal('nick-modal'); if (verifyInterval){ clearInterval(verifyInterval); verifyInterval = null; } if (verifyTimerInt){ clearInterval(verifyTimerInt); verifyTimerInt = null; } }
 function renderNickModalStart(){
   const u = getCurrentUser();
   const linked = getLinkedPlayer(u);
   if (linked){
-    $('nick-body').innerHTML = `<div class="form-info" style="background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.35)">✅ Твой ник <strong>${escapeHtml(linked.nickname)}</strong> уже привязан.</div><div style="text-align:center;padding:20px 0"><div style="font-size:80px">🎮</div></div><div style="text-align:center;font-family:'Manrope',sans-serif;font-weight:800;font-size:22px;color:#fff;margin-bottom:16px">${escapeHtml(linked.nickname)}</div><div style="text-align:center"><button class="pf-action-btn" onclick="closeNickModal()">Закрыть</button></div>`;
+    $('nick-body').innerHTML = `<div class="form-info" style="background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.35)">✅ Ник <strong>${escapeHtml(linked.nickname)}</strong> уже привязан.</div><div style="text-align:center;padding:20px 0;font-size:80px">🎮</div><div style="text-align:center;font-family:'Manrope',sans-serif;font-weight:800;font-size:22px;color:#fff;margin-bottom:16px">${escapeHtml(linked.nickname)}</div><div style="text-align:center"><button class="pf-action-btn" onclick="closeNickModal()">Закрыть</button></div>`;
     return;
   }
   $('nick-body').innerHTML = `
-    <div class="form-info">🎮 <strong>Как это работает:</strong> получи код, напиши команду в игре, сделай скриншот. Отправь модератору через сайт или Discord.</div>
+    <div class="form-info">🎮 Получи код, напиши команду в игре, сделай скриншот.</div>
     <div class="verify-tabs">
-      <button class="verify-tab active" id="vt-command" onclick="switchVerifyMethod('command')">💬 Команда</button>
-      <button class="verify-tab" id="vt-rename" onclick="switchVerifyMethod('rename')">🔐 Авто</button>
+      <button class="verify-tab active" onclick="switchVerifyMethod('command')">💬 Команда</button>
+      <button class="verify-tab" onclick="switchVerifyMethod('rename')">🔐 Авто</button>
     </div>
     <div class="form-row"><label>Твой ник в Minecraft</label><input type="text" id="nick-input" placeholder="Steve" maxlength="16"></div>
     <div class="method-pane active" id="mp-command">
@@ -1788,7 +1595,7 @@ function renderNickModalStart(){
       <button class="btn-primary" onclick="startCommandVerification()" style="width:100%">💬 Получить код</button>
     </div>
     <div class="method-pane" id="mp-rename">
-      <div class="form-info" style="background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.3)">⚠️ Смени ник в лаунчере на <strong>Nick_КОД</strong> и зайди на сервер — сайт подтвердит автоматически.</div>
+      <div class="form-info" style="background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.3)">⚠️ Смени ник на <strong>Nick_КОД</strong> и зайди — сайт подтвердит.</div>
       <button class="btn-primary" onclick="startRenameVerification()" style="width:100%">🔐 Автопроверка</button>
     </div>`;
   setTimeout(() => $('nick-input')?.focus(), 100);
@@ -1797,20 +1604,16 @@ function switchVerifyMethod(m){
   verifyMethod = m;
   document.querySelectorAll('.verify-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.method-pane').forEach(p => p.classList.remove('active'));
-  $('vt-' + m)?.classList.add('active');
-  $('mp-' + m)?.classList.add('active');
+  if (m === 'command'){ document.querySelectorAll('.verify-tab')[0].classList.add('active'); $('mp-command').classList.add('active'); }
+  else { document.querySelectorAll('.verify-tab')[1].classList.add('active'); $('mp-rename').classList.add('active'); }
 }
-function validateNick(nick){
-  if (!nick || nick.length < 3 || nick.length > 16){ showToast('❌ Ник от 3 до 16 символов'); return false; }
-  if (!/^[a-zA-Z0-9_]+$/.test(nick)){ showToast('❌ Только буквы, цифры и _'); return false; }
-  return true;
-}
+function validateNick(nick){ if (!nick || nick.length < 3 || nick.length > 16){ showToast('❌ Ник от 3 до 16'); return false; } if (!/^[a-zA-Z0-9_]+$/.test(nick)){ showToast('❌ Только буквы, цифры и _'); return false; } return true; }
 function startCommandVerification(){
   const u = getCurrentUser(); if (!u) return;
   const nick = $('nick-input').value.trim();
   if (!validateNick(nick)) return;
   const existing = findPlayerByNick(nick);
-  if (existing && existing.discordId && existing.discordId !== u.id){ showToast('❌ Ник уже привязан к другому аккаунту'); return; }
+  if (existing && existing.discordId && existing.discordId !== u.id){ showToast('❌ Ник занят'); return; }
   const code = generateVerifyCode();
   verifyPending = { method: 'command', discordId: u.id, discordName: getDiscordName(u), nickname: nick, code: 'PTU-' + code, startedAt: Date.now() };
   renderCommandMethodScreen();
@@ -1821,45 +1624,32 @@ function renderCommandMethodScreen(){
     <div class="code-box">
       <div class="code-label">Твой код</div>
       <div class="code-value" onclick="navigator.clipboard.writeText('/me ${v.code}');showToast('📋 Скопировано')">${v.code}</div>
-      <div class="code-copy-hint">👆 нажми — скопирует команду /me</div>
+      <div class="code-copy-hint">👆 нажми, чтобы скопировать /me</div>
     </div>
-    <div class="chat-example">
-      <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Введи в чат:</div>
-      <div><span class="player">/me</span> <span class="code-in-chat">${v.code}</span></div>
-    </div>
-    <div class="steps-mini">
-      <div class="step-mini"><span class="sn">1</span><div>Зайди под ником <strong>${escapeHtml(v.nickname)}</strong></div></div>
-      <div class="step-mini"><span class="sn">2</span><div>Введи <strong>/me ${v.code}</strong></div></div>
-      <div class="step-mini"><span class="sn">3</span><div>Открой Tab и сделай скриншот</div></div>
-      <div class="step-mini"><span class="sn">4</span><div>Загрузи скриншот на imgur</div></div>
-    </div>
+    <div class="chat-example"><div style="font-size:11px;color:var(--muted);margin-bottom:4px">Введи в чат:</div><div><span style="color:#fbbf24;font-weight:700">/me</span> <span style="color:var(--purple-2);font-weight:700">${v.code}</span></div></div>
     <div class="form-row"><label>Ссылка на скриншот</label><input type="url" id="cmd-proof-url" placeholder="https://i.imgur.com/xxxxx.png"></div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="pf-action-btn" onclick="renderNickModalStart()" style="flex:1;min-width:100px">← Назад</button>
-      <button class="btn-discord-share" onclick="shareNickViaDiscord()" style="flex:1;min-width:120px"><svg viewBox="0 0 24 24"><path d="M20.317 4.369a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg> Discord</button>
+      <button class="pf-action-btn" onclick="renderNickModalStart()" style="flex:1">← Назад</button>
+      <button class="btn-discord-share" onclick="shareNickViaDiscord()" style="flex:1"><svg viewBox="0 0 24 24"><path d="M20.317 4.369a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg> Discord</button>
       <button class="btn-primary" onclick="submitCommandVerification()" style="flex:2;min-width:120px">📤 Отправить</button>
     </div>
     <div class="admin-toast" id="cmd-toast"></div>`;
 }
 function shareNickViaDiscord(){
   const v = verifyPending; if (!v) return;
-  const url = $('cmd-proof-url')?.value.trim() || '[ссылка на скриншот]';
+  const url = $('cmd-proof-url')?.value.trim() || '[ссылка]';
   const msg = `🎮 **Заявка на привязку ника ПТУ SMP**\n\n👤 Discord: \`${v.discordName}\` (<@${v.discordId}>)\n🎮 Ник: **${v.nickname}**\n🔑 Код: \`${v.code}\`\n📸 Пруф: ${url}\n\n<@${ADMIN_DISCORD_IDS[0]}> <@${MODERATOR_DISCORD_IDS[0]}> — проверьте!`;
-  navigator.clipboard.writeText(msg).then(() => {
-    showToast('📋 Скопировано! Открой Discord');
-    window.open('https://discord.gg/bBvJ9VHXc', '_blank');
-  });
+  navigator.clipboard.writeText(msg).then(() => { showToast('📋 Скопировано'); window.open('https://discord.gg/bBvJ9VHXc', '_blank'); });
 }
 function submitCommandVerification(){
   const v = verifyPending; if (!v) return;
   const url = $('cmd-proof-url').value.trim();
-  if (!url || !/^https?:\/\//.test(url)){ showToast('❌ Нужна ссылка на скриншот'); return; }
+  if (!url || !/^https?:\/\//.test(url)){ showToast('❌ Нужна ссылка'); return; }
   const newReq = { id: Date.now(), nickname: v.nickname, discordId: v.discordId, discordName: v.discordName, method: 'command', code: v.code, proof: url, ts: Date.now(), status: 'pending' };
   nickRequests.unshift(newReq);
   saveNickRequests(); updateAdminBadge();
   $('cmd-toast').className = 'admin-toast ok';
-  $('cmd-toast').textContent = '✅ Отправлено! Модератор проверит.';
-  showToast('📤 Отправлено');
+  $('cmd-toast').textContent = '✅ Отправлено!';
   notifyModsNewSubmission('nick', newReq);
   setTimeout(() => closeNickModal(), 1800);
 }
@@ -1880,49 +1670,35 @@ function renderRenameMethodScreen(){
   $('nick-body').innerHTML = `
     <div class="code-box" style="background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(239,68,68,.06));border-color:rgba(245,158,11,.35)">
       <div class="code-label">Ник с кодом</div>
-      <div class="code-value" style="color:#fbbf24" onclick="navigator.clipboard.writeText('${v.fullNick}');showToast('📋 Скопировано')">${escapeHtml(v.fullNick)}</div>
-      <div class="code-copy-hint">👆 нажми, чтобы скопировать</div>
+      <div class="code-value" style="color:#fbbf24" onclick="navigator.clipboard.writeText('${v.fullNick}');showToast('📋')">${escapeHtml(v.fullNick)}</div>
     </div>
-    <div style="text-align:center;padding:8px 0 12px"><div style="font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:900;color:var(--amber-2)" id="verify-timer">05:00</div></div>
+    <div style="text-align:center;padding:8px 0;font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:900;color:var(--amber-2)" id="verify-timer">05:00</div>
     <div class="steps-mini">
       <div class="step-mini"><span class="sn">1</span><div>Смени ник в лаунчере на <strong>${escapeHtml(v.fullNick)}</strong></div></div>
-      <div class="step-mini"><span class="sn">2</span><div>Запусти Minecraft и зайди на <strong>eu.ptu-smp.ru</strong></div></div>
-      <div class="step-mini"><span class="sn">3</span><div>Сайт проверяет каждые 10 сек</div></div>
+      <div class="step-mini"><span class="sn">2</span><div>Зайди на <strong>eu.ptu-smp.ru</strong></div></div>
     </div>
     <div class="verify-progress"><div class="verify-progress-fill" id="verify-progress" style="width:0%"></div></div>
     <div class="verify-log" id="verify-log"><div class="wait">⏳ Ожидание входа...</div></div>
-    <div style="display:flex;gap:8px;margin-top:14px">
-      <button class="pf-action-btn" onclick="closeNickModal()" style="flex:1">Отменить</button>
-      <button class="pf-action-btn" onclick="checkRenameOnce()" style="flex:1">🔄 Проверить</button>
-    </div>`;
+    <div style="display:flex;gap:8px;margin-top:14px"><button class="pf-action-btn" onclick="closeNickModal()" style="flex:1">Отменить</button><button class="pf-action-btn" onclick="checkRenameOnce()" style="flex:1">🔄 Проверить</button></div>`;
   updateRenameTimer();
 }
 function updateRenameTimer(){
   if (verifyTimerInt) clearInterval(verifyTimerInt);
   verifyTimerInt = setInterval(() => {
-    if (!verifyPending || verifyPending.method !== 'rename'){ clearInterval(verifyTimerInt); verifyTimerInt = null; return; }
+    if (!verifyPending || verifyPending.method !== 'rename'){ clearInterval(verifyTimerInt); return; }
     const left = Math.max(0, Math.floor((verifyPending.expiresAt - Date.now()) / 1000));
     const el = $('verify-timer');
     if (el){ const m = Math.floor(left / 60); const s = left % 60; el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0'); }
-    if (left <= 0){
-      clearInterval(verifyTimerInt); verifyTimerInt = null;
-      addRenameLog('⏱️ Код истёк.', 'err');
-      showToast('⏱️ Код истёк');
-      setTimeout(() => renderNickModalStart(), 1500);
-    }
+    if (left <= 0){ clearInterval(verifyTimerInt); addRenameLog('⏱️ Истёк', 'err'); setTimeout(() => renderNickModalStart(), 1500); }
   }, 1000);
 }
-function addRenameLog(msg, cls){
-  const log = $('verify-log'); if (!log) return;
-  log.insertAdjacentHTML('beforeend', `<div class="${cls || ''}">${msg}</div>`);
-  log.scrollTop = log.scrollHeight;
-}
+function addRenameLog(msg, cls){ const log = $('verify-log'); if (!log) return; log.insertAdjacentHTML('beforeend', `<div class="${cls || ''}">${msg}</div>`); log.scrollTop = log.scrollHeight; }
 function startRenamePolling(){
   if (verifyInterval) clearInterval(verifyInterval);
   verifyInterval = setInterval(async () => {
-    if (!verifyPending || verifyPending.method !== 'rename'){ clearInterval(verifyInterval); verifyInterval = null; return; }
+    if (!verifyPending || verifyPending.method !== 'rename'){ clearInterval(verifyInterval); return; }
     const found = await checkRenameOnce();
-    if (found){ clearInterval(verifyInterval); verifyInterval = null; }
+    if (found) clearInterval(verifyInterval);
   }, 10000);
 }
 async function checkRenameOnce(){
@@ -1930,39 +1706,38 @@ async function checkRenameOnce(){
   try {
     const res = await fetch(`https://api.mcsrvstat.us/3/${SERVER_IP}`, { cache: 'no-store' });
     const data = await res.json();
-    if (!data.online){ addRenameLog('⚫ Сервер оффлайн', 'err'); return false; }
+    if (!data.online){ addRenameLog('⚫ Оффлайн', 'err'); return false; }
     const list = (data.players?.list || []).map(p => (typeof p === 'string' ? p : p.name).toLowerCase());
     const target = verifyPending.fullNick.toLowerCase();
     if (list.includes(target)){
-      addRenameLog(`✅ Найден ${verifyPending.fullNick}!`, 'ok');
+      addRenameLog(`✅ Найден!`, 'ok');
       const prog = $('verify-progress'); if (prog) prog.style.width = '100%';
       await completeRenameVerification();
       return true;
     } else {
-      addRenameLog(`⏳ Проверка... (не найден)`, 'wait');
+      addRenameLog(`⏳ Проверка...`, 'wait');
       const prog = $('verify-progress'); if (prog) prog.style.width = Math.min(90, parseInt(prog.style.width || 0) + 15) + '%';
       return false;
     }
-  } catch(e){ addRenameLog('❌ Ошибка сети', 'err'); return false; }
+  } catch(e){ addRenameLog('❌ Ошибка', 'err'); return false; }
 }
 async function completeRenameVerification(){
   const v = verifyPending; if (!v) return;
   let player = players.find(p => p.nickname.toLowerCase() === v.nickname.toLowerCase());
   if (player){
-    if (player.discordId && player.discordId !== v.discordId){ addRenameLog('❌ Ник занят', 'err'); return; }
-    player.discordId = v.discordId; player.mcVerified = true; player.verifiedAt = Date.now();
+    if (player.discordId && player.discordId !== v.discordId){ addRenameLog('❌ Занят', 'err'); return; }
+    player.discordId = v.discordId; player.mcVerified = true;
   } else {
-    player = { id: nextPlayerId++, nickname: v.nickname, discordId: v.discordId, addedAt: Date.now(), mcVerified: true, verifiedAt: Date.now() };
+    player = { id: nextPlayerId++, nickname: v.nickname, discordId: v.discordId, addedAt: Date.now(), mcVerified: true };
     players.push(player);
   }
   savePlayers();
-  addRenameLog(`✅ Ник ${v.nickname} привязан!`, 'ok');
+  addRenameLog(`✅ Готово!`, 'ok');
   updateAuthUI(); renderAchievements(); renderPlayersView();
   verifyPending = null;
   setTimeout(() => { closeNickModal(); showToast('✅ Ник привязан: ' + v.nickname); }, 1200);
 }
 
-/* ===== ГОРОДА ===== */
 function renderCities(){
   const container = $('map-cities-container'); if (!container) return;
   const tiles = $('map-tiles');
@@ -1974,16 +1749,11 @@ function renderCities(){
       <div class="map-tile" style="--tc:#fbbf24"><div class="map-tile-icon">👑</div><div class="map-tile-value">${CITIES.length}</div><div class="map-tile-label">Мэров</div></div>
       <div class="map-tile" style="--tc:#06b6d4"><div class="map-tile-icon">👥</div><div class="map-tile-value">${totalResidents}</div><div class="map-tile-label">Жителей</div></div>
       <div class="map-tile" style="--tc:#a78bfa"><div class="map-tile-icon">🏆</div><div class="map-tile-value">${achTotal}</div><div class="map-tile-label">Ачивок</div></div>`;
-    const sc = $('map-stat-cities'); if (sc) sc.textContent = CITIES.length;
-    const sr = $('map-stat-residents'); if (sr) sr.textContent = totalResidents;
   }
   container.innerHTML = '';
-  CITIES.forEach((city, ci) => {
+  CITIES.forEach(city => {
     const block = document.createElement('div');
     block.className = 'city-block';
-    block.style.animation = 'fadeUp .5s ease forwards';
-    block.style.animationDelay = (ci * 80) + 'ms';
-    block.style.opacity = '0';
     block.style.setProperty('--cc', city.colorRaw);
     block.style.setProperty('--cbg', city.colorRaw + '22');
     const residentsSorted = [...city.residents].sort((a, b) => {
@@ -2010,12 +1780,11 @@ function openCityModal(cityId){
     if (b.toLowerCase() === city.mayor.toLowerCase()) return 1;
     return a.localeCompare(b, 'ru');
   });
-  $('city-body').innerHTML = `<div class="city-hero" style="--city-color:${city.colorRaw};--city-color-bg:${city.colorRaw}22"><div class="city-hero-icon">${city.icon}</div><div class="city-hero-name">${escapeHtml(city.name)}</div><div class="city-hero-desc">${escapeHtml(city.description)}</div><div class="city-hero-mayor" onclick="closeModal('city-modal');openProfileByName('${escapeHtml(city.mayor)}')">${avatarImgHtml(city.mayor, 48)}<div><div class="label">👑 Мэр города</div><div class="name">${escapeHtml(city.mayor)}</div></div></div></div><div style="padding:20px 28px 8px"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:12px">👥 Все жители (${city.residents.length})</div></div><div class="city-residents-full">${residentsSorted.map(nick => { const isMayor = nick.toLowerCase() === city.mayor.toLowerCase(); return `<div class="city-resident-card" style="--city-color:${city.colorRaw};--city-color-bg:${city.colorRaw}22" onclick="closeModal('city-modal');openProfileByName('${escapeHtml(nick)}')">${avatarImgHtml(nick, 48)}<div style="min-width:0;flex:1"><div class="rname">${escapeHtml(nick)}</div><div class="rbadge">${isMayor ? '👑 Мэр' : '🏠 Житель'}</div></div></div>`; }).join('')}</div>`;
+  $('city-body').innerHTML = `<div class="city-hero" style="--city-color:${city.colorRaw};--city-color-bg:${city.colorRaw}22"><div class="city-hero-icon">${city.icon}</div><div class="city-hero-name">${escapeHtml(city.name)}</div><div class="city-hero-desc">${escapeHtml(city.description)}</div><div class="city-hero-mayor" onclick="closeModal('city-modal');openProfileByName('${escapeHtml(city.mayor)}')">${avatarImgHtml(city.mayor, 48)}<div><div class="label">👑 Мэр</div><div class="name">${escapeHtml(city.mayor)}</div></div></div></div><div style="padding:20px 28px 8px"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:12px">👥 Жители (${city.residents.length})</div></div><div class="city-residents-full">${residentsSorted.map(nick => { const isMayor = nick.toLowerCase() === city.mayor.toLowerCase(); return `<div class="city-resident-card" style="--city-color:${city.colorRaw};--city-color-bg:${city.colorRaw}22" onclick="closeModal('city-modal');openProfileByName('${escapeHtml(nick)}')">${avatarImgHtml(nick, 48)}<div style="min-width:0;flex:1"><div class="rname">${escapeHtml(nick)}</div><div class="rbadge">${isMayor ? '👑 Мэр' : '🏠 Житель'}</div></div></div>`; }).join('')}</div>`;
   openModal('city-modal');
 }
-function openProfileByName(nick){ const p = findPlayerByNick(nick); if (p) openProfile(p.id); else showToast('Игрок не найден'); }
+function openProfileByName(nick){ const p = findPlayerByNick(nick); if (p) openProfile(p.id); else showToast('Не найден'); }
 
-/* ===== СТРИМЫ ===== */
 const DECAPI = 'https://decapi.me/twitch';
 let streamStatusCache = {}, currentStreamFilter = 'all', currentStreamSearch = '', currentStreamChannel = null;
 async function fetchStreamerStatus(twitch){
@@ -2031,7 +1800,7 @@ async function fetchStreamerStatus(twitch){
     streamStatusCache[twitch] = data; return data;
   } catch { return { online: false, game: null, viewers: 0, avatar: null }; }
 }
-function getTwitchParents(){ const s = new Set(); const h = location.hostname; if (h) s.add(h); const p = h.split('.'); if (p.length > 2) s.add(p.slice(-2).join('.')); s.add('localhost'); s.add('127.0.0.1'); return [...s]; }
+function getTwitchParents(){ const s = new Set(); const h = location.hostname; if (h) s.add(h); const p = h.split('.'); if (p.length > 2) s.add(p.slice(-2).join('.')); s.add('localhost'); return [...s]; }
 function buildTwitchEmbed(c){ const p = new URLSearchParams(); p.append('channel', c); p.append('autoplay', 'true'); p.append('muted', 'false'); getTwitchParents().forEach(x => p.append('parent', x)); return `https://player.twitch.tv/?${p.toString()}`; }
 function openStream(channel){
   const s = STREAMERS.find(x => x.twitch.toLowerCase() === channel.toLowerCase()); if (!s) return;
@@ -2040,18 +1809,18 @@ function openStream(channel){
   const st = streamStatusCache[channel] || {};
   const dn = s.display || s.twitch;
   $('stream-name').textContent = dn;
-  $('stream-meta').textContent = st.online ? `🔴 В эфире · ${st.game || '—'} · ${st.viewers} зрителей` : '⚫ Не в сети';
-  const av = $('stream-avatar'); if (st.avatar) av.innerHTML = `<img src="${st.avatar}" alt="">`; else av.textContent = dn.charAt(0).toUpperCase();
+  $('stream-meta').textContent = st.online ? `🔴 ${st.game || '—'} · ${st.viewers} зрителей` : '⚫ Не в сети';
+  const av = $('stream-avatar'); if (st.avatar) av.innerHTML = `<img src="${st.avatar}">`; else av.textContent = dn.charAt(0).toUpperCase();
   $('stream-open').href = `https://twitch.tv/${channel}`;
-  if (st.online) wrap.innerHTML = `<iframe src="${buildTwitchEmbed(channel)}" allowfullscreen allow="autoplay; fullscreen; encrypted-media" referrerpolicy="origin"></iframe>`;
-  else wrap.innerHTML = `<div class="stream-offline-card"><div class="stream-offline-avatar">${st.avatar ? `<img src="${st.avatar}" alt="">` : dn.charAt(0)}</div><div class="stream-offline-nick">${escapeHtml(channel)}</div><div class="stream-offline-status"><span class="dot-off"></span>Не в эфире</div><a class="stream-offline-btn" href="https://twitch.tv/${channel}" target="_blank" rel="noopener">Открыть на Twitch</a></div>`;
+  if (st.online) wrap.innerHTML = `<iframe src="${buildTwitchEmbed(channel)}" allowfullscreen allow="autoplay; fullscreen"></iframe>`;
+  else wrap.innerHTML = `<div class="stream-offline-card"><div class="stream-offline-avatar">${st.avatar ? `<img src="${st.avatar}">` : dn.charAt(0)}</div><div class="stream-offline-nick">${escapeHtml(channel)}</div><div class="stream-offline-status"><span class="dot-off"></span>Не в эфире</div><a class="stream-offline-btn" href="https://twitch.tv/${channel}" target="_blank">Открыть</a></div>`;
   renderStreamList();
 }
 function renderStreamList(){
   const list = $('stream-list'); if (!list) return;
   const search = currentStreamSearch.toLowerCase().trim();
-  const filtered = STREAMERS.filter(s => { if (search && !(s.twitch + ' ' + (s.display||'') + ' ' + (s.note||'')).toLowerCase().includes(search)) return false; if (currentStreamFilter === 'online' && !streamStatusCache[s.twitch]?.online) return false; return true; });
-  if (!filtered.length){ list.innerHTML = `<div class="stream-empty">Никого не найдено</div>`; return; }
+  const filtered = STREAMERS.filter(s => { if (search && !(s.twitch + ' ' + (s.display||'')).toLowerCase().includes(search)) return false; if (currentStreamFilter === 'online' && !streamStatusCache[s.twitch]?.online) return false; return true; });
+  if (!filtered.length){ list.innerHTML = `<div class="stream-empty">Не найдено</div>`; return; }
   const online = filtered.filter(s => streamStatusCache[s.twitch]?.online);
   const offline = filtered.filter(s => !streamStatusCache[s.twitch]?.online);
   const build = (s, isOn) => {
@@ -2060,13 +1829,13 @@ function renderStreamList(){
     if (currentStreamChannel === s.twitch) el.classList.add('active');
     if (!isOn) el.classList.add('offline');
     const init = (s.display || s.twitch).charAt(0).toUpperCase();
-    el.innerHTML = `<div class="stream-item-avatar">${st.avatar ? `<img src="${st.avatar}" alt="">` : init}${st.online ? '<div class="live-ring"></div>' : ''}</div><div class="stream-item-info"><div class="stream-item-name">${escapeHtml(s.display || s.twitch)}</div><div class="stream-item-note">${st.online && st.game ? escapeHtml(st.game) : escapeHtml(s.note || s.twitch)}</div></div><div class="stream-item-status ${st.online ? 'online' : 'offline'}">${st.online ? '🔴 LIVE' : '⚫ OFF'}</div>`;
+    el.innerHTML = `<div class="stream-item-avatar">${st.avatar ? `<img src="${st.avatar}">` : init}</div><div class="stream-item-info"><div class="stream-item-name">${escapeHtml(s.display || s.twitch)}</div><div class="stream-item-note">${st.online && st.game ? escapeHtml(st.game) : escapeHtml(s.note || s.twitch)}</div></div><div class="stream-item-status ${st.online ? 'online' : 'offline'}">${st.online ? '🔴 LIVE' : '⚫ OFF'}</div>`;
     el.onclick = () => openStream(s.twitch);
     return el;
   };
   list.innerHTML = '';
-  if (online.length){ const l = document.createElement('div'); l.className = 'stream-empty'; l.style.cssText='color:var(--red-2);border-color:rgba(239,68,68,.3)'; l.textContent = `🔴 В эфире (${online.length})`; list.appendChild(l); online.forEach(s => list.appendChild(build(s, true))); }
-  if (offline.length){ const l = document.createElement('div'); l.className = 'stream-empty'; l.textContent = `⚫ Не в сети (${offline.length})`; list.appendChild(l); offline.forEach(s => list.appendChild(build(s, false))); }
+  if (online.length){ const l = document.createElement('div'); l.className='stream-empty'; l.style.cssText='color:var(--red-2)'; l.textContent = `🔴 В эфире (${online.length})`; list.appendChild(l); online.forEach(s => list.appendChild(build(s, true))); }
+  if (offline.length){ const l = document.createElement('div'); l.className='stream-empty'; l.textContent = `⚫ Не в сети (${offline.length})`; list.appendChild(l); offline.forEach(s => list.appendChild(build(s, false))); }
 }
 async function loadStreams(){
   const list = $('stream-list'); if (!list) return;
@@ -2079,30 +1848,15 @@ async function loadStreams(){
 document.addEventListener('input', e => { if (e.target.id === 'stream-search'){ currentStreamSearch = e.target.value; renderStreamList(); } });
 document.addEventListener('click', e => { const b = e.target.closest('.stream-filter[data-filter]'); if (b){ document.querySelectorAll('.stream-filter[data-filter]').forEach(x => x.classList.remove('active')); b.classList.add('active'); currentStreamFilter = b.dataset.filter; renderStreamList(); } });
 
-/* ===== СЕРВЕР ===== */
 async function fetchServerStatus(){
   const dot = $('btn-status-dot'), num = $('btn-status-num');
   dot.className = 'dot checking'; num.textContent = '—/—';
   try {
     const res = await fetch(`https://api.mcsrvstat.us/3/${SERVER_IP}`, { cache: 'no-store' });
     const data = await res.json();
-    if (!data.online){
-      dot.className = 'dot offline'; num.textContent = 'оффлайн';
-      const body = $('modal-players-body'); if (body) body.innerHTML = '<div style="text-align:center;padding:20px;color:var(--muted)">Сервер оффлайн</div>';
-    } else {
-      dot.className = 'dot online';
-      num.textContent = `${data.players?.online ?? 0}/${data.players?.max ?? 0}`;
-      const list = data.players?.list || [];
-      if (list.length) autoAddOnlinePlayers(list);
-      const body = $('modal-players-body');
-      if (body){
-        if (!list.length){ body.innerHTML = '<div style="text-align:center;padding:20px;color:var(--muted)">Никого нет онлайн</div>'; }
-        else {
-          body.innerHTML = `<div style="font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;color:var(--text-2);text-transform:uppercase;letter-spacing:.1em;padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--line)">На сервере сейчас</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">${list.map(p => { const nick = typeof p === 'string' ? p : p.name; const pl = players.find(x => x.nickname.toLowerCase() === nick.toLowerCase()); return `<div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:12px;cursor:pointer" onclick="closeModal('server-modal');${pl ? `openProfile(${pl.id})` : ''}">${avatarImgHtml(nick, 36, 'style="width:36px;height:36px;border-radius:8px;image-rendering:pixelated"')}<span style="font-weight:600;font-size:14px">${escapeHtml(nick)}</span></div>`; }).join('')}</div>`;
-        }
-      }
-    }
-  } catch (e){ console.error(e); dot.className = 'dot offline'; num.textContent = 'ошибка'; }
+    if (!data.online){ dot.className = 'dot offline'; num.textContent = 'оффлайн'; }
+    else { dot.className = 'dot online'; num.textContent = `${data.players?.online ?? 0}/${data.players?.max ?? 0}`; const list = data.players?.list || []; if (list.length) autoAddOnlinePlayers(list); }
+  } catch (e){ dot.className = 'dot offline'; num.textContent = 'ошибка'; }
 }
 function openServerModal(){ openModal('server-modal'); fetchServerStatus(); }
 function autoAddOnlinePlayers(list){
@@ -2127,31 +1881,26 @@ async function refreshMapPlayers(){
     const onlineCount = data.online ? (data.players?.online ?? 0) : 0;
     const liveEl = $('map-live-count');
     if (liveEl) liveEl.textContent = onlineCount + ' онлайн';
-    if (!data.online){ strip.innerHTML = '<div class="no-residents" style="grid-column:1/-1">⚫ Сервер оффлайн</div>'; return; }
+    if (!data.online){ strip.innerHTML = '<div class="no-residents" style="grid-column:1/-1">⚫ Оффлайн</div>'; return; }
     const list = data.players?.list || [];
-    if (!list.length){ strip.innerHTML = `<div class="no-residents" style="grid-column:1/-1">💤 ${onlineCount > 0 ? 'Список скрыт' : 'Никого нет онлайн'}</div>`; return; }
+    if (!list.length){ strip.innerHTML = `<div class="no-residents" style="grid-column:1/-1">💤 Никого нет</div>`; return; }
     autoAddOnlinePlayers(list);
     strip.innerHTML = '';
-    list.forEach((p, i) => {
+    list.forEach(p => {
       const nick = typeof p === 'string' ? p : p.name;
       const pl = players.find(x => x.nickname.toLowerCase() === nick.toLowerCase());
       const city = pl?.cityId ? CITIES.find(c => c.id === pl.cityId) : null;
       const card = document.createElement('div');
       card.className = 'online-card';
-      card.style.animationDelay = (i * 40) + 'ms';
-      card.style.opacity = '0';
-      card.style.animation = 'fadeUp .4s ease forwards';
       card.innerHTML = `${avatarImgHtml(nick, 48)}<div style="min-width:0;flex:1"><div class="oc-name">${escapeHtml(nick)}${pl?.isMayor ? ' 👑' : ''}</div><div class="oc-city">${city ? city.icon + ' ' + escapeHtml(city.name) : '🟢 в игре'}</div></div>`;
       card.onclick = () => { if (pl) openProfile(pl.id); };
       strip.appendChild(card);
     });
   } catch (e){
-    console.error(e);
-    strip.innerHTML = '<div class="no-residents" style="grid-column:1/-1">❌ Ошибка загрузки</div>';
+    strip.innerHTML = '<div class="no-residents" style="grid-column:1/-1">❌ Ошибка</div>';
   }
 }
 
-/* ===== АДМИНКА ===== */
 document.querySelectorAll('.admin-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
@@ -2165,24 +1914,19 @@ document.querySelectorAll('.admin-tab').forEach(tab => {
     if (tab.dataset.tab === 'nick-requests') renderAdminNickRequests();
     if (tab.dataset.tab === 'chronicle') renderChronicleAdminList();
     if (tab.dataset.tab === 'players') renderAdminPlayers();
-    if (tab.dataset.tab === 'webhook') renderWebhookPane();
     if (tab.dataset.tab === 'data') renderExport();
   });
 });
-function renderWebhookPane(){
-  const input = $('webhook-url-input');
-  if (input) input.value = customWebhookUrl || DISCORD_WEBHOOK_URL || '';
-}
 function openAdminModal(){
   if (!isModerator()){ showToast('🚫 Только для модераторов'); return; }
   const admin = isAdmin();
   $('admin-title').textContent = admin ? 'Панель администратора' : 'Панель модератора';
   $('admin-banner').innerHTML = admin
-    ? '👑 <strong>Полный доступ.</strong> Вебхук, данные, удаление игроков.'
-    : '🛡️ <strong>Доступ модератора:</strong> заявки, летопись, выдача ачивок. Вебхук и данные — только админ.';
+    ? '👑 <strong>Полный доступ.</strong>'
+    : '🛡️ <strong>Доступ модератора:</strong> заявки, летопись, выдача ачивок.';
   document.querySelectorAll('.admin-tab.admin-only').forEach(t => t.style.display = admin ? '' : 'none');
   openModal('admin-modal');
-  renderAdminAchSubs(); renderAdminChSubs(); renderAdminAlbumSubs(); renderAdminNickRequests(); renderChronicleAdminList(); renderAdminPlayers(); renderWebhookPane(); renderExport(); updateAdminBadge();
+  renderAdminAchSubs(); renderAdminChSubs(); renderAdminAlbumSubs(); renderAdminNickRequests(); renderChronicleAdminList(); renderAdminPlayers(); renderExport(); updateAdminBadge();
 }
 function closeAdminModal(){ closeModal('admin-modal'); }
 function updateAdminBadge(){
@@ -2205,11 +1949,11 @@ function renderAdminNickRequests(){
   c.innerHTML = '';
   pending.forEach(r => {
     const isCmd = r.method === 'command';
-    const proofHtml = isCmd && r.proof ? `<a href="${escapeHtml(r.proof)}" target="_blank" style="color:var(--purple-2);font-size:11px;font-family:'JetBrains Mono',monospace">📸 Открыть пруф →</a>` : '';
+    const proofHtml = isCmd && r.proof ? `<a href="${escapeHtml(r.proof)}" target="_blank" style="color:var(--purple-2);font-size:11px">📸 Пруф →</a>` : '';
     const codeHtml = isCmd && r.code ? `<div class="mod-desc">Код: <strong style="color:var(--amber-2)">${escapeHtml(r.code)}</strong></div>` : '';
     const el = document.createElement('div');
     el.className = 'mod-item';
-    el.innerHTML = `${avatarImgHtml(r.nickname, 52, 'class="preview"')}<div class="mod-info"><div class="mod-line">${isCmd ? '💬 Команда /me' : '🔐 Авто'}</div><div class="mod-title">${escapeHtml(r.nickname)}</div><div class="mod-desc">Discord: ${escapeHtml(r.discordName)}</div>${codeHtml}<div style="margin-top:6px">${proofHtml}</div></div><div class="mod-actions"><button class="mod-btn approve" onclick="approveNickLink(${r.id})">✓</button><button class="mod-btn reject" onclick="rejectNickLink(${r.id})">✕</button></div>`;
+    el.innerHTML = `${avatarImgHtml(r.nickname, 52, 'class="preview"')}<div class="mod-info"><div class="mod-line">${isCmd ? '💬 /me' : '🔐 Авто'}</div><div class="mod-title">${escapeHtml(r.nickname)}</div><div class="mod-desc">Discord: ${escapeHtml(r.discordName)}</div>${codeHtml}<div style="margin-top:6px">${proofHtml}</div></div><div class="mod-actions"><button class="mod-btn approve" onclick="approveNickLink(${r.id})">✓</button><button class="mod-btn reject" onclick="rejectNickLink(${r.id})">✕</button></div>`;
     c.appendChild(el);
   });
   updateAdminBadge();
@@ -2219,7 +1963,7 @@ function approveNickLink(id){
   const r = nickRequests.find(x => x.id === id); if (!r) return;
   let p = findPlayerByNick(r.nickname);
   if (p){
-    if (p.discordId && p.discordId !== r.discordId){ showToast('❌ Ник занят'); return; }
+    if (p.discordId && p.discordId !== r.discordId){ showToast('❌ Занят'); return; }
     p.discordId = r.discordId; p.mcVerified = true;
   } else {
     players.push({ id: nextPlayerId++, nickname: r.nickname, discordId: r.discordId, addedAt: Date.now(), mcVerified: true });
@@ -2246,7 +1990,7 @@ function renderAdminAchSubs(){
     const a = findAchievement(s.achievementId);
     const el = document.createElement('div');
     el.className = 'mod-item';
-    el.innerHTML = `<img class="preview" src="${escapeHtml(s.proof)}" onerror="this.src='https://placehold.co/100x100/0a130f/10b981?text=?'"><div class="mod-info"><div class="mod-line">${a ? a.icon + ' ' + escapeHtml(a.name) : 'Ачивка'} · ${escapeHtml(s.playerNick)}</div><div class="mod-desc">${s.note ? escapeHtml(s.note) : 'Без комментария'}</div><div class="mod-link"><a href="${escapeHtml(s.proof)}" target="_blank" style="color:var(--purple-2)">${escapeHtml(s.proof)}</a></div></div><div class="mod-actions"><button class="mod-btn approve" onclick="approveAch(${s.id})">✓</button><button class="mod-btn reject" onclick="rejectAch(${s.id})">✕</button></div>`;
+    el.innerHTML = `<img class="preview" src="${escapeHtml(s.proof)}" onerror="this.src='https://placehold.co/100x100/0a130f/10b981?text=?'"><div class="mod-info"><div class="mod-line">${a ? a.icon + ' ' + escapeHtml(a.name) : 'Ачивка'} · ${escapeHtml(s.playerNick)}</div><div class="mod-desc">${s.note ? escapeHtml(s.note) : '—'}</div><div class="mod-link"><a href="${escapeHtml(s.proof)}" target="_blank">${escapeHtml(s.proof)}</a></div></div><div class="mod-actions"><button class="mod-btn approve" onclick="approveAch(${s.id})">✓</button><button class="mod-btn reject" onclick="rejectAch(${s.id})">✕</button></div>`;
     container.appendChild(el);
   });
   updateAdminBadge();
@@ -2272,7 +2016,7 @@ function renderAdminAlbumSubs(){
   pending.forEach(s => {
     const el = document.createElement('div');
     el.className = 'mod-item';
-    el.innerHTML = `<img class="preview" src="${escapeHtml(s.url)}" onerror="this.src='https://placehold.co/100x100/0a130f/10b981?text=?'"><div class="mod-info"><div class="mod-line">📸 Скриншот · ${escapeHtml(s.author)}</div><div class="mod-title">${escapeHtml(s.title)}</div><div class="mod-desc">${escapeHtml(s.desc || '—')}</div></div><div class="mod-actions"><button class="mod-btn approve" onclick="approveAlbum(${s.id})">✓</button><button class="mod-btn reject" onclick="rejectAlbum(${s.id})">✕</button></div>`;
+    el.innerHTML = `<img class="preview" src="${escapeHtml(s.url)}" onerror="this.src='https://placehold.co/100x100/0a130f/10b981?text=?'"><div class="mod-info"><div class="mod-line">📸 · ${escapeHtml(s.author)}</div><div class="mod-title">${escapeHtml(s.title)}</div></div><div class="mod-actions"><button class="mod-btn approve" onclick="approveAlbum(${s.id})">✓</button><button class="mod-btn reject" onclick="rejectAlbum(${s.id})">✕</button></div>`;
     container.appendChild(el);
   });
   updateAdminBadge();
@@ -2288,7 +2032,7 @@ function rejectAlbum(id){
   const s = albumSubs.find(x => x.id === id); if (!s) return;
   s.status = 'rejected'; saveAlbumSubs();
   renderAdminAlbumSubs();
-  showToast('✕ Отклонено');
+  showToast('✕');
 }
 function renderAdminPlayers(){
   const c = $('admin-players-list');
@@ -2304,15 +2048,15 @@ function renderAdminPlayers(){
   });
 }
 function adminGiveAchTo(playerId){
-  if (!isModerator()){ showToast('🚫 Нет прав'); return; }
+  if (!isModerator()) return;
   const p = players.find(x => x.id === playerId); if (!p) return;
   const html = `<div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:14px">Выдать ачивку</div>
-    <div style="font-family:'Manrope',sans-serif;font-weight:800;font-size:20px;color:#fff;margin-bottom:20px;display:flex;align-items:center;gap:12px">${avatarImgHtml(p.nickname, 40)}${escapeHtml(p.nickname)}</div>
+    <div style="font-weight:800;font-size:20px;color:#fff;margin-bottom:20px;display:flex;align-items:center;gap:12px">${avatarImgHtml(p.nickname, 40)}${escapeHtml(p.nickname)}</div>
     <div class="form-row"><label>Категория</label><select id="give-cat" onchange="renderGiveAchSelect()">${ACH_CATEGORIES.map(c => `<option value="${c.id}">${c.icon} ${c.name}</option>`).join('')}</select></div>
     <div class="form-row"><label>Достижение</label><select id="give-ach"></select></div>
     <div class="form-row"><label>Комментарий</label><input type="text" id="give-note" placeholder="Пруф в Discord" maxlength="100"></div>
     <button class="btn-primary" onclick="confirmGiveAch(${p.id})" style="width:100%">🏆 Выдать</button>`;
-  $('ach-view-title').textContent = '🏆 Выдать достижение';
+  $('ach-view-title').textContent = '🏆 Выдать';
   $('ach-view-sub').textContent = 'Модераторская выдача';
   $('ach-view-body').innerHTML = html;
   openModal('ach-view-modal');
@@ -2332,47 +2076,28 @@ function confirmGiveAch(playerId){
   if (!achId) return;
   if (achSubs.find(s => s.playerId === playerId && s.achievementId === achId && s.status === 'approved')){ showToast('✅ Уже есть'); return; }
   const u = getCurrentUser();
-  achSubs.unshift({ id: Date.now() + Math.floor(Math.random() * 1000), playerId, playerNick: p.nickname, achievementId: achId, proof: 'manual', note: note || ('Выдано: ' + (u ? getDiscordName(u) : '?')), ts: Date.now(), status: 'approved', approvedBy: u ? getDiscordName(u) : null, approvedAt: Date.now() });
+  achSubs.unshift({ id: Date.now() + Math.floor(Math.random() * 1000), playerId, playerNick: p.nickname, achievementId: achId, proof: 'manual', note: note || ('Выдано: ' + (u ? getDiscordName(u) : '?')), ts: Date.now(), status: 'approved' });
   saveAchSubs(); renderAchievements();
   if (currentProfileId === playerId) openProfile(playerId);
-  if (currentView === 'ach') renderAchievements();
   closeModal('ach-view-modal');
   showToast('✅ Выдано');
 }
-function adminGiveAch(id){ adminGiveAchTo(id); }
 function adminDeletePlayer(id){
-  if (!isAdmin()){ showToast('🚫 Только админ'); return; }
+  if (!isAdmin()) return;
   const p = players.find(x => x.id === id); if (!p) return;
   if (!confirm(`Удалить ${p.nickname}?`)) return;
   players = players.filter(x => x.id !== id);
   savePlayers(); renderAdminPlayers();
 }
 function renderExport(){
-  const data = { players, achSubs, chronicle, chronicleSubs, album, albumSubs, albumLikes, nickRequests, cities: CITIES, exportedAt: new Date().toISOString(), version: 9 };
+  const data = { players, achSubs, chronicle, chronicleSubs, album, albumSubs, albumLikes, nickRequests, cities: CITIES, exportedAt: new Date().toISOString(), version: 10 };
   const el = $('data-export'); if (el) el.value = JSON.stringify(data, null, 2);
 }
-function copyExport(){ const t = $('data-export'); t.select(); navigator.clipboard.writeText(t.value).then(() => showToast('📋 Скопировано')); }
-function downloadExport(){ const b = new Blob([$('data-export').value], { type: 'application/json' }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `ptusmp-backup-${Date.now()}.json`; a.click(); URL.revokeObjectURL(u); showToast('💾 Скачано'); }
-function importData(){
-  const t = $('data-import').value.trim(); if (!t) return;
-  try {
-    const d = JSON.parse(t);
-    if (d.players) { players = d.players; savePlayers(); }
-    if (d.achSubs) { achSubs = d.achSubs; saveAchSubs(); }
-    if (d.chronicle) { chronicle = d.chronicle; saveChronicle(); }
-    if (d.chronicleSubs) { chronicleSubs = d.chronicleSubs; saveChronicleSubs(); }
-    if (d.album) { album = d.album; saveAlbum(); }
-    if (d.albumSubs) { albumSubs = d.albumSubs; saveAlbumSubs(); }
-    if (d.albumLikes) { albumLikes = d.albumLikes; saveAlbumLikes(); }
-    if (d.nickRequests) { nickRequests = d.nickRequests; saveNickRequests(); }
-    showToast('✅ Импортировано');
-    renderAchievements(); renderChronicle(); renderAlbum(); renderAdminPlayers(); renderPlayersView(); renderCities(); updateAdminBadge();
-  } catch (e){ showToast('❌ Ошибка: ' + e.message); }
-}
+function copyExport(){ const t = $('data-export'); t.select(); navigator.clipboard.writeText(t.value).then(() => showToast('📋')); }
+function downloadExport(){ const b = new Blob([$('data-export').value], { type: 'application/json' }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `ptusmp-backup-${Date.now()}.json`; a.click(); URL.revokeObjectURL(u); showToast('💾'); }
 
-/* ===== INIT ===== */
 $('year').textContent = new Date().getFullYear();
-handleDiscordCallback().then(ok => { if (ok) showToast('✅ Вошли'); updateAuthUI(); renderChronicle(); renderAlbum(); });
+handleDiscordCallback().then(ok => { if (ok) showToast('✅ Вошли'); updateAuthUI(); });
 seedCitiesAndResidents();
 updateAuthUI();
 renderRules();
