@@ -103,7 +103,7 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .rule-card .rc-text{font-size:13px;color:var(--text-2);line-height:1.55}
 .rule-card .rc-text strong{color:var(--emerald-2);font-weight:700}
 
-/* ====== КАТАЛОГ АЧИВОК — КРАСИВЫЕ КАРТОЧКИ ====== */
+/* ====== КАТАЛОГ АЧИВОК ====== */
 .ach-cat{margin-bottom:44px}
 .ach-cat-head{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--line)}
 .ach-cat-icon{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:22px;background:linear-gradient(135deg,rgba(139,92,246,.18),rgba(236,72,153,.08));border:1px solid var(--line-2)}
@@ -173,26 +173,7 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 }
 .ach-card-v2 .ach-desc-v2{
   font-size:13px;color:var(--text-2);line-height:1.5;
-  margin-bottom:16px;position:relative;z-index:1;min-height:38px;
-}
-.ach-card-v2 .ach-progress{
-  position:relative;z-index:1;
-  display:flex;align-items:center;gap:10px;margin-bottom:14px;
-}
-.ach-card-v2 .ach-progress-bar{
-  flex:1;height:6px;border-radius:100px;
-  background:rgba(255,255,255,.05);
-  overflow:hidden;position:relative;
-}
-.ach-card-v2 .ach-progress-fill{
-  height:100%;border-radius:100px;
-  background:linear-gradient(90deg,var(--rarity-color),var(--rarity-glow));
-  transition:width .6s cubic-bezier(.34,1.4,.64,1);
-  box-shadow:0 0 10px var(--rarity-color);
-}
-.ach-card-v2 .ach-progress-label{
-  font-family:'JetBrains Mono',monospace;font-size:10px;
-  color:var(--muted);font-weight:700;white-space:nowrap;
+  margin-bottom:16px;position:relative;z-index:1;min-height:56px;
 }
 .ach-card-v2 .ach-footer-v2{
   display:flex;justify-content:space-between;align-items:center;gap:8px;
@@ -561,8 +542,8 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
         <span id="ach-hero-count">0 ачивок</span><span class="dot">·</span>
         <span class="live">заявки принимаются</span>
       </div>
-      <h1>Ачивки для тех, кто<br><span class="amber">строит, летает и гриндит.</span></h1>
-      <p>Каждая ачивка — это или серьёзный проект в <strong>Create</strong> / <strong>Create: Aeronautics</strong>, или реальные часы на сервере. Присылай пруф — получай титул.</p>
+      <h1>Ачивки для тех, кто<br><span class="amber">уже вкачался.</span></h1>
+      <p>Тут нет заданий «поставь первый блок». Каждая ачивка — это серьёзный проект в <strong>Create</strong> и <strong>Create: Aeronautics</strong>, либо сотни часов на сервере. Для тех, у кого уже есть база и опыт.</p>
       <div class="hero-actions">
         <button class="btn-hero primary" onclick="openAchievementPicker()">🏆 Получить достижение</button>
         <button class="btn-hero ghost" onclick="openRulesModal()">📖 Правила</button>
@@ -699,12 +680,12 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
 
     <section class="section" style="padding-top:0">
       <div class="section-head" style="margin-bottom:14px">
-        <div><h2 style="font-size:24px">🗺️ Карта мира</h2><p>Интерактивная карта сервера</p></div>
+        <div><h2 style="font-size:24px">🗺️ Карта мира</h2><p>Интерактивная карта сервера (граница: 4000 блоков)</p></div>
       </div>
       <div style="text-align:center;padding:60px 24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.015)">
         <div style="font-size:72px;opacity:.4;margin-bottom:20px">🗺️</div>
         <h3 style="font-family:'Manrope',sans-serif;font-size:24px;font-weight:800;color:#fff;margin-bottom:12px">Интерактивная карта мира</h3>
-        <p style="color:var(--muted);font-size:15px;max-width:540px;margin:0 auto 28px;line-height:1.6">Карта открывается в новой вкладке — так браузер не блокирует её из-за разных протоколов (http/https).</p>
+        <p style="color:var(--muted);font-size:15px;max-width:540px;margin:0 auto 28px;line-height:1.6">Карта открывается в новой вкладке — так браузер не блокирует её из-за разных протоколов (http/https). Граница мира: 4000 блоков от центра.</p>
         <a class="btn-hero primary" href="http://212.22.85.14:40087/" target="_blank" rel="noopener" style="font-size:16px;padding:16px 32px">🗺️ Открыть карту →</a>
       </div>
     </section>
@@ -841,6 +822,7 @@ const MODERATOR_DISCORD_IDS = ['250237274086703104', '432419959914758149', '1382
 const AUTH_KEY = 'ptusmp_auth_v1';
 const SERVER_IP = 'eu.ptu-smp.ru';
 const STATUS_REFRESH_MS = 60 * 1000;
+const WORLD_BORDER = 4000; // радиус границы мира
 const STREAMERS = [
   { twitch: 'evgexa',    display: 'Евгеха',    note: 'Легенда ютуба' },
   { twitch: 'nikitasa_', display: 'Никита Са', note: 'Красавчик' },
@@ -867,56 +849,69 @@ const ACH_CATEGORIES = [
   { id:'special', name:'Особые', sub:'Выдаются за особые заслуги', icon:'🌟' },
 ];
 
-/* ===== УПРОЩЁННЫЕ ДОСТИЖЕНИЯ ===== */
+/* ===== ДОСТИЖЕНИЯ ДЛЯ РАЗВИТЫХ ИГРОКОВ =====
+ * Сервер уже развит, граница 4к блоков, у всех большие базы.
+ * Учитываем: сложные инженерные проекты, серьёзный гринд,
+ * дальние полёты в пределах границы, длительные проекты.
+ */
 const DEFAULT_ACHIEVEMENTS = [
-  // CREATE — 10
-  { id:'first_machine', cat:'create', icon:'🔧', name:'Первый механизм', desc:'Собери первую работающую машину на Create: рукоятка, шестерня, вал', rarity:'rare' },
-  { id:'water_wheel', cat:'create', icon:'💧', name:'Водяное колесо', desc:'Запусти водяное колесо и подключи его к любому механизму', rarity:'rare' },
-  { id:'windmill', cat:'create', icon:'🌬️', name:'Ветряная мельница', desc:'Построй рабочий ветряк и запусти его', rarity:'rare' },
-  { id:'mech_press', cat:'create', icon:'🗜️', name:'Механический пресс', desc:'Построй пресс и обработай на нём первый материал', rarity:'rare' },
-  { id:'crusher', cat:'create', icon:'⚙️', name:'Дробильные колёса', desc:'Запусти дробилку и переработай на ней руду', rarity:'epic' },
-  { id:'railroad', cat:'create', icon:'🚂', name:'Железная дорога', desc:'Проложи 500+ блоков рельсов Create и запусти по ним поезд', rarity:'epic' },
-  { id:'auto_farm', cat:'create', icon:'🌾', name:'Автоматизация', desc:'Полностью автоматизируй один процесс: добычу, крафт или переработку', rarity:'epic' },
-  { id:'brass_chain', cat:'create', icon:'🟡', name:'Латунная цепочка', desc:'Запусти полный цикл производства латуни от руды до слитка', rarity:'epic' },
-  { id:'complex_logic', cat:'create', icon:'🧠', name:'Сложная логика', desc:'Собери схему, которая управляет 5+ процессами одновременно', rarity:'legendary' },
-  { id:'mega_factory', cat:'create', icon:'🏭', name:'Мега-завод', desc:'Построй автономный завод, работающий сутки без участия человека', rarity:'legendary' },
-  // AERO — 8
-  { id:'first_flight', cat:'aero', icon:'✈️', name:'Первый полёт', desc:'Построй и подними в воздух летательный аппарат на Create: Aeronautics', rarity:'rare' },
-  { id:'controlled_flight', cat:'aero', icon:'🛩️', name:'Управляемый полёт', desc:'Пролети 500+ блоков на своём аппарате с управлением', rarity:'rare' },
-  { id:'helicopter', cat:'aero', icon:'🚁', name:'Вертолёт', desc:'Построй рабочий вертолёт', rarity:'epic' },
-  { id:'airship', cat:'aero', icon:'🛳️', name:'Дирижабль', desc:'Построй дирижабль длиной 30+ блоков', rarity:'epic' },
-  { id:'cargo_air', cat:'aero', icon:'📦', name:'Грузовая авиация', desc:'Перевези 1000+ предметов между базами по воздуху', rarity:'epic' },
-  { id:'long_haul', cat:'aero', icon:'🌍', name:'Дальний рейс', desc:'Пролети 5000+ блоков на одном аппарате без посадки', rarity:'legendary' },
-  { id:'air_fleet', cat:'aero', icon:'🛫', name:'Воздушный флот', desc:'Построй 3+ разных летательных аппарата (самолёт, вертолёт, дирижабль)', rarity:'legendary' },
-  { id:'airport', cat:'aero', icon:'🏢', name:'Аэропорт', desc:'Построй аэропорт с ангаром, полосой и диспетчерской', rarity:'legendary' },
-  // GRIND — 8
-  { id:'hours_50', cat:'grind', icon:'⏱️', name:'50 часов', desc:'Проведи на сервере 50+ часов', rarity:'rare' },
-  { id:'hours_200', cat:'grind', icon:'⏳', name:'200 часов', desc:'Проведи на сервере 200+ часов', rarity:'epic' },
-  { id:'hours_500', cat:'grind', icon:'⌛', name:'500 часов', desc:'Проведи на сервере 500+ часов', rarity:'legendary' },
-  { id:'blocks_placed_50k', cat:'grind', icon:'🧱', name:'Строитель', desc:'Поставь 50 000+ блоков', rarity:'epic' },
-  { id:'blocks_mined_50k', cat:'grind', icon:'⛏️', name:'Шахтёр', desc:'Сломай 50 000+ блоков', rarity:'epic' },
-  { id:'diamonds_500', cat:'grind', icon:'💎', name:'Алмазный охотник', desc:'Добудь 500+ алмазов', rarity:'epic' },
-  { id:'mobs_5000', cat:'grind', icon:'⚔️', name:'Истребитель', desc:'Убей 5000+ мобов', rarity:'legendary' },
-  { id:'veteran_year', cat:'grind', icon:'🎗️', name:'Ветеран', desc:'Играй на сервере больше 1 года', rarity:'legendary' },
-  // SERVER — 3
-  { id:'mentor', cat:'server', icon:'🧑‍🏫', name:'Наставник', desc:'Помоги 5+ новичкам освоить Create или авиацию', rarity:'rare' },
-  { id:'event_master', cat:'server', icon:'🎪', name:'Организатор', desc:'Проведи ивент или турнир для игроков сервера', rarity:'epic' },
-  { id:'server_architect', cat:'server', icon:'🏛️', name:'Архитектор сервера', desc:'Построй ключевой объект: спавн, хаб или центральный вокзал', rarity:'legendary' },
-  // SPECIAL — 2
+  // ============ CREATE — сложная инженерия для развитых ============
+  { id:'factory_100', cat:'create', icon:'🏭', name:'Мега-завод', desc:'Построй завод из 100+ механизмов, работающих в единой цепи производства', rarity:'epic' },
+  { id:'auto_full_cycle', cat:'create', icon:'♻️', name:'Полный цикл', desc:'Построй автономную базу, которая полностью обеспечивает себя: добыча → переработка → крафт', rarity:'legendary' },
+  { id:'train_10', cat:'create', icon:'🚂', name:'Поезд-гигант', desc:'Собери поезд из 10+ вагонов и запусти его по своему маршруту', rarity:'epic' },
+  { id:'train_station_auto', cat:'create', icon:'🚉', name:'Автоматический вокзал', desc:'Построй ж/д станцию с автоматическим расписанием и несколькими маршрутами', rarity:'legendary' },
+  { id:'contraption_20', cat:'create', icon:'🏗️', name:'Подвижный гигант', desc:'Собери движущийся контрапшн габаритами 20×20×20 блоков и больше', rarity:'legendary' },
+  { id:'fluid_3in1', cat:'create', icon:'💧', name:'Гидроинженер', desc:'Система, в которой одновременно работают 3+ разных жидкости (вода, лава, масло и т.д.)', rarity:'epic' },
+  { id:'logic_10', cat:'create', icon:'🧠', name:'Мозг фабрики', desc:'Собери логическую схему, управляющую 10+ процессами одновременно', rarity:'legendary' },
+  { id:'schematic_big', cat:'create', icon:'🖨️', name:'Мастер схематики', desc:'Спроектируй и распечатай через Schematicannon сооружение 40×40×40+ блоков', rarity:'legendary' },
+  { id:'brass_magnate', cat:'create', icon:'🔶', name:'Латунный магнат', desc:'Автоматизируй производство латуни и переработай 10 000+ слитков', rarity:'epic' },
+  { id:'big_mechanism', cat:'create', icon:'🔧', name:'Механический монстр', desc:'Построй гигантский механизм (кран, экскаватор, пресс) 500+ блоков в объёме', rarity:'legendary' },
+  { id:'mega_rail_2000', cat:'create', icon:'🛤️', name:'Магистраль', desc:'Проложи рабочую ж/д сеть на 2000+ блоков с минимум 3 станциями', rarity:'legendary' },
+  { id:'sorted_storage', cat:'create', icon:'📦', name:'Сортировочный центр', desc:'Построй автоматическое хранилище на 5000+ предметов с сортировкой по типу', rarity:'epic' },
+  // ============ AERO — Aeronautics для развитых ============
+  { id:'aero_first_flight', cat:'aero', icon:'✈️', name:'Опытный пилот', desc:'Построй и подними в воздух летательный аппарат на Create: Aeronautics', rarity:'rare' },
+  { id:'aero_aircraft_30', cat:'aero', icon:'🛩️', name:'Авиаконструктор', desc:'Построй самолёт длиной 30+ блоков с полным интерьером (кабина, грузовой отсек)', rarity:'epic' },
+  { id:'aero_helicopter', cat:'aero', icon:'🚁', name:'Вертолётчик', desc:'Построй рабочий вертолёт с управляемым ротором', rarity:'epic' },
+  { id:'aero_airship_40', cat:'aero', icon:'🛳️', name:'Дирижабль-гигант', desc:'Построй дирижабль 40+ блоков длиной', rarity:'legendary' },
+  { id:'aero_border_cross', cat:'aero', icon:'🌍', name:'Через всю карту', desc:'Пролети от одной границы мира до противоположной (4000+ блоков в одну сторону)', rarity:'legendary' },
+  { id:'aero_nonstop', cat:'aero', icon:'⏱️', name:'Беспосадочный рейс', desc:'Пролети 4000+ блоков на одном аппарате без посадки (через всю карту)', rarity:'legendary' },
+  { id:'aero_cargo_5', cat:'aero', icon:'📦', name:'Грузовая авиалиния', desc:'Организуй регулярные грузоперевозки между базами: 5+ успешных рейсов с грузом 1000+ предметов', rarity:'epic' },
+  { id:'aero_fleet_3', cat:'aero', icon:'🛫', name:'Воздушный флот', desc:'Поддерживай одновременно 3+ разных рабочих аппарата (самолёт, вертолёт, дирижабль)', rarity:'legendary' },
+  { id:'aero_airport_full', cat:'aero', icon:'🏢', name:'Аэропорт', desc:'Построй полноценный аэропорт: ангар, взлётно-посадочная полоса, диспетчерская вышка', rarity:'legendary' },
+  { id:'aero_precision_landing', cat:'aero', icon:'🪂', name:'Ювелирная посадка', desc:'Посади аппарат 10+ блоков точно в зону 3×3 без единого повреждения', rarity:'epic' },
+  { id:'aero_dogfight', cat:'aero', icon:'🎯', name:'Ас воздушного боя', desc:'Одержи победу в воздушном бою с вооружением Create: Aeronautics', rarity:'legendary' },
+  // ============ GRIND — большие объёмы ============
+  { id:'hours_100', cat:'grind', icon:'⏱️', name:'Сотка', desc:'Проведи на сервере 100+ часов', rarity:'rare' },
+  { id:'hours_300', cat:'grind', icon:'⏳', name:'Триста часов', desc:'Проведи на сервере 300+ часов', rarity:'epic' },
+  { id:'hours_700', cat:'grind', icon:'⌛', name:'Семьсот часов', desc:'Проведи на сервере 700+ часов', rarity:'legendary' },
+  { id:'blocks_placed_100k', cat:'grind', icon:'🧱', name:'Мегастроитель', desc:'Поставь 100 000+ блоков за всё время', rarity:'epic' },
+  { id:'blocks_placed_500k', cat:'grind', icon:'🏗️', name:'Архитектор-легенда', desc:'Поставь 500 000+ блоков за всё время', rarity:'legendary' },
+  { id:'blocks_mined_100k', cat:'grind', icon:'⛏️', name:'Гигашахтёр', desc:'Сломай 100 000+ блоков за всё время', rarity:'epic' },
+  { id:'diamonds_2000', cat:'grind', icon:'💎', name:'Алмазный король', desc:'Добудь 2000+ алмазов за всё время', rarity:'legendary' },
+  { id:'mobs_10k', cat:'grind', icon:'⚔️', name:'Истребитель', desc:'Убей 10 000+ мобов за всё время', rarity:'epic' },
+  { id:'mobs_50k', cat:'grind', icon:'🗡️', name:'Легендарный охотник', desc:'Убей 50 000+ мобов за всё время', rarity:'legendary' },
+  { id:'veteran_year', cat:'grind', icon:'🎗️', name:'Ветеран', desc:'Играй на сервере больше 1 года', rarity:'epic' },
+  { id:'veteran_2years', cat:'grind', icon:'🏅', name:'Старожил', desc:'Играй на сервере больше 2 лет', rarity:'legendary' },
+  // ============ SERVER — вклад в сообщество ============
+  { id:'server_architect', cat:'server', icon:'🏛️', name:'Архитектор сервера', desc:'Построй ключевой для сервера объект: спавн, хаб или центральный вокзал', rarity:'legendary' },
+  { id:'event_master', cat:'server', icon:'🎪', name:'Организатор', desc:'Организуй и проведи ивент или турнир для игроков сервера', rarity:'epic' },
+  { id:'peacemaker', cat:'server', icon:'🤝', name:'Миротворец', desc:'Примири враждующие стороны или разреши крупный конфликт', rarity:'epic' },
+  { id:'wiki_helper', cat:'server', icon:'📖', name:'Хранитель знаний', desc:'Помоги с документацией, вики или гайдами для сервера', rarity:'rare' },
+  // ============ SPECIAL ============
   { id:'champion', cat:'special', icon:'🏆', name:'Чемпион', desc:'Победи в главном турнире сервера', rarity:'legendary' },
-  { id:'legend', cat:'special', icon:'🌟', name:'Легенда ПТУ SMP', desc:'Особый вклад в сервер, признанный сообществом', rarity:'legendary' },
+  { id:'legend', cat:'special', icon:'🌟', name:'Легенда ПТУ SMP', desc:'Особый вклад в сервер, признанный сообществом (выдаётся админом)', rarity:'legendary' },
 ];
 
 const RARITY_LABEL = { common:'Обычное', rare:'Редкое', epic:'Эпическое', legendary:'Легендарное' };
 
 const KEYS = {
-  players: 'ptusmp_players_v43',
-  achSubs: 'ptusmp_ach_subs_v43',
-  chronicle: 'ptusmp_chronicle_v43',
-  album: 'ptusmp_album_v43',
-  albumSubs: 'ptusmp_album_subs_v43',
-  albumLikes: 'ptusmp_album_likes_v43',
-  nickReq: 'ptusmp_nick_requests_v43',
+  players: 'ptusmp_players_v44',
+  achSubs: 'ptusmp_ach_subs_v44',
+  chronicle: 'ptusmp_chronicle_v44',
+  album: 'ptusmp_album_v44',
+  albumSubs: 'ptusmp_album_subs_v44',
+  albumLikes: 'ptusmp_album_likes_v44',
+  nickReq: 'ptusmp_nick_requests_v44',
 };
 const $ = (id) => document.getElementById(id);
 function ls(k, def){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch { return def; } }
@@ -1019,7 +1014,7 @@ function showToast(msg){
 
 function updateMskClock(){ const now = new Date(); const msk = new Date(now.getTime() + (now.getTimezoneOffset() * 60000) + 3 * 3600000); const pad = (n) => String(n).padStart(2, '0'); const el = $('msk-time'); if (el) el.textContent = `${pad(msk.getHours())}:${pad(msk.getMinutes())}:${pad(msk.getSeconds())}`; }
 setInterval(updateMskClock, 1000); updateMskClock();
-(function(){ const KEY='ptusmp_visits_v43', S='ptusmp_vs_v43'; let c=parseInt(localStorage.getItem(KEY)||'0',10); if(!sessionStorage.getItem(S)){c++;localStorage.setItem(KEY,String(c));sessionStorage.setItem(S,'1');} const el=$('visits-counter'); if(el) el.textContent=c.toLocaleString('ru-RU')+' посещений'; })();
+(function(){ const KEY='ptusmp_visits_v44', S='ptusmp_vs_v44'; let c=parseInt(localStorage.getItem(KEY)||'0',10); if(!sessionStorage.getItem(S)){c++;localStorage.setItem(KEY,String(c));sessionStorage.setItem(S,'1');} const el=$('visits-counter'); if(el) el.textContent=c.toLocaleString('ru-RU')+' посещений'; })();
 
 /* ===== ПРАВИЛА ===== */
 function renderRules(){
@@ -1061,8 +1056,6 @@ function renderAchievements(){
     list.forEach((a, i) => {
       const holders = achSubs.filter(s => s.achievementId === a.id && s.status === 'approved');
       const holdersCount = holders.length;
-      const maxProgress = Math.max(5, players.length || 1);
-      const progressPct = Math.min(100, Math.round((holdersCount / maxProgress) * 100));
       const holdersAvatars = holders.slice(0, 3).map(s => { const p = players.find(x => x.id === s.playerId); return p ? avatarImgHtml(p.nickname, 32) : ''; }).join('');
       const holdersText = holdersCount === 0 ? 'ещё никто не получил' : `${holdersCount} ${holdersCount === 1 ? 'игрок' : 'игроков'}`;
       const card = document.createElement('div');
@@ -1073,10 +1066,6 @@ function renderAchievements(){
         <div class="ach-icon-v2">${a.icon}</div>
         <div class="ach-name-v2">${escapeHtml(a.name)}</div>
         <div class="ach-desc-v2">${escapeHtml(a.desc)}</div>
-        <div class="ach-progress">
-          <div class="ach-progress-bar"><div class="ach-progress-fill" style="width:${progressPct}%"></div></div>
-          <div class="ach-progress-label">${progressPct}%</div>
-        </div>
         <div class="ach-footer-v2">
           <div class="ach-holders">
             ${holdersCount > 0 ? `<div class="ach-holders-avatars">${holdersAvatars}</div><span class="ach-holders-text">${holdersText}</span>` : `<span class="ach-holders-text nobody">${holdersText}</span>`}
@@ -1317,7 +1306,7 @@ function showAlbumView(a){
   openModal('album-view');
 }
 
-/* ===== ПРОФИЛЬ — КРАСИВАЯ СЕТКА АЧИВОК ===== */
+/* ===== ПРОФИЛЬ ===== */
 function openProfile(playerId){
   const p = players.find(x => x.id === playerId); if (!p) return;
   currentProfileId = playerId;
@@ -1330,13 +1319,11 @@ function openProfile(playerId){
   const isOwn = !!(u && p.discordId === u.id);
   const canEditResidence = isOwn || isModerator();
 
-  // Считаем по редкости
   const rarityCount = { common:0, rare:0, epic:0, legendary:0 };
   DEFAULT_ACHIEVEMENTS.forEach(a => { if (ownedSet.has(a.id)) rarityCount[a.rarity]++; });
 
   const titles = DEFAULT_ACHIEVEMENTS.filter(a => ownedSet.has(a.id)).slice(0, 5);
 
-  // Группируем по категориям
   const categoriesHtml = ACH_CATEGORIES.map(cat => {
     const list = DEFAULT_ACHIEVEMENTS.filter(a => a.cat === cat.id);
     const ownedInCat = list.filter(a => ownedSet.has(a.id)).length;
@@ -1783,7 +1770,7 @@ function adminDeletePlayer(id){
 }
 
 function renderExport(){
-  const data = { players, achSubs, chronicle, album, albumSubs, albumLikes, nickRequests, exportedAt: new Date().toISOString(), version: 3 };
+  const data = { players, achSubs, chronicle, album, albumSubs, albumLikes, nickRequests, exportedAt: new Date().toISOString(), version: 4 };
   $('data-export').value = JSON.stringify(data, null, 2);
 }
 function copyExport(){ const t = $('data-export'); t.select(); navigator.clipboard.writeText(t.value).then(() => showToast('📋 Скопировано')); }
