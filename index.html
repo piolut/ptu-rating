@@ -486,6 +486,27 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
   .map-block-icon{width:72px;height:72px;font-size:38px}
   .ach-picker-grid{grid-template-columns:1fr}
 }
+.city-top-icon{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;font-size:22px;background:var(--cbg,rgba(255,255,255,.05));border:2px solid var(--cc,var(--line-2));flex-shrink:0}
+.city-rank-crown{position:absolute;top:-10px;left:-10px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:13px;background:linear-gradient(135deg,#fbbf24,#f59e0b);box-shadow:0 4px 12px -2px rgba(251,191,36,.6);z-index:2}
+.city-block-icon{position:relative}
+.city-pts{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--cc);opacity:.85;margin-top:2px}
+.admin-city-item{padding:14px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.008));border:1px solid var(--line-2);display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;margin-bottom:10px}
+.admin-city-icon{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;font-size:24px;flex-shrink:0}
+.admin-city-info .t{font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;color:#fff}
+.admin-city-info .s{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:2px}
+.admin-city-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.residence-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:18px}
+.residence-pick{display:flex;align-items:center;gap:10px;padding:12px;border-radius:14px;background:var(--cbg,rgba(255,255,255,.02));border:2px solid transparent;cursor:pointer;transition:all .2s}
+.residence-pick:hover{transform:translateY(-2px);border-color:var(--cc,var(--emerald))}
+.residence-pick.active{border-color:var(--cc,var(--emerald));background:var(--cbg)}
+.residence-pick .rp-icon{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;font-size:20px;background:rgba(255,255,255,.05);border:1px solid var(--cc,var(--line-2));flex-shrink:0}
+.residence-pick .rp-info{min-width:0}
+.residence-pick .rp-name{font-family:'Manrope',sans-serif;font-weight:800;font-size:13px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.residence-pick .rp-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-top:2px}
+.residence-other{padding-top:14px;border-top:1px dashed var(--line-2)}
+.residence-other label{display:block;font-size:12.5px;color:var(--text-2);font-weight:600;margin-bottom:8px}
+.residence-other input{width:100%;padding:11px 14px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text);font-family:inherit;font-size:14px}
+.city-overtake{margin-top:10px;font-size:12.5px;color:var(--text-2);display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid var(--line-2)}
 </style>
 </head>
 <body>
@@ -670,9 +691,10 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
     </section>
     <section class="section" style="padding-top:0">
       <div class="section-head" style="margin-bottom:14px">
-        <div><h2 style="font-size:24px">🏙️ Города и жители</h2><p>Кто где живёт и кто правит</p></div>
+        <div><h2 style="font-size:24px">🏙️ Города и жители</h2><p>Кто где живёт, кто правит и чей город впереди по очкам</p></div>
       </div>
       <div class="map-tiles" id="map-tiles"></div>
+      <div class="ach-top-list" id="city-top-list" style="margin-bottom:28px"></div>
       <div id="map-cities-container">
         <div class="no-residents">⏳ Загрузка городов…</div>
       </div>
@@ -739,6 +761,13 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
 
 <div class="modal-overlay" id="nick-modal"><div class="modal"><div class="modal-head"><div><h2>🎮 Привязать ник Minecraft</h2><p>Через команду в игре</p></div><button class="modal-close" onclick="closeNickModal()">✕</button></div><div class="modal-body" id="nick-body"></div></div></div>
 
+<div class="modal-overlay" id="residence-modal">
+  <div class="modal">
+    <div class="modal-head"><div><h2>Где ты живёшь?</h2><p>Выбери город или укажи своё место</p></div><button class="modal-close" onclick="closeModal('residence-modal')">✕</button></div>
+    <div class="modal-body" id="residence-body"></div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="city-modal"><div class="modal"><button class="modal-close" style="position:absolute;top:16px;right:16px;z-index:5;background:rgba(0,0,0,.6)" onclick="closeModal('city-modal')">✕</button><div class="modal-body" style="padding:0" id="city-body"></div></div></div>
 
 <div class="modal-overlay" id="profile-modal"><div class="modal"><button class="modal-close" style="position:absolute;top:16px;right:16px;z-index:5" onclick="closeProfileModal()">✕</button><div class="modal-body" id="profile-body"></div></div></div>
@@ -756,6 +785,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
       <button class="admin-tab" data-tab="nick-requests">🎮 Ники <span class="tab-badge hidden" id="nick-badge">0</span></button>
       <button class="admin-tab" data-tab="chronicle">📖 Управление летописью</button>
       <button class="admin-tab" data-tab="players">👥 Игроки</button>
+      <button class="admin-tab admin-only" data-tab="cities">🏙️ Города</button>
       <button class="admin-tab admin-only" data-tab="data">💾 Данные</button>
     </div>
     <div class="admin-pane active" id="pane-ach-submissions"><div id="ach-subs-list"></div></div>
@@ -769,6 +799,12 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
       <div id="chronicle-admin-list"></div>
     </div>
     <div class="admin-pane" id="pane-players"><div id="admin-players-list"></div></div>
+    <div class="admin-pane admin-only" id="pane-cities">
+      <div style="font-size:13px;color:var(--muted);margin-bottom:16px">Редактируй города и мэров, добавляй новые — без правки кода. Жителей города вводи через запятую.</div>
+      <button class="admin-btn primary" onclick="adminAddCity()">➕ Добавить город</button>
+      <div style="height:16px"></div>
+      <div id="admin-cities-list"></div>
+    </div>
     <div class="admin-pane admin-only" id="pane-data">
       <div class="admin-form-row"><label>Экспорт JSON</label><textarea id="data-export" readonly rows="12" style="font-family:'JetBrains Mono',monospace;font-size:11px"></textarea></div>
       <div class="admin-actions"><button class="admin-btn primary" onclick="copyExport()">Скопировать</button><button class="admin-btn ghost" onclick="downloadExport()">Скачать</button></div>
@@ -797,7 +833,7 @@ const STREAMERS = [
   { twitch: 'kopch02', display: 'kopch', note: 'разраб' },
 ];
 
-const CITIES = [
+const DEFAULT_CITIES = [
   { id: 'gkb', name: 'ГКБ', icon: '🏥', mayor: 'Miwaperwin777', colorRaw: '#10b981', description: 'Главный координационный блок.', residents: ['Miwaperwin777', 'NikitaSa', 'baton11313', 'chilovsky', 'roroma'] },
   { id: 'npz', name: 'НПЗ', icon: '🏭', mayor: 'bambambombompuk', colorRaw: '#f59e0b', description: 'Нефтеперерабатывающий завод.', residents: ['bambambombompuk', 'BimBim', 'MightyG', 'Tair'] },
   { id: 'ostrova', name: 'Острова желаний', icon: '🏝️', mayor: 'Arisych', colorRaw: '#06b6d4', description: 'Райский архипелаг.', residents: ['Arisych', 'sadvely', 'Aron4ikk', 'Andrey500z', 'rewom5373', 'ezpotato111', 'xxevgehaxx'] },
@@ -894,6 +930,7 @@ const KEYS = {
   album: 'ptusmp_album_v50', albumSubs: 'ptusmp_album_subs_v50',
   albumLikes: 'ptusmp_album_likes_v50', nickReq: 'ptusmp_nick_requests_v50',
   chDraft: 'ptusmp_ch_draft_v5', verifyPending: 'ptusmp_verify_v4', seeded: 'ptusmp_seeded_v50',
+  cityOverrides: 'ptusmp_city_overrides_v1',
 };
 const $ = (id) => document.getElementById(id);
 function ls(k, def){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch { return def; } }
@@ -909,6 +946,7 @@ let album = ls(KEYS.album, []);
 let albumSubs = ls(KEYS.albumSubs, []);
 let albumLikes = ls(KEYS.albumLikes, {});
 let nickRequests = ls(KEYS.nickReq, []);
+let cityOverrides = ls(KEYS.cityOverrides, { edits:{}, residentsAdd:{}, residentsRemove:{}, deleted:[], custom:[] });
 let nextPlayerId = players.length ? Math.max(0, ...players.map(p => p.id)) + 1 : 1;
 let currentProfileId = null;
 let currentView = 'ach';
@@ -928,8 +966,10 @@ let pickerCategory = 'create';
 
 function seedCitiesAndResidents(){
   let changed = false;
-  CITIES.forEach(city => {
+  const claimed = new Set();
+  getCities().forEach(city => {
     city.residents.forEach(nick => {
+      claimed.add(nick.toLowerCase());
       let p = players.find(x => x.nickname.toLowerCase() === nick.toLowerCase());
       if (!p){ p = { id: nextPlayerId++, nickname: nick, discordId: null, addedAt: Date.now() }; players.push(p); changed = true; }
       if (p.residence !== city.name){ p.residence = city.name; changed = true; }
@@ -937,6 +977,10 @@ function seedCitiesAndResidents(){
       const isMayor = nick.toLowerCase() === city.mayor.toLowerCase();
       if (p.isMayor !== isMayor){ p.isMayor = isMayor; changed = true; }
     });
+  });
+  // игрок мог перестать быть жителем города (админ убрал его из списка, или он переехал) — снимаем привязку
+  players.forEach(p => {
+    if (p.cityId && !claimed.has(p.nickname.toLowerCase())){ p.cityId = null; p.isMayor = false; changed = true; }
   });
   if (changed || !ls(KEYS.seeded, false)){ savePlayers(false); lsSet(KEYS.seeded, true, false); }
 }
@@ -948,6 +992,21 @@ function saveAlbum(show){ lsSet(KEYS.album, album, show); }
 function saveAlbumSubs(show){ lsSet(KEYS.albumSubs, albumSubs, show); }
 function saveAlbumLikes(show){ lsSet(KEYS.albumLikes, albumLikes, show); }
 function saveNickRequests(show){ lsSet(KEYS.nickReq, nickRequests, show); }
+function saveCityOverrides(show){ lsSet(KEYS.cityOverrides, cityOverrides, show); }
+// Возвращает актуальный список городов: базовые (из кода) + правки/добавления из админки
+function getCities(){
+  const ov = cityOverrides || {};
+  const base = DEFAULT_CITIES.filter(c => !(ov.deleted || []).includes(c.id)).map(c => {
+    const edit = (ov.edits || {})[c.id] || {};
+    const removed = new Set(((ov.residentsRemove || {})[c.id] || []).map(n => n.toLowerCase()));
+    const added = (ov.residentsAdd || {})[c.id] || [];
+    const residents = [...c.residents.filter(n => !removed.has(n.toLowerCase())), ...added.filter(n => !c.residents.some(r => r.toLowerCase() === n.toLowerCase()))];
+    return { ...c, ...edit, residents };
+  });
+  const custom = (ov.custom || []).map(c => ({ ...c }));
+  return [...base, ...custom];
+}
+function cityPoints(city){ return city.residents.reduce((sum, nick) => { const p = findPlayerByNick(nick); return sum + (p ? achPoints(p.id) : 0); }, 0); }
 function findPlayerByNick(nick){ return players.find(p => p.nickname.toLowerCase() === nick.toLowerCase()); }
 function findAchievement(id){ return DEFAULT_ACHIEVEMENTS.find(a => a.id === id); }
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
@@ -1525,31 +1584,99 @@ function openProfile(playerId){
   const rarityCount = { common:0, rare:0, epic:0, legendary:0 };
   DEFAULT_ACHIEVEMENTS.forEach(a => { if (ownedSet.has(a.id)) rarityCount[a.rarity]++; });
   const titles = DEFAULT_ACHIEVEMENTS.filter(a => ownedSet.has(a.id)).slice(0, 5);
-  const city = p.cityId ? CITIES.find(c => c.id === p.cityId) : null;
+  const city = p.cityId ? getCities().find(c => c.id === p.cityId) : null;
   const categoriesHtml = ACH_CATEGORIES.map(cat => {
     const list = DEFAULT_ACHIEVEMENTS.filter(a => a.cat === cat.id);
     const ownedInCat = list.filter(a => ownedSet.has(a.id)).length;
     return `<div class="pf-ach-section"><div class="pf-ach-cat-head"><div class="pf-ach-cat-icon">${cat.icon}</div><div class="pf-ach-cat-name">${cat.name}</div><div class="pf-ach-cat-count">${ownedInCat}/${list.length}</div></div><div class="pf-ach-grid-v2">${list.map(a => { const owned = ownedSet.has(a.id); return `<div class="pf-ach-v2 ${owned ? 'unlocked' : 'locked'}" data-rarity="${a.rarity}" title="${escapeHtml(a.name)}" onclick="closeProfileModal();showAchInfo('${a.id}')">${a.icon}</div>`; }).join('')}</div></div>`;
   }).join('');
   const bannerExtra = city ? `<div style="display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:100px;background:${city.colorRaw}22;border:1px solid ${city.colorRaw};margin-top:10px;cursor:pointer" onclick="closeProfileModal();openCityModal('${city.id}')"><span>${city.icon}</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:${city.colorRaw}">${escapeHtml(city.name)}${p.isMayor ? ' · мэр' : ''}</span></div>` : '';
-  $('profile-body').innerHTML = `<div class="pf-banner">${avatarImgHtml(p.nickname, 160, 'class="pf-avatar"')}<div class="pf-nick">${escapeHtml(p.nickname)}${p.isMayor ? ' 👑' : ''}</div>${bannerExtra}<div class="pf-titles">${titles.map(a => `<span class="pf-title">${a.icon} ${escapeHtml(a.name)}</span>`).join('') || '<span style="color:var(--muted);font-size:12px">Пока без титулов</span>'}</div></div><div class="pf-ach-stats"><div class="pf-stat-card"><div class="pf-stat-value">${totalOwned}<span style="font-size:14px;color:var(--muted)">/${totalAch}</span></div><div class="pf-stat-label">Достижений</div></div><div class="pf-stat-card"><div class="pf-stat-value" style="color:${totalPct >= 50 ? '#34d399' : '#fff'}">${totalPct}%</div><div class="pf-stat-label">Прогресс</div></div><div class="pf-stat-card"><div class="pf-stat-value rarity-legendary">${rarityCount.legendary}</div><div class="pf-stat-label">🏆 Легендарных</div></div><div class="pf-stat-card"><div class="pf-stat-value rarity-epic">${rarityCount.epic}</div><div class="pf-stat-label">🟣 Эпических</div></div></div>${categoriesHtml}<div class="pf-actions"><button class="pf-action-btn" onclick="copyNick('${escapeHtml(p.nickname)}')">📋 Скопировать ник</button><a class="pf-action-btn" href="https://ru.namemc.com/profile/${encodeURIComponent(p.nickname)}" target="_blank">🌐 NameMC</a>${canEditResidence ? `<button class="pf-action-btn" onclick="setResidence(${p.id})">🏠 ${p.residence ? 'Изменить' : 'Указать'}</button>` : ''}${isModerator() ? `<button class="pf-action-btn" onclick="closeProfileModal();adminGiveAchTo(${p.id})">🏆 Выдать</button>` : ''}</div>`;
+  $('profile-body').innerHTML = `<div class="pf-banner">${avatarImgHtml(p.nickname, 160, 'class="pf-avatar"')}<div class="pf-nick">${escapeHtml(p.nickname)}${p.isMayor ? ' 👑' : ''}</div>${bannerExtra}<div class="pf-titles">${titles.map(a => `<span class="pf-title">${a.icon} ${escapeHtml(a.name)}</span>`).join('') || '<span style="color:var(--muted);font-size:12px">Пока без титулов</span>'}</div></div><div class="pf-ach-stats"><div class="pf-stat-card"><div class="pf-stat-value">${totalOwned}<span style="font-size:14px;color:var(--muted)">/${totalAch}</span></div><div class="pf-stat-label">Достижений</div></div><div class="pf-stat-card"><div class="pf-stat-value" style="color:${totalPct >= 50 ? '#34d399' : '#fff'}">${totalPct}%</div><div class="pf-stat-label">Прогресс</div></div><div class="pf-stat-card"><div class="pf-stat-value rarity-legendary">${rarityCount.legendary}</div><div class="pf-stat-label">🏆 Легендарных</div></div><div class="pf-stat-card"><div class="pf-stat-value rarity-epic">${rarityCount.epic}</div><div class="pf-stat-label">🟣 Эпических</div></div></div>${categoriesHtml}<div class="pf-actions"><button class="pf-action-btn" onclick="copyNick('${escapeHtml(p.nickname)}')">📋 Скопировать ник</button><a class="pf-action-btn" href="https://ru.namemc.com/profile/${encodeURIComponent(p.nickname)}" target="_blank">🌐 NameMC</a>${canEditResidence ? `<button class="pf-action-btn" onclick="openResidenceModal(${p.id})">🏠 ${p.residence ? 'Изменить' : 'Указать'}</button>` : ''}${isModerator() ? `<button class="pf-action-btn" onclick="closeProfileModal();adminGiveAchTo(${p.id})">🏆 Выдать</button>` : ''}</div>`;
   openModal('profile-modal');
 }
 function closeProfileModal(){ closeModal('profile-modal'); currentProfileId = null; }
 function copyNick(nick){ navigator.clipboard.writeText(nick).then(() => showToast('📋 ' + nick)); }
-function setResidence(playerId){
+let residenceTargetId = null;
+function setResidence(playerId){ openResidenceModal(playerId); }
+function openResidenceModal(playerId){
   const p = players.find(x => x.id === playerId); if (!p) return;
   const u = getCurrentUser();
   const isOwn = !!(u && p.discordId === u.id);
   if (!isOwn && !isModerator()){ showToast('🚫 Нет прав'); return; }
-  const citiesList = CITIES.map(c => c.name).join(', ');
-  const v = prompt(`Где живёт ${p.nickname}?\n\nГорода: ${citiesList}`, p.residence || '');
-  if (v === null) return;
-  p.residence = v.trim();
-  const city = CITIES.find(c => c.name.toLowerCase() === p.residence.toLowerCase());
-  p.cityId = city ? city.id : null;
-  savePlayers(); renderPlayersView(); renderCities();
+  residenceTargetId = playerId;
+  const cities = getCities();
+  const cardsHtml = cities.map(c => {
+    const active = p.cityId === c.id;
+    return `<div class="residence-pick ${active ? 'active' : ''}" style="--cc:${c.colorRaw};--cbg:${c.colorRaw}22" onclick="pickResidenceCity('${c.id}')"><div class="rp-icon">${c.icon}</div><div class="rp-info"><div class="rp-name">${escapeHtml(c.name)}${active ? ' ✓' : ''}</div><div class="rp-meta">👑 ${escapeHtml(c.mayor)} · 👥 ${c.residents.length}</div></div></div>`;
+  }).join('');
+  $('residence-body').innerHTML = `<div class="residence-grid">${cardsHtml}</div><div class="residence-other"><label>🏕️ Не живу ни в одном городе — своё место</label><input type="text" id="residence-custom-input" placeholder="Например: дикие земли у координат X/Z" value="${p.cityId ? '' : escapeHtml(p.residence || '')}"><button class="btn-primary" style="width:100%;margin-top:10px" onclick="pickResidenceCity(null)">💾 Сохранить как «другое место»</button></div>`;
+  openModal('residence-modal');
+}
+function pickResidenceCity(cityId){
+  const p = players.find(x => x.id === residenceTargetId); if (!p) return;
+  if (cityId === null){
+    const txt = ($('residence-custom-input')?.value || '').trim();
+    applyResidence(p.id, null, txt);
+  } else {
+    applyResidence(p.id, cityId, null);
+  }
+}
+// Города — единый источник правды: список жителей города (city.residents) хранится
+// через cityOverrides, а player.cityId/residence — лишь производные от него (см. seedCitiesAndResidents).
+function addPlayerToCityResidents(cityId, nickname){
+  const city = getCities().find(c => c.id === cityId); if (!city) return true;
+  if (city.residents.some(n => n.toLowerCase() === nickname.toLowerCase())) return true;
+  if (cityId.startsWith('custom_')){
+    const idx = (cityOverrides.custom || []).findIndex(c => c.id === cityId);
+    if (idx >= 0) cityOverrides.custom[idx] = { ...cityOverrides.custom[idx], residents: [...cityOverrides.custom[idx].residents, nickname] };
+  } else {
+    cityOverrides.residentsAdd = cityOverrides.residentsAdd || {};
+    cityOverrides.residentsAdd[cityId] = [...new Set([...(cityOverrides.residentsAdd[cityId] || []), nickname])];
+    if (cityOverrides.residentsRemove && cityOverrides.residentsRemove[cityId]){
+      cityOverrides.residentsRemove[cityId] = cityOverrides.residentsRemove[cityId].filter(n => n.toLowerCase() !== nickname.toLowerCase());
+    }
+  }
+  return true;
+}
+function removePlayerFromCityResidents(cityId, nickname){
+  const city = getCities().find(c => c.id === cityId); if (!city) return true;
+  if (nickname.toLowerCase() === city.mayor.toLowerCase()) return false;
+  if (cityId.startsWith('custom_')){
+    const idx = (cityOverrides.custom || []).findIndex(c => c.id === cityId);
+    if (idx >= 0) cityOverrides.custom[idx] = { ...cityOverrides.custom[idx], residents: cityOverrides.custom[idx].residents.filter(n => n.toLowerCase() !== nickname.toLowerCase()) };
+  } else {
+    const base = DEFAULT_CITIES.find(c => c.id === cityId);
+    const inBase = base && base.residents.some(n => n.toLowerCase() === nickname.toLowerCase());
+    if (inBase){
+      cityOverrides.residentsRemove = cityOverrides.residentsRemove || {};
+      cityOverrides.residentsRemove[cityId] = [...new Set([...(cityOverrides.residentsRemove[cityId] || []), nickname])];
+    }
+    if (cityOverrides.residentsAdd && cityOverrides.residentsAdd[cityId]){
+      cityOverrides.residentsAdd[cityId] = cityOverrides.residentsAdd[cityId].filter(n => n.toLowerCase() !== nickname.toLowerCase());
+    }
+  }
+  return true;
+}
+function applyResidence(playerId, cityId, customText){
+  const p = players.find(x => x.id === playerId); if (!p) return;
+  const oldCityId = p.cityId;
+  if (oldCityId && oldCityId !== cityId){
+    const ok = removePlayerFromCityResidents(oldCityId, p.nickname);
+    if (!ok){ showToast('👑 Мэр не может просто съехать — попроси админа переназначить мэра'); return; }
+  }
+  if (cityId){
+    addPlayerToCityResidents(cityId, p.nickname);
+    saveCityOverrides(false);
+    seedCitiesAndResidents();
+  } else {
+    saveCityOverrides(false);
+    seedCitiesAndResidents();
+    p.residence = (customText || '').trim();
+    savePlayers();
+  }
+  renderPlayersView(); renderCities();
   if (currentProfileId === playerId) openProfile(playerId);
+  closeModal('residence-modal');
   showToast('🏠 Сохранено');
 }
 
@@ -1730,18 +1857,21 @@ async function completeRenameVerification(){
 
 function renderCities(){
   const container = $('map-cities-container'); if (!container) return;
+  const cities = getCities();
   const tiles = $('map-tiles');
   if (tiles){
-    const totalResidents = CITIES.reduce((sum, c) => sum + c.residents.length, 0);
+    const totalResidents = cities.reduce((sum, c) => sum + c.residents.length, 0);
     const achTotal = achSubs.filter(s => s.status === 'approved').length;
     tiles.innerHTML = `
-      <div class="map-tile" style="--tc:#10b981"><div class="map-tile-icon">🏙️</div><div class="map-tile-value">${CITIES.length}</div><div class="map-tile-label">Городов</div></div>
-      <div class="map-tile" style="--tc:#fbbf24"><div class="map-tile-icon">👑</div><div class="map-tile-value">${CITIES.length}</div><div class="map-tile-label">Мэров</div></div>
+      <div class="map-tile" style="--tc:#10b981"><div class="map-tile-icon">🏙️</div><div class="map-tile-value">${cities.length}</div><div class="map-tile-label">Городов</div></div>
+      <div class="map-tile" style="--tc:#fbbf24"><div class="map-tile-icon">👑</div><div class="map-tile-value">${cities.length}</div><div class="map-tile-label">Мэров</div></div>
       <div class="map-tile" style="--tc:#06b6d4"><div class="map-tile-icon">👥</div><div class="map-tile-value">${totalResidents}</div><div class="map-tile-label">Жителей</div></div>
       <div class="map-tile" style="--tc:#a78bfa"><div class="map-tile-icon">🏆</div><div class="map-tile-value">${achTotal}</div><div class="map-tile-label">Ачивок</div></div>`;
   }
   container.innerHTML = '';
-  CITIES.forEach(city => {
+  const rankedCities = [...cities].sort((a, b) => cityPoints(b) - cityPoints(a));
+  renderCityTopList(rankedCities);
+  rankedCities.forEach((city, rankIdx) => {
     const block = document.createElement('div');
     block.className = 'city-block';
     block.style.setProperty('--cc', city.colorRaw);
@@ -1759,18 +1889,32 @@ function renderCities(){
       const achCount = p ? getPlayerAch(p.id).length : 0;
       return `<div class="resident-card ${isMayor ? 'mayor' : ''}" onclick="openProfileByName('${escapeHtml(nick)}')">${avatarImgHtml(nick, 48)}<div class="rc-info"><div class="rc-nick">${escapeHtml(nick)}</div><div class="rc-badge">${isMayor ? '👑 Мэр' : '🏠 Житель'}</div></div><div class="rc-ach">${achCount}</div></div>`;
     }).join('');
-    block.innerHTML = `<div class="city-block-head"><div class="city-block-left"><div class="city-block-icon">${city.icon}</div><div><div class="city-block-name">${escapeHtml(city.name)}</div><div class="city-block-mayor">👑 ${escapeHtml(city.mayor)}</div></div></div><div class="city-block-count">👥 ${city.residents.length}</div></div><div class="city-residents">${residentsHtml}</div>`;
+    const pts = cityPoints(city);
+    const crown = rankIdx === 0 && pts > 0 ? `<div class="city-rank-crown" title="Лидер по очкам">🥇</div>` : rankIdx === 1 && pts > 0 ? `<div class="city-rank-crown" style="background:linear-gradient(135deg,#c7c7c7,#9ca3af)" title="2 место">🥈</div>` : rankIdx === 2 && pts > 0 ? `<div class="city-rank-crown" style="background:linear-gradient(135deg,#cd7f32,#a15c2a)" title="3 место">🥉</div>` : '';
+    block.innerHTML = `<div class="city-block-head"><div class="city-block-left"><div class="city-block-icon">${crown}${city.icon}</div><div><div class="city-block-name">${escapeHtml(city.name)}</div><div class="city-block-mayor">👑 ${escapeHtml(city.mayor)}</div><div class="city-pts" style="--cc:${city.colorRaw}">🏆 ${pts} очков</div></div></div><div class="city-block-count">👥 ${city.residents.length}</div></div><div class="city-residents">${residentsHtml}</div>`;
     container.appendChild(block);
   });
 }
+function renderCityTopList(rankedCities){
+  const list = $('city-top-list'); if (!list) return;
+  const withPts = rankedCities.map(c => ({ ...c, pts: cityPoints(c) }));
+  list.innerHTML = withPts.map((c, i) => `<div class="ach-top-item ${i === 0 ? 'top1' : i === 1 ? 'top2' : i === 2 ? 'top3' : ''}" onclick="openCityModal('${c.id}')"><div class="ach-top-pos">#${i + 1}</div><div class="city-top-icon" style="--cc:${c.colorRaw};--cbg:${c.colorRaw}22">${c.icon}</div><div><div class="ach-top-name">${escapeHtml(c.name)}</div><div class="ach-top-badges" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)">👑 ${escapeHtml(c.mayor)} · 👥 ${c.residents.length}</div></div><div class="ach-top-count">${c.pts}</div></div>`).join('');
+}
 function openCityModal(cityId){
-  const city = CITIES.find(c => c.id === cityId); if (!city) return;
+  const cities = getCities();
+  const city = cities.find(c => c.id === cityId); if (!city) return;
+  const ranked = [...cities].sort((a, b) => cityPoints(b) - cityPoints(a));
+  const rank = ranked.findIndex(c => c.id === cityId) + 1;
+  const pts = cityPoints(city);
   const residentsSorted = [...city.residents].sort((a, b) => {
+    const pa = findPlayerByNick(a), pb = findPlayerByNick(b);
+    const diff = (pb ? achPoints(pb.id) : 0) - (pa ? achPoints(pa.id) : 0);
+    if (diff !== 0) return diff;
     if (a.toLowerCase() === city.mayor.toLowerCase()) return -1;
     if (b.toLowerCase() === city.mayor.toLowerCase()) return 1;
     return a.localeCompare(b, 'ru');
   });
-  $('city-body').innerHTML = `<div class="city-hero" style="--city-color:${city.colorRaw};--city-color-bg:${city.colorRaw}22"><div class="city-hero-icon">${city.icon}</div><div class="city-hero-name">${escapeHtml(city.name)}</div><div class="city-hero-desc">${escapeHtml(city.description)}</div><div class="city-hero-mayor" onclick="closeModal('city-modal');openProfileByName('${escapeHtml(city.mayor)}')">${avatarImgHtml(city.mayor, 48)}<div><div class="label">👑 Мэр</div><div class="name">${escapeHtml(city.mayor)}</div></div></div></div><div style="padding:20px 28px 8px"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:12px">👥 Жители (${city.residents.length})</div></div><div class="city-residents-full">${residentsSorted.map(nick => { const isMayor = nick.toLowerCase() === city.mayor.toLowerCase(); return `<div class="city-resident-card" style="--city-color:${city.colorRaw};--city-color-bg:${city.colorRaw}22" onclick="closeModal('city-modal');openProfileByName('${escapeHtml(nick)}')">${avatarImgHtml(nick, 48)}<div style="min-width:0;flex:1"><div class="rname">${escapeHtml(nick)}</div><div class="rbadge">${isMayor ? '👑 Мэр' : '🏠 Житель'}</div></div></div>`; }).join('')}</div>`;
+  $('city-body').innerHTML = `<div class="city-hero" style="--city-color:${city.colorRaw};--city-color-bg:${city.colorRaw}22"><div class="city-hero-icon">${city.icon}</div><div class="city-hero-name">${escapeHtml(city.name)}</div><div class="city-hero-desc">${escapeHtml(city.description)}</div><div class="city-hero-mayor" onclick="closeModal('city-modal');openProfileByName('${escapeHtml(city.mayor)}')">${avatarImgHtml(city.mayor, 48)}<div><div class="label">👑 Мэр</div><div class="name">${escapeHtml(city.mayor)}</div></div></div><div class="city-hero-mayor" style="cursor:default"><div style="width:48px;height:48px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:${city.colorRaw}22;border:1px solid ${city.colorRaw}">#${rank}</div><div><div class="label">🏆 Очки</div><div class="name">${pts} · место ${rank} из ${cities.length}</div></div></div>${rank > 1 ? `<div class=\"city-overtake\">⬆️ До ${escapeHtml(ranked[rank - 2].name)} не хватает ${cityPoints(ranked[rank - 2]) - pts} очков</div>` : cities.length > 1 ? '<div class="city-overtake">🥇 Лидер сервера по очкам!</div>' : ''}</div><div style="padding:20px 28px 8px"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:12px">👥 Жители (${city.residents.length})</div></div><div class="city-residents-full">${residentsSorted.map(nick => { const isMayor = nick.toLowerCase() === city.mayor.toLowerCase(); const rp = findPlayerByNick(nick); const rpts = rp ? achPoints(rp.id) : 0; return `<div class="city-resident-card" style="--city-color:${city.colorRaw};--city-color-bg:${city.colorRaw}22" onclick="closeModal('city-modal');openProfileByName('${escapeHtml(nick)}')">${avatarImgHtml(nick, 48)}<div style="min-width:0;flex:1"><div class="rname">${escapeHtml(nick)}</div><div class="rbadge">${isMayor ? '👑 Мэр' : '🏠 Житель'} · 🏆 ${rpts}</div></div></div>`; }).join('')}</div>`;
   openModal('city-modal');
 }
 function openProfileByName(nick){ const p = findPlayerByNick(nick); if (p) openProfile(p.id); else showToast('Не найден'); }
@@ -1879,7 +2023,7 @@ async function refreshMapPlayers(){
     list.forEach(p => {
       const nick = typeof p === 'string' ? p : p.name;
       const pl = players.find(x => x.nickname.toLowerCase() === nick.toLowerCase());
-      const city = pl?.cityId ? CITIES.find(c => c.id === pl.cityId) : null;
+      const city = pl?.cityId ? getCities().find(c => c.id === pl.cityId) : null;
       const card = document.createElement('div');
       card.className = 'online-card';
       card.innerHTML = `${avatarImgHtml(nick, 48)}<div style="min-width:0;flex:1"><div class="oc-name">${escapeHtml(nick)}${pl?.isMayor ? ' 👑' : ''}</div><div class="oc-city">${city ? city.icon + ' ' + escapeHtml(city.name) : '🟢 в игре'}</div></div>`;
@@ -1904,6 +2048,7 @@ document.querySelectorAll('.admin-tab').forEach(tab => {
     if (tab.dataset.tab === 'nick-requests') renderAdminNickRequests();
     if (tab.dataset.tab === 'chronicle') renderChronicleAdminList();
     if (tab.dataset.tab === 'players') renderAdminPlayers();
+    if (tab.dataset.tab === 'cities') renderAdminCities();
     if (tab.dataset.tab === 'data') renderExport();
   });
 });
@@ -1916,7 +2061,7 @@ function openAdminModal(){
     : '🛡️ <strong>Доступ модератора:</strong> заявки, летопись, выдача ачивок.';
   document.querySelectorAll('.admin-tab.admin-only').forEach(t => t.style.display = admin ? '' : 'none');
   openModal('admin-modal');
-  renderAdminAchSubs(); renderAdminChSubs(); renderAdminAlbumSubs(); renderAdminNickRequests(); renderChronicleAdminList(); renderAdminPlayers(); renderExport(); updateAdminBadge();
+  renderAdminAchSubs(); renderAdminChSubs(); renderAdminAlbumSubs(); renderAdminNickRequests(); renderChronicleAdminList(); renderAdminPlayers(); renderAdminCities(); renderExport(); updateAdminBadge();
 }
 function closeAdminModal(){ closeModal('admin-modal'); }
 function updateAdminBadge(){
@@ -2033,7 +2178,7 @@ function renderAdminPlayers(){
     const count = getPlayerAch(p.id).length;
     const el = document.createElement('div');
     el.className = 'mod-item';
-    el.innerHTML = `${avatarImgHtml(p.nickname, 48, 'class="preview"')}<div class="mod-info"><div class="mod-title">${escapeHtml(p.nickname)}${p.isMayor ? ' 👑' : ''}</div><div class="mod-desc">Ачивок: ${count} · Discord: ${p.discordId ? '✅' : '—'} · 🏠 ${p.residence ? escapeHtml(p.residence) : '—'}</div></div><div class="mod-actions"><button class="mod-btn gold" onclick="adminGiveAchTo(${p.id})">🏆</button><button class="mod-btn ghost" onclick="setResidence(${p.id})">🏠</button>${admin ? `<button class="mod-btn reject" onclick="adminDeletePlayer(${p.id})">🗑</button>` : ''}</div>`;
+    el.innerHTML = `${avatarImgHtml(p.nickname, 48, 'class="preview"')}<div class="mod-info"><div class="mod-title">${escapeHtml(p.nickname)}${p.isMayor ? ' 👑' : ''}</div><div class="mod-desc">Ачивок: ${count} · Discord: ${p.discordId ? '✅' : '—'} · 🏠 ${p.residence ? escapeHtml(p.residence) : '—'}</div></div><div class="mod-actions"><button class="mod-btn gold" onclick="adminGiveAchTo(${p.id})">🏆</button><button class="mod-btn ghost" onclick="openResidenceModal(${p.id})">🏠</button>${admin ? `<button class="mod-btn reject" onclick="adminDeletePlayer(${p.id})">🗑</button>` : ''}</div>`;
     c.appendChild(el);
   });
 }
@@ -2079,8 +2224,71 @@ function adminDeletePlayer(id){
   players = players.filter(x => x.id !== id);
   savePlayers(); renderAdminPlayers();
 }
+function renderAdminCities(){
+  const c = $('admin-cities-list'); if (!c) return;
+  const cities = getCities();
+  if (!cities.length){ c.innerHTML = '<div class="mod-empty">Городов нет</div>'; return; }
+  const ranked = [...cities].sort((a, b) => cityPoints(b) - cityPoints(a));
+  c.innerHTML = ranked.map((city, i) => `<div class="admin-city-item"><div class="admin-city-icon" style="background:${city.colorRaw}22;border:2px solid ${city.colorRaw}">${city.icon}</div><div class="admin-city-info"><div class="t">#${i + 1} ${escapeHtml(city.name)}</div><div class="s">👑 ${escapeHtml(city.mayor)} · 👥 ${city.residents.length} · 🏆 ${cityPoints(city)} оч.${city.id.startsWith('custom_') ? ' · добавлен вручную' : ''}</div></div><div class="admin-city-actions"><button class="mod-btn ghost" onclick="openCityModal('${city.id}')">👁 Открыть</button><button class="mod-btn approve" onclick="adminEditCity('${city.id}')">✏️ Править</button><button class="mod-btn reject" onclick="adminDeleteCity('${city.id}')">🗑</button></div></div>`).join('');
+}
+function adminAddCity(){
+  const name = prompt('Название города:'); if (!name) return;
+  const icon = prompt('Иконка-эмодзи:', '🏙️') || '🏙️';
+  const mayor = prompt('Ник мэра:'); if (!mayor) return;
+  const colorRaw = prompt('Цвет города (hex, например #10b981):', '#10b981') || '#10b981';
+  const description = prompt('Короткое описание города:', '') || '';
+  const residentsRaw = prompt('Жители через запятую (мэра можно не дублировать):', mayor) || mayor;
+  const residents = [...new Set(residentsRaw.split(',').map(x => x.trim()).filter(Boolean).concat([mayor]))];
+  const id = 'custom_' + Date.now();
+  cityOverrides.custom = cityOverrides.custom || [];
+  cityOverrides.custom.push({ id, name, icon, mayor, colorRaw, description, residents });
+  saveCityOverrides();
+  seedCitiesAndResidents();
+  renderAdminCities(); renderCities();
+  showToast('🏙️ Город добавлен: ' + name);
+}
+function adminEditCity(cityId){
+  const city = getCities().find(c => c.id === cityId); if (!city) return;
+  const isCustom = cityId.startsWith('custom_');
+  const name = prompt('Название:', city.name); if (name === null) return;
+  const icon = prompt('Иконка-эмодзи:', city.icon) ?? city.icon;
+  const mayor = prompt('Ник мэра:', city.mayor) ?? city.mayor;
+  const colorRaw = prompt('Цвет (hex):', city.colorRaw) ?? city.colorRaw;
+  const description = prompt('Описание:', city.description) ?? city.description;
+  const residentsRaw = prompt('Жители через запятую:', city.residents.join(', ')) ?? city.residents.join(', ');
+  const residents = [...new Set(residentsRaw.split(',').map(x => x.trim()).filter(Boolean).concat([mayor]))];
+  if (isCustom){
+    const idx = (cityOverrides.custom || []).findIndex(c => c.id === cityId);
+    if (idx >= 0) cityOverrides.custom[idx] = { id: cityId, name, icon, mayor, colorRaw, description, residents };
+  } else {
+    cityOverrides.edits = cityOverrides.edits || {};
+    cityOverrides.edits[cityId] = { name, icon, mayor, colorRaw, description };
+    const base = DEFAULT_CITIES.find(c => c.id === cityId);
+    const baseSet = new Set(base.residents.map(n => n.toLowerCase()));
+    const newSet = new Set(residents.map(n => n.toLowerCase()));
+    cityOverrides.residentsAdd = cityOverrides.residentsAdd || {};
+    cityOverrides.residentsRemove = cityOverrides.residentsRemove || {};
+    cityOverrides.residentsAdd[cityId] = residents.filter(n => !baseSet.has(n.toLowerCase()));
+    cityOverrides.residentsRemove[cityId] = base.residents.filter(n => !newSet.has(n.toLowerCase()));
+  }
+  saveCityOverrides();
+  seedCitiesAndResidents();
+  renderAdminCities(); renderCities(); renderPlayersView();
+  showToast('✏️ Город обновлён');
+}
+function adminDeleteCity(cityId){
+  const city = getCities().find(c => c.id === cityId); if (!city) return;
+  if (!confirm(`Удалить город «${city.name}»? Жители останутся игроками, но потеряют привязку к городу.`)) return;
+  if (cityId.startsWith('custom_')) cityOverrides.custom = (cityOverrides.custom || []).filter(c => c.id !== cityId);
+  else { cityOverrides.deleted = cityOverrides.deleted || []; cityOverrides.deleted.push(cityId); }
+  players.forEach(p => { if (p.cityId === cityId){ p.cityId = null; p.isMayor = false; } });
+  savePlayers(false);
+  saveCityOverrides();
+  renderAdminCities(); renderCities(); renderPlayersView();
+  showToast('🗑 Город удалён');
+}
 function renderExport(){
-  const data = { players, achSubs, chronicle, chronicleSubs, album, albumSubs, albumLikes, nickRequests, cities: CITIES, exportedAt: new Date().toISOString(), version: 10 };
+  const data = { players, achSubs, chronicle, chronicleSubs, album, albumSubs, albumLikes, nickRequests, cities: getCities(), cityOverrides, exportedAt: new Date().toISOString(), version: 10 };
   const el = $('data-export'); if (el) el.value = JSON.stringify(data, null, 2);
 }
 function copyExport(){ const t = $('data-export'); t.select(); navigator.clipboard.writeText(t.value).then(() => showToast('📋')); }
