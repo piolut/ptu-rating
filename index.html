@@ -507,6 +507,20 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
 .residence-other label{display:block;font-size:12.5px;color:var(--text-2);font-weight:600;margin-bottom:8px}
 .residence-other input{width:100%;padding:11px 14px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);color:var(--text);font-family:inherit;font-size:14px}
 .city-overtake{margin-top:10px;font-size:12.5px;color:var(--text-2);display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid var(--line-2)}
+.bulk-toolbar{display:flex;align-items:center;gap:12px;padding:10px 14px;margin-bottom:10px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);flex-wrap:wrap}
+.bulk-all{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--text-2);cursor:pointer;user-select:none}
+.bulk-all input{accent-color:var(--emerald);width:16px;height:16px}
+.mod-check{width:18px;height:18px;accent-color:var(--emerald);flex-shrink:0;margin-right:2px;cursor:pointer}
+.mod-item{align-items:center}
+.reject-reasons{display:flex;flex-wrap:wrap;gap:8px}
+.reject-reason-btn{padding:9px 15px;border-radius:100px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.3);color:var(--red-2);font-size:12.5px;font-family:inherit;cursor:pointer;transition:all .2s}
+.reject-reason-btn:hover{background:rgba(239,68,68,.18);transform:translateY(-1px)}
+.modlog-item{padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.02);border:1px solid var(--line);margin-bottom:8px}
+.modlog-top{display:flex;justify-content:space-between;gap:10px;font-size:13px}
+.modlog-action{font-weight:700;color:#fff}
+.modlog-time{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);white-space:nowrap}
+.modlog-actor{font-size:12px;color:var(--emerald-2);margin-top:3px}
+.modlog-detail{font-size:12px;color:var(--text-2);margin-top:4px}
 </style>
 </head>
 <body>
@@ -761,6 +775,17 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
 
 <div class="modal-overlay" id="nick-modal"><div class="modal"><div class="modal-head"><div><h2>🎮 Привязать ник Minecraft</h2><p>Через команду в игре</p></div><button class="modal-close" onclick="closeNickModal()">✕</button></div><div class="modal-body" id="nick-body"></div></div></div>
 
+<div class="modal-overlay" id="reject-modal">
+  <div class="modal">
+    <div class="modal-head"><div><h2>Причина отклонения</h2><p>Выбери готовую формулировку или впиши свою</p></div><button class="modal-close" onclick="closeModal('reject-modal')">✕</button></div>
+    <div class="modal-body">
+      <div class="reject-reasons" id="reject-reasons"></div>
+      <div class="form-row" style="margin-top:14px"><label>Или своя причина</label><input type="text" id="reject-custom-reason" placeholder="Своя формулировка" maxlength="150"></div>
+      <button class="btn-primary" style="width:100%;margin-top:10px" onclick="confirmRejectCustom()">✕ Отклонить</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="residence-modal">
   <div class="modal">
     <div class="modal-head"><div><h2>Где ты живёшь?</h2><p>Выбери город или укажи своё место</p></div><button class="modal-close" onclick="closeModal('residence-modal')">✕</button></div>
@@ -786,6 +811,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
       <button class="admin-tab" data-tab="chronicle">📖 Управление летописью</button>
       <button class="admin-tab" data-tab="players">👥 Игроки</button>
       <button class="admin-tab admin-only" data-tab="cities">🏙️ Города</button>
+      <button class="admin-tab admin-only" data-tab="modlog">🗒️ Журнал</button>
       <button class="admin-tab admin-only" data-tab="data">💾 Данные</button>
     </div>
     <div class="admin-pane active" id="pane-ach-submissions"><div id="ach-subs-list"></div></div>
@@ -805,6 +831,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
       <div style="height:16px"></div>
       <div id="admin-cities-list"></div>
     </div>
+    <div class="admin-pane admin-only" id="pane-modlog"><div id="modlog-list"></div></div>
     <div class="admin-pane admin-only" id="pane-data">
       <div class="admin-form-row"><label>Экспорт JSON</label><textarea id="data-export" readonly rows="12" style="font-family:'JetBrains Mono',monospace;font-size:11px"></textarea></div>
       <div class="admin-actions"><button class="admin-btn primary" onclick="copyExport()">Скопировать</button><button class="admin-btn ghost" onclick="downloadExport()">Скачать</button></div>
@@ -930,7 +957,7 @@ const KEYS = {
   album: 'ptusmp_album_v50', albumSubs: 'ptusmp_album_subs_v50',
   albumLikes: 'ptusmp_album_likes_v50', nickReq: 'ptusmp_nick_requests_v50',
   chDraft: 'ptusmp_ch_draft_v5', verifyPending: 'ptusmp_verify_v4', seeded: 'ptusmp_seeded_v50',
-  cityOverrides: 'ptusmp_city_overrides_v1',
+  cityOverrides: 'ptusmp_city_overrides_v1', modLog: 'ptusmp_mod_log_v1',
 };
 const $ = (id) => document.getElementById(id);
 function ls(k, def){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch { return def; } }
@@ -941,7 +968,7 @@ function lsSet(k, v, showInd){ localStorage.setItem(k, JSON.stringify(v)); if (s
 const API_BASE = 'https://misty-wood-5387.maratdzhagiev88.workers.dev';
 const SYNCED_KEYS = new Set([
   KEYS.players, KEYS.achSubs, KEYS.chronicle, KEYS.chronicleSubs,
-  KEYS.album, KEYS.albumSubs, KEYS.albumLikes, KEYS.nickReq, KEYS.cityOverrides,
+  KEYS.album, KEYS.albumSubs, KEYS.albumLikes, KEYS.nickReq, KEYS.cityOverrides, KEYS.modLog,
 ]);
 let apiOnline = true;
 function currentDiscordIdForSync(){ try { const u = getCurrentUser(); return u ? u.id : null; } catch { return null; } }
@@ -974,8 +1001,9 @@ async function apiPullAll(){
     if (data[KEYS.albumLikes]){ albumLikes = data[KEYS.albumLikes]; touched = true; }
     if (data[KEYS.nickReq]){ nickRequests = data[KEYS.nickReq]; touched = true; }
     if (data[KEYS.cityOverrides]){ cityOverrides = data[KEYS.cityOverrides]; touched = true; }
+    if (data[KEYS.modLog]){ modLog = data[KEYS.modLog]; touched = true; }
     if (touched){
-      [KEYS.players, KEYS.achSubs, KEYS.chronicle, KEYS.chronicleSubs, KEYS.album, KEYS.albumSubs, KEYS.albumLikes, KEYS.nickReq, KEYS.cityOverrides]
+      [KEYS.players, KEYS.achSubs, KEYS.chronicle, KEYS.chronicleSubs, KEYS.album, KEYS.albumSubs, KEYS.albumLikes, KEYS.nickReq, KEYS.cityOverrides, KEYS.modLog]
         .forEach(k => { if (data[k]) localStorage.setItem(k, JSON.stringify(data[k])); });
       seedCitiesAndResidents();
       renderAchievements(); renderChronicle(); renderAlbum(); renderCities(); renderPlayersView();
@@ -990,6 +1018,8 @@ let players = ls(KEYS.players, []);
 let achSubs = ls(KEYS.achSubs, []);
 let chronicle = ls(KEYS.chronicle, []);
 let chronicleSubs = ls(KEYS.chronicleSubs, []);
+let modLog = ls(KEYS.modLog, []);
+let bulkSelection = { ach: new Set(), chronicle: new Set(), album: new Set(), nick: new Set() };
 let album = ls(KEYS.album, []);
 let albumSubs = ls(KEYS.albumSubs, []);
 let albumLikes = ls(KEYS.albumLikes, {});
@@ -1036,6 +1066,13 @@ function savePlayers(show){ lsSet(KEYS.players, players, show); }
 function saveAchSubs(show){ lsSet(KEYS.achSubs, achSubs, show); }
 function saveChronicle(show){ lsSet(KEYS.chronicle, chronicle, show); }
 function saveChronicleSubs(show){ lsSet(KEYS.chronicleSubs, chronicleSubs, show); }
+function saveModLog(show){ lsSet(KEYS.modLog, modLog, show); }
+function logMod(action, detail){
+  const u = getCurrentUser();
+  modLog.unshift({ id: Date.now() + Math.random(), ts: Date.now(), actorId: u ? u.id : null, actorName: u ? getDiscordName(u) : '?', action, detail: detail || null });
+  if (modLog.length > 300) modLog.length = 300;
+  saveModLog(false);
+}
 function saveAlbum(show){ lsSet(KEYS.album, album, show); }
 function saveAlbumSubs(show){ lsSet(KEYS.albumSubs, albumSubs, show); }
 function saveAlbumLikes(show){ lsSet(KEYS.albumLikes, albumLikes, show); }
@@ -1507,32 +1544,30 @@ function renderAdminChSubs(){
   const c = $('ch-subs-list'); if (!c) return;
   const pending = chronicleSubs.filter(s => s.status === 'pending');
   if (!pending.length){ c.innerHTML = '<div class="mod-empty">✅ Заявок нет</div>'; updateAdminBadge(); return; }
-  c.innerHTML = '';
+  const allIds = pending.map(s => s.id);
+  const sel = [...bulkSelection.chronicle].filter(id => allIds.includes(id));
+  c.innerHTML = `<div class="bulk-toolbar"><label class="bulk-all"><input type="checkbox" ${sel.length && sel.length === allIds.length ? 'checked' : ''} onchange="toggleBulkSelectAll('chronicle', ${JSON.stringify(allIds)}, this.checked)"> Выбрать все (${allIds.length})</label>${sel.length ? `<button class="mod-btn approve" onclick="bulkApprove('chronicle')">✓ Опубликовать выбранные (${sel.length})</button>` : ''}</div>`;
   pending.forEach(s => {
     const type = getChType(s.type || 'city');
     const el = document.createElement('div');
     el.className = 'mod-item';
-    el.innerHTML = `<div style="width:52px;height:52px;border-radius:10px;display:grid;place-items:center;background:${type.colorRaw}22;border:1px solid ${type.colorRaw}66;font-size:22px;color:${type.colorRaw}">${type.icon}</div><div class="mod-info"><div class="mod-line">📜 ${escapeHtml(s.date)} · ${type.name} · от ${escapeHtml(s.author)}</div><div class="mod-title">${escapeHtml(s.title)}</div><div class="mod-desc">${escapeHtml((s.text || '').slice(0, 120))}</div></div><div class="mod-actions"><button class="mod-btn approve" onclick="approveChSub(${s.id})">✓</button><button class="mod-btn reject" onclick="rejectChSub(${s.id})">✕</button></div>`;
+    el.innerHTML = `<input type="checkbox" class="mod-check" ${bulkSelection.chronicle.has(s.id) ? 'checked' : ''} onchange="toggleBulkSelect('chronicle', ${s.id}, this.checked)"><div style="width:52px;height:52px;border-radius:10px;display:grid;place-items:center;background:${type.colorRaw}22;border:1px solid ${type.colorRaw}66;font-size:22px;color:${type.colorRaw}">${type.icon}</div><div class="mod-info"><div class="mod-line">📜 ${escapeHtml(s.date)} · ${type.name} · от ${escapeHtml(s.author)}</div><div class="mod-title">${escapeHtml(s.title)}</div><div class="mod-desc">${escapeHtml((s.text || '').slice(0, 120))}</div></div><div class="mod-actions"><button class="mod-btn approve" onclick="approveChSub(${s.id})">✓</button><button class="mod-btn reject" onclick="openRejectModal('chronicle', ${s.id})">✕</button></div>`;
     c.appendChild(el);
   });
   updateAdminBadge();
 }
-function approveChSub(id){
+function approveChSub(id, silent){
   if (!isModerator()) return;
   const s = chronicleSubs.find(x => x.id === id); if (!s) return;
   chronicle.push({ id: Date.now() + Math.floor(Math.random() * 1000), date: s.date, dateTs: s.dateTs, title: s.title, text: s.text, image: s.image, author: s.author, type: s.type, ts: s.ts });
   saveChronicle();
   s.status = 'approved';
   saveChronicleSubs();
-  renderAdminChSubs(); renderChronicle();
-  showToast('✅ Опубликовано');
-}
-function rejectChSub(id){
-  if (!isModerator()) return;
-  const s = chronicleSubs.find(x => x.id === id); if (!s) return;
-  s.status = 'rejected'; saveChronicleSubs();
-  renderAdminChSubs();
-  showToast('✕ Отклонено');
+  if (!silent){
+    logMod('approve_chronicle', { name: s.title });
+    renderAdminChSubs(); renderChronicle();
+    showToast('✅ Опубликовано');
+  }
 }
 
 function openAlbumUpload(){
@@ -2097,6 +2132,7 @@ document.querySelectorAll('.admin-tab').forEach(tab => {
     if (tab.dataset.tab === 'chronicle') renderChronicleAdminList();
     if (tab.dataset.tab === 'players') renderAdminPlayers();
     if (tab.dataset.tab === 'cities') renderAdminCities();
+    if (tab.dataset.tab === 'modlog') renderModLog();
     if (tab.dataset.tab === 'data') renderExport();
   });
 });
@@ -2109,7 +2145,7 @@ function openAdminModal(){
     : '🛡️ <strong>Доступ модератора:</strong> заявки, летопись, выдача ачивок.';
   document.querySelectorAll('.admin-tab.admin-only').forEach(t => t.style.display = admin ? '' : 'none');
   openModal('admin-modal');
-  renderAdminAchSubs(); renderAdminChSubs(); renderAdminAlbumSubs(); renderAdminNickRequests(); renderChronicleAdminList(); renderAdminPlayers(); renderAdminCities(); renderExport(); updateAdminBadge();
+  renderAdminAchSubs(); renderAdminChSubs(); renderAdminAlbumSubs(); renderAdminNickRequests(); renderChronicleAdminList(); renderAdminPlayers(); renderAdminCities(); renderModLog(); renderExport(); updateAdminBadge();
 }
 function closeAdminModal(){ closeModal('admin-modal'); }
 function updateAdminBadge(){
@@ -2129,93 +2165,177 @@ function renderAdminNickRequests(){
   const c = $('nick-requests-list'); if (!c) return;
   const pending = nickRequests.filter(r => r.status === 'pending');
   if (!pending.length){ c.innerHTML = '<div class="mod-empty">✅ Заявок нет</div>'; updateAdminBadge(); return; }
-  c.innerHTML = '';
+  const allIds = pending.map(r => r.id);
+  const sel = [...bulkSelection.nick].filter(id => allIds.includes(id));
+  c.innerHTML = `<div class="bulk-toolbar"><label class="bulk-all"><input type="checkbox" ${sel.length && sel.length === allIds.length ? 'checked' : ''} onchange="toggleBulkSelectAll('nick', ${JSON.stringify(allIds)}, this.checked)"> Выбрать все (${allIds.length})</label>${sel.length ? `<button class="mod-btn approve" onclick="bulkApprove('nick')">✓ Подтвердить выбранные (${sel.length})</button>` : ''}</div>`;
   pending.forEach(r => {
     const isCmd = r.method === 'command';
     const proofHtml = isCmd && r.proof ? `<a href="${escapeHtml(r.proof)}" target="_blank" style="color:var(--purple-2);font-size:11px">📸 Пруф →</a>` : '';
     const codeHtml = isCmd && r.code ? `<div class="mod-desc">Код: <strong style="color:var(--amber-2)">${escapeHtml(r.code)}</strong></div>` : '';
     const el = document.createElement('div');
     el.className = 'mod-item';
-    el.innerHTML = `${avatarImgHtml(r.nickname, 52, 'class="preview"')}<div class="mod-info"><div class="mod-line">${isCmd ? '💬 /me' : '🔐 Авто'}</div><div class="mod-title">${escapeHtml(r.nickname)}</div><div class="mod-desc">Discord: ${escapeHtml(r.discordName)}</div>${codeHtml}<div style="margin-top:6px">${proofHtml}</div></div><div class="mod-actions"><button class="mod-btn approve" onclick="approveNickLink(${r.id})">✓</button><button class="mod-btn reject" onclick="rejectNickLink(${r.id})">✕</button></div>`;
+    el.innerHTML = `<input type="checkbox" class="mod-check" ${bulkSelection.nick.has(r.id) ? 'checked' : ''} onchange="toggleBulkSelect('nick', ${r.id}, this.checked)">${avatarImgHtml(r.nickname, 52, 'class="preview"')}<div class="mod-info"><div class="mod-line">${isCmd ? '💬 /me' : '🔐 Авто'}</div><div class="mod-title">${escapeHtml(r.nickname)}</div><div class="mod-desc">Discord: ${escapeHtml(r.discordName)}</div>${codeHtml}<div style="margin-top:6px">${proofHtml}</div></div><div class="mod-actions"><button class="mod-btn approve" onclick="approveNickLink(${r.id})">✓</button><button class="mod-btn reject" onclick="openRejectModal('nick', ${r.id})">✕</button></div>`;
     c.appendChild(el);
   });
   updateAdminBadge();
 }
-function approveNickLink(id){
+function approveNickLink(id, silent){
   if (!isModerator()) return;
   const r = nickRequests.find(x => x.id === id); if (!r) return;
   let p = findPlayerByNick(r.nickname);
   if (p){
-    if (p.discordId && p.discordId !== r.discordId){ showToast('❌ Занят'); return; }
+    if (p.discordId && p.discordId !== r.discordId){ if (!silent) showToast('❌ Занят'); return; }
     p.discordId = r.discordId; p.mcVerified = true;
   } else {
     players.push({ id: nextPlayerId++, nickname: r.nickname, discordId: r.discordId, addedAt: Date.now(), mcVerified: true });
   }
   savePlayers();
   r.status = 'approved'; saveNickRequests();
-  renderAdminNickRequests(); renderAdminPlayers();
-  updateAuthUI();
-  showToast('✅ Ник привязан');
+  if (!silent){
+    logMod('approve_nick', { name: r.nickname });
+    renderAdminNickRequests(); renderAdminPlayers();
+    updateAuthUI();
+    showToast('✅ Ник привязан');
+  }
 }
-function rejectNickLink(id){
-  if (!isModerator()) return;
-  const r = nickRequests.find(x => x.id === id); if (!r) return;
-  r.status = 'rejected'; saveNickRequests();
-  renderAdminNickRequests();
-  showToast('✕ Отклонено');
+const REJECT_REASONS = ['Плохой пруф', 'Не соответствует условию', 'Уже есть у другого игрока', 'Похоже на баг/чит', 'Не тот сервер или мод'];
+let rejectTarget = null;
+function openRejectModal(kind, id){
+  rejectTarget = { kind, id };
+  const custom = $('reject-custom-reason'); if (custom) custom.value = '';
+  $('reject-reasons').innerHTML = REJECT_REASONS.map(r => `<button type="button" class="reject-reason-btn" onclick="quickReject(${JSON.stringify(r)})">${escapeHtml(r)}</button>`).join('');
+  openModal('reject-modal');
 }
+function quickReject(reason){ if (rejectTarget) doReject(rejectTarget.kind, rejectTarget.id, reason); closeModal('reject-modal'); }
+function confirmRejectCustom(){
+  const txt = ($('reject-custom-reason')?.value || '').trim();
+  if (!txt){ showToast('✏️ Впиши причину или выбери готовую'); return; }
+  if (rejectTarget) doReject(rejectTarget.kind, rejectTarget.id, txt);
+  closeModal('reject-modal');
+}
+const REJECT_MAP = {
+  ach: { arr: () => achSubs, save: saveAchSubs, render: renderAdminAchSubs, label: s => (findAchievement(s.achievementId)?.name || s.achievementId) + ' — ' + s.playerNick, action: 'reject_ach' },
+  chronicle: { arr: () => chronicleSubs, save: saveChronicleSubs, render: renderAdminChSubs, label: s => s.title, action: 'reject_chronicle' },
+  album: { arr: () => albumSubs, save: saveAlbumSubs, render: renderAdminAlbumSubs, label: s => s.title, action: 'reject_album' },
+  nick: { arr: () => nickRequests, save: saveNickRequests, render: renderAdminNickRequests, label: s => s.nickname, action: 'reject_nick' },
+};
+function doReject(kind, id, reason){
+  const cfg = REJECT_MAP[kind]; if (!cfg) return;
+  const item = cfg.arr().find(x => x.id === id); if (!item) return;
+  item.status = 'rejected';
+  item.rejectReason = reason;
+  item.rejectedAt = Date.now();
+  item.rejectedBy = getDiscordName(getCurrentUser());
+  cfg.save();
+  logMod(cfg.action, { name: cfg.label(item), reason });
+  cfg.render();
+  showToast('✕ Отклонено: ' + reason);
+}
+const BULK_APPROVE_MAP = {
+  ach: { fn: approveAch, render: () => { renderAdminAchSubs(); renderAchievements(); }, label: 'ачивок' },
+  chronicle: { fn: approveChSub, render: () => { renderAdminChSubs(); renderChronicle(); }, label: 'записей летописи' },
+  album: { fn: approveAlbum, render: () => { renderAdminAlbumSubs(); renderAlbum(); }, label: 'скринов' },
+  nick: { fn: approveNickLink, render: () => { renderAdminNickRequests(); renderAdminPlayers(); updateAuthUI(); }, label: 'ников' },
+};
+function toggleBulkSelect(kind, id, checked){
+  if (checked) bulkSelection[kind].add(id); else bulkSelection[kind].delete(id);
+  const renderMap = { ach: renderAdminAchSubs, chronicle: renderAdminChSubs, album: renderAdminAlbumSubs, nick: renderAdminNickRequests };
+  renderMap[kind]();
+}
+function toggleBulkSelectAll(kind, ids, checked){
+  bulkSelection[kind] = checked ? new Set(ids) : new Set();
+  const renderMap = { ach: renderAdminAchSubs, chronicle: renderAdminChSubs, album: renderAdminAlbumSubs, nick: renderAdminNickRequests };
+  renderMap[kind]();
+}
+function bulkApprove(kind){
+  const cfg = BULK_APPROVE_MAP[kind]; if (!cfg) return;
+  const ids = [...bulkSelection[kind]]; if (!ids.length) return;
+  ids.forEach(id => cfg.fn(id, true));
+  bulkSelection[kind] = new Set();
+  logMod('bulk_approve_' + kind, { count: ids.length });
+  cfg.render();
+  showToast(`✅ Одобрено ${cfg.label}: ${ids.length}`);
+}
+function renderModLog(){
+  const c = $('modlog-list'); if (!c) return;
+  if (!modLog.length){ c.innerHTML = '<div class="mod-empty">Пока пусто</div>'; return; }
+  const ACTION_LABELS = {
+    approve_ach: '✅ Одобрил ачивку', reject_ach: '✕ Отклонил ачивку',
+    approve_chronicle: '✅ Опубликовал запись летописи', reject_chronicle: '✕ Отклонил запись летописи',
+    approve_album: '✅ Опубликовал скриншот', reject_album: '✕ Отклонил скриншот',
+    approve_nick: '✅ Подтвердил ник', reject_nick: '✕ Отклонил ник',
+    bulk_approve_ach: '✅ Массово одобрил ачивки', bulk_approve_chronicle: '✅ Массово опубликовал летопись',
+    bulk_approve_album: '✅ Массово опубликовал скрины', bulk_approve_nick: '✅ Массово подтвердил ники',
+    give_ach: '🏆 Выдал ачивку вручную', delete_player: '🗑 Удалил игрока',
+    add_city: '🏙️ Добавил город', edit_city: '✏️ Изменил город', delete_city: '🗑 Удалил город',
+  };
+  c.innerHTML = modLog.slice(0, 200).map(e => {
+    const label = ACTION_LABELS[e.action] || e.action;
+    const when = new Date(e.ts).toLocaleString('ru-RU');
+    let detailText = '';
+    if (e.detail){
+      const parts = [];
+      if (e.detail.name) parts.push(escapeHtml(e.detail.name));
+      if (e.detail.reason) parts.push('причина: ' + escapeHtml(e.detail.reason));
+      if (e.detail.count) parts.push('количество: ' + e.detail.count);
+      detailText = parts.join(' · ');
+    }
+    return `<div class="modlog-item"><div class="modlog-top"><span class="modlog-action">${label}</span><span class="modlog-time">${when}</span></div><div class="modlog-actor">${escapeHtml(e.actorName || '?')}</div>${detailText ? `<div class="modlog-detail">${detailText}</div>` : ''}</div>`;
+  }).join('');
+}
+
 function renderAdminAchSubs(){
   const container = $('ach-subs-list');
   const pending = achSubs.filter(s => s.status === 'pending');
   if (!pending.length){ container.innerHTML = '<div class="mod-empty">✅ Заявок нет</div>'; updateAdminBadge(); return; }
-  container.innerHTML = '';
+  const allIds = pending.map(s => s.id);
+  const sel = [...bulkSelection.ach].filter(id => allIds.includes(id));
+  container.innerHTML = `<div class="bulk-toolbar"><label class="bulk-all"><input type="checkbox" ${sel.length && sel.length === allIds.length ? 'checked' : ''} onchange="toggleBulkSelectAll('ach', ${JSON.stringify(allIds)}, this.checked)"> Выбрать все (${allIds.length})</label>${sel.length ? `<button class="mod-btn approve" onclick="bulkApprove('ach')">✓ Одобрить выбранные (${sel.length})</button>` : ''}</div>`;
   pending.forEach(s => {
     const a = findAchievement(s.achievementId);
     const el = document.createElement('div');
     el.className = 'mod-item';
-    el.innerHTML = `<img class="preview" src="${escapeHtml(s.proof)}" onerror="this.src='https://placehold.co/100x100/0a130f/10b981?text=?'"><div class="mod-info"><div class="mod-line">${a ? a.icon + ' ' + escapeHtml(a.name) : 'Ачивка'} · ${escapeHtml(s.playerNick)}</div><div class="mod-desc">${s.note ? escapeHtml(s.note) : '—'}</div><div class="mod-link"><a href="${escapeHtml(s.proof)}" target="_blank">${escapeHtml(s.proof)}</a></div></div><div class="mod-actions"><button class="mod-btn approve" onclick="approveAch(${s.id})">✓</button><button class="mod-btn reject" onclick="rejectAch(${s.id})">✕</button></div>`;
+    el.innerHTML = `<input type="checkbox" class="mod-check" ${bulkSelection.ach.has(s.id) ? 'checked' : ''} onchange="toggleBulkSelect('ach', ${s.id}, this.checked)"><img class="preview" src="${escapeHtml(s.proof)}" onerror="this.src='https://placehold.co/100x100/0a130f/10b981?text=?'"><div class="mod-info"><div class="mod-line">${a ? a.icon + ' ' + escapeHtml(a.name) : 'Ачивка'} · ${escapeHtml(s.playerNick)}</div><div class="mod-desc">${s.note ? escapeHtml(s.note) : '—'}</div><div class="mod-link"><a href="${escapeHtml(s.proof)}" target="_blank">${escapeHtml(s.proof)}</a></div></div><div class="mod-actions"><button class="mod-btn approve" onclick="approveAch(${s.id})">✓</button><button class="mod-btn reject" onclick="openRejectModal('ach', ${s.id})">✕</button></div>`;
     container.appendChild(el);
   });
   updateAdminBadge();
 }
-function approveAch(id){
+function approveAch(id, silent){
   const s = achSubs.find(x => x.id === id); if (!s) return;
+  const a = findAchievement(s.achievementId);
   s.status = 'approved'; s.approvedAt = Date.now();
   s.approvedBy = getDiscordName(getCurrentUser());
-  saveAchSubs(); renderAdminAchSubs(); renderAchievements();
-  showToast('✅ Выдано');
-}
-function rejectAch(id){
-  const s = achSubs.find(x => x.id === id); if (!s) return;
-  s.status = 'rejected'; saveAchSubs();
-  renderAdminAchSubs();
-  showToast('✕ Отклонено');
+  saveAchSubs();
+  if (!silent){
+    logMod('approve_ach', { name: (a ? a.name : s.achievementId) + ' — ' + s.playerNick });
+    renderAdminAchSubs(); renderAchievements();
+    showToast('✅ Выдано');
+  }
 }
 function renderAdminAlbumSubs(){
   const container = $('album-subs-list');
   const pending = albumSubs.filter(s => s.status === 'pending');
   if (!pending.length){ container.innerHTML = '<div class="mod-empty">✅ Заявок нет</div>'; updateAdminBadge(); return; }
-  container.innerHTML = '';
+  const allIds = pending.map(s => s.id);
+  const sel = [...bulkSelection.album].filter(id => allIds.includes(id));
+  container.innerHTML = `<div class="bulk-toolbar"><label class="bulk-all"><input type="checkbox" ${sel.length && sel.length === allIds.length ? 'checked' : ''} onchange="toggleBulkSelectAll('album', ${JSON.stringify(allIds)}, this.checked)"> Выбрать все (${allIds.length})</label>${sel.length ? `<button class="mod-btn approve" onclick="bulkApprove('album')">✓ Опубликовать выбранные (${sel.length})</button>` : ''}</div>`;
   pending.forEach(s => {
     const el = document.createElement('div');
     el.className = 'mod-item';
-    el.innerHTML = `<img class="preview" src="${escapeHtml(s.url)}" onerror="this.src='https://placehold.co/100x100/0a130f/10b981?text=?'"><div class="mod-info"><div class="mod-line">📸 · ${escapeHtml(s.author)}</div><div class="mod-title">${escapeHtml(s.title)}</div></div><div class="mod-actions"><button class="mod-btn approve" onclick="approveAlbum(${s.id})">✓</button><button class="mod-btn reject" onclick="rejectAlbum(${s.id})">✕</button></div>`;
+    el.innerHTML = `<input type="checkbox" class="mod-check" ${bulkSelection.album.has(s.id) ? 'checked' : ''} onchange="toggleBulkSelect('album', ${s.id}, this.checked)"><img class="preview" src="${escapeHtml(s.url)}" onerror="this.src='https://placehold.co/100x100/0a130f/10b981?text=?'"><div class="mod-info"><div class="mod-line">📸 · ${escapeHtml(s.author)}</div><div class="mod-title">${escapeHtml(s.title)}</div></div><div class="mod-actions"><button class="mod-btn approve" onclick="approveAlbum(${s.id})">✓</button><button class="mod-btn reject" onclick="openRejectModal('album', ${s.id})">✕</button></div>`;
     container.appendChild(el);
   });
   updateAdminBadge();
 }
-function approveAlbum(id){
+function approveAlbum(id, silent){
   const s = albumSubs.find(x => x.id === id); if (!s) return;
   album.push({ id: s.id, url: s.url, title: s.title, desc: s.desc, author: s.author, authorId: s.authorId, ts: s.ts });
   saveAlbum(); s.status = 'approved'; saveAlbumSubs();
-  renderAdminAlbumSubs(); renderAlbum();
-  showToast('✅ Опубликовано');
-}
-function rejectAlbum(id){
-  const s = albumSubs.find(x => x.id === id); if (!s) return;
-  s.status = 'rejected'; saveAlbumSubs();
-  renderAdminAlbumSubs();
-  showToast('✕');
+  if (!silent){
+    logMod('approve_album', { name: s.title });
+    renderAdminAlbumSubs(); renderAlbum();
+    showToast('✅ Опубликовано');
+  }
 }
 function renderAdminPlayers(){
   const c = $('admin-players-list');
@@ -2260,7 +2380,9 @@ function confirmGiveAch(playerId){
   if (achSubs.find(s => s.playerId === playerId && s.achievementId === achId && s.status === 'approved')){ showToast('✅ Уже есть'); return; }
   const u = getCurrentUser();
   achSubs.unshift({ id: Date.now() + Math.floor(Math.random() * 1000), playerId, playerNick: p.nickname, achievementId: achId, proof: 'manual', note: note || ('Выдано: ' + (u ? getDiscordName(u) : '?')), ts: Date.now(), status: 'approved' });
-  saveAchSubs(); renderAchievements();
+  saveAchSubs();
+  logMod('give_ach', { name: (findAchievement(achId)?.name || achId) + ' — ' + p.nickname });
+  renderAchievements();
   if (currentProfileId === playerId) openProfile(playerId);
   closeModal('ach-view-modal');
   showToast('✅ Выдано');
@@ -2270,7 +2392,9 @@ function adminDeletePlayer(id){
   const p = players.find(x => x.id === id); if (!p) return;
   if (!confirm(`Удалить ${p.nickname}?`)) return;
   players = players.filter(x => x.id !== id);
-  savePlayers(); renderAdminPlayers();
+  savePlayers();
+  logMod('delete_player', { name: p.nickname });
+  renderAdminPlayers();
 }
 function renderAdminCities(){
   const c = $('admin-cities-list'); if (!c) return;
@@ -2292,6 +2416,7 @@ function adminAddCity(){
   cityOverrides.custom.push({ id, name, icon, mayor, colorRaw, description, residents });
   saveCityOverrides();
   seedCitiesAndResidents();
+  logMod('add_city', { name });
   renderAdminCities(); renderCities();
   showToast('🏙️ Город добавлен: ' + name);
 }
@@ -2321,6 +2446,7 @@ function adminEditCity(cityId){
   }
   saveCityOverrides();
   seedCitiesAndResidents();
+  logMod('edit_city', { name });
   renderAdminCities(); renderCities(); renderPlayersView();
   showToast('✏️ Город обновлён');
 }
@@ -2332,6 +2458,7 @@ function adminDeleteCity(cityId){
   players.forEach(p => { if (p.cityId === cityId){ p.cityId = null; p.isMayor = false; } });
   savePlayers(false);
   saveCityOverrides();
+  logMod('delete_city', { name: city.name });
   renderAdminCities(); renderCities(); renderPlayersView();
   showToast('🗑 Город удалён');
 }
