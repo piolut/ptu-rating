@@ -934,7 +934,55 @@ const KEYS = {
 };
 const $ = (id) => document.getElementById(id);
 function ls(k, def){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch { return def; } }
-function lsSet(k, v, showInd){ localStorage.setItem(k, JSON.stringify(v)); if (showInd !== false) showSavedIndicator(); }
+function lsSet(k, v, showInd){ localStorage.setItem(k, JSON.stringify(v)); if (showInd !== false) showSavedIndicator(); if (typeof SYNCED_KEYS !== 'undefined' && SYNCED_KEYS.has(k)) apiPush(k, v); }
+
+// ===== Общая база данных (Cloudflare Worker + D1) =====
+// Меняете адрес на свой, если Worker живёт на другом домене.
+const API_BASE = 'https://misty-wood-5387.maratdzhagiev88.workers.dev';
+const SYNCED_KEYS = new Set([
+  KEYS.players, KEYS.achSubs, KEYS.chronicle, KEYS.chronicleSubs,
+  KEYS.album, KEYS.albumSubs, KEYS.albumLikes, KEYS.nickReq, KEYS.cityOverrides,
+]);
+let apiOnline = true;
+function currentDiscordIdForSync(){ try { const u = getCurrentUser(); return u ? u.id : null; } catch { return null; } }
+async function apiPush(key, value){
+  if (!SYNCED_KEYS.has(key)) return;
+  const discordId = currentDiscordIdForSync();
+  if (!discordId) return; // не залогинен — синка не будет, но локально уже сохранено
+  try {
+    const res = await fetch(`${API_BASE}/api/state/${encodeURIComponent(key)}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'X-Discord-Id': discordId },
+      body: JSON.stringify(value),
+    });
+    apiOnline = res.ok;
+  } catch { apiOnline = false; }
+}
+async function apiPullAll(){
+  try {
+    const res = await fetch(`${API_BASE}/api/state`, { cache: 'no-store' });
+    if (!res.ok) throw new Error('bad status');
+    const data = await res.json();
+    apiOnline = true;
+    let touched = false;
+    if (data[KEYS.players]){ players = data[KEYS.players]; nextPlayerId = players.length ? Math.max(0, ...players.map(p => p.id)) + 1 : 1; touched = true; }
+    if (data[KEYS.achSubs]){ achSubs = data[KEYS.achSubs]; touched = true; }
+    if (data[KEYS.chronicle]){ chronicle = data[KEYS.chronicle]; touched = true; }
+    if (data[KEYS.chronicleSubs]){ chronicleSubs = data[KEYS.chronicleSubs]; touched = true; }
+    if (data[KEYS.album]){ album = data[KEYS.album]; touched = true; }
+    if (data[KEYS.albumSubs]){ albumSubs = data[KEYS.albumSubs]; touched = true; }
+    if (data[KEYS.albumLikes]){ albumLikes = data[KEYS.albumLikes]; touched = true; }
+    if (data[KEYS.nickReq]){ nickRequests = data[KEYS.nickReq]; touched = true; }
+    if (data[KEYS.cityOverrides]){ cityOverrides = data[KEYS.cityOverrides]; touched = true; }
+    if (touched){
+      [KEYS.players, KEYS.achSubs, KEYS.chronicle, KEYS.chronicleSubs, KEYS.album, KEYS.albumSubs, KEYS.albumLikes, KEYS.nickReq, KEYS.cityOverrides]
+        .forEach(k => { if (data[k]) localStorage.setItem(k, JSON.stringify(data[k])); });
+      seedCitiesAndResidents();
+      renderAchievements(); renderChronicle(); renderAlbum(); renderCities(); renderPlayersView();
+      if (typeof updateAdminBadge === 'function') updateAdminBadge();
+    }
+  } catch { apiOnline = false; }
+}
 let savedTimer = null;
 function showSavedIndicator(){ const el = $('saved-ind'); if (!el) return; el.classList.remove('show'); void el.offsetWidth; el.classList.add('show'); clearTimeout(savedTimer); savedTimer = setTimeout(() => el.classList.remove('show'), 1700); }
 
@@ -2306,6 +2354,8 @@ renderCities();
 fetchServerStatus();
 setInterval(fetchServerStatus, STATUS_REFRESH_MS);
 updateAdminBadge();
+apiPullAll();
+setInterval(apiPullAll, 25000);
 </script>
 </body>
 </html>
