@@ -545,6 +545,17 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
 .data-preview-bad{padding:10px 14px;border-radius:10px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:var(--red-2);font-size:12.5px}
 .admin-btn.danger{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.35);color:var(--red-2)}
 .admin-btn.danger:hover{background:rgba(239,68,68,.22)}
+/* ===== Тонкие скроллбары в цветах темы вместо системных ===== */
+*{scrollbar-width:thin;scrollbar-color:#34d399 transparent}
+*::-webkit-scrollbar{width:8px;height:8px}
+*::-webkit-scrollbar-track{background:transparent}
+*::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#10b981,#5eead4);border-radius:100px}
+*::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#34d399,#a78bfa)}
+*::-webkit-scrollbar-button{display:none;width:0;height:0}
+*::-webkit-scrollbar-corner{background:transparent}
+.admin-tabs::-webkit-scrollbar{height:5px}
+.admin-tabs::-webkit-scrollbar-thumb{background:linear-gradient(90deg,var(--purple),var(--pink))}
+.admin-tabs{scrollbar-color:#a855f7 transparent}
 </style>
 </head>
 <body>
