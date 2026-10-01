@@ -521,6 +521,30 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
 .modlog-time{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);white-space:nowrap}
 .modlog-actor{font-size:12px;color:var(--emerald-2);margin-top:3px}
 .modlog-detail{font-size:12px;color:var(--text-2);margin-top:4px}
+.data-stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:16px}
+.data-stat{padding:14px 12px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);text-align:center}
+.data-stat .ds-icon{font-size:18px;margin-bottom:4px}
+.data-stat .ds-value{font-family:'Manrope',sans-serif;font-weight:900;font-size:20px;color:#fff}
+.data-stat .ds-label{font-size:10.5px;color:var(--muted);margin-top:2px}
+.data-sync-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:12px 16px;border-radius:12px;background:rgba(255,255,255,.02);border:1px solid var(--line-2);margin-bottom:22px}
+.data-sync-status{font-size:12.5px;color:var(--text-2);display:flex;align-items:center;gap:8px}
+.sync-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;display:inline-block}
+.sync-dot.online{background:var(--emerald-2);box-shadow:0 0 8px var(--emerald-2)}
+.sync-dot.offline{background:var(--red-2);box-shadow:0 0 8px var(--red-2)}
+.data-section{padding:18px 20px;border-radius:16px;background:rgba(255,255,255,.015);border:1px solid var(--line);margin-bottom:18px}
+.data-section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.data-section-head h3{font-family:'Manrope',sans-serif;font-size:15px;font-weight:800;color:#fff;margin:0}
+.admin-btn.small{padding:6px 12px;font-size:11.5px}
+.data-hint{font-size:12.5px;color:var(--muted);line-height:1.5;margin-bottom:12px}
+.data-hint.danger{color:var(--amber-2)}
+.data-import-actions{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.file-btn{display:inline-flex;align-items:center;cursor:pointer}
+#data-import-filename{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+#data-import-preview{margin-top:10px}
+.data-preview-ok{padding:10px 14px;border-radius:10px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:var(--emerald-2);font-size:12.5px}
+.data-preview-bad{padding:10px 14px;border-radius:10px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:var(--red-2);font-size:12.5px}
+.admin-btn.danger{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.35);color:var(--red-2)}
+.admin-btn.danger:hover{background:rgba(239,68,68,.22)}
 </style>
 </head>
 <body>
@@ -833,8 +857,28 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
     </div>
     <div class="admin-pane admin-only" id="pane-modlog"><div id="modlog-list"></div></div>
     <div class="admin-pane admin-only" id="pane-data">
-      <div class="admin-form-row"><label>Экспорт JSON</label><textarea id="data-export" readonly rows="12" style="font-family:'JetBrains Mono',monospace;font-size:11px"></textarea></div>
-      <div class="admin-actions"><button class="admin-btn primary" onclick="copyExport()">Скопировать</button><button class="admin-btn ghost" onclick="downloadExport()">Скачать</button></div>
+      <div class="data-stats-grid" id="data-stats-grid"></div>
+      <div class="data-sync-row">
+        <div class="data-sync-status" id="data-sync-status">⏳ Проверка связи с базой...</div>
+        <button class="admin-btn ghost small" onclick="forceSyncNow()">🔄 Синхронизировать сейчас</button>
+      </div>
+      <div class="data-section">
+        <div class="data-section-head"><h3>💾 Экспорт (бэкап)</h3><button class="admin-btn ghost small" onclick="renderExport()">🔄 Обновить</button></div>
+        <p class="data-hint">Полная копия всех данных сайта. Держи файл на всякий случай — если с общей базой что-то случится, отсюда можно всё восстановить.</p>
+        <textarea id="data-export" readonly rows="10" style="font-family:'JetBrains Mono',monospace;font-size:11px"></textarea>
+        <div class="admin-actions"><button class="admin-btn primary" onclick="copyExport()">📋 Скопировать</button><button class="admin-btn ghost" onclick="downloadExport()">💾 Скачать файл</button></div>
+      </div>
+      <div class="data-section">
+        <div class="data-section-head"><h3>📥 Импорт (восстановление)</h3></div>
+        <p class="data-hint danger">⚠️ Полностью заменит текущие данные сайта — в том числе в общей базе, у всех. Сначала сделай свежий экспорт, если не уверен.</p>
+        <div class="data-import-actions">
+          <label class="admin-btn ghost file-btn">📂 Выбрать файл<input type="file" id="data-import-file" accept="application/json" onchange="handleImportFile(event)" hidden></label>
+          <span id="data-import-filename"></span>
+        </div>
+        <textarea id="data-import" rows="8" placeholder="...или вставь JSON сюда" oninput="previewImport()" style="font-family:'JetBrains Mono',monospace;font-size:11px"></textarea>
+        <div id="data-import-preview"></div>
+        <div class="admin-actions"><button class="admin-btn danger" onclick="importData()">⚠️ Импортировать и заменить всё</button></div>
+      </div>
     </div>
   </div>
 </div></div>
@@ -983,7 +1027,7 @@ async function apiPush(key, value){
       body: JSON.stringify(value),
     });
     apiOnline = res.ok;
-  } catch { apiOnline = false; }
+  } catch { apiOnline = false; if (typeof renderSyncStatus === 'function') renderSyncStatus(); }
 }
 async function apiPullAll(){
   try {
@@ -991,6 +1035,7 @@ async function apiPullAll(){
     if (!res.ok) throw new Error('bad status');
     const data = await res.json();
     apiOnline = true;
+    if (typeof renderSyncStatus === 'function') renderSyncStatus();
     let touched = false;
     if (data[KEYS.players]){ players = data[KEYS.players]; nextPlayerId = players.length ? Math.max(0, ...players.map(p => p.id)) + 1 : 1; touched = true; }
     if (data[KEYS.achSubs]){ achSubs = data[KEYS.achSubs]; touched = true; }
@@ -1009,7 +1054,7 @@ async function apiPullAll(){
       renderAchievements(); renderChronicle(); renderAlbum(); renderCities(); renderPlayersView();
       if (typeof updateAdminBadge === 'function') updateAdminBadge();
     }
-  } catch { apiOnline = false; }
+  } catch { apiOnline = false; if (typeof renderSyncStatus === 'function') renderSyncStatus(); }
 }
 let savedTimer = null;
 function showSavedIndicator(){ const el = $('saved-ind'); if (!el) return; el.classList.remove('show'); void el.offsetWidth; el.classList.add('show'); clearTimeout(savedTimer); savedTimer = setTimeout(() => el.classList.remove('show'), 1700); }
@@ -2268,6 +2313,7 @@ function renderModLog(){
     bulk_approve_album: '✅ Массово опубликовал скрины', bulk_approve_nick: '✅ Массово подтвердил ники',
     give_ach: '🏆 Выдал ачивку вручную', delete_player: '🗑 Удалил игрока',
     add_city: '🏙️ Добавил город', edit_city: '✏️ Изменил город', delete_city: '🗑 Удалил город',
+    import_backup: '📥 Импортировал бэкап (заменил все данные)',
   };
   c.innerHTML = modLog.slice(0, 200).map(e => {
     const label = ACTION_LABELS[e.action] || e.action;
@@ -2463,11 +2509,90 @@ function adminDeleteCity(cityId){
   showToast('🗑 Город удалён');
 }
 function renderExport(){
-  const data = { players, achSubs, chronicle, chronicleSubs, album, albumSubs, albumLikes, nickRequests, cities: getCities(), cityOverrides, exportedAt: new Date().toISOString(), version: 10 };
+  const data = { players, achSubs, chronicle, chronicleSubs, album, albumSubs, albumLikes, nickRequests, modLog, cities: getCities(), cityOverrides, exportedAt: new Date().toISOString(), version: 11 };
   const el = $('data-export'); if (el) el.value = JSON.stringify(data, null, 2);
+  renderDataStats();
+  renderSyncStatus();
 }
-function copyExport(){ const t = $('data-export'); t.select(); navigator.clipboard.writeText(t.value).then(() => showToast('📋')); }
-function downloadExport(){ const b = new Blob([$('data-export').value], { type: 'application/json' }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `ptusmp-backup-${Date.now()}.json`; a.click(); URL.revokeObjectURL(u); showToast('💾'); }
+function copyExport(){ const t = $('data-export'); t.select(); navigator.clipboard.writeText(t.value).then(() => showToast('📋 Скопировано')); }
+function downloadExport(){ const b = new Blob([$('data-export').value], { type: 'application/json' }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = `ptusmp-backup-${Date.now()}.json`; a.click(); URL.revokeObjectURL(u); showToast('💾 Скачано'); }
+
+function renderDataStats(){
+  const grid = $('data-stats-grid'); if (!grid) return;
+  const achPending = achSubs.filter(s => s.status === 'pending').length;
+  const stats = [
+    { icon: '👥', value: players.length, label: 'Игроков' },
+    { icon: '🏆', value: `${achPending} / ${achSubs.length}`, label: 'Заявок на ачивки' },
+    { icon: '📜', value: chronicle.length, label: 'Записей летописи' },
+    { icon: '📸', value: album.length, label: 'Фото в альбоме' },
+    { icon: '🏙️', value: getCities().length, label: 'Городов' },
+    { icon: '🗒️', value: modLog.length, label: 'Записей в журнале' },
+  ];
+  grid.innerHTML = stats.map(st => `<div class="data-stat"><div class="ds-icon">${st.icon}</div><div class="ds-value">${st.value}</div><div class="ds-label">${st.label}</div></div>`).join('');
+}
+function renderSyncStatus(){
+  const el = $('data-sync-status'); if (!el) return;
+  el.innerHTML = apiOnline
+    ? `<span class="sync-dot online"></span> База данных на связи — все видят одни и те же данные`
+    : `<span class="sync-dot offline"></span> Нет связи с базой — показаны только локальные данные`;
+}
+async function forceSyncNow(){
+  showToast('🔄 Синхронизация...');
+  await apiPullAll();
+  renderDataStats(); renderSyncStatus(); renderExport();
+  showToast(apiOnline ? '✅ Синхронизировано' : '⚠️ Не удалось связаться с сервером');
+}
+function handleImportFile(e){
+  const file = e.target.files && e.target.files[0]; if (!file) return;
+  $('data-import-filename').textContent = file.name;
+  const reader = new FileReader();
+  reader.onload = () => { $('data-import').value = String(reader.result || ''); previewImport(); };
+  reader.readAsText(file);
+}
+function previewImport(){
+  const box = $('data-import-preview'); if (!box) return;
+  const txt = ($('data-import')?.value || '').trim();
+  if (!txt){ box.innerHTML = ''; return; }
+  try {
+    const d = JSON.parse(txt);
+    const parts = [];
+    if (d.players) parts.push(d.players.length + ' игроков');
+    if (d.achSubs) parts.push(d.achSubs.length + ' заявок на ачивки');
+    if (d.chronicle) parts.push(d.chronicle.length + ' записей летописи');
+    if (d.album) parts.push(d.album.length + ' фото');
+    if (d.cityOverrides) parts.push('настройки городов');
+    if (d.modLog) parts.push(d.modLog.length + ' записей журнала');
+    const when = d.exportedAt ? new Date(d.exportedAt).toLocaleString('ru-RU') : null;
+    box.innerHTML = `<div class="data-preview-ok">✅ Похоже на корректный бэкап: ${parts.join(', ') || 'пустой'}.${when ? ' Создан: ' + when + '.' : ''}</div>`;
+  } catch {
+    box.innerHTML = `<div class="data-preview-bad">❌ Это не похоже на корректный JSON — проверь, что скопировалось всё целиком</div>`;
+  }
+}
+function importData(){
+  const txt = ($('data-import')?.value || '').trim();
+  if (!txt){ showToast('📥 Вставь JSON или выбери файл'); return; }
+  let d;
+  try { d = JSON.parse(txt); } catch { showToast('❌ Некорректный JSON'); return; }
+  if (!confirm('Точно заменить ВСЕ данные сайта этим бэкапом? Это перезапишет и общую базу данных — изменения увидят все. Экспортируй текущее состояние перед этим, если не уверен.')) return;
+  if (d.players){ players = d.players; nextPlayerId = players.length ? Math.max(0, ...players.map(p => p.id)) + 1 : 1; savePlayers(); }
+  if (d.achSubs){ achSubs = d.achSubs; saveAchSubs(); }
+  if (d.chronicle){ chronicle = d.chronicle; saveChronicle(); }
+  if (d.chronicleSubs){ chronicleSubs = d.chronicleSubs; saveChronicleSubs(); }
+  if (d.album){ album = d.album; saveAlbum(); }
+  if (d.albumSubs){ albumSubs = d.albumSubs; saveAlbumSubs(); }
+  if (d.albumLikes){ albumLikes = d.albumLikes; saveAlbumLikes(); }
+  if (d.nickRequests){ nickRequests = d.nickRequests; saveNickRequests(); }
+  if (d.cityOverrides){ cityOverrides = d.cityOverrides; saveCityOverrides(); }
+  if (d.modLog){ modLog = d.modLog; saveModLog(); }
+  seedCitiesAndResidents();
+  logMod('import_backup', { name: d.exportedAt ? ('бэкап от ' + new Date(d.exportedAt).toLocaleString('ru-RU')) : 'бэкап без даты' });
+  renderAchievements(); renderChronicle(); renderAlbum(); renderCities(); renderPlayersView();
+  renderAdminAchSubs(); renderAdminChSubs(); renderAdminAlbumSubs(); renderAdminNickRequests(); renderAdminPlayers(); renderAdminCities(); renderModLog();
+  renderExport();
+  updateAdminBadge();
+  $('data-import').value = ''; $('data-import-filename').textContent = ''; $('data-import-preview').innerHTML = '';
+  showToast('✅ Импортировано и отправлено в общую базу');
+}
 
 $('year').textContent = new Date().getFullYear();
 handleDiscordCallback().then(ok => { if (ok) showToast('✅ Вошли'); updateAuthUI(); });
