@@ -556,6 +556,14 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
 .admin-tabs::-webkit-scrollbar{height:5px}
 .admin-tabs::-webkit-scrollbar-thumb{background:linear-gradient(90deg,var(--purple),var(--pink))}
 .admin-tabs{scrollbar-color:#a855f7 transparent}
+.feed-list{display:flex;flex-direction:column;gap:10px}
+.feed-item{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.02);border:1px solid var(--line);cursor:pointer;transition:transform .2s,border-color .2s;opacity:0;animation:fadeUp .4s ease forwards}
+.feed-item:hover{transform:translateX(4px);border-color:var(--line-2)}
+.feed-icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:20px;flex-shrink:0}
+.feed-body{min-width:0;flex:1}
+.feed-text{font-size:14px;color:var(--text);font-weight:500;line-height:1.4}
+.feed-text b{color:#fff;font-weight:800}
+.feed-time{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:3px}
 </style>
 </head>
 <body>
@@ -564,7 +572,8 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
   <div class="nav-inner">
     <a class="brand">ПТУ SMP <span class="badge-proto">Прототип</span></a>
     <div class="nav-tabs">
-      <button class="nav-tab active" data-view="ach" onclick="switchView('ach')">🏆 Достижения</button>
+      <button class="nav-tab active" data-view="home" onclick="switchView('home')">🏠 Главная</button>
+      <button class="nav-tab" data-view="ach" onclick="switchView('ach')">🏆 Достижения</button>
       <button class="nav-tab" data-view="chronicle" onclick="switchView('chronicle')">📜 Летопись</button>
       <button class="nav-tab" data-view="album" onclick="switchView('album')">📸 Альбом</button>
       <button class="nav-tab" data-view="streams" onclick="switchView('streams')">📺 Стримы</button>
@@ -594,7 +603,18 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
 </nav>
 
 <main>
-  <div class="view" id="view-ach">
+  <div class="view" id="view-home">
+    <section class="hero">
+      <div class="breadcrumb"><span>Главная</span><span class="dot">·</span><span>ПТУ SMP</span></div>
+      <h1>Жизнь <span class="emerald">сервера</span> — в одной ленте.</h1>
+      <p>Новые достижения, записи летописи, фото из альбома и переезды между городами — всё свежее появляется здесь первым.</p>
+    </section>
+    <section class="section" style="padding-top:0">
+      <div class="section-head"><div><h2>📰 Лента событий</h2><p>Обновляется вместе с общей базой данных</p></div><button class="btn-hero ghost" onclick="renderActivityFeed()">🔄 Обновить</button></div>
+      <div class="feed-list" id="activity-feed"></div>
+    </section>
+  </div>
+  <div class="view hidden" id="view-ach">
     <section class="hero">
       <div class="breadcrumb">
         <span>Достижения сервера</span><span class="dot">·</span>
@@ -1062,7 +1082,7 @@ async function apiPullAll(){
       [KEYS.players, KEYS.achSubs, KEYS.chronicle, KEYS.chronicleSubs, KEYS.album, KEYS.albumSubs, KEYS.albumLikes, KEYS.nickReq, KEYS.cityOverrides, KEYS.modLog]
         .forEach(k => { if (data[k]) localStorage.setItem(k, JSON.stringify(data[k])); });
       seedCitiesAndResidents();
-      renderAchievements(); renderChronicle(); renderAlbum(); renderCities(); renderPlayersView();
+      renderAchievements(); renderChronicle(); renderAlbum(); renderCities(); renderPlayersView(); renderActivityFeed();
       if (typeof updateAdminBadge === 'function') updateAdminBadge();
     }
   } catch { apiOnline = false; if (typeof renderSyncStatus === 'function') renderSyncStatus(); }
@@ -1083,7 +1103,7 @@ let nickRequests = ls(KEYS.nickReq, []);
 let cityOverrides = ls(KEYS.cityOverrides, { edits:{}, residentsAdd:{}, residentsRemove:{}, deleted:[], custom:[] });
 let nextPlayerId = players.length ? Math.max(0, ...players.map(p => p.id)) + 1 : 1;
 let currentProfileId = null;
-let currentView = 'ach';
+let currentView = 'home';
 let albumSort = 'recent';
 let playersSort = 'nick';
 let chFilter = 'all';
@@ -1281,6 +1301,7 @@ function switchView(v){
   if (v === 'album') renderAlbum();
   if (v === 'streams') loadStreams();
   if (v === 'players') renderPlayersView();
+  if (v === 'home') renderActivityFeed();
   if (v === 'map') { refreshMapPlayers(); renderCities(); }
 }
 
@@ -1807,6 +1828,8 @@ function applyResidence(playerId, cityId, customText){
     addPlayerToCityResidents(cityId, p.nickname);
     saveCityOverrides(false);
     seedCitiesAndResidents();
+    p.cityJoinedAt = Date.now();
+    savePlayers();
   } else {
     saveCityOverrides(false);
     seedCitiesAndResidents();
@@ -2341,6 +2364,68 @@ function renderModLog(){
   }).join('');
 }
 
+function timeAgo(ts){
+  if (!ts) return '';
+  const diff = Date.now() - ts;
+  const min = Math.floor(diff / 60000);
+  if (min < 1) return 'только что';
+  if (min < 60) return `${min} мин назад`;
+  const hrs = Math.floor(min / 60);
+  if (hrs < 24) return `${hrs} ч назад`;
+  const days = Math.floor(hrs / 24);
+  if (days < 30) return `${days} дн назад`;
+  return new Date(ts).toLocaleDateString('ru-RU');
+}
+function getActivityFeed(limit){
+  limit = limit || 40;
+  const items = [];
+  achSubs.filter(s => s.status === 'approved').forEach(s => {
+    const a = findAchievement(s.achievementId);
+    items.push({
+      ts: s.approvedAt || s.ts, icon: a ? a.icon : '🏆', color: '#10b981',
+      text: `<b>${escapeHtml(s.playerNick)}</b> получил достижение «${a ? escapeHtml(a.name) : '?'}»`,
+      onClick: "switchView('ach')",
+    });
+  });
+  album.forEach(a => {
+    items.push({
+      ts: a.ts, icon: '📸', color: '#ec4899',
+      text: `Новое фото в альбоме: «${escapeHtml(a.title)}» от <b>${escapeHtml(a.author)}</b>`,
+      onClick: "switchView('album')",
+    });
+  });
+  chronicle.forEach(ev => {
+    const type = getChType(ev.type || 'city');
+    items.push({
+      ts: ev.ts, icon: type.icon, color: type.colorRaw,
+      text: `Новая запись в летописи: «${escapeHtml(ev.title)}»`,
+      onClick: "switchView('chronicle')",
+    });
+  });
+  players.filter(p => p.cityJoinedAt && p.cityId).forEach(p => {
+    const city = getCities().find(c => c.id === p.cityId); if (!city) return;
+    items.push({
+      ts: p.cityJoinedAt, icon: city.icon, color: city.colorRaw,
+      text: `<b>${escapeHtml(p.nickname)}</b> переехал в ${escapeHtml(city.name)}`,
+      onClick: `openProfile(${p.id})`,
+    });
+  });
+  nickRequests.filter(r => r.status === 'approved').forEach(r => {
+    items.push({
+      ts: r.ts, icon: '🎮', color: '#8b5cf6',
+      text: `Новый игрок на сервере: <b>${escapeHtml(r.nickname)}</b>`,
+      onClick: "switchView('players')",
+    });
+  });
+  return items.filter(it => it.ts).sort((a, b) => b.ts - a.ts).slice(0, limit);
+}
+function renderActivityFeed(){
+  const c = $('activity-feed'); if (!c) return;
+  const feed = getActivityFeed(40);
+  if (!feed.length){ c.innerHTML = '<div class="empty-state"><div class="ico">📰</div><h3>Пока тихо</h3><p>Как только кто-то получит ачивку, добавит фото в альбом или запись в летопись — это появится здесь первым.</p></div>'; return; }
+  c.innerHTML = feed.map((it, i) => `<div class="feed-item" style="animation-delay:${Math.min(i * 30, 400)}ms" onclick="${it.onClick}"><div class="feed-icon" style="background:${it.color}22;border:1px solid ${it.color}55;color:${it.color}">${it.icon}</div><div class="feed-body"><div class="feed-text">${it.text}</div><div class="feed-time">${timeAgo(it.ts)}</div></div></div>`).join('');
+}
+
 function renderAdminAchSubs(){
   const container = $('ach-subs-list');
   const pending = achSubs.filter(s => s.status === 'pending');
@@ -2597,7 +2682,7 @@ function importData(){
   if (d.modLog){ modLog = d.modLog; saveModLog(); }
   seedCitiesAndResidents();
   logMod('import_backup', { name: d.exportedAt ? ('бэкап от ' + new Date(d.exportedAt).toLocaleString('ru-RU')) : 'бэкап без даты' });
-  renderAchievements(); renderChronicle(); renderAlbum(); renderCities(); renderPlayersView();
+  renderAchievements(); renderChronicle(); renderAlbum(); renderCities(); renderPlayersView(); renderActivityFeed();
   renderAdminAchSubs(); renderAdminChSubs(); renderAdminAlbumSubs(); renderAdminNickRequests(); renderAdminPlayers(); renderAdminCities(); renderModLog();
   renderExport();
   updateAdminBadge();
@@ -2614,6 +2699,7 @@ renderAchievements();
 renderChronicle();
 renderAlbum();
 renderCities();
+renderActivityFeed();
 fetchServerStatus();
 setInterval(fetchServerStatus, STATUS_REFRESH_MS);
 updateAdminBadge();
