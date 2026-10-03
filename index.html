@@ -294,7 +294,14 @@ main{max-width:1400px;margin:0 auto;padding:0 32px 120px;position:relative;z-ind
 .pf-avatar{width:120px;height:120px;border-radius:22px;image-rendering:pixelated;background:#000;border:3px solid rgba(139,92,246,.6);display:block;object-fit:cover;margin:0 auto 16px;position:relative;z-index:2}
 .pf-nick{font-family:'Manrope',sans-serif;font-size:26px;font-weight:800;color:#fff;margin-bottom:6px;position:relative;z-index:2}
 .pf-titles{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;position:relative;z-index:2}
-.pf-title{padding:5px 12px;border-radius:100px;font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace;background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(236,72,153,.15));border:1px solid rgba(139,92,246,.4);color:#fff;display:inline-flex;align-items:center;gap:5px}
+.pf-title{padding:5px 13px;border-radius:100px;font-size:12px;font-weight:700;font-family:'Manrope',sans-serif;display:inline-flex;align-items:center;gap:5px;border:1px solid var(--rarity-color,rgba(139,92,246,.4));background:linear-gradient(135deg,var(--rarity-glow,rgba(139,92,246,.2)),transparent);color:var(--rarity-color,#fff);transition:transform .15s,box-shadow .2s}
+.pf-title[data-clickable]{cursor:pointer}
+.pf-title[data-clickable]:hover{transform:translateY(-2px);box-shadow:0 10px 22px -12px var(--rarity-color,rgba(139,92,246,.7))}
+.pf-title.is-active{box-shadow:0 0 0 2px var(--rarity-color,#fbbf24) inset,0 0 14px -4px var(--rarity-color,#fbbf24)}
+.pf-title[data-rarity="common"]{--rarity-color:#34d399;--rarity-glow:rgba(16,185,129,.22)}
+.pf-title[data-rarity="rare"]{--rarity-color:#60a5fa;--rarity-glow:rgba(59,130,246,.22)}
+.pf-title[data-rarity="epic"]{--rarity-color:#c084fc;--rarity-glow:rgba(168,85,247,.25)}
+.pf-title[data-rarity="legendary"]{--rarity-color:#fbbf24;--rarity-glow:rgba(245,158,11,.25)}
 .pf-actions{padding:16px 24px 24px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
 .pf-action-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:100px;background:rgba(255,255,255,.04);border:1px solid var(--line-2);color:var(--text-2);font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;font-family:inherit}
 .pf-action-btn:hover{color:#fff;border-color:rgba(255,255,255,.25);transform:translateY(-2px)}
@@ -564,6 +571,27 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
 .feed-text{font-size:14px;color:var(--text);font-weight:500;line-height:1.4}
 .feed-text b{color:#fff;font-weight:800}
 .feed-time{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:3px}
+/* ===== Активный титул игрока — своя "аура" под каждую редкость ===== */
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes title-spin{to{--ang:360deg}}
+@keyframes title-pulse-rare{0%,100%{box-shadow:0 0 6px -2px var(--rarity-color)}50%{box-shadow:0 0 15px 0 var(--rarity-color)}}
+@keyframes title-shift-epic{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.player-title,.pf-title-active{display:inline-flex;align-items:center;gap:5px;border-radius:100px;font-family:'Manrope',sans-serif;font-weight:800;white-space:nowrap;position:relative;isolation:isolate}
+.player-title{padding:2px 10px;font-size:10.5px;vertical-align:middle}
+.pf-title-active{padding:6px 16px;font-size:13px;margin-top:8px}
+/* common — аккуратный, без анимации */
+.player-title[data-rarity="common"],.pf-title-active[data-rarity="common"]{--rarity-color:#34d399;border:1px solid var(--rarity-color);background:linear-gradient(135deg,rgba(16,185,129,.22),transparent);color:var(--rarity-color)}
+/* rare — мягкое дыхание синим свечением */
+.player-title[data-rarity="rare"],.pf-title-active[data-rarity="rare"]{--rarity-color:#60a5fa;border:1px solid var(--rarity-color);background:linear-gradient(135deg,rgba(59,130,246,.22),transparent);color:var(--rarity-color);animation:title-pulse-rare 2.6s ease-in-out infinite}
+/* epic — переливающийся фиолетово-розовый градиент */
+.player-title[data-rarity="epic"],.pf-title-active[data-rarity="epic"]{--rarity-color:#c084fc;color:#f1e4ff;border:1px solid transparent;background:linear-gradient(90deg,rgba(168,85,247,.45),rgba(236,72,153,.32),rgba(168,85,247,.45));background-size:220% 100%;animation:title-shift-epic 3.4s ease-in-out infinite;box-shadow:0 0 14px -5px rgba(168,85,247,.7)}
+/* legendary — вращающаяся радужная рамка */
+.player-title[data-rarity="legendary"],.pf-title-active[data-rarity="legendary"]{color:#fff8e1;border:1px solid transparent;background:linear-gradient(135deg,rgba(251,191,36,.25),rgba(245,158,11,.1)) padding-box}
+.player-title[data-rarity="legendary"]::before,.pf-title-active[data-rarity="legendary"]::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:conic-gradient(from var(--ang),#fbbf24,#f472b6,#a78bfa,#5eead4,#fbbf24);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:title-spin 3s linear infinite;pointer-events:none}
+.pf-title-pin{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;background:var(--bg-2,#0d1420);border:1px solid var(--line-2);display:grid;place-items:center;font-size:12px;cursor:pointer;z-index:2;transition:transform .15s}
+.pf-title-pin:hover{transform:scale(1.25)}
+.pf-title-pin.active{background:linear-gradient(135deg,#fbbf24,#f59e0b);border-color:#fbbf24}
+@media(prefers-reduced-motion:reduce){.player-title,.pf-title-active,.player-title::before,.pf-title-active::before{animation:none!important}}
 </style>
 </head>
 <body>
@@ -1344,7 +1372,7 @@ function renderAchTop(){
     if (i === 1) item.classList.add('top2');
     if (i === 2) item.classList.add('top3');
     const badgesHtml = p.badges.map(a => `<span class="ach-top-badge" title="${escapeHtml(a.name)}">${a.icon}</span>`).join('');
-    item.innerHTML = `<div class="ach-top-pos">#${i + 1}</div>${avatarImgHtml(p.nickname, 48, 'class="ach-top-avatar"')}<div><div class="ach-top-name">${escapeHtml(p.nickname)}</div><div class="ach-top-badges">${badgesHtml}</div></div><div class="ach-top-count">${p.pts}<small style="font-size:10px;color:var(--muted);font-weight:700;display:block">оч. · ${p.achCount} шт.</small></div>`;
+    item.innerHTML = `<div class="ach-top-pos">#${i + 1}</div>${avatarImgHtml(p.nickname, 48, 'class="ach-top-avatar"')}<div><div class="ach-top-name">${escapeHtml(p.nickname)} ${titleBadgeHtml(p)}</div><div class="ach-top-badges">${badgesHtml}</div></div><div class="ach-top-count">${p.pts}<small style="font-size:10px;color:var(--muted);font-weight:700;display:block">оч. · ${p.achCount} шт.</small></div>`;
     item.onclick = () => openProfile(p.id);
     list.appendChild(item);
   });
@@ -1364,7 +1392,7 @@ function renderPlayersView(){
   withCount.forEach(p => {
     const el = document.createElement('div');
     el.className = 'player-card';
-    el.innerHTML = `${avatarImgHtml(p.nickname, 52)}<div class="pc-info"><div class="pc-name">${escapeHtml(p.nickname)}${p.isMayor ? ' 👑' : ''}${p.discordId ? '<span title="Привязан к Discord">🔗</span>' : ''}</div><div class="pc-meta">${p.residence ? '🏠 ' + escapeHtml(p.residence) : '🏠 место не указано'}</div></div><div class="pc-ach">${p.achCount}</div>`;
+    el.innerHTML = `${avatarImgHtml(p.nickname, 52)}<div class="pc-info"><div class="pc-name">${escapeHtml(p.nickname)}${p.isMayor ? ' 👑' : ''}${p.discordId ? '<span title="Привязан к Discord">🔗</span>' : ''}${titleBadgeHtml(p)}</div><div class="pc-meta">${p.residence ? '🏠 ' + escapeHtml(p.residence) : '🏠 место не указано'}</div></div><div class="pc-ach">${p.achCount}</div>`;
     el.onclick = () => openProfile(p.id);
     grid.appendChild(el);
   });
@@ -1748,10 +1776,12 @@ function openProfile(playerId){
   const categoriesHtml = ACH_CATEGORIES.map(cat => {
     const list = DEFAULT_ACHIEVEMENTS.filter(a => a.cat === cat.id);
     const ownedInCat = list.filter(a => ownedSet.has(a.id)).length;
-    return `<div class="pf-ach-section"><div class="pf-ach-cat-head"><div class="pf-ach-cat-icon">${cat.icon}</div><div class="pf-ach-cat-name">${cat.name}</div><div class="pf-ach-cat-count">${ownedInCat}/${list.length}</div></div><div class="pf-ach-grid-v2">${list.map(a => { const owned = ownedSet.has(a.id); return `<div class="pf-ach-v2 ${owned ? 'unlocked' : 'locked'}" data-rarity="${a.rarity}" title="${escapeHtml(a.name)}" onclick="closeProfileModal();showAchInfo('${a.id}')">${a.icon}</div>`; }).join('')}</div></div>`;
+    return `<div class="pf-ach-section"><div class="pf-ach-cat-head"><div class="pf-ach-cat-icon">${cat.icon}</div><div class="pf-ach-cat-name">${cat.name}</div><div class="pf-ach-cat-count">${ownedInCat}/${list.length}</div></div><div class="pf-ach-grid-v2">${list.map(a => { const owned = ownedSet.has(a.id); const isActive = p.activeTitleId === a.id;
+      const pin = (owned && canEditResidence) ? `<button class="pf-title-pin ${isActive ? 'active' : ''}" onclick="event.stopPropagation();toggleActiveTitle(${p.id}, '${a.id}')" title="${isActive ? 'Убрать титул' : 'Сделать титулом'}">${isActive ? '⭐' : '☆'}</button>` : '';
+      return `<div class="pf-ach-v2 ${owned ? 'unlocked' : 'locked'}" data-rarity="${a.rarity}" title="${escapeHtml(a.name)}" onclick="closeProfileModal();showAchInfo('${a.id}')">${a.icon}${pin}</div>`; }).join('')}</div></div>`;
   }).join('');
   const bannerExtra = city ? `<div style="display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:100px;background:${city.colorRaw}22;border:1px solid ${city.colorRaw};margin-top:10px;cursor:pointer" onclick="closeProfileModal();openCityModal('${city.id}')"><span>${city.icon}</span><span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:${city.colorRaw}">${escapeHtml(city.name)}${p.isMayor ? ' · мэр' : ''}</span></div>` : '';
-  $('profile-body').innerHTML = `<div class="pf-banner">${avatarImgHtml(p.nickname, 160, 'class="pf-avatar"')}<div class="pf-nick">${escapeHtml(p.nickname)}${p.isMayor ? ' 👑' : ''}</div>${bannerExtra}<div class="pf-titles">${titles.map(a => `<span class="pf-title">${a.icon} ${escapeHtml(a.name)}</span>`).join('') || '<span style="color:var(--muted);font-size:12px">Пока без титулов</span>'}</div></div><div class="pf-ach-stats"><div class="pf-stat-card"><div class="pf-stat-value">${totalOwned}<span style="font-size:14px;color:var(--muted)">/${totalAch}</span></div><div class="pf-stat-label">Достижений</div></div><div class="pf-stat-card"><div class="pf-stat-value" style="color:${totalPct >= 50 ? '#34d399' : '#fff'}">${totalPct}%</div><div class="pf-stat-label">Прогресс</div></div><div class="pf-stat-card"><div class="pf-stat-value rarity-legendary">${rarityCount.legendary}</div><div class="pf-stat-label">🏆 Легендарных</div></div><div class="pf-stat-card"><div class="pf-stat-value rarity-epic">${rarityCount.epic}</div><div class="pf-stat-label">🟣 Эпических</div></div></div>${categoriesHtml}<div class="pf-actions"><button class="pf-action-btn" onclick="copyNick('${escapeHtml(p.nickname)}')">📋 Скопировать ник</button><a class="pf-action-btn" href="https://ru.namemc.com/profile/${encodeURIComponent(p.nickname)}" target="_blank">🌐 NameMC</a>${canEditResidence ? `<button class="pf-action-btn" onclick="openResidenceModal(${p.id})">🏠 ${p.residence ? 'Изменить' : 'Указать'}</button>` : ''}${isModerator() ? `<button class="pf-action-btn" onclick="closeProfileModal();adminGiveAchTo(${p.id})">🏆 Выдать</button>` : ''}</div>`;
+  $('profile-body').innerHTML = `<div class="pf-banner">${avatarImgHtml(p.nickname, 160, 'class="pf-avatar"')}<div class="pf-nick">${escapeHtml(p.nickname)}${p.isMayor ? ' 👑' : ''}</div>${titleBadgeHtml(p, 'lg')}${bannerExtra}<div class="pf-titles">${titles.map(a => { const isActive = p.activeTitleId === a.id; return `<span class="pf-title${isActive ? ' is-active' : ''}" data-rarity="${a.rarity}" ${canEditResidence ? `data-clickable onclick="toggleActiveTitle(${p.id}, '${a.id}')"` : ''} title="${canEditResidence ? (isActive ? 'Сейчас активный титул — нажми, чтобы убрать' : 'Сделать активным титулом') : ''}">${isActive ? '⭐ ' : ''}${a.icon} ${escapeHtml(a.name)}</span>`; }).join('') || '<span style="color:var(--muted);font-size:12px">Пока без титулов</span>'}</div></div><div class="pf-ach-stats"><div class="pf-stat-card"><div class="pf-stat-value">${totalOwned}<span style="font-size:14px;color:var(--muted)">/${totalAch}</span></div><div class="pf-stat-label">Достижений</div></div><div class="pf-stat-card"><div class="pf-stat-value" style="color:${totalPct >= 50 ? '#34d399' : '#fff'}">${totalPct}%</div><div class="pf-stat-label">Прогресс</div></div><div class="pf-stat-card"><div class="pf-stat-value rarity-legendary">${rarityCount.legendary}</div><div class="pf-stat-label">🏆 Легендарных</div></div><div class="pf-stat-card"><div class="pf-stat-value rarity-epic">${rarityCount.epic}</div><div class="pf-stat-label">🟣 Эпических</div></div></div>${categoriesHtml}<div class="pf-actions"><button class="pf-action-btn" onclick="copyNick('${escapeHtml(p.nickname)}')">📋 Скопировать ник</button><a class="pf-action-btn" href="https://ru.namemc.com/profile/${encodeURIComponent(p.nickname)}" target="_blank">🌐 NameMC</a>${canEditResidence ? `<button class="pf-action-btn" onclick="openResidenceModal(${p.id})">🏠 ${p.residence ? 'Изменить' : 'Указать'}</button>` : ''}${isModerator() ? `<button class="pf-action-btn" onclick="closeProfileModal();adminGiveAchTo(${p.id})">🏆 Выдать</button>` : ''}</div>`;
   openModal('profile-modal');
 }
 function closeProfileModal(){ closeModal('profile-modal'); currentProfileId = null; }
@@ -2424,6 +2454,29 @@ function renderActivityFeed(){
   const feed = getActivityFeed(40);
   if (!feed.length){ c.innerHTML = '<div class="empty-state"><div class="ico">📰</div><h3>Пока тихо</h3><p>Как только кто-то получит ачивку, добавит фото в альбом или запись в летопись — это появится здесь первым.</p></div>'; return; }
   c.innerHTML = feed.map((it, i) => `<div class="feed-item" style="animation-delay:${Math.min(i * 30, 400)}ms" onclick="${it.onClick}"><div class="feed-icon" style="background:${it.color}22;border:1px solid ${it.color}55;color:${it.color}">${it.icon}</div><div class="feed-body"><div class="feed-text">${it.text}</div><div class="feed-time">${timeAgo(it.ts)}</div></div></div>`).join('');
+}
+
+function getActiveTitle(p){
+  if (!p.activeTitleId) return null;
+  if (!getPlayerAchIds(p.id).includes(p.activeTitleId)) return null;
+  return findAchievement(p.activeTitleId) || null;
+}
+function titleBadgeHtml(p, size){
+  const a = getActiveTitle(p); if (!a) return '';
+  const cls = size === 'lg' ? 'pf-title-active' : 'player-title';
+  return `<span class="${cls}" data-rarity="${a.rarity}">${a.icon} ${escapeHtml(a.name)}</span>`;
+}
+function toggleActiveTitle(playerId, achId){
+  const p = players.find(x => x.id === playerId); if (!p) return;
+  const u = getCurrentUser();
+  const isOwn = !!(u && p.discordId === u.id);
+  if (!isOwn && !isModerator()){ showToast('🚫 Нет прав'); return; }
+  if (!getPlayerAchIds(p.id).includes(achId)){ showToast('❌ Это достижение не получено'); return; }
+  p.activeTitleId = (p.activeTitleId === achId) ? null : achId;
+  savePlayers();
+  renderPlayersView(); renderAchTop();
+  if (currentProfileId === playerId) openProfile(playerId);
+  showToast(p.activeTitleId ? '⭐ Титул установлен' : '✕ Титул убран');
 }
 
 function renderAdminAchSubs(){
