@@ -592,6 +592,18 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
 .pf-title-pin:hover{transform:scale(1.25)}
 .pf-title-pin.active{background:linear-gradient(135deg,#fbbf24,#f59e0b);border-color:#fbbf24}
 @media(prefers-reduced-motion:reduce){.player-title,.pf-title-active,.player-title::before,.pf-title-active::before{animation:none!important}}
+.notif-wrap{position:relative}
+.notif-panel{position:absolute;top:calc(100% + 10px);right:0;width:340px;max-width:90vw;max-height:440px;overflow-y:auto;padding:8px;border-radius:14px;background:var(--bg-2);border:1px solid var(--line-2);box-shadow:0 24px 54px -20px rgba(0,0,0,.65);display:none;z-index:60}
+.notif-panel.open{display:block}
+.notif-panel-head{padding:10px 10px 8px;font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.notif-item{display:flex;gap:10px;padding:10px;border-radius:12px;cursor:pointer;transition:background .15s}
+.notif-item:hover{background:rgba(255,255,255,.05)}
+.notif-item.unread{background:rgba(52,211,153,.07)}
+.notif-icon{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-size:17px;flex-shrink:0}
+.notif-body{min-width:0;flex:1}
+.notif-text{font-size:12.5px;color:var(--text);line-height:1.45}
+.notif-time{font-size:10.5px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:3px}
+.notif-empty{padding:34px 16px;text-align:center;color:var(--muted);font-size:13px;line-height:1.5}
 </style>
 </head>
 <body>
@@ -618,6 +630,13 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
       <a href="https://discord.gg/bBvJ9VHXc" target="_blank" class="btn-discord-icon" title="Discord">
         <svg viewBox="0 0 24 24"><path d="M20.317 4.369a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
       </a>
+      <div class="notif-wrap">
+        <button class="btn-icon" id="notif-btn" onclick="toggleNotifPanel()" title="Уведомления" style="display:none">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="badge hidden" id="notif-badge">0</span>
+        </button>
+        <div class="notif-panel" id="notif-panel"></div>
+      </div>
       <div class="auth-wrap">
         <button class="btn-auth" id="nav-auth-btn" onclick="handleAuthClick()"><span id="auth-content">Войти</span></button>
         <div class="user-menu" id="user-menu"></div>
@@ -1112,6 +1131,7 @@ async function apiPullAll(){
       seedCitiesAndResidents();
       renderAchievements(); renderChronicle(); renderAlbum(); renderCities(); renderPlayersView(); renderActivityFeed();
       if (typeof updateAdminBadge === 'function') updateAdminBadge();
+      if (typeof updateNotifBadge === 'function') updateNotifBadge();
     }
   } catch { apiOnline = false; if (typeof renderSyncStatus === 'function') renderSyncStatus(); }
 }
@@ -1251,6 +1271,7 @@ function updateAuthUI(){
   }
   const adminBtn = $('admin-btn');
   if (adminBtn) adminBtn.style.display = isModerator() ? '' : 'none';
+  if (typeof updateNotifBadge === 'function') updateNotifBadge();
 }
 function handleAuthClick(){ const u = getCurrentUser(); if (u) $('user-menu').classList.toggle('open'); else loginWithDiscord(); }
 function closeUserMenu(){ $('user-menu')?.classList.remove('open'); }
@@ -1666,7 +1687,7 @@ function approveChSub(id, silent){
   const s = chronicleSubs.find(x => x.id === id); if (!s) return;
   chronicle.push({ id: Date.now() + Math.floor(Math.random() * 1000), date: s.date, dateTs: s.dateTs, title: s.title, text: s.text, image: s.image, author: s.author, type: s.type, ts: s.ts });
   saveChronicle();
-  s.status = 'approved';
+  s.status = 'approved'; s.approvedAt = Date.now();
   saveChronicleSubs();
   if (!silent){
     logMod('approve_chronicle', { name: s.title });
@@ -2299,7 +2320,7 @@ function approveNickLink(id, silent){
     players.push({ id: nextPlayerId++, nickname: r.nickname, discordId: r.discordId, addedAt: Date.now(), mcVerified: true });
   }
   savePlayers();
-  r.status = 'approved'; saveNickRequests();
+  r.status = 'approved'; r.approvedAt = Date.now(); saveNickRequests();
   if (!silent){
     logMod('approve_nick', { name: r.nickname });
     renderAdminNickRequests(); renderAdminPlayers();
@@ -2479,6 +2500,77 @@ function toggleActiveTitle(playerId, achId){
   showToast(p.activeTitleId ? '⭐ Титул установлен' : '✕ Титул убран');
 }
 
+// ===== Уведомления: собираем из уже существующих заявок, отдельной таблицы не нужно =====
+function getLastSeenNotifTs(){
+  const u = getCurrentUser(); if (!u) return 0;
+  return Number(localStorage.getItem('ptusmp_notif_seen_' + u.id) || 0);
+}
+function setLastSeenNotifTs(ts){
+  const u = getCurrentUser(); if (!u) return;
+  localStorage.setItem('ptusmp_notif_seen_' + u.id, String(ts));
+}
+function getMyNotifications(){
+  const u = getCurrentUser(); if (!u) return [];
+  const myPlayer = getLinkedPlayer(u);
+  const items = [];
+  achSubs.filter(s => s.discordId === u.id || (myPlayer && s.playerId === myPlayer.id)).forEach(s => {
+    if (s.status === 'pending') return;
+    const a = findAchievement(s.achievementId);
+    const name = a ? escapeHtml(a.name) : '?';
+    if (s.status === 'approved') items.push({ ts: s.approvedAt || s.ts, icon: a ? a.icon : '🏆', color: '#10b981', text: `Достижение «${name}» одобрено`, onClick: "switchView('ach')" });
+    else items.push({ ts: s.rejectedAt || s.ts, icon: '✕', color: '#ef4444', text: `Заявка на «${name}» отклонена${s.rejectReason ? ': ' + escapeHtml(s.rejectReason) : ''}`, onClick: "switchView('ach')" });
+  });
+  chronicleSubs.filter(s => s.discordId === u.id).forEach(s => {
+    if (s.status === 'pending') return;
+    if (s.status === 'approved') items.push({ ts: s.approvedAt || s.ts, icon: '📜', color: '#10b981', text: `Запись летописи «${escapeHtml(s.title)}» опубликована`, onClick: "switchView('chronicle')" });
+    else items.push({ ts: s.rejectedAt || s.ts, icon: '✕', color: '#ef4444', text: `Запись «${escapeHtml(s.title)}» отклонена${s.rejectReason ? ': ' + escapeHtml(s.rejectReason) : ''}`, onClick: "switchView('chronicle')" });
+  });
+  albumSubs.filter(s => s.discordId === u.id).forEach(s => {
+    if (s.status === 'pending') return;
+    if (s.status === 'approved') items.push({ ts: s.approvedAt || s.ts, icon: '📸', color: '#10b981', text: `Фото «${escapeHtml(s.title)}» опубликовано в альбоме`, onClick: "switchView('album')" });
+    else items.push({ ts: s.rejectedAt || s.ts, icon: '✕', color: '#ef4444', text: `Фото «${escapeHtml(s.title)}» отклонено${s.rejectReason ? ': ' + escapeHtml(s.rejectReason) : ''}`, onClick: "switchView('album')" });
+  });
+  nickRequests.filter(r => r.discordId === u.id).forEach(r => {
+    if (r.status === 'pending') return;
+    if (r.status === 'approved') items.push({ ts: r.approvedAt || r.ts, icon: '🎮', color: '#10b981', text: `Ник «${escapeHtml(r.nickname)}» подтверждён`, onClick: "switchView('players')" });
+    else items.push({ ts: r.rejectedAt || r.ts, icon: '✕', color: '#ef4444', text: `Привязка ника «${escapeHtml(r.nickname)}» отклонена${r.rejectReason ? ': ' + escapeHtml(r.rejectReason) : ''}`, onClick: "" });
+  });
+  return items.filter(it => it.ts).sort((a, b) => b.ts - a.ts).slice(0, 30);
+}
+function updateNotifBadge(){
+  const btn = $('notif-btn'); const badge = $('notif-badge'); if (!btn || !badge) return;
+  const u = getCurrentUser();
+  if (!u){ btn.style.display = 'none'; return; }
+  btn.style.display = '';
+  const lastSeen = getLastSeenNotifTs();
+  const unread = getMyNotifications().filter(it => it.ts > lastSeen).length;
+  if (unread > 0){ badge.textContent = unread > 9 ? '9+' : String(unread); badge.classList.remove('hidden'); }
+  else badge.classList.add('hidden');
+}
+function toggleNotifPanel(){
+  const panel = $('notif-panel'); if (!panel) return;
+  const willOpen = !panel.classList.contains('open');
+  panel.classList.remove('open');
+  closeUserMenu();
+  if (willOpen){
+    renderNotifPanel();
+    panel.classList.add('open');
+    const items = getMyNotifications();
+    const maxTs = items.reduce((m, it) => Math.max(m, it.ts), getLastSeenNotifTs());
+    setLastSeenNotifTs(maxTs);
+    setTimeout(updateNotifBadge, 400);
+  }
+}
+function closeNotifPanel(){ $('notif-panel')?.classList.remove('open'); }
+function renderNotifPanel(){
+  const panel = $('notif-panel'); if (!panel) return;
+  const lastSeenBeforeOpen = getLastSeenNotifTs();
+  const items = getMyNotifications();
+  if (!items.length){ panel.innerHTML = '<div class="notif-empty">🔔 Пока ничего нет<br>Здесь появятся ответы на твои заявки</div>'; return; }
+  panel.innerHTML = '<div class="notif-panel-head">Уведомления</div>' + items.map(it => `<div class="notif-item ${it.ts > lastSeenBeforeOpen ? 'unread' : ''}" onclick="closeNotifPanel();${it.onClick}"><div class="notif-icon" style="background:${it.color}22;border:1px solid ${it.color}55;color:${it.color}">${it.icon}</div><div class="notif-body"><div class="notif-text">${it.text}</div><div class="notif-time">${timeAgo(it.ts)}</div></div></div>`).join('');
+}
+document.addEventListener('click', e => { if (!e.target.closest('.notif-wrap')) closeNotifPanel(); });
+
 function renderAdminAchSubs(){
   const container = $('ach-subs-list');
   const pending = achSubs.filter(s => s.status === 'pending');
@@ -2525,7 +2617,7 @@ function renderAdminAlbumSubs(){
 function approveAlbum(id, silent){
   const s = albumSubs.find(x => x.id === id); if (!s) return;
   album.push({ id: s.id, url: s.url, title: s.title, desc: s.desc, author: s.author, authorId: s.authorId, ts: s.ts });
-  saveAlbum(); s.status = 'approved'; saveAlbumSubs();
+  saveAlbum(); s.status = 'approved'; s.approvedAt = Date.now(); saveAlbumSubs();
   if (!silent){
     logMod('approve_album', { name: s.title });
     renderAdminAlbumSubs(); renderAlbum();
@@ -2753,6 +2845,7 @@ renderChronicle();
 renderAlbum();
 renderCities();
 renderActivityFeed();
+updateNotifBadge();
 fetchServerStatus();
 setInterval(fetchServerStatus, STATUS_REFRESH_MS);
 updateAdminBadge();
