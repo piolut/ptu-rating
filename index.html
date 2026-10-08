@@ -656,6 +656,9 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
       <h1>Жизнь <span class="emerald">сервера</span> — в одной ленте.</h1>
       <p>Новые достижения, записи летописи, фото из альбома и переезды между городами — всё свежее появляется здесь первым.</p>
     </section>
+    <section class="section" style="padding-top:0" id="ticket-cta-section">
+      <div class="section-head"><div><h2>🎫 Ещё не на сервере?</h2><p>Подай заявку на вступление — ответ придёт в Discord</p></div><button class="btn-hero primary" onclick="openTicketModal()">📤 Подать заявку</button></div>
+    </section>
     <section class="section" style="padding-top:0">
       <div class="section-head"><div><h2>📰 Лента событий</h2><p>Обновляется вместе с общей базой данных</p></div><button class="btn-hero ghost" onclick="renderActivityFeed()">🔄 Обновить</button></div>
       <div class="feed-list" id="activity-feed"></div>
@@ -888,6 +891,18 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
   </div>
 </div>
 
+<div class="modal-overlay" id="ticket-modal">
+  <div class="modal">
+    <div class="modal-head"><div><h2>🎫 Заявка на вступление</h2><p>Ответ придёт тебе в личные сообщения Discord</p></div><button class="modal-close" onclick="closeModal('ticket-modal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-info">Заявку увидит администрация в Discord и ответит одобрением или отказом. Один аккаунт — одна заявка на рассмотрении одновременно.</div>
+      <div class="form-row"><label>Желаемый ник в Minecraft</label><input type="text" id="ticket-nickname" placeholder="Steve" maxlength="16"></div>
+      <div class="form-row"><label>Немного о себе (необязательно)</label><textarea id="ticket-about" rows="4" placeholder="Откуда узнал о сервере, во что любишь играть..." maxlength="400"></textarea></div>
+      <button class="btn-primary" id="ticket-submit-btn" onclick="submitTicket()" style="width:100%">📤 Отправить заявку</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="residence-modal">
   <div class="modal">
     <div class="modal-head"><div><h2>Где ты живёшь?</h2><p>Выбери город или укажи своё место</p></div><button class="modal-close" onclick="closeModal('residence-modal')">✕</button></div>
@@ -913,6 +928,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
       <button class="admin-tab" data-tab="chronicle">📖 Управление летописью</button>
       <button class="admin-tab" data-tab="players">👥 Игроки</button>
       <button class="admin-tab admin-only" data-tab="cities">🏙️ Города</button>
+      <button class="admin-tab admin-only" data-tab="tickets">🎫 Тикеты <span class="tab-badge hidden" id="ticket-badge">0</span></button>
       <button class="admin-tab admin-only" data-tab="modlog">🗒️ Журнал</button>
       <button class="admin-tab admin-only" data-tab="data">💾 Данные</button>
     </div>
@@ -933,6 +949,7 @@ footer .visits{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(-
       <div style="height:16px"></div>
       <div id="admin-cities-list"></div>
     </div>
+    <div class="admin-pane admin-only" id="pane-tickets"><div id="tickets-list"></div></div>
     <div class="admin-pane admin-only" id="pane-modlog"><div id="modlog-list"></div></div>
     <div class="admin-pane admin-only" id="pane-data">
       <div class="data-stats-grid" id="data-stats-grid"></div>
@@ -1079,7 +1096,7 @@ const KEYS = {
   album: 'ptusmp_album_v50', albumSubs: 'ptusmp_album_subs_v50',
   albumLikes: 'ptusmp_album_likes_v50', nickReq: 'ptusmp_nick_requests_v50',
   chDraft: 'ptusmp_ch_draft_v5', verifyPending: 'ptusmp_verify_v4', seeded: 'ptusmp_seeded_v50',
-  cityOverrides: 'ptusmp_city_overrides_v1', modLog: 'ptusmp_mod_log_v1',
+  cityOverrides: 'ptusmp_city_overrides_v1', modLog: 'ptusmp_mod_log_v1', tickets: 'ptusmp_tickets_v1',
 };
 const $ = (id) => document.getElementById(id);
 function ls(k, def){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch { return def; } }
@@ -1090,7 +1107,7 @@ function lsSet(k, v, showInd){ localStorage.setItem(k, JSON.stringify(v)); if (s
 const API_BASE = 'https://misty-wood-5387.maratdzhagiev88.workers.dev';
 const SYNCED_KEYS = new Set([
   KEYS.players, KEYS.achSubs, KEYS.chronicle, KEYS.chronicleSubs,
-  KEYS.album, KEYS.albumSubs, KEYS.albumLikes, KEYS.nickReq, KEYS.cityOverrides, KEYS.modLog,
+  KEYS.album, KEYS.albumSubs, KEYS.albumLikes, KEYS.nickReq, KEYS.cityOverrides, KEYS.modLog, KEYS.tickets,
 ]);
 let apiOnline = true;
 function currentDiscordIdForSync(){ try { const u = getCurrentUser(); return u ? u.id : null; } catch { return null; } }
@@ -1125,13 +1142,15 @@ async function apiPullAll(){
     if (data[KEYS.nickReq]){ nickRequests = data[KEYS.nickReq]; touched = true; }
     if (data[KEYS.cityOverrides]){ cityOverrides = data[KEYS.cityOverrides]; touched = true; }
     if (data[KEYS.modLog]){ modLog = data[KEYS.modLog]; touched = true; }
+    if (data[KEYS.tickets]){ tickets = data[KEYS.tickets]; touched = true; }
     if (touched){
-      [KEYS.players, KEYS.achSubs, KEYS.chronicle, KEYS.chronicleSubs, KEYS.album, KEYS.albumSubs, KEYS.albumLikes, KEYS.nickReq, KEYS.cityOverrides, KEYS.modLog]
+      [KEYS.players, KEYS.achSubs, KEYS.chronicle, KEYS.chronicleSubs, KEYS.album, KEYS.albumSubs, KEYS.albumLikes, KEYS.nickReq, KEYS.cityOverrides, KEYS.modLog, KEYS.tickets]
         .forEach(k => { if (data[k]) localStorage.setItem(k, JSON.stringify(data[k])); });
       seedCitiesAndResidents();
-      renderAchievements(); renderChronicle(); renderAlbum(); renderCities(); renderPlayersView(); renderActivityFeed();
+      renderAchievements(); renderChronicle(); renderAlbum(); renderCities(); renderPlayersView(); renderActivityFeed(); renderTicketCta();
       if (typeof updateAdminBadge === 'function') updateAdminBadge();
       if (typeof updateNotifBadge === 'function') updateNotifBadge();
+      if (typeof updateTicketBadge === 'function') updateTicketBadge();
     }
   } catch { apiOnline = false; if (typeof renderSyncStatus === 'function') renderSyncStatus(); }
 }
@@ -1143,6 +1162,7 @@ let achSubs = ls(KEYS.achSubs, []);
 let chronicle = ls(KEYS.chronicle, []);
 let chronicleSubs = ls(KEYS.chronicleSubs, []);
 let modLog = ls(KEYS.modLog, []);
+let tickets = ls(KEYS.tickets, []);
 let bulkSelection = { ach: new Set(), chronicle: new Set(), album: new Set(), nick: new Set() };
 let album = ls(KEYS.album, []);
 let albumSubs = ls(KEYS.albumSubs, []);
@@ -1191,6 +1211,7 @@ function saveAchSubs(show){ lsSet(KEYS.achSubs, achSubs, show); }
 function saveChronicle(show){ lsSet(KEYS.chronicle, chronicle, show); }
 function saveChronicleSubs(show){ lsSet(KEYS.chronicleSubs, chronicleSubs, show); }
 function saveModLog(show){ lsSet(KEYS.modLog, modLog, show); }
+function saveTickets(show){ lsSet(KEYS.tickets, tickets, show); }
 function logMod(action, detail){
   const u = getCurrentUser();
   modLog.unshift({ id: Date.now() + Math.random(), ts: Date.now(), actorId: u ? u.id : null, actorName: u ? getDiscordName(u) : '?', action, detail: detail || null });
@@ -1272,6 +1293,7 @@ function updateAuthUI(){
   const adminBtn = $('admin-btn');
   if (adminBtn) adminBtn.style.display = isModerator() ? '' : 'none';
   if (typeof updateNotifBadge === 'function') updateNotifBadge();
+  if (typeof renderTicketCta === 'function') renderTicketCta();
 }
 function handleAuthClick(){ const u = getCurrentUser(); if (u) $('user-menu').classList.toggle('open'); else loginWithDiscord(); }
 function closeUserMenu(){ $('user-menu')?.classList.remove('open'); }
@@ -1350,7 +1372,7 @@ function switchView(v){
   if (v === 'album') renderAlbum();
   if (v === 'streams') loadStreams();
   if (v === 'players') renderPlayersView();
-  if (v === 'home') renderActivityFeed();
+  if (v === 'home'){ renderActivityFeed(); renderTicketCta(); }
   if (v === 'map') { refreshMapPlayers(); renderCities(); }
 }
 
@@ -2262,6 +2284,7 @@ document.querySelectorAll('.admin-tab').forEach(tab => {
     if (tab.dataset.tab === 'chronicle') renderChronicleAdminList();
     if (tab.dataset.tab === 'players') renderAdminPlayers();
     if (tab.dataset.tab === 'cities') renderAdminCities();
+    if (tab.dataset.tab === 'tickets') renderAdminTickets();
     if (tab.dataset.tab === 'modlog') renderModLog();
     if (tab.dataset.tab === 'data') renderExport();
   });
@@ -2275,7 +2298,7 @@ function openAdminModal(){
     : '🛡️ <strong>Доступ модератора:</strong> заявки, летопись, выдача ачивок.';
   document.querySelectorAll('.admin-tab.admin-only').forEach(t => t.style.display = admin ? '' : 'none');
   openModal('admin-modal');
-  renderAdminAchSubs(); renderAdminChSubs(); renderAdminAlbumSubs(); renderAdminNickRequests(); renderChronicleAdminList(); renderAdminPlayers(); renderAdminCities(); renderModLog(); renderExport(); updateAdminBadge();
+  renderAdminAchSubs(); renderAdminChSubs(); renderAdminAlbumSubs(); renderAdminNickRequests(); renderChronicleAdminList(); renderAdminPlayers(); renderAdminCities(); renderAdminTickets(); renderModLog(); renderExport(); updateAdminBadge();
 }
 function closeAdminModal(){ closeModal('admin-modal'); }
 function updateAdminBadge(){
@@ -2468,6 +2491,13 @@ function getActivityFeed(limit){
       onClick: "switchView('players')",
     });
   });
+  tickets.filter(t => t.status === 'approved').forEach(t => {
+    items.push({
+      ts: t.reviewedAt || t.ts, icon: '🎫', color: '#fbbf24',
+      text: `<b>${escapeHtml(t.nickname)}</b> принят на сервер`,
+      onClick: "switchView('players')",
+    });
+  });
   return items.filter(it => it.ts).sort((a, b) => b.ts - a.ts).slice(0, limit);
 }
 function renderActivityFeed(){
@@ -2530,6 +2560,11 @@ function getMyNotifications(){
     if (s.status === 'approved') items.push({ ts: s.approvedAt || s.ts, icon: '📸', color: '#10b981', text: `Фото «${escapeHtml(s.title)}» опубликовано в альбоме`, onClick: "switchView('album')" });
     else items.push({ ts: s.rejectedAt || s.ts, icon: '✕', color: '#ef4444', text: `Фото «${escapeHtml(s.title)}» отклонено${s.rejectReason ? ': ' + escapeHtml(s.rejectReason) : ''}`, onClick: "switchView('album')" });
   });
+  tickets.filter(t => t.discordId === u.id).forEach(t => {
+    if (t.status === 'pending') return;
+    if (t.status === 'approved') items.push({ ts: t.reviewedAt || t.ts, icon: '🎫', color: '#10b981', text: `Заявка на вступление одобрена! Ник «${escapeHtml(t.nickname)}» добавлен`, onClick: "switchView('players')" });
+    else items.push({ ts: t.reviewedAt || t.ts, icon: '✕', color: '#ef4444', text: `Заявка на вступление отклонена`, onClick: "" });
+  });
   nickRequests.filter(r => r.discordId === u.id).forEach(r => {
     if (r.status === 'pending') return;
     if (r.status === 'approved') items.push({ ts: r.approvedAt || r.ts, icon: '🎮', color: '#10b981', text: `Ник «${escapeHtml(r.nickname)}» подтверждён`, onClick: "switchView('players')" });
@@ -2570,6 +2605,67 @@ function renderNotifPanel(){
   panel.innerHTML = '<div class="notif-panel-head">Уведомления</div>' + items.map(it => `<div class="notif-item ${it.ts > lastSeenBeforeOpen ? 'unread' : ''}" onclick="closeNotifPanel();${it.onClick}"><div class="notif-icon" style="background:${it.color}22;border:1px solid ${it.color}55;color:${it.color}">${it.icon}</div><div class="notif-body"><div class="notif-text">${it.text}</div><div class="notif-time">${timeAgo(it.ts)}</div></div></div>`).join('');
 }
 document.addEventListener('click', e => { if (!e.target.closest('.notif-wrap')) closeNotifPanel(); });
+
+// ===== Заявки на вступление (тикеты) — создаются на сайте, проверяются кнопками в Discord =====
+function openTicketModal(){
+  const u = getCurrentUser();
+  if (!u){ showToast('🔐 Сначала войди через Discord'); loginWithDiscord(); return; }
+  if (tickets.some(t => t.discordId === u.id && t.status === 'pending')){ showToast('⏳ У тебя уже есть заявка на рассмотрении'); return; }
+  $('ticket-nickname').value = '';
+  $('ticket-about').value = '';
+  openModal('ticket-modal');
+}
+async function submitTicket(){
+  const u = getCurrentUser();
+  if (!u){ showToast('🔐 Войди через Discord'); return; }
+  const nickname = ($('ticket-nickname')?.value || '').trim();
+  const about = ($('ticket-about')?.value || '').trim();
+  if (!nickname || nickname.length < 2 || nickname.length > 16){ showToast('❌ Введи корректный ник Minecraft'); return; }
+  if (tickets.some(t => t.discordId === u.id && t.status === 'pending')){ showToast('⏳ Заявка уже на рассмотрении'); return; }
+  const btn = $('ticket-submit-btn');
+  if (btn){ btn.disabled = true; btn.textContent = '⏳ Отправка...'; }
+  try {
+    const res = await fetch(`${API_BASE}/api/tickets/submit`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ discordId: u.id, discordName: getDiscordName(u), nickname, about }),
+    });
+    let data = {};
+    try { data = await res.json(); } catch {}
+    if (!res.ok){
+      showToast(data.error === 'already pending' ? '⏳ Заявка уже на рассмотрении' : '❌ Не удалось отправить заявку');
+      return;
+    }
+    showToast('📤 Заявка отправлена! Ответ придёт в личные сообщения Discord');
+    closeModal('ticket-modal');
+    await apiPullAll();
+    renderAdminTickets();
+  } catch {
+    showToast('❌ Нет связи с сервером — попробуй чуть позже');
+  } finally {
+    if (btn){ btn.disabled = false; btn.textContent = '📤 Отправить заявку'; }
+  }
+}
+function renderTicketCta(){
+  const sec = $('ticket-cta-section'); if (!sec) return;
+  const u = getCurrentUser();
+  const myPlayer = u ? getLinkedPlayer(u) : null;
+  sec.style.display = (u && !myPlayer) ? '' : 'none';
+}
+function renderAdminTickets(){
+  const c = $('tickets-list'); if (!c) return;
+  if (!tickets.length){ c.innerHTML = '<div class="mod-empty">Пока заявок не было</div>'; updateTicketBadge(); return; }
+  c.innerHTML = tickets.map(t => {
+    const statusLabel = t.status === 'pending' ? '<span class="pl-state">⏳ На рассмотрении в Discord</span>' : t.status === 'approved' ? '<span class="pl-state on">✅ Одобрено' + (t.reviewedBy ? ' — ' + escapeHtml(t.reviewedBy) : '') + '</span>' : '<span class="pl-state" style="color:var(--red-2)">✕ Отклонено' + (t.reviewedBy ? ' — ' + escapeHtml(t.reviewedBy) : '') + '</span>';
+    return `<div class="mod-item">${avatarImgHtml(t.nickname, 48, 'class="preview"')}<div class="mod-info"><div class="mod-title">${escapeHtml(t.nickname)}</div><div class="mod-desc">Discord: ${escapeHtml(t.discordName)}${t.about ? ' · ' + escapeHtml(t.about) : ''}</div><div style="margin-top:4px">${statusLabel}</div></div></div>`;
+  }).join('');
+  updateTicketBadge();
+}
+function updateTicketBadge(){
+  const badge = $('ticket-badge'); if (!badge) return;
+  const n = tickets.filter(t => t.status === 'pending').length;
+  if (n > 0){ badge.textContent = n > 9 ? '9+' : String(n); badge.classList.remove('hidden'); } else badge.classList.add('hidden');
+}
 
 function renderAdminAchSubs(){
   const container = $('ach-subs-list');
@@ -2750,7 +2846,7 @@ function adminDeleteCity(cityId){
   showToast('🗑 Город удалён');
 }
 function renderExport(){
-  const data = { players, achSubs, chronicle, chronicleSubs, album, albumSubs, albumLikes, nickRequests, modLog, cities: getCities(), cityOverrides, exportedAt: new Date().toISOString(), version: 11 };
+  const data = { players, achSubs, chronicle, chronicleSubs, album, albumSubs, albumLikes, nickRequests, modLog, tickets, cities: getCities(), cityOverrides, exportedAt: new Date().toISOString(), version: 12 };
   const el = $('data-export'); if (el) el.value = JSON.stringify(data, null, 2);
   renderDataStats();
   renderSyncStatus();
@@ -2768,6 +2864,7 @@ function renderDataStats(){
     { icon: '📸', value: album.length, label: 'Фото в альбоме' },
     { icon: '🏙️', value: getCities().length, label: 'Городов' },
     { icon: '🗒️', value: modLog.length, label: 'Записей в журнале' },
+    { icon: '🎫', value: tickets.filter(t => t.status === 'pending').length + ' / ' + tickets.length, label: 'Заявок на вступление' },
   ];
   grid.innerHTML = stats.map(st => `<div class="data-stat"><div class="ds-icon">${st.icon}</div><div class="ds-value">${st.value}</div><div class="ds-label">${st.label}</div></div>`).join('');
 }
@@ -2825,6 +2922,7 @@ function importData(){
   if (d.nickRequests){ nickRequests = d.nickRequests; saveNickRequests(); }
   if (d.cityOverrides){ cityOverrides = d.cityOverrides; saveCityOverrides(); }
   if (d.modLog){ modLog = d.modLog; saveModLog(); }
+  if (d.tickets){ tickets = d.tickets; saveTickets(); }
   seedCitiesAndResidents();
   logMod('import_backup', { name: d.exportedAt ? ('бэкап от ' + new Date(d.exportedAt).toLocaleString('ru-RU')) : 'бэкап без даты' });
   renderAchievements(); renderChronicle(); renderAlbum(); renderCities(); renderPlayersView(); renderActivityFeed();
@@ -2845,6 +2943,7 @@ renderChronicle();
 renderAlbum();
 renderCities();
 renderActivityFeed();
+renderTicketCta();
 updateNotifBadge();
 fetchServerStatus();
 setInterval(fetchServerStatus, STATUS_REFRESH_MS);
