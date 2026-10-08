@@ -2420,6 +2420,9 @@ function renderModLog(){
     bulk_approve_ach: '✅ Массово одобрил ачивки', bulk_approve_chronicle: '✅ Массово опубликовал летопись',
     bulk_approve_album: '✅ Массово опубликовал скрины', bulk_approve_nick: '✅ Массово подтвердил ники',
     give_ach: '🏆 Выдал ачивку вручную', delete_player: '🗑 Удалил игрока',
+    unlink_discord: '🔓 Отвязал Discord от ника',
+    rename_player: '✏️ Переименовал игрока',
+    remove_nick: '🚫 Удалил ник (игрок остался)',
     add_city: '🏙️ Добавил город', edit_city: '✏️ Изменил город', delete_city: '🗑 Удалил город',
     import_backup: '📥 Импортировал бэкап (заменил все данные)',
   };
@@ -2729,7 +2732,14 @@ function renderAdminPlayers(){
     const count = getPlayerAch(p.id).length;
     const el = document.createElement('div');
     el.className = 'mod-item';
-    el.innerHTML = `${avatarImgHtml(p.nickname, 48, 'class="preview"')}<div class="mod-info"><div class="mod-title">${escapeHtml(p.nickname)}${p.isMayor ? ' 👑' : ''}</div><div class="mod-desc">Ачивок: ${count} · Discord: ${p.discordId ? '✅' : '—'} · 🏠 ${p.residence ? escapeHtml(p.residence) : '—'}</div></div><div class="mod-actions"><button class="mod-btn gold" onclick="adminGiveAchTo(${p.id})">🏆</button><button class="mod-btn ghost" onclick="openResidenceModal(${p.id})">🏠</button>${admin ? `<button class="mod-btn reject" onclick="adminDeletePlayer(${p.id})">🗑</button>` : ''}</div>`;
+    el.innerHTML = `${avatarImgHtml(p.nickname, 48, 'class="preview"')}<div class="mod-info"><div class="mod-title">${escapeHtml(p.nickname)}${p.isMayor ? ' 👑' : ''}</div><div class="mod-desc">Ачивок: ${count} · Discord: ${p.discordId ? '✅' : '—'} · 🏠 ${p.residence ? escapeHtml(p.residence) : '—'}</div></div><div class="mod-actions">
+      <button class="mod-btn gold" onclick="adminGiveAchTo(${p.id})" title="Выдать ачивку">🏆</button>
+      <button class="mod-btn ghost" onclick="openResidenceModal(${p.id})" title="Место жительства">🏠</button>
+      <button class="mod-btn ghost" onclick="adminChangeNickname(${p.id})" title="Переименовать">✏️</button>
+      ${p.discordId ? `<button class="mod-btn ghost" onclick="adminUnlinkDiscord(${p.id})" title="Отвязать Discord (ник остаётся)">🔓</button>` : ''}
+      ${admin ? `<button class="mod-btn reject" onclick="adminRemovePlayerNick(${p.id})" title="Удалить ник (оставить игрока без ника)">🚫</button>` : ''}
+      ${admin ? `<button class="mod-btn reject" onclick="adminDeletePlayer(${p.id})" title="Удалить игрока насовсем">🗑</button>` : ''}
+    </div>`;
     c.appendChild(el);
   });
 }
@@ -2769,6 +2779,56 @@ function confirmGiveAch(playerId){
   if (currentProfileId === playerId) openProfile(playerId);
   closeModal('ach-view-modal');
   showToast('✅ Выдано');
+}
+// Отвязать Discord от ника — ник в базе остаётся, но игрок сможет привязать заново
+function adminUnlinkDiscord(id){
+  if (!isModerator()) return;
+  const p = players.find(x => x.id === id); if (!p) return;
+  if (!confirm(`Отвязать Discord от ника «${p.nickname}»?\n\nНик останется в базе, но игрок сможет привязать его заново.`)) return;
+  p.discordId = null;
+  p.mcVerified = false;
+  savePlayers();
+  logMod('unlink_discord', { name: p.nickname });
+  renderAdminPlayers();
+  showToast('🔓 Discord отвязан от ' + p.nickname);
+}
+
+// Переименовать игрока — ачивки, город, всё сохранится под новым ником
+function adminChangeNickname(id){
+  if (!isModerator()) return;
+  const p = players.find(x => x.id === id); if (!p) return;
+  const newNick = prompt(`Введите новый ник для игрока «${p.nickname}»:`, p.nickname);
+  if (newNick === null) return;
+  const clean = newNick.trim();
+  if (!clean || clean.length < 2 || clean.length > 16){ showToast('❌ Ник от 2 до 16 символов'); return; }
+  if (!/^[a-zA-Z0-9_]+$/.test(clean)){ showToast('❌ Только буквы, цифры и _'); return; }
+  const existing = players.find(x => x.id !== id && x.nickname.toLowerCase() === clean.toLowerCase());
+  if (existing){ showToast('❌ Игрок с таким ником уже есть'); return; }
+  const oldNick = p.nickname;
+  p.nickname = clean;
+  // Обновляем имя во всех связанных заявках
+  achSubs.forEach(s => { if (s.playerId === id) s.playerNick = clean; });
+  albumSubs.forEach(s => { if (s.authorId === id) s.author = clean; });
+  savePlayers(); saveAchSubs(); saveAlbumSubs();
+  logMod('rename_player', { name: oldNick + ' → ' + clean });
+  renderAdminPlayers(); renderAchievements(); renderPlayersView(); renderCities();
+  showToast(`✅ ${oldNick} → ${clean}`);
+}
+
+// Убрать ник у игрока — оставляет его в базе, но с плейсхолдером
+function adminRemovePlayerNick(id){
+  if (!isAdmin()){ showToast('🚫 Только для админов'); return; }
+  const p = players.find(x => x.id === id); if (!p) return;
+  if (!confirm(`Убрать ник у игрока?\n\nИгрок останется в базе (и все его ачивки), но ник будет заменён на «Удалённый #${p.id}». Это действие не отменить.`)) return;
+  const oldNick = p.nickname;
+  p.nickname = `Удалённый_${p.id}`;
+  p.discordId = null;
+  p.mcVerified = false;
+  p.removedNick = oldNick; // сохраняем оригинал на всякий случай
+  savePlayers();
+  logMod('remove_nick', { name: oldNick });
+  renderAdminPlayers(); renderAchievements(); renderPlayersView(); renderCities(); renderAchTop();
+  showToast('🚫 Ник удалён: ' + oldNick);
 }
 function adminDeletePlayer(id){
   if (!isAdmin()) return;
